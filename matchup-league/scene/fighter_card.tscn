@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://cmwdrbc7rvioy"]
+
+[node name="fighter_card" type="CanvasLayer"]
+
+[node name="card" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(120, 160)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -80.0
+offset_right = 60.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="card"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="types" type="Label" parent="card/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "(R) (S)"
+horizontal_alignment = 1
+
+[node name="name" type="Label" parent="card/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Fighter"
+horizontal_alignment = 1
+
+[node name="base" type="Label" parent="card/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "1800"
+horizontal_alignment = 1
+
+[node name="strength" type="Label" parent="card/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "(M) + 100"
+horizontal_alignment = 1
+
+[node name="weakness" type="Label" parent="card/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "(W) + 100"
+horizontal_alignment = 1
+
+[node name="HSplitContainer" type="HSplitContainer" parent="card/VBoxContainer"]
+layout_mode = 2
+collapsed = true
+dragger_visibility = 2
+
+[node name="name2" type="Label" parent="card/VBoxContainer/HSplitContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Bl"
+
+[node name="name" type="Label" parent="card/VBoxContainer/HSplitContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "30 / 35"
+horizontal_alignment = 2

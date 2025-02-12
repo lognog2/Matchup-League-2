@@ -1,0 +1,411 @@
+[gd_scene load_steps=8 format=3 uid="uid://dnnk3oq0uhsk3"]
+
+[ext_resource type="Script" path="res://table/_table.gd" id="1_2ii0b"]
+[ext_resource type="Script" path="res://table/fighter_table.gd" id="1_nkua0"]
+[ext_resource type="Script" path="res://table/fighter_table_row.gd" id="2_1hdbk"]
+[ext_resource type="Script" path="res://table/team_table.gd" id="3_31utt"]
+[ext_resource type="Script" path="res://table/team_table_row.gd" id="4_trhd7"]
+[ext_resource type="Script" path="res://table/sched_table.gd" id="6_j6joy"]
+[ext_resource type="Script" path="res://table/sched_table_row.gd" id="7_iuorw"]
+
+[node name="table" type="Control" node_paths=PackedStringArray("tabContainer", "fighterTable", "teamTable")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_2ii0b")
+tabContainer = NodePath("VBoxContainer/entity_edit")
+fighterTable = NodePath("VBoxContainer/entity_edit/fighters")
+teamTable = NodePath("VBoxContainer/entity_edit/teams")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(1150, 650)
+layout_mode = 1
+offset_right = 1150.0
+offset_bottom = 650.0
+
+[node name="entity_edit" type="TabContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 640)
+layout_mode = 2
+current_tab = 2
+
+[node name="fighters" type="VBoxContainer" parent="VBoxContainer/entity_edit" node_paths=PackedStringArray("table", "row", "message", "softSave")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_nkua0")
+table = NodePath("scroll box/table vbox")
+row = NodePath("scroll box/table vbox/row")
+message = NodePath("top row/message")
+softSave = NodePath("top row/soft_save")
+metadata/_tab_index = 0
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/entity_edit/fighters"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="top row" type="HBoxContainer" parent="VBoxContainer/entity_edit/fighters"]
+layout_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/entity_edit/fighters/top row"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="add" type="Button" parent="VBoxContainer/entity_edit/fighters/top row"]
+custom_minimum_size = Vector2(50, 25)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "+"
+
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/entity_edit/fighters/top row"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="save" type="Button" parent="VBoxContainer/entity_edit/fighters/top row"]
+custom_minimum_size = Vector2(60, 25)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Save"
+
+[node name="soft_save" type="CheckBox" parent="VBoxContainer/entity_edit/fighters/top row"]
+custom_minimum_size = Vector2(60, 25)
+layout_mode = 2
+size_flags_horizontal = 0
+button_pressed = true
+text = "soft save"
+
+[node name="VSeparator3" type="VSeparator" parent="VBoxContainer/entity_edit/fighters/top row"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="message" type="Label" parent="VBoxContainer/entity_edit/fighters/top row"]
+layout_mode = 2
+text = "Saved"
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/entity_edit/fighters"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="scroll box" type="ScrollContainer" parent="VBoxContainer/entity_edit/fighters"]
+layout_mode = 2
+size_flags_vertical = 3
+follow_focus = true
+
+[node name="table vbox" type="VBoxContainer" parent="VBoxContainer/entity_edit/fighters/scroll box"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="row" type="HBoxContainer" parent="VBoxContainer/entity_edit/fighters/scroll box/table vbox" node_paths=PackedStringArray("id", "f_name", "types", "base", "strType", "strVal", "wkType", "wkVal", "team", "startSeason")]
+layout_mode = 2
+script = ExtResource("2_1hdbk")
+id = NodePath("id")
+f_name = NodePath("name")
+types = NodePath("types")
+base = NodePath("base")
+strType = NodePath("strType")
+strVal = NodePath("strVal")
+wkType = NodePath("wkType")
+wkVal = NodePath("wkVal")
+team = NodePath("team")
+startSeason = NodePath("start season")
+
+[node name="VSeparator5" type="VSeparator" parent="VBoxContainer/entity_edit/fighters/scroll box/table vbox/row"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="id" type="LineEdit" parent="VBoxContainer/entity_edit/fighters/scroll box/table vbox/row"]
+custom_minimum_size = Vector2(15, 20)
+layout_mode = 2
+placeholder_text = "id"
+editable = false
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/entity_edit/fighters/scroll box/table vbox/row"]
+custom_minimum_size = Vector2(7, 0)
+layout_mode = 2
+
+[node name="name" type="LineEdit" parent="VBoxContainer/entity_edit/fighters/scroll box/table vbox/row"]
+custom_minimum_size = Vector2(225, 20)
+layout_mode = 2
+placeholder_text = "name"
+select_all_on_focus = true
+
+[node name="types" type="LineEdit" parent="VBoxContainer/entity_edit/fighters/scroll box/table vbox/row"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+placeholder_text = "types"
+max_length = 5
+select_all_on_focus = true
+
+[node name="base" type="SpinBox" parent="VBoxContainer/entity_edit/fighters/scroll box/table vbox/row"]
+custom_minimum_size = Vector2(75, 20)
+layout_mode = 2
+min_value = 1000.0
+max_value = 5000.0
+value = 1000.0
+rounded = true
+alignment = 2
+custom_arrow_step = 10.0
+select_all_on_focus = true
+
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/entity_edit/fighters/scroll box/table vbox/row"]
+custom_minimum_size = Vector2(7, 0)
+layout_mode = 2
+
+[node name="strType" type="OptionButton" parent="VBoxContainer/entity_edit/fighters/scroll box/table vbox/row"]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+
+[node name="strVal" type="SpinBox" parent="VBoxContainer/entity_edit/fighters/scroll box/table vbox/row"]
+custom_minimum_size = Vector2(75, 20)
+layout_mode = 2
+min_value = 10.0
+max_value = 300.0
+value = 10.0
+rounded = true
+alignment = 2
+prefix = "+"
+custom_arrow_step = 10.0
+select_all_on_focus = true
+
+[node name="VSeparator4" type="VSeparator" parent="VBoxContainer/entity_edit/fighters/scroll box/table vbox/row"]
+custom_minimum_size = Vector2(7, 0)
+layout_mode = 2
+
+[node name="wkType" type="OptionButton" parent="VBoxContainer/entity_edit/fighters/scroll box/table vbox/row"]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+
+[node name="wkVal" type="SpinBox" parent="VBoxContainer/entity_edit/fighters/scroll box/table vbox/row"]
+custom_minimum_size = Vector2(75, 20)
+layout_mode = 2
+min_value = 10.0
+max_value = 300.0
+value = 10.0
+rounded = true
+alignment = 2
+prefix = "-"
+custom_arrow_step = 10.0
+select_all_on_focus = true
+
+[node name="VSeparator3" type="VSeparator" parent="VBoxContainer/entity_edit/fighters/scroll box/table vbox/row"]
+custom_minimum_size = Vector2(7, 0)
+layout_mode = 2
+
+[node name="team" type="OptionButton" parent="VBoxContainer/entity_edit/fighters/scroll box/table vbox/row"]
+custom_minimum_size = Vector2(175, 20)
+layout_mode = 2
+
+[node name="start season" type="SpinBox" parent="VBoxContainer/entity_edit/fighters/scroll box/table vbox/row"]
+custom_minimum_size = Vector2(75, 20)
+layout_mode = 2
+min_value = 30.0
+value = 30.0
+rounded = true
+allow_lesser = true
+alignment = 2
+select_all_on_focus = true
+
+[node name="teams" type="VBoxContainer" parent="VBoxContainer/entity_edit" node_paths=PackedStringArray("table", "row", "message")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("3_31utt")
+table = NodePath("scroll box/table vbox")
+row = NodePath("scroll box/table vbox/row")
+message = NodePath("top row/message")
+metadata/_tab_index = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/entity_edit/teams"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="top row" type="HBoxContainer" parent="VBoxContainer/entity_edit/teams"]
+layout_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/entity_edit/teams/top row"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="add" type="Button" parent="VBoxContainer/entity_edit/teams/top row"]
+custom_minimum_size = Vector2(50, 25)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "+"
+
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/entity_edit/teams/top row"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="save" type="Button" parent="VBoxContainer/entity_edit/teams/top row"]
+custom_minimum_size = Vector2(60, 25)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Save"
+
+[node name="VSeparator3" type="VSeparator" parent="VBoxContainer/entity_edit/teams/top row"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="message" type="Label" parent="VBoxContainer/entity_edit/teams/top row"]
+layout_mode = 2
+text = "Saved"
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/entity_edit/teams"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="scroll box" type="ScrollContainer" parent="VBoxContainer/entity_edit/teams"]
+layout_mode = 2
+size_flags_vertical = 3
+follow_focus = true
+
+[node name="table vbox" type="VBoxContainer" parent="VBoxContainer/entity_edit/teams/scroll box"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="row" type="HBoxContainer" parent="VBoxContainer/entity_edit/teams/scroll box/table vbox" node_paths=PackedStringArray("id", "t_name", "color")]
+layout_mode = 2
+script = ExtResource("4_trhd7")
+id = NodePath("id")
+t_name = NodePath("name")
+color = NodePath("color")
+
+[node name="VSeparator5" type="VSeparator" parent="VBoxContainer/entity_edit/teams/scroll box/table vbox/row"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="id" type="LineEdit" parent="VBoxContainer/entity_edit/teams/scroll box/table vbox/row"]
+custom_minimum_size = Vector2(15, 20)
+layout_mode = 2
+placeholder_text = "id"
+editable = false
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/entity_edit/teams/scroll box/table vbox/row"]
+custom_minimum_size = Vector2(7, 0)
+layout_mode = 2
+
+[node name="name" type="LineEdit" parent="VBoxContainer/entity_edit/teams/scroll box/table vbox/row"]
+custom_minimum_size = Vector2(275, 20)
+layout_mode = 2
+placeholder_text = "name"
+select_all_on_focus = true
+
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/entity_edit/teams/scroll box/table vbox/row"]
+custom_minimum_size = Vector2(7, 0)
+layout_mode = 2
+
+[node name="color" type="ColorPickerButton" parent="VBoxContainer/entity_edit/teams/scroll box/table vbox/row"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+
+[node name="VSeparator4" type="VSeparator" parent="VBoxContainer/entity_edit/teams/scroll box/table vbox/row"]
+custom_minimum_size = Vector2(7, 0)
+layout_mode = 2
+
+[node name="sched" type="VBoxContainer" parent="VBoxContainer/entity_edit"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("6_j6joy")
+metadata/_tab_index = 2
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/entity_edit/sched"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="top_row" type="HBoxContainer" parent="VBoxContainer/entity_edit/sched"]
+layout_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/entity_edit/sched/top_row"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="rowLength" type="SpinBox" parent="VBoxContainer/entity_edit/sched/top_row"]
+layout_mode = 2
+min_value = 1.0
+value = 10.0
+
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/entity_edit/sched/top_row"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="save" type="Button" parent="VBoxContainer/entity_edit/sched/top_row"]
+custom_minimum_size = Vector2(60, 25)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Save"
+
+[node name="VSeparator3" type="VSeparator" parent="VBoxContainer/entity_edit/sched/top_row"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="message" type="Label" parent="VBoxContainer/entity_edit/sched/top_row"]
+layout_mode = 2
+text = "Saved"
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/entity_edit/sched"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="scroll_box" type="ScrollContainer" parent="VBoxContainer/entity_edit/sched"]
+layout_mode = 2
+size_flags_vertical = 3
+follow_focus = true
+
+[node name="table" type="VBoxContainer" parent="VBoxContainer/entity_edit/sched/scroll_box"]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="row" type="HBoxContainer" parent="VBoxContainer/entity_edit/sched/scroll_box/table"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/entity_edit/sched/scroll_box/table/row"]
+layout_mode = 2
+
+[node name="team_box" type="ColorRect" parent="VBoxContainer/entity_edit/sched/scroll_box/table/row"]
+custom_minimum_size = Vector2(110, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_trhd7")
+
+[node name="vbox" type="VBoxContainer" parent="VBoxContainer/entity_edit/sched/scroll_box/table/row/team_box"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="name" type="Label" parent="VBoxContainer/entity_edit/sched/scroll_box/table/row/team_box/vbox"]
+layout_mode = 2
+text = "team name"
+horizontal_alignment = 1
+
+[node name="game" type="OptionButton" parent="VBoxContainer/entity_edit/sched/scroll_box/table/row/team_box/vbox"]
+layout_mode = 2
+script = ExtResource("7_iuorw")
+
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/entity_edit/sched/scroll_box/table/row"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[connection signal="pressed" from="VBoxContainer/entity_edit/fighters/top row/add" to="VBoxContainer/entity_edit/fighters" method="add_empty_row"]
+[connection signal="pressed" from="VBoxContainer/entity_edit/fighters/top row/save" to="VBoxContainer/entity_edit/fighters" method="save"]
+[connection signal="focus_exited" from="VBoxContainer/entity_edit/fighters/top row/message" to="VBoxContainer/entity_edit/fighters" method="hideMessage"]
+[connection signal="focus_entered" from="VBoxContainer/entity_edit/fighters/scroll box/table vbox/row/team" to="VBoxContainer/entity_edit/fighters/scroll box/table vbox/row" method="openTeamList"]
+[connection signal="focus_exited" from="VBoxContainer/entity_edit/fighters/scroll box/table vbox/row/team" to="VBoxContainer/entity_edit/fighters/scroll box/table vbox/row" method="closeTeamList"]
+[connection signal="pressed" from="VBoxContainer/entity_edit/teams/top row/add" to="VBoxContainer/entity_edit/teams" method="add_empty_row"]
+[connection signal="pressed" from="VBoxContainer/entity_edit/teams/top row/save" to="VBoxContainer/entity_edit/teams" method="save"]
+[connection signal="focus_exited" from="VBoxContainer/entity_edit/teams/top row/message" to="VBoxContainer/entity_edit/fighters" method="hideMessage"]
+[connection signal="pressed" from="VBoxContainer/entity_edit/sched/top_row/save" to="VBoxContainer/entity_edit/sched" method="save"]
+[connection signal="focus_exited" from="VBoxContainer/entity_edit/sched/top_row/message" to="VBoxContainer/entity_edit/fighters" method="hideMessage"]
