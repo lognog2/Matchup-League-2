@@ -39,7 +39,7 @@ func save():
 	message.visible = true
 	for tr in table.get_children():
 		tr.save()
-	main.saveState(softSave.button_pressed)
+	main.save_state(softSave.button_pressed)
 	render()
 	updateMessage.emit("Saved")
 

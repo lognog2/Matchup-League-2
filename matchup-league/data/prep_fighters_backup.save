@@ -1,144 +1,144 @@
-{"base":1700,"id":0,"level":"Prep","name":"Dr. Mario","season":29,"start season":32,"strType":"R","strVal":60,"team ID":0,"types":"R","wkType":"S","wkVal":100}
-{"base":1750,"id":1,"level":"Prep","name":"Bender","season":29,"start season":32,"strType":"C","strVal":40,"team ID":2,"types":"C","wkType":"M","wkVal":80}
-{"base":1730,"id":2,"level":"Prep","name":"Leela","season":29,"start season":32,"strType":"V","strVal":90,"team ID":2,"types":"M","wkType":"S","wkVal":50}
-{"base":1630,"id":3,"level":"Prep","name":"Candace Flynn","season":29,"start season":32,"strType":"R","strVal":60,"team ID":3,"types":"W","wkType":"C","wkVal":50}
-{"base":1700,"id":4,"level":"Prep","name":"Kyle Broflovski","season":29,"start season":32,"strType":"V","strVal":90,"team ID":4,"types":"SI","wkType":"G","wkVal":50}
-{"base":1730,"id":5,"level":"Prep","name":"Stan Marsh","season":29,"start season":32,"strType":"L","strVal":70,"team ID":4,"types":"SI","wkType":"S","wkVal":40}
-{"base":1730,"id":6,"level":"Prep","name":"Eric Cartman","season":29,"start season":33,"strType":"I","strVal":180,"team ID":4,"types":"SVI","wkType":"E","wkVal":180}
-{"base":1740,"id":7,"level":"Prep","name":"Chie Satonaka","season":29,"start season":32,"strType":"M","strVal":100,"team ID":5,"types":"ML","wkType":"A","wkVal":100}
-{"base":1650,"id":8,"level":"Prep","name":"Kanji Tatsumi","season":29,"start season":33,"strType":"R","strVal":120,"team ID":5,"types":"MA","wkType":"L","wkVal":120}
-{"base":1690,"id":9,"level":"Prep","name":"Yukiko Amagi","season":29,"start season":32,"strType":"E","strVal":70,"team ID":5,"types":"F","wkType":"W","wkVal":70}
-{"base":1810,"id":10,"level":"Prep","name":"Junko Enoshima","season":29,"start season":32,"strType":"V","strVal":180,"team ID":17,"types":"EV","wkType":"S","wkVal":180}
-{"base":1750,"id":11,"level":"Prep","name":"Blue Engineer","season":29,"start season":32,"strType":"R","strVal":80,"team ID":18,"types":"RC","wkType":"L","wkVal":80}
-{"base":1740,"id":12,"level":"Prep","name":"Conrad","season":29,"start season":32,"strType":"F","strVal":50,"team ID":19,"types":"R","wkType":"G","wkVal":80}
-{"base":1660,"id":13,"level":"Prep","name":"Red Valley","season":29,"start season":32,"strType":"M","strVal":80,"team ID":20,"types":"R","wkType":"A","wkVal":50}
-{"base":1750,"id":14,"level":"Prep","name":"West Red Valley","season":29,"start season":32,"strType":"M","strVal":150,"team ID":20,"types":"","wkType":"I","wkVal":200}
-{"base":1730,"id":15,"level":"Prep","name":"S-form","season":29,"start season":32,"strType":"L","strVal":110,"team ID":21,"types":"SMEW","wkType":"E","wkVal":110}
-{"base":1700,"id":16,"level":"Prep","name":"Bailey Baker","season":29,"start season":32,"strType":"W","strVal":70,"team ID":21,"types":"SR","wkType":"R","wkVal":100}
-{"base":1650,"id":17,"level":"Prep","name":"Sara Gomez","season":29,"start season":32,"strType":"E","strVal":50,"team ID":21,"types":"I","wkType":"W","wkVal":80}
-{"base":1670,"id":18,"level":"Prep","name":"Wizard","season":29,"start season":33,"strType":"W","strVal":60,"team ID":23,"types":"RGF","wkType":"E","wkVal":40}
-{"base":1750,"id":19,"level":"Prep","name":"Balloon","season":29,"start season":32,"strType":"R","strVal":80,"team ID":23,"types":"EA","wkType":"F","wkVal":90}
-{"base":1660,"id":20,"level":"Prep","name":"Bomber","season":29,"start season":33,"strType":"E","strVal":90,"team ID":24,"types":"RE","wkType":"C","wkVal":80}
-{"base":1650,"id":21,"level":"Prep","name":"Beta Minion","season":29,"start season":32,"strType":"A","strVal":70,"team ID":24,"types":"RAV","wkType":"E","wkVal":120}
-{"base":1660,"id":22,"level":"Prep","name":"N","season":29,"start season":32,"strType":"G","strVal":140,"team ID":25,"types":"V","wkType":"M","wkVal":140}
-{"base":1610,"id":23,"level":"Prep","name":"Gardenia","season":29,"start season":32,"strType":"W","strVal":150,"team ID":27,"types":"RV","wkType":"G","wkVal":150}
-{"base":1660,"id":24,"level":"Prep","name":"Roark","season":29,"start season":32,"strType":"A","strVal":150,"team ID":27,"types":"E","wkType":"M","wkVal":150}
-{"base":1700,"id":25,"level":"Prep","name":"Maxy","season":29,"start season":32,"strType":"E","strVal":90,"team ID":36,"types":"E","wkType":"W","wkVal":50}
-{"base":1680,"id":26,"level":"Prep","name":"Luna","season":29,"start season":32,"strType":"A","strVal":100,"team ID":36,"types":"M","wkType":"I","wkVal":130}
-{"base":1680,"id":27,"level":"Prep","name":"Witch","season":29,"start season":32,"strType":"V","strVal":70,"team ID":37,"types":"REW","wkType":"M","wkVal":60}
-{"base":1680,"id":28,"level":"Prep","name":"Elder Guardian","season":29,"start season":33,"strType":"M","strVal":100,"team ID":37,"types":"RWL","wkType":"E","wkVal":120}
-{"base":1720,"id":29,"level":"Prep","name":"Veteran","season":29,"start season":32,"strType":"R","strVal":180,"team ID":38,"types":"M","wkType":"F","wkVal":150}
-{"base":1730,"id":30,"level":"Prep","name":"Prince","season":29,"start season":32,"strType":"M","strVal":140,"team ID":39,"types":"M","wkType":"L","wkVal":90}
-{"base":1700,"id":31,"level":"Prep","name":"Hunter","season":29,"start season":33,"strType":"A","strVal":60,"team ID":39,"types":"REV","wkType":"E","wkVal":50}
-{"base":1720,"id":32,"level":"Prep","name":"Dartling Gunner","season":29,"start season":32,"strType":"E","strVal":100,"team ID":40,"types":"RCL","wkType":"C","wkVal":70}
-{"base":1700,"id":33,"level":"Prep","name":"Wildfire","season":29,"start season":32,"strType":"R","strVal":80,"team ID":28,"types":"RCF","wkType":"A","wkVal":40}
-{"base":1720,"id":34,"level":"Prep","name":"Powder Keg","season":29,"start season":32,"strType":"C","strVal":70,"team ID":28,"types":"REL","wkType":"L","wkVal":100}
-{"base":1720,"id":35,"level":"Prep","name":"Yor Forger","season":29,"start season":33,"strType":"V","strVal":120,"team ID":29,"types":"MRS","wkType":"F","wkVal":100}
-{"base":1680,"id":36,"level":"Prep","name":"Anya Forger","season":29,"start season":32,"strType":"S","strVal":50,"team ID":29,"types":"SG","wkType":"E","wkVal":80}
-{"base":1710,"id":37,"level":"Prep","name":"Funny Valentine","season":29,"start season":32,"strType":"E","strVal":90,"team ID":30,"types":"VG","wkType":"S","wkVal":100}
-{"base":1700,"id":38,"level":"Prep","name":"Himeno","season":29,"start season":32,"strType":"I","strVal":150,"team ID":41,"types":"GI","wkType":"M","wkVal":110}
-{"base":1730,"id":39,"level":"Prep","name":"Aki Hayakawa","season":29,"start season":32,"strType":"M","strVal":120,"team ID":41,"types":"MIG","wkType":"V","wkVal":120}
-{"base":1630,"id":40,"level":"Prep","name":"Eva Heinemann","season":29,"start season":32,"strType":"I","strVal":60,"team ID":31,"types":"WI","wkType":"W","wkVal":60}
-{"base":1810,"id":41,"level":"Prep","name":"Suzaku Kururugi","season":29,"start season":32,"strType":"L","strVal":80,"team ID":32,"types":"RC","wkType":"V","wkVal":100}
-{"base":1720,"id":42,"level":"Prep","name":"Norman","season":29,"start season":32,"strType":"V","strVal":150,"team ID":33,"types":"","wkType":"M","wkVal":150}
-{"base":1670,"id":43,"level":"Prep","name":"Skarmory","season":29,"start season":33,"strType":"W","strVal":100,"team ID":33,"types":"AC","wkType":"L","wkVal":100}
-{"base":1700,"id":44,"level":"Prep","name":"Brock","season":29,"start season":32,"strType":"L","strVal":150,"team ID":34,"types":"E","wkType":"R","wkVal":150}
-{"base":1690,"id":45,"level":"Prep","name":"Misty","season":29,"start season":33,"strType":"F","strVal":150,"team ID":34,"types":"W","wkType":"R","wkVal":150}
-{"base":1670,"id":46,"level":"Prep","name":"Right Hand Man","season":29,"start season":32,"strType":"L","strVal":130,"team ID":35,"types":"RC","wkType":"M","wkVal":80}
-{"base":1680,"id":47,"level":"Prep","name":"Ellie Rose","season":29,"start season":32,"strType":"W","strVal":90,"team ID":35,"types":"M","wkType":"C","wkVal":90}
-{"base":1650,"id":48,"level":"Prep","name":"Haymitch Abernathy","season":29,"start season":32,"strType":"S","strVal":50,"team ID":35,"types":"EW","wkType":"W","wkVal":100}
-{"base":1600,"id":49,"level":"Prep","name":"Effie Trinket","season":29,"start season":32,"strType":"R","strVal":30,"team ID":7,"types":"G","wkType":"I","wkVal":30}
-{"base":1670,"id":50,"level":"Prep","name":"Lotso","season":29,"start season":32,"strType":"W","strVal":100,"team ID":8,"types":"EV","wkType":"R","wkVal":50}
-{"base":1710,"id":51,"level":"Prep","name":"Count Dooku","season":29,"start season":32,"strType":"E","strVal":70,"team ID":9,"types":"MGV","wkType":"G","wkVal":70}
-{"base":1670,"id":52,"level":"Prep","name":"Venom","season":29,"start season":33,"strType":"E","strVal":90,"team ID":10,"types":"RV","wkType":"R","wkVal":40}
-{"base":1660,"id":53,"level":"Prep","name":"Doc Ock","season":29,"start season":32,"strType":"F","strVal":100,"team ID":10,"types":"MVL","wkType":"S","wkVal":80}
-{"base":1660,"id":54,"level":"Prep","name":"Toji Suzuhara","season":29,"start season":32,"strType":"W","strVal":100,"team ID":11,"types":"M","wkType":"C","wkVal":120}
-{"base":1630,"id":55,"level":"Prep","name":"Kensuke Aida","season":29,"start season":32,"strType":"L","strVal":40,"team ID":11,"types":"L","wkType":"R","wkVal":60}
-{"base":1830,"id":56,"level":"Prep","name":"Hisoka","season":29,"start season":32,"strType":"G","strVal":170,"team ID":12,"types":"RG","wkType":"V","wkVal":90}
-{"base":1650,"id":57,"level":"Prep","name":"Tsubomi Takane","season":29,"start season":32,"strType":"S","strVal":70,"team ID":13,"types":"W","wkType":"W","wkVal":30}
-{"base":1700,"id":58,"level":"Prep","name":"Tome Kurata","season":29,"start season":32,"strType":"R","strVal":70,"team ID":13,"types":"L","wkType":"E","wkVal":50}
-{"base":1620,"id":59,"level":"Prep","name":"Colt Grice","season":29,"start season":32,"strType":"E","strVal":70,"team ID":14,"types":"MR","wkType":"G","wkVal":100}
-{"base":1670,"id":60,"level":"Prep","name":"Porco Galliard","season":29,"start season":32,"strType":"E","strVal":90,"team ID":14,"types":"MG","wkType":"L","wkVal":120}
-{"base":1730,"id":61,"level":"Prep","name":"Pieck Finger","season":29,"start season":32,"strType":"R","strVal":80,"team ID":14,"types":"MGC","wkType":"E","wkVal":90}
-{"base":1630,"id":62,"level":"Prep","name":"Trisha Elric","season":29,"start season":32,"strType":"R","strVal":50,"team ID":15,"types":"W","wkType":"G","wkVal":40}
-{"base":1660,"id":63,"level":"Prep","name":"Shou Tucker","season":29,"start season":33,"strType":"C","strVal":70,"team ID":15,"types":"G","wkType":"G","wkVal":120}
-{"base":1760,"id":64,"level":"Prep","name":"Nobara Kugisaki","season":29,"start season":32,"strType":"R","strVal":100,"team ID":16,"types":"RG","wkType":"C","wkVal":60}
-{"base":1710,"id":65,"level":"Prep","name":"Jesse Pinkman","season":29,"start season":32,"strType":"C","strVal":80,"team ID":6,"types":"WF","wkType":"V","wkVal":120}
-{"base":1650,"id":66,"level":"Prep","name":"Badger","season":29,"start season":32,"strType":"F","strVal":110,"team ID":6,"types":"W","wkType":"L","wkVal":100}
-{"base":1610,"id":67,"level":"Prep","name":"Skinny Pete","season":29,"start season":32,"strType":"F","strVal":10,"team ID":6,"types":"RW","wkType":"M","wkVal":10}
-{"base":1770,"id":68,"level":"Prep","name":"Scar","season":29,"start season":33,"strType":"G","strVal":130,"team ID":15,"types":"EG","wkType":"R","wkVal":100}
-{"base":1730,"id":69,"level":"Prep","name":"Cc","season":29,"start season":33,"strType":"R","strVal":60,"team ID":32,"types":"G","wkType":"V","wkVal":100}
-{"base":1700,"id":70,"level":"Prep","name":"Kallen Kozuki","season":29,"start season":34,"strType":"M","strVal":10,"team ID":32,"types":"RF","wkType":"M","wkVal":10}
-{"base":1690,"id":71,"level":"Prep","name":"Mr. Krabs","season":29,"start season":32,"strType":"V","strVal":70,"team ID":1,"types":"WV","wkType":"W","wkVal":50}
-{"base":1650,"id":72,"level":"Prep","name":"Plankton","season":29,"start season":32,"strType":"C","strVal":60,"team ID":1,"types":"WV","wkType":"L","wkVal":30}
-{"base":1710,"id":73,"level":"Prep","name":"Sandy Cheeks","season":29,"start season":33,"strType":"M","strVal":40,"team ID":1,"types":"M","wkType":"W","wkVal":80}
-{"base":1680,"id":74,"level":"Prep","name":"Baby Dragon","season":29,"start season":33,"strType":"I","strVal":60,"team ID":24,"types":"RFA","wkType":"R","wkVal":60}
-{"base":1630,"id":75,"level":"Prep","name":"Healer","season":29,"start season":34,"strType":"V","strVal":100,"team ID":23,"types":"RG","wkType":"R","wkVal":50}
-{"base":1670,"id":76,"level":"Prep","name":"Bomber","season":29,"start season":32,"strType":"E","strVal":110,"team ID":39,"types":"E","wkType":"R","wkVal":70}
-{"base":1700,"id":77,"level":"Prep","name":"Jango Fett","season":29,"start season":32,"strType":"W","strVal":140,"team ID":9,"types":"RA","wkType":"G","wkVal":90}
-{"base":1600,"id":78,"level":"Prep","name":"Jarjar Binks","season":29,"start season":33,"strType":"V","strVal":170,"team ID":9,"types":"V","wkType":"S","wkVal":170}
-{"base":1650,"id":79,"level":"Prep","name":"Bond Forger","season":29,"start season":33,"strType":"V","strVal":70,"team ID":29,"types":"M","wkType":"I","wkVal":50}
-{"base":1720,"id":80,"level":"Prep","name":"Marth","season":29,"start season":33,"strType":"A","strVal":100,"team ID":0,"types":"M","wkType":"E","wkVal":80}
-{"base":1720,"id":81,"level":"Prep","name":"Roy","season":29,"start season":33,"strType":"F","strVal":120,"team ID":0,"types":"MF","wkType":"W","wkVal":100}
-{"base":1690,"id":82,"level":"Prep","name":"Cube","season":29,"start season":33,"strType":"L","strVal":80,"team ID":42,"types":"S","wkType":"M","wkVal":60}
-{"base":1690,"id":83,"level":"Prep","name":"Ship","season":29,"start season":33,"strType":"A","strVal":130,"team ID":42,"types":"A","wkType":"M","wkVal":80}
-{"base":1660,"id":84,"level":"Prep","name":"Ball","season":29,"start season":34,"strType":"C","strVal":90,"team ID":42,"types":"M","wkType":"F","wkVal":50}
-{"base":1650,"id":85,"level":"Prep","name":"Dmitri Petrov","season":29,"start season":32,"strType":"C","strVal":90,"team ID":35,"types":"VI","wkType":"S","wkVal":60}
-{"base":1680,"id":86,"level":"Prep","name":"Groudon","season":29,"start season":34,"strType":"L","strVal":120,"team ID":33,"types":"MF","wkType":"W","wkVal":120}
-{"base":1640,"id":87,"level":"Prep","name":"Usami","season":29,"start season":33,"strType":"W","strVal":120,"team ID":17,"types":"GC","wkType":"V","wkVal":70}
-{"base":1690,"id":88,"level":"Prep","name":"Hajime Hinata","season":29,"start season":33,"strType":"V","strVal":90,"team ID":17,"types":"S","wkType":"E","wkVal":90}
-{"base":1750,"id":89,"level":"Prep","name":"Illumi","season":29,"start season":32,"strType":"G","strVal":50,"team ID":12,"types":"RVG","wkType":"L","wkVal":80}
-{"base":1670,"id":90,"level":"Prep","name":"Geretta","season":29,"start season":33,"strType":"R","strVal":80,"team ID":12,"types":"RG","wkType":"V","wkVal":120}
-{"base":1700,"id":91,"level":"Prep","name":"Ethan","season":29,"start season":32,"strType":"R","strVal":150,"team ID":26,"types":"SF","wkType":"W","wkVal":150}
-{"base":1700,"id":92,"level":"Prep","name":"Lyra","season":29,"start season":32,"strType":"W","strVal":150,"team ID":26,"types":"SR","wkType":"F","wkVal":150}
-{"base":1670,"id":93,"level":"Prep","name":"Silver","season":29,"start season":32,"strType":"F","strVal":150,"team ID":26,"types":"VW","wkType":"R","wkVal":150}
-{"base":1790,"id":94,"level":"Prep","name":"Sukuna","season":29,"start season":33,"strType":"G","strVal":160,"team ID":16,"types":"MREFV","wkType":"S","wkVal":120}
-{"base":1690,"id":95,"level":"Prep","name":"Special-grade Curse","season":29,"start season":32,"strType":"R","strVal":70,"team ID":16,"types":"MVG","wkType":"G","wkVal":110}
-{"base":1680,"id":96,"level":"Prep","name":"Lt. Surge","season":29,"start season":33,"strType":"A","strVal":150,"team ID":34,"types":"L","wkType":"M","wkVal":150}
-{"base":1670,"id":97,"level":"Prep","name":"Blue Demoman","season":29,"start season":33,"strType":"R","strVal":60,"team ID":18,"types":"EW","wkType":"C","wkVal":100}
-{"base":1710,"id":98,"level":"Prep","name":"Blue Sniper","season":29,"start season":32,"strType":"M","strVal":70,"team ID":18,"types":"R","wkType":"L","wkVal":80}
-{"base":1640,"id":99,"level":"Prep","name":"Carnage","season":29,"start season":33,"strType":"V","strVal":90,"team ID":10,"types":"VW","wkType":"F","wkVal":120}
-{"base":1640,"id":100,"level":"Prep","name":"Guardian","season":29,"start season":33,"strType":"W","strVal":60,"team ID":37,"types":"RW","wkType":"L","wkVal":60}
-{"base":1730,"id":101,"level":"Prep","name":"Monkey Engineer","season":29,"start season":32,"strType":"E","strVal":50,"team ID":40,"types":"RCL","wkType":"A","wkVal":100}
-{"base":1700,"id":102,"level":"Prep","name":"Monkey Alchemist","season":29,"start season":33,"strType":"R","strVal":80,"team ID":40,"types":"EWG","wkType":"C","wkVal":60}
-{"base":1680,"id":103,"level":"Prep","name":"Dio (sbr)","season":29,"start season":32,"strType":"G","strVal":80,"team ID":30,"types":"MG","wkType":"L","wkVal":60}
-{"base":1630,"id":104,"level":"Prep","name":"Sandman","season":29,"start season":32,"strType":"M","strVal":100,"team ID":30,"types":"M","wkType":"R","wkVal":100}
-{"base":1660,"id":105,"level":"Prep","name":"Farnsworth","season":29,"start season":33,"strType":"W","strVal":120,"team ID":2,"types":"W","wkType":"E","wkVal":130}
-{"base":1650,"id":106,"level":"Prep","name":"Demetreeus","season":29,"start season":32,"strType":"A","strVal":110,"team ID":36,"types":"MV","wkType":"F","wkVal":150}
-{"base":1710,"id":107,"level":"Prep","name":"Lucio","season":29,"start season":32,"strType":"M","strVal":80,"team ID":22,"types":"RL","wkType":"R","wkVal":120}
-{"base":1770,"id":108,"level":"Prep","name":"Roadhog","season":29,"start season":30,"strType":"M","strVal":70,"team ID":22,"types":"RE","wkType":"G","wkVal":140}
-{"base":1750,"id":109,"level":"Prep","name":"Junkrat","season":29,"start season":30,"strType":"R","strVal":130,"team ID":22,"types":"EC","wkType":"M","wkVal":90}
-{"base":1660,"id":110,"level":"Prep","name":"President Snow","season":29,"start season":33,"strType":"W","strVal":120,"team ID":7,"types":"IV","wkType":"S","wkVal":100}
-{"base":1630,"id":111,"level":"Prep","name":"Big Baby","season":29,"start season":32,"strType":"I","strVal":90,"team ID":8,"types":"MW","wkType":"V","wkVal":80}
-{"base":1680,"id":112,"level":"Prep","name":"Monkey (ts 3)","season":29,"start season":32,"strType":"C","strVal":100,"team ID":8,"types":"CV","wkType":"L","wkVal":150}
-{"base":1650,"id":113,"level":"Prep","name":"Potbelly","season":29,"start season":32,"strType":"R","strVal":50,"team ID":43,"types":"R","wkType":"W","wkVal":50}
-{"base":1690,"id":114,"level":"Prep","name":"Maw","season":29,"start season":32,"strType":"I","strVal":70,"team ID":43,"types":"WI","wkType":"A","wkVal":70}
-{"base":1690,"id":115,"level":"Prep","name":"Fwog","season":29,"start season":32,"strType":"W","strVal":70,"team ID":43,"types":"MW","wkType":"I","wkVal":70}
-{"base":1720,"id":116,"level":"Prep","name":"Denji","season":29,"start season":33,"strType":"V","strVal":120,"team ID":41,"types":"SMC","wkType":"W","wkVal":200}
-{"base":1760,"id":117,"level":"Prep","name":"Johan Liebert","season":29,"start season":33,"strType":"F","strVal":200,"team ID":31,"types":"V","wkType":"S","wkVal":100}
-{"base":1700,"id":118,"level":"Prep","name":"Anna Liebert","season":29,"start season":33,"strType":"V","strVal":80,"team ID":31,"types":"RL","wkType":"R","wkVal":120}
-{"base":1690,"id":119,"level":"Prep","name":"Jester","season":29,"start season":32,"strType":"E","strVal":140,"team ID":38,"types":"E","wkType":"L","wkVal":140}
-{"base":1670,"id":120,"level":"Prep","name":"Executioner","season":29,"start season":32,"strType":"L","strVal":70,"team ID":38,"types":"M","wkType":"M","wkVal":70}
-{"base":1680,"id":121,"level":"Prep","name":"Tenga Onigawara","season":29,"start season":33,"strType":"M","strVal":50,"team ID":13,"types":"F","wkType":"E","wkVal":80}
-{"base":1650,"id":122,"level":"Prep","name":"Maylene","season":29,"start season":32,"strType":"L","strVal":150,"team ID":27,"types":"M","wkType":"G","wkVal":150}
-{"base":1720,"id":123,"level":"Prep","name":"Time Traveler","season":29,"start season":32,"strType":"C","strVal":100,"team ID":28,"types":"RCG","wkType":"I","wkVal":150}
-{"base":1730,"id":124,"level":"Prep","name":"Asuka Langley","season":29,"start season":33,"strType":"S","strVal":160,"team ID":11,"types":"FW","wkType":"E","wkVal":160}
-{"base":1600,"id":125,"level":"Prep","name":"Linda Flynn","season":29,"start season":33,"strType":"C","strVal":70,"team ID":3,"types":"L","wkType":"F","wkVal":80}
-{"base":1600,"id":126,"level":"Prep","name":"Lawrence Fletcher","season":29,"start season":33,"strType":"C","strVal":80,"team ID":3,"types":"C","wkType":"L","wkVal":90}
-{"base":1640,"id":127,"level":"Prep","name":"Bertini","season":29,"start season":32,"strType":"A","strVal":150,"team ID":20,"types":"FA","wkType":"R","wkVal":60}
-{"base":1670,"id":128,"level":"Prep","name":"Lenora","season":29,"start season":33,"strType":"S","strVal":150,"team ID":25,"types":"","wkType":"M","wkVal":150}
-{"base":1680,"id":129,"level":"Prep","name":"Burgh","season":29,"start season":33,"strType":"G","strVal":150,"team ID":25,"types":"R","wkType":"F","wkVal":150}
-{"base":1720,"id":130,"level":"Prep","name":"Evil Wizard Guy","season":29,"start season":32,"strType":"G","strVal":120,"team ID":19,"types":"VG","wkType":"S","wkVal":150}
-{"base":1660,"id":131,"level":"Prep","name":"Gorgonzola","season":29,"start season":33,"strType":"I","strVal":120,"team ID":19,"types":"EV","wkType":"M","wkVal":60}
-{"base":1620,"id":132,"level":"Prep","name":"Meiko","season":29,"start season":33,"strType":"I","strVal":100,"team ID":44,"types":"LF","wkType":"L","wkVal":50}
-{"base":1640,"id":133,"level":"Prep","name":"Kaito","season":29,"start season":33,"strType":"W","strVal":80,"team ID":44,"types":"LW","wkType":"E","wkVal":40}
-{"base":1710,"id":134,"level":"Prep","name":"Hatsune Miku","season":29,"start season":34,"strType":"L","strVal":160,"team ID":44,"types":"L","wkType":"C","wkVal":100}
-{"base":1700,"id":135,"level":"Prep","name":"Taiju Oki","season":29,"start season":33,"strType":"M","strVal":60,"team ID":45,"types":"M","wkType":"L","wkVal":40}
-{"base":1700,"id":136,"level":"Prep","name":"Yuzuriha Ogawa","season":29,"start season":33,"strType":"V","strVal":40,"team ID":45,"types":"E","wkType":"M","wkVal":60}
-{"base":1750,"id":137,"level":"Prep","name":"Senku Ishigami","season":29,"start season":34,"strType":"W","strVal":140,"team ID":45,"types":"SWCL","wkType":"F","wkVal":120}
-{"base":1720,"id":138,"level":"Prep","name":"Heimerdinger","season":29,"start season":32,"strType":"C","strVal":60,"team ID":46,"types":"C","wkType":"I","wkVal":90}
-{"base":1690,"id":139,"level":"Prep","name":"Jayce","season":29,"start season":33,"strType":"G","strVal":100,"team ID":46,"types":"MG","wkType":"C","wkVal":120}
-{"base":1680,"id":140,"level":"Prep","name":"Viktor","season":29,"start season":33,"strType":"G","strVal":140,"team ID":46,"types":"G","wkType":"R","wkVal":120}
-{"base":1660,"id":141,"level":"Prep","name":"Vander","season":29,"start season":32,"strType":"V","strVal":80,"team ID":47,"types":"MW","wkType":"L","wkVal":80}
-{"base":1630,"id":142,"level":"Prep","name":"Benzo","season":29,"start season":32,"strType":"E","strVal":70,"team ID":47,"types":"M","wkType":"R","wkVal":60}
-{"base":1740,"id":143,"level":"Prep","name":"Vi","season":29,"start season":33,"strType":"M","strVal":70,"team ID":47,"types":"MF","wkType":"C","wkVal":80}
+{"base":1700,"id":0,"name":"Dr. Mario","season":29,"start season":32,"strType":"R","strVal":60,"team ID":0,"types":"R","wkType":"S","wkVal":100}
+{"base":1750,"id":1,"name":"Bender","season":29,"start season":32,"strType":"C","strVal":40,"team ID":2,"types":"C","wkType":"M","wkVal":80}
+{"base":1730,"id":2,"name":"Leela","season":29,"start season":32,"strType":"V","strVal":90,"team ID":2,"types":"M","wkType":"S","wkVal":50}
+{"base":1630,"id":3,"name":"Candace Flynn","season":29,"start season":32,"strType":"R","strVal":60,"team ID":3,"types":"W","wkType":"C","wkVal":50}
+{"base":1700,"id":4,"name":"Kyle Broflovski","season":29,"start season":32,"strType":"V","strVal":90,"team ID":4,"types":"SI","wkType":"G","wkVal":50}
+{"base":1730,"id":5,"name":"Stan Marsh","season":29,"start season":32,"strType":"L","strVal":70,"team ID":4,"types":"SI","wkType":"S","wkVal":40}
+{"base":1730,"id":6,"name":"Eric Cartman","season":29,"start season":33,"strType":"I","strVal":180,"team ID":4,"types":"SVI","wkType":"E","wkVal":180}
+{"base":1740,"id":7,"name":"Chie Satonaka","season":29,"start season":32,"strType":"M","strVal":100,"team ID":5,"types":"ML","wkType":"A","wkVal":100}
+{"base":1650,"id":8,"name":"Kanji Tatsumi","season":29,"start season":33,"strType":"R","strVal":120,"team ID":5,"types":"MA","wkType":"L","wkVal":120}
+{"base":1690,"id":9,"name":"Yukiko Amagi","season":29,"start season":32,"strType":"E","strVal":70,"team ID":5,"types":"F","wkType":"W","wkVal":70}
+{"base":1810,"id":10,"name":"Junko Enoshima","season":29,"start season":32,"strType":"V","strVal":180,"team ID":17,"types":"EV","wkType":"S","wkVal":180}
+{"base":1750,"id":11,"name":"Blue Engineer","season":29,"start season":32,"strType":"R","strVal":80,"team ID":18,"types":"RC","wkType":"L","wkVal":80}
+{"base":1740,"id":12,"name":"Conrad","season":29,"start season":32,"strType":"F","strVal":50,"team ID":19,"types":"R","wkType":"G","wkVal":80}
+{"base":1660,"id":13,"name":"Red Valley","season":29,"start season":32,"strType":"M","strVal":80,"team ID":20,"types":"R","wkType":"A","wkVal":50}
+{"base":1750,"id":14,"name":"West Red Valley","season":29,"start season":32,"strType":"M","strVal":150,"team ID":20,"types":"","wkType":"I","wkVal":200}
+{"base":1730,"id":15,"name":"S-form","season":29,"start season":32,"strType":"L","strVal":110,"team ID":21,"types":"SMEW","wkType":"E","wkVal":110}
+{"base":1700,"id":16,"name":"Bailey Baker","season":29,"start season":32,"strType":"W","strVal":70,"team ID":21,"types":"SR","wkType":"R","wkVal":100}
+{"base":1650,"id":17,"name":"Sara Gomez","season":29,"start season":32,"strType":"E","strVal":50,"team ID":21,"types":"I","wkType":"W","wkVal":80}
+{"base":1670,"id":18,"name":"Wizard","season":29,"start season":33,"strType":"W","strVal":60,"team ID":23,"types":"RGF","wkType":"E","wkVal":40}
+{"base":1750,"id":19,"name":"Balloon","season":29,"start season":32,"strType":"R","strVal":80,"team ID":23,"types":"EA","wkType":"F","wkVal":90}
+{"base":1660,"id":20,"name":"Bomber","season":29,"start season":33,"strType":"E","strVal":90,"team ID":24,"types":"RE","wkType":"C","wkVal":80}
+{"base":1650,"id":21,"name":"Beta Minion","season":29,"start season":32,"strType":"A","strVal":70,"team ID":24,"types":"RAV","wkType":"E","wkVal":120}
+{"base":1660,"id":22,"name":"N","season":29,"start season":32,"strType":"G","strVal":140,"team ID":25,"types":"V","wkType":"M","wkVal":140}
+{"base":1610,"id":23,"name":"Gardenia","season":29,"start season":32,"strType":"W","strVal":150,"team ID":27,"types":"RV","wkType":"G","wkVal":150}
+{"base":1660,"id":24,"name":"Roark","season":29,"start season":32,"strType":"A","strVal":150,"team ID":27,"types":"E","wkType":"M","wkVal":150}
+{"base":1700,"id":25,"name":"Maxy","season":29,"start season":32,"strType":"E","strVal":90,"team ID":36,"types":"E","wkType":"W","wkVal":50}
+{"base":1680,"id":26,"name":"Luna","season":29,"start season":32,"strType":"A","strVal":100,"team ID":36,"types":"M","wkType":"I","wkVal":130}
+{"base":1680,"id":27,"name":"Witch","season":29,"start season":32,"strType":"V","strVal":70,"team ID":37,"types":"REW","wkType":"M","wkVal":60}
+{"base":1680,"id":28,"name":"Elder Guardian","season":29,"start season":33,"strType":"M","strVal":100,"team ID":37,"types":"RWL","wkType":"E","wkVal":120}
+{"base":1720,"id":29,"name":"Veteran","season":29,"start season":32,"strType":"R","strVal":180,"team ID":38,"types":"M","wkType":"F","wkVal":150}
+{"base":1730,"id":30,"name":"Prince","season":29,"start season":32,"strType":"M","strVal":140,"team ID":39,"types":"M","wkType":"L","wkVal":90}
+{"base":1700,"id":31,"name":"Hunter","season":29,"start season":33,"strType":"A","strVal":60,"team ID":39,"types":"REV","wkType":"E","wkVal":50}
+{"base":1720,"id":32,"name":"Dartling Gunner","season":29,"start season":32,"strType":"E","strVal":100,"team ID":40,"types":"RCL","wkType":"C","wkVal":70}
+{"base":1700,"id":33,"name":"Wildfire","season":29,"start season":32,"strType":"R","strVal":80,"team ID":28,"types":"RCF","wkType":"A","wkVal":40}
+{"base":1720,"id":34,"name":"Powder Keg","season":29,"start season":32,"strType":"C","strVal":70,"team ID":28,"types":"REL","wkType":"L","wkVal":100}
+{"base":1720,"id":35,"name":"Yor Forger","season":29,"start season":33,"strType":"V","strVal":120,"team ID":29,"types":"MRS","wkType":"F","wkVal":100}
+{"base":1680,"id":36,"name":"Anya Forger","season":29,"start season":32,"strType":"S","strVal":50,"team ID":29,"types":"SG","wkType":"E","wkVal":80}
+{"base":1710,"id":37,"name":"Funny Valentine","season":29,"start season":32,"strType":"E","strVal":90,"team ID":30,"types":"VG","wkType":"S","wkVal":100}
+{"base":1700,"id":38,"name":"Himeno","season":29,"start season":32,"strType":"I","strVal":150,"team ID":41,"types":"GI","wkType":"M","wkVal":110}
+{"base":1730,"id":39,"name":"Aki Hayakawa","season":29,"start season":32,"strType":"M","strVal":120,"team ID":41,"types":"MIG","wkType":"V","wkVal":120}
+{"base":1630,"id":40,"name":"Eva Heinemann","season":29,"start season":32,"strType":"I","strVal":60,"team ID":31,"types":"WI","wkType":"W","wkVal":60}
+{"base":1810,"id":41,"name":"Suzaku Kururugi","season":29,"start season":32,"strType":"L","strVal":80,"team ID":32,"types":"RC","wkType":"V","wkVal":100}
+{"base":1720,"id":42,"name":"Norman","season":29,"start season":32,"strType":"V","strVal":150,"team ID":33,"types":"","wkType":"M","wkVal":150}
+{"base":1670,"id":43,"name":"Skarmory","season":29,"start season":33,"strType":"W","strVal":100,"team ID":33,"types":"AC","wkType":"L","wkVal":100}
+{"base":1700,"id":44,"name":"Brock","season":29,"start season":32,"strType":"L","strVal":150,"team ID":34,"types":"E","wkType":"R","wkVal":150}
+{"base":1690,"id":45,"name":"Misty","season":29,"start season":33,"strType":"F","strVal":150,"team ID":34,"types":"W","wkType":"R","wkVal":150}
+{"base":1670,"id":46,"name":"Right Hand Man","season":29,"start season":32,"strType":"L","strVal":130,"team ID":35,"types":"RC","wkType":"M","wkVal":80}
+{"base":1680,"id":47,"name":"Ellie Rose","season":29,"start season":32,"strType":"W","strVal":90,"team ID":35,"types":"M","wkType":"C","wkVal":90}
+{"base":1650,"id":48,"name":"Haymitch Abernathy","season":29,"start season":32,"strType":"S","strVal":50,"team ID":35,"types":"EW","wkType":"W","wkVal":100}
+{"base":1600,"id":49,"name":"Effie Trinket","season":29,"start season":32,"strType":"R","strVal":30,"team ID":7,"types":"G","wkType":"I","wkVal":30}
+{"base":1670,"id":50,"name":"Lotso","season":29,"start season":32,"strType":"W","strVal":100,"team ID":8,"types":"EV","wkType":"R","wkVal":50}
+{"base":1710,"id":51,"name":"Count Dooku","season":29,"start season":32,"strType":"E","strVal":70,"team ID":9,"types":"MGV","wkType":"G","wkVal":70}
+{"base":1670,"id":52,"name":"Venom","season":29,"start season":33,"strType":"E","strVal":90,"team ID":10,"types":"RV","wkType":"R","wkVal":40}
+{"base":1660,"id":53,"name":"Doc Ock","season":29,"start season":32,"strType":"F","strVal":100,"team ID":10,"types":"MVL","wkType":"S","wkVal":80}
+{"base":1660,"id":54,"name":"Toji Suzuhara","season":29,"start season":32,"strType":"W","strVal":100,"team ID":11,"types":"M","wkType":"C","wkVal":120}
+{"base":1630,"id":55,"name":"Kensuke Aida","season":29,"start season":32,"strType":"L","strVal":40,"team ID":11,"types":"L","wkType":"R","wkVal":60}
+{"base":1830,"id":56,"name":"Hisoka","season":29,"start season":32,"strType":"G","strVal":170,"team ID":12,"types":"RG","wkType":"V","wkVal":90}
+{"base":1650,"id":57,"name":"Tsubomi Takane","season":29,"start season":32,"strType":"S","strVal":70,"team ID":13,"types":"W","wkType":"W","wkVal":30}
+{"base":1700,"id":58,"name":"Tome Kurata","season":29,"start season":32,"strType":"R","strVal":70,"team ID":13,"types":"L","wkType":"E","wkVal":50}
+{"base":1620,"id":59,"name":"Colt Grice","season":29,"start season":32,"strType":"E","strVal":70,"team ID":14,"types":"MR","wkType":"G","wkVal":100}
+{"base":1670,"id":60,"name":"Porco Galliard","season":29,"start season":32,"strType":"E","strVal":90,"team ID":14,"types":"MG","wkType":"L","wkVal":120}
+{"base":1730,"id":61,"name":"Pieck Finger","season":29,"start season":32,"strType":"R","strVal":80,"team ID":14,"types":"MGC","wkType":"E","wkVal":90}
+{"base":1630,"id":62,"name":"Trisha Elric","season":29,"start season":32,"strType":"R","strVal":50,"team ID":15,"types":"W","wkType":"G","wkVal":40}
+{"base":1660,"id":63,"name":"Shou Tucker","season":29,"start season":33,"strType":"C","strVal":70,"team ID":15,"types":"G","wkType":"G","wkVal":120}
+{"base":1760,"id":64,"name":"Nobara Kugisaki","season":29,"start season":32,"strType":"R","strVal":100,"team ID":16,"types":"RG","wkType":"C","wkVal":60}
+{"base":1710,"id":65,"name":"Jesse Pinkman","season":29,"start season":32,"strType":"C","strVal":80,"team ID":6,"types":"WF","wkType":"V","wkVal":120}
+{"base":1650,"id":66,"name":"Badger","season":29,"start season":32,"strType":"F","strVal":110,"team ID":6,"types":"W","wkType":"L","wkVal":100}
+{"base":1610,"id":67,"name":"Skinny Pete","season":29,"start season":32,"strType":"F","strVal":10,"team ID":6,"types":"RW","wkType":"M","wkVal":10}
+{"base":1770,"id":68,"name":"Scar","season":29,"start season":33,"strType":"G","strVal":130,"team ID":15,"types":"EG","wkType":"R","wkVal":100}
+{"base":1730,"id":69,"name":"Cc","season":29,"start season":33,"strType":"R","strVal":60,"team ID":32,"types":"G","wkType":"V","wkVal":100}
+{"base":1700,"id":70,"name":"Kallen Kozuki","season":29,"start season":34,"strType":"M","strVal":10,"team ID":32,"types":"RF","wkType":"M","wkVal":10}
+{"base":1690,"id":71,"name":"Mr. Krabs","season":29,"start season":32,"strType":"V","strVal":70,"team ID":1,"types":"WV","wkType":"W","wkVal":50}
+{"base":1650,"id":72,"name":"Plankton","season":29,"start season":32,"strType":"C","strVal":60,"team ID":1,"types":"WV","wkType":"L","wkVal":30}
+{"base":1710,"id":73,"name":"Sandy Cheeks","season":29,"start season":33,"strType":"M","strVal":40,"team ID":1,"types":"M","wkType":"W","wkVal":80}
+{"base":1680,"id":74,"name":"Baby Dragon","season":29,"start season":33,"strType":"I","strVal":60,"team ID":24,"types":"RFA","wkType":"R","wkVal":60}
+{"base":1630,"id":75,"name":"Healer","season":29,"start season":34,"strType":"V","strVal":100,"team ID":23,"types":"RG","wkType":"R","wkVal":50}
+{"base":1670,"id":76,"name":"Bomber","season":29,"start season":32,"strType":"E","strVal":110,"team ID":39,"types":"E","wkType":"R","wkVal":70}
+{"base":1700,"id":77,"name":"Jango Fett","season":29,"start season":32,"strType":"W","strVal":140,"team ID":9,"types":"RA","wkType":"G","wkVal":90}
+{"base":1600,"id":78,"name":"Jarjar Binks","season":29,"start season":33,"strType":"V","strVal":170,"team ID":9,"types":"V","wkType":"S","wkVal":170}
+{"base":1650,"id":79,"name":"Bond Forger","season":29,"start season":33,"strType":"V","strVal":70,"team ID":29,"types":"M","wkType":"I","wkVal":50}
+{"base":1720,"id":80,"name":"Marth","season":29,"start season":33,"strType":"A","strVal":100,"team ID":0,"types":"M","wkType":"E","wkVal":80}
+{"base":1720,"id":81,"name":"Roy","season":29,"start season":33,"strType":"F","strVal":120,"team ID":0,"types":"MF","wkType":"W","wkVal":100}
+{"base":1690,"id":82,"name":"Cube","season":29,"start season":33,"strType":"L","strVal":80,"team ID":42,"types":"S","wkType":"M","wkVal":60}
+{"base":1690,"id":83,"name":"Ship","season":29,"start season":33,"strType":"A","strVal":130,"team ID":42,"types":"A","wkType":"M","wkVal":80}
+{"base":1660,"id":84,"name":"Ball","season":29,"start season":34,"strType":"C","strVal":90,"team ID":42,"types":"M","wkType":"F","wkVal":50}
+{"base":1650,"id":85,"name":"Dmitri Petrov","season":29,"start season":32,"strType":"C","strVal":90,"team ID":35,"types":"VI","wkType":"S","wkVal":60}
+{"base":1680,"id":86,"name":"Groudon","season":29,"start season":34,"strType":"L","strVal":120,"team ID":33,"types":"MF","wkType":"W","wkVal":120}
+{"base":1640,"id":87,"name":"Usami","season":29,"start season":33,"strType":"W","strVal":120,"team ID":17,"types":"GC","wkType":"V","wkVal":70}
+{"base":1690,"id":88,"name":"Hajime Hinata","season":29,"start season":33,"strType":"V","strVal":90,"team ID":17,"types":"S","wkType":"E","wkVal":90}
+{"base":1750,"id":89,"name":"Illumi","season":29,"start season":32,"strType":"G","strVal":50,"team ID":12,"types":"RVG","wkType":"L","wkVal":80}
+{"base":1670,"id":90,"name":"Geretta","season":29,"start season":33,"strType":"R","strVal":80,"team ID":12,"types":"RG","wkType":"V","wkVal":120}
+{"base":1700,"id":91,"name":"Ethan","season":29,"start season":32,"strType":"R","strVal":150,"team ID":26,"types":"SF","wkType":"W","wkVal":150}
+{"base":1700,"id":92,"name":"Lyra","season":29,"start season":32,"strType":"W","strVal":150,"team ID":26,"types":"SR","wkType":"F","wkVal":150}
+{"base":1670,"id":93,"name":"Silver","season":29,"start season":32,"strType":"F","strVal":150,"team ID":26,"types":"VW","wkType":"R","wkVal":150}
+{"base":1790,"id":94,"name":"Sukuna","season":29,"start season":33,"strType":"G","strVal":160,"team ID":16,"types":"MREFV","wkType":"S","wkVal":120}
+{"base":1690,"id":95,"name":"Special-grade Curse","season":29,"start season":32,"strType":"R","strVal":70,"team ID":16,"types":"MVG","wkType":"G","wkVal":110}
+{"base":1680,"id":96,"name":"Lt. Surge","season":29,"start season":33,"strType":"A","strVal":150,"team ID":34,"types":"L","wkType":"M","wkVal":150}
+{"base":1670,"id":97,"name":"Blue Demoman","season":29,"start season":33,"strType":"R","strVal":60,"team ID":18,"types":"EW","wkType":"C","wkVal":100}
+{"base":1710,"id":98,"name":"Blue Sniper","season":29,"start season":32,"strType":"M","strVal":70,"team ID":18,"types":"R","wkType":"L","wkVal":80}
+{"base":1640,"id":99,"name":"Carnage","season":29,"start season":33,"strType":"V","strVal":90,"team ID":10,"types":"VW","wkType":"F","wkVal":120}
+{"base":1640,"id":100,"name":"Guardian","season":29,"start season":33,"strType":"W","strVal":60,"team ID":37,"types":"RW","wkType":"L","wkVal":60}
+{"base":1730,"id":101,"name":"Monkey Engineer","season":29,"start season":32,"strType":"E","strVal":50,"team ID":40,"types":"RCL","wkType":"A","wkVal":100}
+{"base":1700,"id":102,"name":"Monkey Alchemist","season":29,"start season":33,"strType":"R","strVal":80,"team ID":40,"types":"EWG","wkType":"C","wkVal":60}
+{"base":1680,"id":103,"name":"Dio (sbr)","season":29,"start season":32,"strType":"G","strVal":80,"team ID":30,"types":"MG","wkType":"L","wkVal":60}
+{"base":1630,"id":104,"name":"Sandman","season":29,"start season":32,"strType":"M","strVal":100,"team ID":30,"types":"M","wkType":"R","wkVal":100}
+{"base":1660,"id":105,"name":"Farnsworth","season":29,"start season":33,"strType":"W","strVal":120,"team ID":2,"types":"W","wkType":"E","wkVal":130}
+{"base":1650,"id":106,"name":"Demetreeus","season":29,"start season":32,"strType":"A","strVal":110,"team ID":36,"types":"MV","wkType":"F","wkVal":150}
+{"base":1710,"id":107,"name":"Lucio","season":29,"start season":32,"strType":"M","strVal":80,"team ID":22,"types":"RL","wkType":"R","wkVal":120}
+{"base":1770,"id":108,"name":"Roadhog","season":29,"start season":30,"strType":"M","strVal":70,"team ID":22,"types":"RE","wkType":"G","wkVal":140}
+{"base":1750,"id":109,"name":"Junkrat","season":29,"start season":30,"strType":"R","strVal":130,"team ID":22,"types":"EC","wkType":"M","wkVal":90}
+{"base":1660,"id":110,"name":"President Snow","season":29,"start season":33,"strType":"W","strVal":120,"team ID":7,"types":"IV","wkType":"S","wkVal":100}
+{"base":1630,"id":111,"name":"Big Baby","season":29,"start season":32,"strType":"I","strVal":90,"team ID":8,"types":"MW","wkType":"V","wkVal":80}
+{"base":1680,"id":112,"name":"Monkey (ts 3)","season":29,"start season":32,"strType":"C","strVal":100,"team ID":8,"types":"CV","wkType":"L","wkVal":150}
+{"base":1650,"id":113,"name":"Potbelly","season":29,"start season":32,"strType":"R","strVal":50,"team ID":43,"types":"R","wkType":"W","wkVal":50}
+{"base":1690,"id":114,"name":"Maw","season":29,"start season":32,"strType":"I","strVal":70,"team ID":43,"types":"WI","wkType":"A","wkVal":70}
+{"base":1690,"id":115,"name":"Fwog","season":29,"start season":32,"strType":"W","strVal":70,"team ID":43,"types":"MW","wkType":"I","wkVal":70}
+{"base":1720,"id":116,"name":"Denji","season":29,"start season":33,"strType":"V","strVal":120,"team ID":41,"types":"SMC","wkType":"W","wkVal":200}
+{"base":1760,"id":117,"name":"Johan Liebert","season":29,"start season":33,"strType":"F","strVal":200,"team ID":31,"types":"V","wkType":"S","wkVal":100}
+{"base":1700,"id":118,"name":"Anna Liebert","season":29,"start season":33,"strType":"V","strVal":80,"team ID":31,"types":"RL","wkType":"R","wkVal":120}
+{"base":1690,"id":119,"name":"Jester","season":29,"start season":32,"strType":"E","strVal":140,"team ID":38,"types":"E","wkType":"L","wkVal":140}
+{"base":1670,"id":120,"name":"Executioner","season":29,"start season":32,"strType":"L","strVal":70,"team ID":38,"types":"M","wkType":"M","wkVal":70}
+{"base":1680,"id":121,"name":"Tenga Onigawara","season":29,"start season":33,"strType":"M","strVal":50,"team ID":13,"types":"F","wkType":"E","wkVal":80}
+{"base":1650,"id":122,"name":"Maylene","season":29,"start season":32,"strType":"L","strVal":150,"team ID":27,"types":"M","wkType":"G","wkVal":150}
+{"base":1720,"id":123,"name":"Time Traveler","season":29,"start season":32,"strType":"C","strVal":100,"team ID":28,"types":"RCG","wkType":"I","wkVal":150}
+{"base":1730,"id":124,"name":"Asuka Langley","season":29,"start season":33,"strType":"S","strVal":160,"team ID":11,"types":"FW","wkType":"E","wkVal":160}
+{"base":1600,"id":125,"name":"Linda Flynn","season":29,"start season":33,"strType":"C","strVal":70,"team ID":3,"types":"L","wkType":"F","wkVal":80}
+{"base":1600,"id":126,"name":"Lawrence Fletcher","season":29,"start season":33,"strType":"C","strVal":80,"team ID":3,"types":"C","wkType":"L","wkVal":90}
+{"base":1640,"id":127,"name":"Bertini","season":29,"start season":32,"strType":"A","strVal":150,"team ID":20,"types":"FA","wkType":"R","wkVal":60}
+{"base":1670,"id":128,"name":"Lenora","season":29,"start season":33,"strType":"S","strVal":150,"team ID":25,"types":"","wkType":"M","wkVal":150}
+{"base":1680,"id":129,"name":"Burgh","season":29,"start season":33,"strType":"G","strVal":150,"team ID":25,"types":"R","wkType":"F","wkVal":150}
+{"base":1720,"id":130,"name":"Evil Wizard Guy","season":29,"start season":32,"strType":"G","strVal":120,"team ID":19,"types":"VG","wkType":"S","wkVal":150}
+{"base":1660,"id":131,"name":"Gorgonzola","season":29,"start season":33,"strType":"I","strVal":120,"team ID":19,"types":"EV","wkType":"M","wkVal":60}
+{"base":1620,"id":132,"name":"Meiko","season":29,"start season":33,"strType":"I","strVal":100,"team ID":44,"types":"LF","wkType":"L","wkVal":50}
+{"base":1640,"id":133,"name":"Kaito","season":29,"start season":33,"strType":"W","strVal":80,"team ID":44,"types":"LW","wkType":"E","wkVal":40}
+{"base":1710,"id":134,"name":"Hatsune Miku","season":29,"start season":34,"strType":"L","strVal":160,"team ID":44,"types":"L","wkType":"C","wkVal":100}
+{"base":1700,"id":135,"name":"Taiju Oki","season":29,"start season":33,"strType":"M","strVal":60,"team ID":45,"types":"M","wkType":"L","wkVal":40}
+{"base":1700,"id":136,"name":"Yuzuriha Ogawa","season":29,"start season":33,"strType":"V","strVal":40,"team ID":45,"types":"E","wkType":"M","wkVal":60}
+{"base":1750,"id":137,"name":"Senku Ishigami","season":29,"start season":34,"strType":"W","strVal":140,"team ID":45,"types":"SWCL","wkType":"F","wkVal":120}
+{"base":1720,"id":138,"name":"Heimerdinger","season":29,"start season":32,"strType":"C","strVal":60,"team ID":46,"types":"C","wkType":"I","wkVal":90}
+{"base":1690,"id":139,"name":"Jayce","season":29,"start season":33,"strType":"G","strVal":100,"team ID":46,"types":"MG","wkType":"C","wkVal":120}
+{"base":1680,"id":140,"name":"Viktor","season":29,"start season":33,"strType":"G","strVal":140,"team ID":46,"types":"G","wkType":"R","wkVal":120}
+{"base":1660,"id":141,"name":"Vander","season":29,"start season":32,"strType":"V","strVal":80,"team ID":47,"types":"MW","wkType":"L","wkVal":80}
+{"base":1630,"id":142,"name":"Benzo","season":29,"start season":32,"strType":"E","strVal":70,"team ID":47,"types":"M","wkType":"R","wkVal":60}
+{"base":1740,"id":143,"name":"Vi","season":29,"start season":33,"strType":"M","strVal":70,"team ID":47,"types":"MF","wkType":"C","wkVal":80}

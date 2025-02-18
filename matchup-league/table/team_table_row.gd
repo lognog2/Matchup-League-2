@@ -2,6 +2,7 @@ extends HBoxContainer
 
 var main = preload("res://main/main.gd")
 var level: Level
+var team: Team
 const no_id = "-1"
 
 @export var id: LineEdit
@@ -13,22 +14,25 @@ func _ready():
 
 func save():
 	if (id.text == ""): id.text = no_id
-	if (t_name.text == ""): return
+	if (!team || t_name.text == ""): return
+	if (!team.schedule): team.schedule = {}
 	var data = {
 		"id": id.text,
 		"name": t_name.text,
 		"season": main.getSeason(),
 		"level": level.name,
-		"color": color.color.to_rgba32()
+		"color": color.color.to_rgba32(),
+		"schedule": team.schedule
 	}
 	var newID
 	if (id.text == no_id):
 		newID = level.addNewTeam(data)
 	else:
-		newID = level.setTeam(data)
+		newID = level.set_team(data)
 	id.text = str(newID)
 
 func load(t: Team):
+	team = t
 	id.text = str(t.id)
 	t_name.text = t.name
 	color.color = Color.hex(t.color)

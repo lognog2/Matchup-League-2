@@ -61,7 +61,7 @@ func save():
 	if (id.text == no_id):
 		newID = level.addNewFighter(data)
 	else:
-		newID = level.setFighter(data)
+		newID = level.set_fighter(data)
 	id.text = str(newID)
 
 func load(f : Fighter):

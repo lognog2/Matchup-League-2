@@ -51,7 +51,7 @@ func format_save():
 	
 func addToTeam():
 	if (teamID >= 0):
-		team = level.getTeam(teamID)
+		team = level.get_team(teamID)
 		team.addFighter(self)
 
 func setTypes(typeStr: String):

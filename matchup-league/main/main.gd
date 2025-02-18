@@ -30,21 +30,42 @@ static var Levels = {
 	"Archive": Level.new("Archive")
 }
 
-func _ready() -> void:
+## names reserved for program functions
+static var Keyname = {
+	"remove" : "[Remove]",
+	"bye" : "[Bye]"
+}
+
+func _ready():
 	season = 29
-	loadState()
+	load_state()
 	SignalBus.openTable.emit()
+
+func _process(delta: float):
+	#report lag
+	if (delta > 0.0167):
+		if (delta < 0.0333): print("  ", delta) # <60 fps
+		elif (delta < 0.1): print ("* ", delta) # <30 fps
+		else: print("! ", delta) # <10 fps
 	
-	
-static func getLevel(levelName):
-	return Levels[levelName]
+static func getLevel(levelName): return Levels[levelName]
 	
 static func getSeason(): return season
 
-static func saveState(softSave = true):
+static func save_state(softSave = true):
+	print("^ saving")
 	for level in Levels:
 		Levels[level].saveToFile(softSave)
 
-static func loadState():
+static func load_state():
 	Levels["Prep"].loadData()
 	SignalBus.doneLoading.emit()
+
+static func getEntity_byName(entName: String, entDict: Dictionary) -> DataEntity:
+	if Keyname.values().has(entName): return null
+	for entID in entDict:
+		var entity = entDict[entID]
+		if entity.name == entName:
+			return entity
+	print("* entity with name " + entName + " not found")
+	return null

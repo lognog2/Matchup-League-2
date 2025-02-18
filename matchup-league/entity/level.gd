@@ -15,22 +15,65 @@ var lg_lastID = 0
 var fighterDict = {}
 var teamDict = {}
 
+#selection filters
+var DEFAULT_FILTER = (func(_de: DataEntity): return true)
+
+var SORT_ID = (func(a: DataEntity, b: DataEntity): return a.id > b.id)
+var SORT_ALPHABET = (func(a: DataEntity, b: DataEntity): return a.name < b.name)
+
 func _init(levelName: String, fpt = 100):
 	name = levelName
 	FPT = fpt
 	f_fileName = "%s_fighters" % name.to_lower()
 	t_fileName = "%s_teams" % name.to_lower()
 
-func getFighter(id: int): return fighterDict[id]
+func get_fighter(id: int): return fighterDict[id] if (id >= 0) else null
 
-func getTeam(id: int):  return teamDict[id]
+func get_team(id: int):  return teamDict[id] if (id >= 0) else null
+
+# get list by filter
+
+func get_fighters(filter = DEFAULT_FILTER) -> Array: 
+	return get_entities(fighterDict, filter)
+
+func get_teams(filter = DEFAULT_FILTER) -> Array: 
+	return get_entities(teamDict, filter)
+
+func get_teams_sorted(filter = SORT_ALPHABET) -> Array:
+	return get_entities(teamDict, DEFAULT_FILTER, filter)
+
+func get_entities(dict: Dictionary, filter = DEFAULT_FILTER, sortFilter = null) -> Array:
+	var validEntities = []
+	for val in dict.values():
+		if (filter.call(val)):
+			validEntities.append(val)
+	if (sortFilter): validEntities.sort_custom(sortFilter)
+	return validEntities
+
+func get_f_names(filter = DEFAULT_FILTER) -> Array: 
+	return get_names(fighterDict, filter)
+
+func get_t_names(filter = DEFAULT_FILTER) -> Array: 
+	return get_names(teamDict, filter)
+
+func get_names(dict: Dictionary, filter = DEFAULT_FILTER) -> Array:
+	var validNames = []
+	for val in dict.values():
+		if (filter.call(val)):
+			validNames.append(val.name)
+	validNames.sort()
+	return validNames
+
+
+# save/load from file
+# **be careful using breakpoints here**
 
 func addNewFighter(data: Dictionary):
 	data["id"] = f_lastID
 	f_lastID += 1
-	return setFighter(data)
+	return set_fighter(data)
 
-func setFighter(data: Dictionary):
+func set_fighter(data: Dictionary):
 	var fighter = Fighter.new(data)
 	if (fighter.id >= f_lastID): 
 		f_lastID = fighter.id + 1
@@ -40,20 +83,15 @@ func setFighter(data: Dictionary):
 func addNewTeam(data: Dictionary):
 	data["id"] = t_lastID
 	t_lastID += 1
-	return setTeam(data)
+	return set_team(data)
 
-func setTeam(data: Dictionary):
+func set_team(data: Dictionary):
 	var team = Team.new(data)
 	if (team.id >= t_lastID): 
 		t_lastID = team.id + 1
 	teamDict[team.id] = team
 	return team.id
 
-func getTeamsSorted():
-	var vals = teamDict.values()
-	vals.sort()
-	return vals
-	
 func saveToFile(softSave: bool):
 	var file = FileAccess.open("res://data/%s.save" % f_fileName, FileAccess.WRITE)
 	var backupFile
@@ -73,8 +111,8 @@ func saveToFile(softSave: bool):
 		if (!softSave): backupFile.store_line(json_data)
 
 func loadData():
-	loadFromFile(f_fileName, Callable(self, "setFighter"))
-	loadFromFile(t_fileName, Callable(self, "setTeam"))
+	loadFromFile(f_fileName, Callable(self, "set_fighter"))
+	loadFromFile(t_fileName, Callable(self, "set_team"))
 
 func loadFromFile(fileName: String, setEntity: Callable):
 	var file = FileAccess.open("res://data/%s.save" % fileName, FileAccess.READ)

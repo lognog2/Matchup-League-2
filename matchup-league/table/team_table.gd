@@ -36,7 +36,7 @@ func add_empty_row():
 func save():
 	for tr in table.get_children():
 		tr.save()
-	main.saveState()
+	main.save_state()
 	message.text = "Saved"
 	message.visible = true
 	

@@ -7,6 +7,11 @@ var main = preload("res://main/main.gd")
 @export var teamTable: Table
 
 var tables = Array([fighterTable, teamTable])
+var level: Level
+
+func _ready():
+	print("/ table")
+	level = main.getLevel("Prep")
 
 #returns index of current tab
 func getCurrentTab(): return tabContainer.current_tab
