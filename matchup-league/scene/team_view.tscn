@@ -1,0 +1,82 @@
+[gd_scene load_steps=3 format=3 uid="uid://6j5nmrwk6pbm"]
+
+[ext_resource type="Script" path="res://menu/team_view.gd" id="1_2o8iy"]
+[ext_resource type="PackedScene" uid="uid://cmwdrbc7rvioy" path="res://scene/fighter_card.tscn" id="1_4jwe8"]
+
+[node name="team_view" type="Control" node_paths=PackedStringArray("name_label", "info_box", "sched_box", "fc_box")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2o8iy")
+name_label = NodePath("PanelContainer/ColorRect/MarginContainer/VBoxContainer/MarginContainer/team_name")
+info_box = NodePath("PanelContainer/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/info")
+sched_box = NodePath("PanelContainer/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/schedule")
+fc_box = NodePath("PanelContainer/ColorRect/MarginContainer/VBoxContainer/fighter_card_box")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="PanelContainer"]
+layout_mode = 2
+color = Color(0.0582777, 7.09568e-05, 0.16257, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/ColorRect/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 40
+
+[node name="team_name" type="Label" parent="PanelContainer/ColorRect/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "team name"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="info" type="VBoxContainer" parent="PanelContainer/ColorRect/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="blank" type="Label" parent="PanelContainer/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/info"]
+layout_mode = 2
+text = "league: prep"
+
+[node name="schedule" type="VBoxContainer" parent="PanelContainer/ColorRect/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="blank" type="Label" parent="PanelContainer/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/schedule"]
+layout_mode = 2
+text = "vs other team"
+
+[node name="fighter_card_box" type="HBoxContainer" parent="PanelContainer/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="blank_fighter_card" parent="PanelContainer/ColorRect/MarginContainer/VBoxContainer/fighter_card_box" instance=ExtResource("1_4jwe8")]
+layout_mode = 2

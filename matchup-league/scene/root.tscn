@@ -2,12 +2,10 @@
 
 [ext_resource type="Script" path="res://main/main.gd" id="1_dcj4l"]
 [ext_resource type="PackedScene" uid="uid://cmwdrbc7rvioy" path="res://scene/fighter_card.tscn" id="1_o73kw"]
-[ext_resource type="PackedScene" uid="uid://dnnk3oq0uhsk3" path="res://scene/table.tscn" id="3_dnnaf"]
+[ext_resource type="PackedScene" uid="uid://dnnk3oq0uhsk3" path="res://scene/editor.tscn" id="3_dnnaf"]
+[ext_resource type="PackedScene" uid="uid://cqasb8jiiyqls" path="res://scene/main_menu.tscn" id="4_jsfq6"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_csrxh"]
-bg_color = Color(0.471343, 0.0322943, 0.72756, 1)
-
-[node name="root" type="Control"]
+[node name="main" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,17 +16,13 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_dcj4l")
 
-[node name="background" type="PanelContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_csrxh")
-
-[node name="table" parent="background" instance=ExtResource("3_dnnaf")]
-layout_mode = 2
-
 [node name="fighter_card" parent="." instance=ExtResource("1_o73kw")]
 visible = false
+
+[node name="table" parent="." instance=ExtResource("3_dnnaf")]
+visible = false
+layout_mode = 2
+anchors_preset = 0
+
+[node name="main_menu" parent="." instance=ExtResource("4_jsfq6")]
+layout_mode = 1

@@ -3,6 +3,8 @@ class_name Team extends DataEntity
 var fighters = Array()
 var schedule: Dictionary
 var color
+var games_won = 0
+var games_played = 0
 
 func _init(data: Dictionary):
 	super(data)
@@ -46,15 +48,17 @@ func get_opponent(r: int) -> int:
 
 func has_game(r: int) -> bool:
 	return get_opponent(r) >= 0
-	
 
-# debug functions
+func games_lost() -> int:
+	return games_played - games_won
+	
+# test functions
 
 func check_sync(r) -> bool:
 	if (!has_game(r)): return true
 	return id == level.get_team(get_opponent(r)).get_opponent(r)
 
-# saving functions
+# format functions
 
 func format_save() -> Dictionary:
 	var data = {
@@ -65,3 +69,10 @@ func format_save() -> Dictionary:
 		"schedule": schedule
 	}
 	return data
+
+func format_info() -> Dictionary:
+	var info = {
+		"League": level.name,
+		"Record": "%d-%d" % [games_won, games_lost()]
+	}
+	return info
