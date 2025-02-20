@@ -18,6 +18,7 @@ script = ExtResource("1_dcj4l")
 
 [node name="fighter_card" parent="." instance=ExtResource("1_o73kw")]
 visible = false
+layout_mode = 1
 
 [node name="table" parent="." instance=ExtResource("3_dnnaf")]
 visible = false

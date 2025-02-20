@@ -15,18 +15,17 @@ func _ready():
 func save():
 	if (id.text == ""): id.text = no_id
 	if (!team || t_name.text == ""): return
-	if (!team.schedule): team.schedule = {}
 	var data = {
 		"id": id.text,
 		"name": t_name.text,
 		"season": main.getSeason(),
 		"level": level.name,
 		"color": color.color.to_rgba32(),
-		"schedule": team.schedule
+		"schedule": team.schedule || {}
 	}
 	var newID
 	if (id.text == no_id):
-		newID = level.addNewTeam(data)
+		newID = level.add_team(data)
 	else:
 		newID = level.set_team(data)
 	id.text = str(newID)

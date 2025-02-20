@@ -1,4 +1,4 @@
-extends "res://table/sched_table_team.gd"
+extends "res://editor/sched_table_team.gd"
 
 var button: OptionButton
 var opponentID = -1

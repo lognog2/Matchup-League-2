@@ -12,7 +12,7 @@ func _init(data: Dictionary):
 	if (data.has("name")):
 		name = data["name"]
 	season = data["season"]
-	setLevel(data["level"]) #added to data by level
+	setLevel(data["level"])
 	
 func getLevelName(): return level.name
 

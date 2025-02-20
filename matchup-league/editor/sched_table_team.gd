@@ -1,4 +1,4 @@
-extends "res://table/sched_table.gd"
+extends "res://editor/sched_table.gd"
 
 @onready var vbox = $inner_mpane/info_vbox
 @onready var name_label = $inner_mpane/info_vbox/name

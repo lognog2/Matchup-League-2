@@ -27,7 +27,7 @@ func fill_info(info: Dictionary):
 func fill_sched(sched: Dictionary):
 	var blank_label = sched_box.get_child(0)
 	blank_label.visible = false
-	for round in sched:
+	for r in sched:
 		var new_label = blank_label.duplicate()
-		new_label.text = "vs %s" % team.level.get_team(sched[round])
+		new_label.text = "vs %s" % team.level.get_team(sched[r])
 		sched_box.add_child(new_label)

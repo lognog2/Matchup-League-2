@@ -55,7 +55,7 @@ static func getSeason(): return season
 static func save_state(softSave = true):
 	print("^ saving")
 	for level in Levels:
-		Levels[level].saveToFile(softSave)
+		Levels[level].save_data(softSave)
 
 static func load_state():
 	Levels["Prep"].loadData()
