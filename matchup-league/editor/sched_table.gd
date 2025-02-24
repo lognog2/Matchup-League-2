@@ -1,27 +1,27 @@
 extends Table
 
-@onready var message = $top_row/message
-@onready var table = $scroll_box/table_vbox
-@onready var blank_row = $scroll_box/table_vbox/table_hbox
-@onready var blank_team_pane = $scroll_box/table_vbox/table_hbox/outer_mpane
+@export var message: Label
+@export var table: VBoxContainer
+@export var blank_row: HBoxContainer
+@export var blank_team_pane: MarginContainer
 
 var newRow: HBoxContainer
 
 const rowLength = 14
 const TEAM_GROUP = "team_boxes"
 
-func _ready():
-	if (!level): level = main.getLevel("Prep")
+func _enter_tree():
+	#print("/ sched table")
 	message.visible = false
 	blank_row.visible = false
 	blank_team_pane.visible = false
-	SignalBus.openTable.connect(render)
-	SignalBus.user_set_game.connect(user_set_game)
+	set_level("Prep")
+	render()
 
 func render():
 	unload()
 	add_row()
-	var teams = level.get_teams_sorted(level.SORT_ALPHABET)
+	var teams = level.get_teams_sorted(level.Sort.Alphabet)
 	for t in teams:
 		add_team(t) 
 		
@@ -56,8 +56,8 @@ func user_set_game(r: int, target: Team, opponent: Team):
 		if (target == tbox.team):
 			#print("^ adding ", tbox.team.id)
 			tbox.set_game(r, opponent)
-		elif(opponent && opponent.id == tbox.team.get_opponent(r)):
-			print("^ removing ", tbox.team.id)
+		elif(opponent && opponent == tbox.team.get_opponent(r)):
+			#print("^ removing ", tbox.team.id)
 			tbox.set_game(r, null)
 
 func save():

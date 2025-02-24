@@ -1,5 +1,7 @@
 class_name Level extends Object
 
+var main = preload("res://main/main.gd")
+
 #init vars
 var name: String
 var FPT: int
@@ -18,38 +20,60 @@ var teamDict = {}
 var gameDict = {}
 
 #selection filters
-var DEFAULT_FILTER = (func(_de): return true)
+var Filter = {
+	Default = (func(_de): return true)
+}
 
-var SORT_ID = (func(a: DataEntity, b: DataEntity): return a.id > b.id)
-var SORT_ALPHABET = (func(a: DataEntity, b: DataEntity): return a.name < b.name)
+var Sort = {
+	Id = (func(a: DataEntity, b: DataEntity): 
+		return a.id < b.id),
+	Alphabet = (func(a: DataEntity, b: DataEntity): 
+		return a.name.naturalcasecmp_to(b.name) < 0),
+	Default = (func(_a: DataEntity, _b: DataEntity): 
+		return false;)
+}
 
 func _init(levelName: String, fpt = 100):
 	name = levelName
 	FPT = fpt
 	f_fileName = "%s_fighters" % name.to_lower()
 	t_fileName = "%s_teams" % name.to_lower()
+	g_fileName = "%s_games" % name.to_lower()
 
-func get_fighter(id: int): return fighterDict[id] if (id >= 0) else null
+func get_fighter(id: int): return fighterDict.get(id) if (id >= 0) else null
 
-func get_team(id: int): return teamDict[id] if (id >= 0) else null
+func get_team(id: int): return teamDict.get(id) if (id >= 0) else null
 
-func get_game(id: int): return gameDict[id] if (id >= 0) else null
+func get_game(id: int): return gameDict.get(id) if (id >= 0) else null
+
+## find a game
+func find_game(r: int, oppID: int) -> Game:
+	var result = get_games(
+		func (g: Game):
+			if (g.rnd == r && g.has_team_id(oppID)):
+				return true
+			else: return false
+	)
+	if (result.size() != 1):
+		return null
+	else:
+		return result[0]
 
 # get list by filter
 
-func get_fighters(filter = DEFAULT_FILTER) -> Array: 
+func get_fighters(filter = Filter.Default) -> Array: 
 	return get_entities(fighterDict, filter)
 
-func get_teams(filter = DEFAULT_FILTER) -> Array: 
+func get_teams(filter = Filter.Default) -> Array: 
 	return get_entities(teamDict, filter)
 
-func get_games(filter = DEFAULT_FILTER) -> Array: 
+func get_games(filter = Filter.Default) -> Array: 
 	return get_entities(gameDict, filter)
 
-func get_teams_sorted(filter = SORT_ALPHABET) -> Array:
-	return get_entities(teamDict, DEFAULT_FILTER, filter)
+func get_teams_sorted(filter = Sort.Alphabet) -> Array:
+	return get_entities(teamDict, Filter.Default, filter)
 
-func get_entities(dict: Dictionary, select_filter = DEFAULT_FILTER, sort_filter = null) -> Array:
+func get_entities(dict: Dictionary, select_filter = Filter.Default, sort_filter = null) -> Array:
 	var validEntities = []
 	for val in dict.values():
 		if (select_filter.call(val)):
@@ -57,13 +81,14 @@ func get_entities(dict: Dictionary, select_filter = DEFAULT_FILTER, sort_filter 
 	if (sort_filter): validEntities.sort_custom(sort_filter)
 	return validEntities
 
-func get_f_names(filter = DEFAULT_FILTER) -> Array: 
+
+func get_f_names(filter = Filter.Default) -> Array: 
 	return get_names(fighterDict, filter)
 
-func get_t_names(filter = DEFAULT_FILTER) -> Array: 
+func get_t_names(filter = Filter.Default) -> Array: 
 	return get_names(teamDict, filter)
 
-func get_names(dict: Dictionary, filter = DEFAULT_FILTER) -> Array:
+func get_names(dict: Dictionary, filter = Filter.Default) -> Array:
 	var validNames = []
 	for val in dict.values():
 		if (filter.call(val)):
@@ -112,6 +137,7 @@ func set_game(data: Dictionary) -> int:
 	return game.id
 
 func save_data(softSave: bool):
+	print("/ last chance to look at the save data, programmer")
 	save_to_file(softSave, f_fileName, fighterDict)
 	save_to_file(softSave, t_fileName, teamDict)
 	save_to_file(softSave, g_fileName, gameDict)
@@ -119,14 +145,14 @@ func save_data(softSave: bool):
 func save_to_file(softSave: bool, file_name: String, dict: Dictionary):
 	var file = FileAccess.open("res://data/%s.save" % file_name, FileAccess.WRITE)
 	var backupFile
-	if (!softSave): backupFile = FileAccess.open("res://data/%s_backup.save" % f_fileName, FileAccess.WRITE)
+	if (!softSave): backupFile = FileAccess.open("res://data/%s_backup.save" % file_name, FileAccess.WRITE)
 	for id in dict:
 		var data = dict[id].format_save()
 		var json_data = JSON.stringify(data)
 		file.store_line(json_data)
 		if (!softSave): backupFile.store_line(json_data)
 
-func loadData():
+func load_data():
 	load_from_file(f_fileName, Callable(self, "set_fighter"))
 	load_from_file(t_fileName, Callable(self, "set_team"))
 	load_from_file(g_fileName, Callable(self, "set_game"))
@@ -138,9 +164,13 @@ func load_from_file(fileName: String, setEntity: Callable):
 		var line = file.get_line()
 		var json = JSON.new()
 		if json.parse(line) != OK:
-			print("JSON Parse Error: ", json.get_error_message(), " in ", line, " at line ", json.get_error_line())
+			print("! JSON Parse Error: ", json.get_error_message(), " in ", line, " at line ", json.get_error_line())
 			continue
 		var data = json.data
-		data["level"] = name
+		data["level name"] = name
+		data["season"] = main.get_season()
 		setEntity.call(data)
 	
+class LevelEntity:
+	var dict: Dictionary
+	var file_name

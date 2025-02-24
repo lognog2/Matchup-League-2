@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cqasb8jiiyqls"]
+[gd_scene load_steps=4 format=3 uid="uid://cqasb8jiiyqls"]
 
+[ext_resource type="Script" path="res://menu/main_menu.gd" id="1_ikhu3"]
 [ext_resource type="StyleBox" uid="uid://eelwpy4cx451" path="res://style/background.tres" id="1_mqga2"]
 [ext_resource type="StyleBox" uid="uid://602gdoqeml23" path="res://style/button_main_menu.tres" id="2_0l2rn"]
 
@@ -10,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_ikhu3")
 
 [node name="background" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -74,6 +76,21 @@ theme_override_styles/normal = ExtResource("2_0l2rn")
 text = "admin editor
 "
 
-[node name="version" type="Label" parent="background/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.965
+anchor_right = 0.078
+anchor_bottom = 1.0
+offset_top = -0.320007
+offset_right = 0.143997
+grow_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="version" type="Label" parent="MarginContainer"]
 layout_mode = 2
 text = "2.0.1 admin"
+
+[connection signal="pressed" from="background/MarginContainer/VBoxContainer/MarginContainer/freeplay" to="." method="to_freeplay"]
+[connection signal="pressed" from="background/MarginContainer/VBoxContainer/MarginContainer2/editor" to="." method="to_editor"]

@@ -1,4 +1,4 @@
-extends Control
+extends Menu
 
 @export var name_label: Label
 @export var info_box: VBoxContainer
@@ -11,6 +11,7 @@ func _ready():
 	pass
 	
 func render(t: Team):
+	scene_name = main.Scene.TeamView
 	team = t
 	name_label.text = team.name
 	fill_info(team.format_info())

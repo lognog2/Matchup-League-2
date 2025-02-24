@@ -1,8 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://yj00mivvbeba"]
+[gd_scene load_steps=3 format=3 uid="uid://yj00mivvbeba"]
 
 [ext_resource type="Script" path="res://main/main.gd" id="1_dcj4l"]
-[ext_resource type="PackedScene" uid="uid://cmwdrbc7rvioy" path="res://scene/fighter_card.tscn" id="1_o73kw"]
-[ext_resource type="PackedScene" uid="uid://dnnk3oq0uhsk3" path="res://scene/editor.tscn" id="3_dnnaf"]
 [ext_resource type="PackedScene" uid="uid://cqasb8jiiyqls" path="res://scene/main_menu.tscn" id="4_jsfq6"]
 
 [node name="main" type="Control"]
@@ -15,15 +13,6 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_dcj4l")
-
-[node name="fighter_card" parent="." instance=ExtResource("1_o73kw")]
-visible = false
-layout_mode = 1
-
-[node name="table" parent="." instance=ExtResource("3_dnnaf")]
-visible = false
-layout_mode = 2
-anchors_preset = 0
 
 [node name="main_menu" parent="." instance=ExtResource("4_jsfq6")]
 layout_mode = 1

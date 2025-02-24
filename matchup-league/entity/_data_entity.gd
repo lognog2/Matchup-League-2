@@ -3,18 +3,31 @@ class_name DataEntity extends Object
 var main = preload("res://main/main.gd")
 
 var id: int
-var name: String #optional
+var name: String
 var season: int
 var level: Level
 
 func _init(data: Dictionary):
-	id = int(data["id"])
-	if (data.has("name")):
-		name = data["name"]
-	season = data["season"]
-	setLevel(data["level"])
-	
-func getLevelName(): return level.name
+	SignalBus.done_loading.connect(connect_objs)
+	set_data(data)
 
-func setLevel(levelName):
-	level = main.Levels[levelName]
+func set_data(data: Dictionary):
+	id = int(data.get("id", id))
+	name = data.get("name", name)
+	season = data.get("season", season)
+	set_level("Prep") #idc anymore
+
+func get_level_name(): return level.name
+
+func set_level(level_name: String):
+	level = main.Levels[level_name]
+
+## called after all entities done loading to make refs to other entities
+func connect_objs():
+	pass
+
+func format_save() -> Dictionary:
+	return {
+		"id": id,
+		"name": name,
+	}

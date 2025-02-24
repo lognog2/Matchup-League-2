@@ -18,3 +18,4 @@ config/icon="res://icon.svg"
 [autoload]
 
 SignalBus="*res://main/signal_bus.gd"
+Err="*res://main/error.gd"

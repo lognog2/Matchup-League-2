@@ -1,7 +1,5 @@
-extends HBoxContainer
+extends "res://editor/fighter_table.gd"
 
-var main = preload("res://main/main.gd")
-var level: Level
 const no_id = "-1"
 
 @export var id: LineEdit
@@ -17,8 +15,7 @@ const no_id = "-1"
 
 var teamID := -1
 
-func _ready():
-	level = main.getLevel("Prep")
+func _enter_tree():
 	if (strType.item_count == 0):
 		for idx in main.Types.keys():
 			strType.add_item(main.Types[idx])
@@ -27,8 +24,8 @@ func _ready():
 
 func openTeamList():
 	team.clear()
-	for id in level.teamDict:
-		team.add_item(level.teamDict[id].name)
+	for i in level.teamDict:
+		team.add_item(level.teamDict[i].name)
 
 func closeTeamList():
 	teamID = team.selected
@@ -46,8 +43,8 @@ func save():
 	var data = {
 		"id": id.text,
 		"name": f_name.text.capitalize(),
-		"season": main.getSeason(),
-		"level": level.name,
+		"season": main.get_season(),
+		"level name": level.name,
 		"types": types.text.to_upper(),
 		"base": base.value,
 		"strType": main.Types[strType.selected],

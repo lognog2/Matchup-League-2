@@ -5,17 +5,16 @@ var opponentID = -1
 var gameRound = 0
 var game: Game
 
-const blank_name = ""
+func _enter_tree():
+	pass
 
-func _ready():
-	level = main.getLevel("Prep")
-	
 func render_game(r: int, t: Team, ob: OptionButton):
 	gameRound = r
 	team = t
 	button = ob
+	set_level("Prep")
 	if (t.has_game(r)): 
-		set_oppID(t.get_opponent(r), false)
+		set_oppID(t.get_opponent(r).id, false)
 
 func signal_oppID(index: int):
 	var t_name = button.get_item_text(button.selected)
@@ -36,16 +35,16 @@ func set_oppID(id: int, setGames = false):
 	opponentID = id
 	closeTeamList()
 	if (setGames):
-		#print("/ setting game")
-		team.add_game(gameRound, opponentID)
+		print("/ setting game but not really")
+		#team.add_game(gameRound, opponentID)
 
 func openTeamList():
 	button.clear()
-	button.add_item(blank_name)
+	button.add_item(main.Keyname.Empty)
 	var empty_game_filter = (func (t: Team): if (!t.has_game(gameRound) && t.id != team.id): return true)
 	for t_name in level.get_t_names(empty_game_filter):
 		button.add_item(t_name)
-	button.add_item(main.Keyname["remove"])
+	button.add_item(main.Keyname.Remove)
 	
 func closeTeamList():
 	hide()

@@ -1,0 +1,23 @@
+func add_game(r: int, oppID: int, setOpp = true):
+	print("/ add game " + str(id) + " " + str(oppID) + " " + str(setOpp))
+	if (oppID < 0): 
+		remove_game(r, setOpp)
+		return
+	schedule[r] = oppID
+	if (!setOpp): return
+	var opp = level.get_team(oppID)
+	if (opp.get_opponent(r) != id):
+		if (opp.has_game(r)): 
+			opp.remove_game(r)
+		opp.add_game(r, id, false)
+
+func remove_game(r: int, remOpp = true):
+	print("/ remove game " + str(id) + " " + str(remOpp))
+	if (!has_game(r)): return
+	if (!remOpp):
+		schedule[r] = -1
+		return
+	var opp = level.get_team(get_opponent(r))
+	schedule[r] = -1
+	if (opp.get_opponent(r) == id):
+		opp.remove_game(r, false)

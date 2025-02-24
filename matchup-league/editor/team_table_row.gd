@@ -1,7 +1,5 @@
-extends HBoxContainer
+extends "res://editor/team_table.gd"
 
-var main = preload("res://main/main.gd")
-var level: Level
 var team: Team
 const no_id = "-1"
 
@@ -9,8 +7,8 @@ const no_id = "-1"
 @export var t_name: LineEdit
 @export var color: ColorPickerButton
 
-func _ready():
-	level = main.getLevel("Prep")
+func _enter_tree():
+	pass
 
 func save():
 	if (id.text == ""): id.text = no_id
@@ -18,8 +16,8 @@ func save():
 	var data = {
 		"id": id.text,
 		"name": t_name.text,
-		"season": main.getSeason(),
-		"level": level.name,
+		"season": main.get_season(),
+		"level name": level.name,
 		"color": color.color.to_rgba32(),
 		"schedule": team.schedule || {}
 	}

@@ -1,16 +1,14 @@
 extends Table
 
-signal updateMessage(msg)
-
 @export var table: VBoxContainer
 @export var row: HBoxContainer
 @export var message: Label
 
-func _ready():
+func _enter_tree():
+	#print("/ team table")
 	message.visible = false
 	row.visible = false
-	updateMessage.connect(updateMsg)
-	SignalBus.openTable.connect(render)
+	render()
 
 func render():
 	unload()

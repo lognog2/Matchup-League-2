@@ -22,7 +22,6 @@ var matchesPlayed
 var matchesWon
 
 func _init(data: Dictionary):
-	SignalBus.doneLoading.connect(addToTeam)
 	super(data)
 	types = data["types"]
 	base = setBase(data["base"])
@@ -32,30 +31,14 @@ func _init(data: Dictionary):
 	wkVal = setMod(data["wkVal"])
 	startSeason = data["start season"]
 	teamID = data["team ID"]
-
-func format_save():
-	var data = {
-		"id": id,
-		"name": name,
-		"season": season,
-		"types": types,
-		"base": base,
-		"strType": strType,
-		"strVal": strVal,
-		"wkType": wkType,
-		"wkVal": wkVal,
-		"start season": startSeason,
-		"team ID": teamID
-	}
-	return data
 	
-func addToTeam():
+func connect_objs():
 	if (teamID >= 0):
 		team = level.get_team(teamID)
-		team.addFighter(self)
+		team.add_fighter(self)
 
 func setTypes(typeStr: String):
-	var typeArr
+	var typeArr = []
 	if (typeStr.length > main.MAX_TYPES):
 		typeStr.left(main.MAX_TYPES)
 	for i in typeStr.length():
@@ -75,3 +58,19 @@ func setMod(new):
 	elif (new > main.MAX_MOD):
 		new = main.MAX_MOD
 	return new
+
+func format_save() -> Dictionary:
+	var data = {
+		"id": id,
+		"name": name,
+		"season": season,
+		"types": types,
+		"base": base,
+		"strType": strType,
+		"strVal": strVal,
+		"wkType": wkType,
+		"wkVal": wkVal,
+		"start season": startSeason,
+		"team ID": teamID
+	}
+	return data

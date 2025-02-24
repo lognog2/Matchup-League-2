@@ -319,11 +319,15 @@ layout_mode = 2
 custom_minimum_size = Vector2(7, 0)
 layout_mode = 2
 
-[node name="sched_table" type="VBoxContainer" parent="background/VBoxContainer/entity_edit"]
+[node name="sched_table" type="VBoxContainer" parent="background/VBoxContainer/entity_edit" node_paths=PackedStringArray("message", "table", "blank_row", "blank_team_pane")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("6_j6joy")
+message = NodePath("top_row/message")
+table = NodePath("scroll_box/table_vbox")
+blank_row = NodePath("scroll_box/table_vbox/table_hbox")
+blank_team_pane = NodePath("scroll_box/table_vbox/table_hbox/outer_mpane")
 metadata/_tab_index = 2
 
 [node name="HSeparator" type="HSeparator" parent="background/VBoxContainer/entity_edit/sched_table"]
@@ -379,12 +383,15 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="team_box" type="ColorRect" parent="background/VBoxContainer/entity_edit/sched_table/scroll_box/table_vbox/table_hbox/outer_mpane"]
+[node name="team_box" type="ColorRect" parent="background/VBoxContainer/entity_edit/sched_table/scroll_box/table_vbox/table_hbox/outer_mpane" node_paths=PackedStringArray("vbox", "name_label", "blank_game")]
 custom_minimum_size = Vector2(180, 220)
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(0.588235, 0, 0, 1)
 script = ExtResource("7_nee7c")
+vbox = NodePath("inner_mpane/info_vbox")
+name_label = NodePath("inner_mpane/info_vbox/name")
+blank_game = NodePath("inner_mpane/info_vbox/game")
 
 [node name="inner_mpane" type="MarginContainer" parent="background/VBoxContainer/entity_edit/sched_table/scroll_box/table_vbox/table_hbox/outer_mpane/team_box"]
 layout_mode = 1

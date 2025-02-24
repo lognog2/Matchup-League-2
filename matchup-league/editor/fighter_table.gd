@@ -1,21 +1,20 @@
 extends Table
 
-signal updateMessage(msg)
-
 @export var table: VBoxContainer
 @export var row: HBoxContainer
 @export var message: Label
 @export var softSave: CheckBox
 
-func _ready():
+func _enter_tree():
+	#print("/ fighter table")
 	message.visible = false
 	row.visible = false
-	updateMessage.connect(updateMsg)
-	SignalBus.openTable.connect(render)
+	render()
 
 func render():
 	unload()
-	var dict = main.getLevel("Prep").fighterDict
+	set_level("Prep")
+	var dict = level.fighterDict
 	for id in dict:
 		add_row(dict[id])
 
@@ -35,16 +34,11 @@ func add_empty_row():
 	add_row()
 	
 func save():
-	updateMessage.emit("Saving")
 	message.visible = true
 	for tr in table.get_children():
 		tr.save()
 	main.save_state(softSave.button_pressed)
 	render()
-	updateMessage.emit("Saved")
 
 func updateMsg(msg = ""):
 	message.text = msg
-
-func hideMessage():
-	updateMessage.emit("")

@@ -1,10 +1,12 @@
 extends Node
 
 #done loading data from files
-signal doneLoading()
+signal done_loading()
 
-#open/close edit tables
-signal openTable()
-signal closeTable()
+#open/close editor tables
+signal open_table()
+signal close_table()
+
+signal set_scene(scene_name: String)
 
 signal user_set_game(r: int, target: Team, opp: Team)

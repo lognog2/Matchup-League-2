@@ -1,11 +1,10 @@
-extends Node
+extends Menu
 
+func to_freeplay():
+	pass
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func to_editor():
+	main.emit_scene(main.Scene.Editor)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func to_career():
 	pass

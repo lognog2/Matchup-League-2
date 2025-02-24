@@ -1,53 +1,40 @@
 class_name Team extends DataEntity
 
-var fighters = Array()
-var schedule: Dictionary
+var fighters = []
+var schedule= {}
 var color
 var games_won = 0
 var games_played = 0
 
 func _init(data: Dictionary):
 	super(data)
-	color = data["color"]
-	for r in data["schedule"]:
-		var oppID = data["schedule"][r]
-		schedule[int(r)] = oppID if oppID != null else -1
+	color = data.get("color", color)
+	if (!data.get("schedule")): return
+	for r_str in data["schedule"]:
+		var r = int(r_str)
+		schedule[r] = data["schedule"][r_str]
 
-func addFighter(f: Fighter):
+func connect_objs():
+	pass
+
+func add_fighter(f: Fighter):
 	fighters.append(f)
-	
-func add_game(r: int, oppID: int, setOpp = true):
-	print("/ add game " + str(id) + " " + str(oppID) + " " + str(setOpp))
-	if (oppID < 0): 
-		remove_game(r, setOpp)
-		return
-	schedule[r] = oppID
-	if (!setOpp): return
-	var opp = level.get_team(oppID)
-	if (opp.get_opponent(r) != id):
-		if (opp.has_game(r)): 
-			opp.remove_game(r)
-		opp.add_game(r, id, false)
 
-func remove_game(r: int, remOpp = true):
-	print("/ remove game " + str(id) + " " + str(remOpp))
-	if (!has_game(r)): return
-	if (!remOpp):
-		schedule[r] = -1
-		return
-	var opp = level.get_team(get_opponent(r))
-	schedule[r] = -1
-	if (opp.get_opponent(r) == id):
-		opp.remove_game(r, false)
+func add_game(g: Game):
+	schedule[g.rnd] = g
 
-func get_game(r: int) -> int:
+func remove_game(r: int):
+	schedule[r] = null
+
+func get_game(r: int) -> Team:
 	return get_opponent(r)
 
-func get_opponent(r: int) -> int:
-	return schedule[r]
+func get_opponent(r: int) -> Team:
+	var g = schedule.get(r)
+	return g.get_opponent(self) if (g) else null
 
 func has_game(r: int) -> bool:
-	return get_opponent(r) >= 0
+	return get_opponent(r) != null
 
 func games_lost() -> int:
 	return games_played - games_won
@@ -56,19 +43,24 @@ func games_lost() -> int:
 
 func check_sync(r) -> bool:
 	if (!has_game(r)): return true
-	return id == level.get_team(get_opponent(r)).get_opponent(r)
+	return self == get_opponent(r).get_opponent(r)
 
 # format functions
 
 func format_save() -> Dictionary:
-	var data = {
-		"id": id,
-		"name": name,
+	var data = super()
+	data.merge({
 		"season": season,
 		"color": color,
-		"schedule": schedule
-	}
+		#"schedule": format_sched()
+	}, true)
 	return data
+
+func format_sched() -> Dictionary:
+	var dict = {}
+	for r in schedule:
+		dict[r] = schedule[r].id
+	return dict
 
 func format_info() -> Dictionary:
 	var info = {
