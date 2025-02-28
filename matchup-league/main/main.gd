@@ -1,7 +1,6 @@
 extends Control
 
-static var season: int
-
+var season: int
 
 const MAX_TYPES = 5
 const MIN_BASE = 500
@@ -11,14 +10,15 @@ const MAX_MOD = 300
 
 const SCENE_PATH = "res://scene/"
 const MAX_SCENES = 3
-static var scene_arr = []
-static var Scene = {
+var scene_arr = []
+var Scene = {
 	MainMenu = "main_menu",
 	TeamView = "team_view",
 	Editor = "editor",
+	Freeplay = "game_select"
 }
 
-static var Types = {
+var Types = {
 	0: "M",
 	1: "R",
 	2: "E",
@@ -33,7 +33,7 @@ static var Types = {
 	11: "V"
 }
 
-static var Levels = {
+var Levels = {
 	"Prep": Level.new("Prep", 4),
 	#"College": Level.new("College", 5),
 	#"Pro": Level.new("Pro", 11),
@@ -41,7 +41,7 @@ static var Levels = {
 }
 
 ## names reserved for program functions
-static var Keyname = {
+var Keyname = {
 	Remove = "[Remove]",
 	Bye = "[Bye]",
 	Empty = ""
@@ -61,9 +61,9 @@ func _process(delta: float):
 		elif (delta < 0.1): print ("* ", delta) # <30 fps
 		else: print("! ", delta) # <10 fps
 
-static func getLevel(levelName): return Levels[levelName]
+func getLevel(levelName): return Levels[levelName]
 	
-static func get_season(): return season
+func get_season(): return season
 
 
 # scene functions
@@ -79,23 +79,23 @@ func set_scene(sc: String):
 		get_child(-1).queue_free()
 		get_child(-1).visible = true
 	
-static func emit_scene(sc: String = ""):
+func emit_scene(sc: String = ""):
 	SignalBus.set_scene.emit(sc)
 
 
 # save/load functions
 
-static func save_state(softSave = true):
+func save_state(softSave = true):
 	print("^ saving")
 	for level in Levels:
 		Levels[level].save_data(softSave)
 	print("^ saved")
 
-static func load_state():
+func load_state():
 	Levels["Prep"].load_data()
 	SignalBus.done_loading.emit()
 
-static func getEntity_byName(entName: String, entDict: Dictionary) -> DataEntity:
+func getEntity_byName(entName: String, entDict: Dictionary) -> DataEntity:
 	if Keyname.values().has(entName): return null
 	for entID in entDict:
 		var entity = entDict[entID]

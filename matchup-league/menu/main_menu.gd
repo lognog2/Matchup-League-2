@@ -1,10 +1,11 @@
 extends Menu
 
 func to_freeplay():
-	pass
+	Main.emit_scene(Main.Scene.Freeplay)
+	SignalBus.do_game.emit(null, null)
 
 func to_editor():
-	main.emit_scene(main.Scene.Editor)
+	Main.emit_scene(Main.Scene.Editor)
 
 func to_career():
 	pass

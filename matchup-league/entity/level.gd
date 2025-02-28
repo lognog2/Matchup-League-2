@@ -1,7 +1,5 @@
 class_name Level extends Object
 
-var main = preload("res://main/main.gd")
-
 #init vars
 var name: String
 var FPT: int
@@ -168,7 +166,7 @@ func load_from_file(fileName: String, setEntity: Callable):
 			continue
 		var data = json.data
 		data["level name"] = name
-		data["season"] = main.get_season()
+		data["season"] = Main.get_season()
 		setEntity.call(data)
 	
 class LevelEntity:

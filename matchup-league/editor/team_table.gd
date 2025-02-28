@@ -12,7 +12,7 @@ func _enter_tree():
 
 func render():
 	unload()
-	var dict = main.getLevel("Prep").teamDict
+	var dict = Main.getLevel("Prep").teamDict
 	for id in dict:
 		add_row(dict[id])
 		
@@ -34,7 +34,7 @@ func add_empty_row():
 func save():
 	for tr in table.get_children():
 		tr.save()
-	main.save_state()
+	Main.save_state()
 	message.text = "Saved"
 	message.visible = true
 	

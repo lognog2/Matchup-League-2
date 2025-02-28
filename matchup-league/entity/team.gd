@@ -3,8 +3,8 @@ class_name Team extends DataEntity
 var fighters = []
 var schedule= {}
 var color
-var games_won = 0
-var games_played = 0
+var won = 0
+var lost = 0
 
 func _init(data: Dictionary):
 	super(data)
@@ -33,18 +33,19 @@ func get_opponent(r: int) -> Team:
 	var g = schedule.get(r)
 	return g.get_opponent(self) if (g) else null
 
+func get_opponent_name(r:int) -> String:
+	var opp = get_opponent(r)
+	if (opp):
+		return get_opponent(r).name
+	else:
+		return Main.Keyname.Bye
+
 func has_game(r: int) -> bool:
 	return get_opponent(r) != null
 
-func games_lost() -> int:
-	return games_played - games_won
+func games_played() -> int:
+	return won + lost
 	
-# test functions
-
-func check_sync(r) -> bool:
-	if (!has_game(r)): return true
-	return self == get_opponent(r).get_opponent(r)
-
 # format functions
 
 func format_save() -> Dictionary:
@@ -65,6 +66,12 @@ func format_sched() -> Dictionary:
 func format_info() -> Dictionary:
 	var info = {
 		"League": level.name,
-		"Record": "%d-%d" % [games_won, games_lost()]
+		"Record": "%d-%d" % [won, lost]
 	}
 	return info
+
+# test functions
+
+func check_sync(r) -> bool:
+	if (!has_game(r)): return true
+	return self == get_opponent(r).get_opponent(r)

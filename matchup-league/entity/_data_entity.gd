@@ -1,7 +1,5 @@
 class_name DataEntity extends Object
 
-var main = preload("res://main/main.gd")
-
 var id: int
 var name: String
 var season: int
@@ -20,7 +18,7 @@ func set_data(data: Dictionary):
 func get_level_name(): return level.name
 
 func set_level(level_name: String):
-	level = main.Levels[level_name]
+	level = Main.Levels[level_name]
 
 ## called after all entities done loading to make refs to other entities
 func connect_objs():

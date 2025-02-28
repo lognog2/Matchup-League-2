@@ -16,7 +16,7 @@ func save():
 	var data = {
 		"id": id.text,
 		"name": t_name.text,
-		"season": main.get_season(),
+		"season": Main.get_season(),
 		"level name": level.name,
 		"color": color.color.to_rgba32(),
 		"schedule": team.schedule || {}

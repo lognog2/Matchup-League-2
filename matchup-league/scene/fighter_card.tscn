@@ -1,6 +1,8 @@
-[gd_scene format=3 uid="uid://cmwdrbc7rvioy"]
+[gd_scene load_steps=2 format=3 uid="uid://cmwdrbc7rvioy"]
 
-[node name="fighter_card" type="Control"]
+[ext_resource type="Script" path="res://card/fighter_card.gd" id="1_hg5ae"]
+
+[node name="fighter_card" type="Control" node_paths=PackedStringArray("types", "f_name", "base", "strength", "weakness", "team_name", "contract")]
 custom_minimum_size = Vector2(120, 160)
 layout_mode = 3
 anchor_left = -0.052
@@ -9,11 +11,28 @@ anchor_bottom = 0.247
 offset_left = -0.0960007
 offset_right = 0.0960007
 offset_bottom = -0.0559998
+script = ExtResource("1_hg5ae")
+types = NodePath("PanelContainer/card/MarginContainer/VBoxContainer/types")
+f_name = NodePath("PanelContainer/card/MarginContainer/VBoxContainer/name")
+base = NodePath("PanelContainer/card/MarginContainer/VBoxContainer/base")
+strength = NodePath("PanelContainer/card/MarginContainer/VBoxContainer/strength")
+weakness = NodePath("PanelContainer/card/MarginContainer/VBoxContainer/weakness")
+team_name = NodePath("PanelContainer/card/MarginContainer/VBoxContainer/HSplitContainer/team_name")
+contract = NodePath("PanelContainer/card/MarginContainer/VBoxContainer/HSplitContainer/contract")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
-offset_right = 120.0
-offset_bottom = 160.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -80.0
+offset_right = 60.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="card" type="ColorRect" parent="PanelContainer"]
 custom_minimum_size = Vector2(120, 160)
@@ -66,18 +85,18 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "(W) + 100"
 horizontal_alignment = 1
 
-[node name="HSplitContainer" type="HSplitContainer" parent="PanelContainer/card/MarginContainer/VBoxContainer"]
+[node name="HSplitContainer" type="HBoxContainer" parent="PanelContainer/card/MarginContainer/VBoxContainer"]
 layout_mode = 2
-collapsed = true
-dragger_visibility = 2
 
-[node name="name2" type="Label" parent="PanelContainer/card/MarginContainer/VBoxContainer/HSplitContainer"]
+[node name="team_name" type="Label" parent="PanelContainer/card/MarginContainer/VBoxContainer/HSplitContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Bl"
 
-[node name="name" type="Label" parent="PanelContainer/card/MarginContainer/VBoxContainer/HSplitContainer"]
+[node name="contract" type="Label" parent="PanelContainer/card/MarginContainer/VBoxContainer/HSplitContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "30 / 35"
 horizontal_alignment = 2

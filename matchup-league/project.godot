@@ -19,3 +19,4 @@ config/icon="res://icon.svg"
 
 SignalBus="*res://main/signal_bus.gd"
 Err="*res://main/error.gd"
+Main="*res://main/main.gd"

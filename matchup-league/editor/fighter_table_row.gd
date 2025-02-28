@@ -17,9 +17,9 @@ var teamID := -1
 
 func _enter_tree():
 	if (strType.item_count == 0):
-		for idx in main.Types.keys():
-			strType.add_item(main.Types[idx])
-			wkType.add_item(main.Types[idx])
+		for idx in Main.Types.keys():
+			strType.add_item(Main.Types[idx])
+			wkType.add_item(Main.Types[idx])
 			
 
 func openTeamList():
@@ -43,13 +43,13 @@ func save():
 	var data = {
 		"id": id.text,
 		"name": f_name.text.capitalize(),
-		"season": main.get_season(),
+		"season": Main.get_season(),
 		"level name": level.name,
 		"types": types.text.to_upper(),
 		"base": base.value,
-		"strType": main.Types[strType.selected],
+		"strType": Main.Types[strType.selected],
 		"strVal": strVal.value,
-		"wkType": main.Types[wkType.selected],
+		"wkType": Main.Types[wkType.selected],
 		"wkVal": wkVal.value,
 		"start season": startSeason.value,
 		"team ID": teamID
@@ -62,14 +62,14 @@ func save():
 	id.text = str(newID)
 
 func load(f : Fighter):
-	if (!level): level = main.getLevel("Prep")
+	if (!level): level = Main.getLevel("Prep")
 	id.text = str(f.id)
 	f_name.text = f.name
 	types.text = f.types
 	base.value = f.base
-	strType.selected = main.Types.find_key(f.strType)
+	strType.selected = Main.Types.find_key(f.strType)
 	strVal.value = f.strVal
-	wkType.selected = main.Types.find_key(f.wkType)
+	wkType.selected = Main.Types.find_key(f.wkType)
 	wkVal.value = f.wkVal
 	startSeason.value = f.startSeason
 	teamID = f.teamID

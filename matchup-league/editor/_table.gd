@@ -7,8 +7,8 @@ class_name Table extends Menu
 
 func _enter_tree():
 	#print("/ table")
-	scene_name = main.Scene.Editor
-	level = main.getLevel("Prep")
+	scene_name = Main.Scene.Editor
+	level = Main.getLevel("Prep")
 
 #returns index of current tab
 func getCurrentTab(): return tabContainer.current_tab

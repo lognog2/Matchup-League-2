@@ -35,9 +35,9 @@ func add_empty_row():
 	
 func save():
 	message.visible = true
-	for tr in table.get_children():
-		tr.save()
-	main.save_state(softSave.button_pressed)
+	for t_row in table.get_children():
+		t_row.save()
+	Main.save_state(softSave.button_pressed)
 	render()
 
 func updateMsg(msg = ""):
