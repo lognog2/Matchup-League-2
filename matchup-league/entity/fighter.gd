@@ -50,7 +50,7 @@ func types_str(type_arr = types) -> String:
 	if (!type_arr is Array): return ""
 	var type_str = ""
 	for type in type_arr:
-		type_str.append("(%s) " % type)
+		type_str = type_str + "(%s) " % type
 	return type_str
 
 

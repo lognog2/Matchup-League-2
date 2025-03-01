@@ -12,7 +12,7 @@ func _enter_tree():
 
 func render():
 	unload()
-	var dict = Main.getLevel("Prep").teamDict
+	var dict = Main.get_level("Prep").teamDict
 	for id in dict:
 		add_row(dict[id])
 		

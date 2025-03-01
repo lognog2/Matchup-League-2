@@ -19,7 +19,7 @@ func render_game(r: int, t: Team, ob: OptionButton):
 func signal_oppID(index: int):
 	var t_name = button.get_item_text(button.selected)
 	#print("signal oppID " + t_name)
-	var opp = Main.getEntity_byName(t_name, level.teamDict)
+	var opp = level.find_team(t_name)
 	if (!opp): #remove opponent
 		var old_opp = level.get_team(opponentID)
 		set_oppID(-1, true)

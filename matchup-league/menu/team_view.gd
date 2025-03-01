@@ -15,7 +15,7 @@ func render(t: Team):
 	team = t
 	name_label.text = team.name
 	fill_info(team.format_info())
-	fill_sched(team.sched)
+	fill_sched(team.schedule)
 	fill_fighters(team.fighters)
 
 func fill_info(info: Dictionary):
@@ -34,10 +34,10 @@ func fill_sched(sched: Dictionary):
 		new_label.text = "%d. vs %s" % [r, team.get_opponent_name(r)]
 		sched_box.add_child(new_label)
 
-func fill_fighters(fighters: Dictionary):
+func fill_fighters(fighters: Array):
 	var blank_fc = fc_box.get_child(0).duplicate()
 	fc_box.get_children().clear()
 	for f in fighters:
 		var new_fc = blank_fc.duplicate()
-		new_fc.render(fighters[f])
+		new_fc.render(f)
 		fc_box.add_child(new_fc)

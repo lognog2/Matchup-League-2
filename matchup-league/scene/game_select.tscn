@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://dvppr7ouy5k7o"]
+[gd_scene load_steps=5 format=3 uid="uid://dvppr7ouy5k7o"]
 
 [ext_resource type="Script" path="res://menu/game_select.gd" id="1_jb47k"]
 [ext_resource type="StyleBox" uid="uid://eelwpy4cx451" path="res://style/background.tres" id="1_t44ll"]
 [ext_resource type="PackedScene" uid="uid://6j5nmrwk6pbm" path="res://scene/team_view.tscn" id="1_yau5g"]
+[ext_resource type="Script" path="res://menu/game_select_team.gd" id="3_2iicl"]
 
-[node name="game_select" type="Control" node_paths=PackedStringArray("team_cont", "team_option")]
+[node name="game_select" type="Control" node_paths=PackedStringArray("team_cont")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,7 +14,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jb47k")
 team_cont = NodePath("PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont")
-team_option = NodePath("PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont/MarginContainer/HBoxContainer/OptionButton")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -46,9 +46,12 @@ text = "Back"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="team_cont" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row"]
+[node name="team_cont" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row" node_paths=PackedStringArray("team_option", "team_view")]
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("3_2iicl")
+team_option = NodePath("MarginContainer/HBoxContainer/OptionButton")
+team_view = NodePath("team_view")
 
 [node name="MarginContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont"]
 layout_mode = 2
@@ -61,7 +64,6 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="team_view" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont" instance=ExtResource("1_yau5g")]
-unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 

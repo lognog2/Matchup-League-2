@@ -62,7 +62,7 @@ func save():
 	id.text = str(newID)
 
 func load(f : Fighter):
-	if (!level): level = Main.getLevel("Prep")
+	if (!level): level = Main.get_level("Prep")
 	id.text = str(f.id)
 	f_name.text = f.name
 	types.text = f.types

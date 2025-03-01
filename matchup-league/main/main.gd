@@ -10,6 +10,15 @@ const MAX_MOD = 300
 
 const SCENE_PATH = "res://scene/"
 const MAX_SCENES = 3
+
+const VERSION_NUM = "2.0.1"
+var Edition = {
+	Dev = "Development",
+	Test = "Playtest",
+	Prod = ""
+}
+var version = VERSION_NUM + Edition.Dev
+
 var scene_arr = []
 var Scene = {
 	MainMenu = "main_menu",
@@ -61,7 +70,7 @@ func _process(delta: float):
 		elif (delta < 0.1): print ("* ", delta) # <30 fps
 		else: print("! ", delta) # <10 fps
 
-func getLevel(levelName): return Levels[levelName]
+func get_level(levelName): return Levels[levelName]
 	
 func get_season(): return season
 
@@ -82,6 +91,9 @@ func set_scene(sc: String):
 func emit_scene(sc: String = ""):
 	SignalBus.set_scene.emit(sc)
 
+func validate_name(n: String) -> bool:
+	return Main.Keyname.values().has(n)
+
 
 # save/load functions
 
@@ -94,12 +106,3 @@ func save_state(softSave = true):
 func load_state():
 	Levels["Prep"].load_data()
 	SignalBus.done_loading.emit()
-
-func getEntity_byName(entName: String, entDict: Dictionary) -> DataEntity:
-	if Keyname.values().has(entName): return null
-	for entID in entDict:
-		var entity = entDict[entID]
-		if entity.name == entName:
-			return entity
-	print("* entity with name " + entName + " not found")
-	return null

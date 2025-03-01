@@ -10,4 +10,4 @@ func set_level(lvl_name):
 	#print("/ set level")
 	if (!level): 
 		#print("/ true")
-		level = Main.getLevel(lvl_name)
+		level = Main.get_level(lvl_name)

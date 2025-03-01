@@ -17,11 +17,12 @@ var fighterDict = {}
 var teamDict = {}
 var gameDict = {}
 
-#selection filters
+## selection filters
 var Filter = {
 	Default = (func(_de): return true)
 }
 
+## sorting filters
 var Sort = {
 	Id = (func(a: DataEntity, b: DataEntity): 
 		return a.id < b.id),
@@ -94,6 +95,23 @@ func get_names(dict: Dictionary, filter = Filter.Default) -> Array:
 	validNames.sort()
 	return validNames
 
+func find_fighter(n: String): return find_entity(fighterDict, n)
+func find_team(n: String): return find_entity(teamDict, n)
+
+## returns first instance of name in dictionary
+func find_entity(dict: Dictionary, ent_name: String) -> DataEntity:
+	if (!Main.validate_name(ent_name)): return null
+	var matches = get_entities(dict, func (de): return de.name == ent_name)
+	if (matches.size() != 1):
+		return null
+	else:
+		return matches[0]
+
+func random_team(): return random_entity(teamDict)
+
+func random_entity(dict: Dictionary) -> DataEntity:
+	var id = randi() % dict.size()
+	return dict[id]
 
 # save/load from file
 # **be careful using breakpoints here**

@@ -14,6 +14,9 @@ func _ready():
 	pass
 
 func render(f: Fighter):
+	if (!f):
+		print("! no fighter")
+		return
 	types.text  = f.types_str()
 	f_name.text = f.name
 	base.text = str(f.base)
