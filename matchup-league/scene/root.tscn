@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://yj00mivvbeba"]
 
-[ext_resource type="Script" path="res://main/main.gd" id="1_dcj4l"]
+[ext_resource type="Script" path="res://menu/main_node.gd" id="1_m3hg5"]
 [ext_resource type="PackedScene" uid="uid://cqasb8jiiyqls" path="res://scene/main_menu.tscn" id="4_jsfq6"]
 
 [node name="main" type="Control"]
@@ -12,7 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource("1_dcj4l")
+script = ExtResource("1_m3hg5")
 
 [node name="main_menu" parent="." instance=ExtResource("4_jsfq6")]
 layout_mode = 1

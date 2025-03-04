@@ -6,11 +6,11 @@ var base
 var strType
 var strVal
 var wkType
-var wkVal #stored as positive
+var wkVal ##stored as positive
 
 #team vars
 var teamID = -1
-var team
+var team ## only edit using set_team
 var contract
 var retirement
 
@@ -22,21 +22,34 @@ var matchesPlayed
 var matchesWon
 
 func _init(data: Dictionary):
-	super(data)
-	types = types_arr(data["types"])
-	base = setBase(data["base"])
-	strType = data["strType"]
-	strVal = setMod(data["strVal"])
-	wkType = data["wkType"]
-	wkVal = setMod(data["wkVal"])
-	startSeason = data["start season"]
-	teamID = data["team ID"]
+	super(data, "F")
+	set_data(data, true)
 	
 func connect_objs():
 	if (teamID >= 0):
-		team = level.get_team(teamID)
-		team.add_fighter(self)
+		set_team(level.get_team(teamID))
 
+func set_data(data: Dictionary, init = false) -> Fighter:
+	if (!init): super(data)
+	types = types_arr(data.get("types", types))
+	base = setBase(data.get("base", base))
+	strType = data.get("strType", strType)
+	strVal = setMod(data.get("strVal", strVal))
+	wkType = data.get("wkType", wkType)
+	wkVal = setMod(data.get("wkVal", wkVal))
+	startSeason = data.get("start season", season)
+	teamID = data.get("team ID", teamID)
+	if (!init): set_team(level.get_team(teamID))
+	return self
+
+func set_team(t: Team):
+	if (t == team): 
+		return
+	team = t
+	teamID = team.id
+	team.add_fighter(self)
+
+## returns an array of types from a character string: ABC -> [A, B, C]
 func types_arr(type_str = types) -> Array:
 	if (!type_str is String): return []
 	var type_arr = []
@@ -46,11 +59,20 @@ func types_arr(type_str = types) -> Array:
 		type_arr.append(type_str[i])
 	return type_arr
 
+## returns each type's character as a string: ABC
 func types_str(type_arr = types) -> String:
 	if (!type_arr is Array): return ""
 	var type_str = ""
 	for type in type_arr:
-		type_str = type_str + "(%s) " % type
+		type_str += type
+	return type_str
+
+## returns a string of icons: (A)(B)(C)
+func types_icon(type_arr = types) -> String:
+	if (!type_arr is Array): return ""
+	var type_str = ""
+	for type in type_arr:
+		type_str += "(%s)" % type
 	return type_str
 
 
@@ -70,6 +92,7 @@ func setMod(new):
 
 #format functions
 
+## set param true for strength, false for weakness
 func mod_str(use_strength = true) -> String:
 	var type = ""
 	var pm = ""
@@ -90,7 +113,7 @@ func format_save() -> Dictionary:
 		"id": id,
 		"name": name,
 		"season": season,
-		"types": types,
+		"types": types_str(),
 		"base": base,
 		"strType": strType,
 		"strVal": strVal,

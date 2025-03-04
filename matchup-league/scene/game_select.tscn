@@ -79,4 +79,5 @@ theme_override_font_sizes/font_size = 30
 text = "Play"
 
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/top_row/Button" to="." method="_back"]
+[connection signal="item_selected" from="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont/MarginContainer/HBoxContainer/OptionButton" to="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont" method="_select"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/bottom_row/play" to="." method="_game"]

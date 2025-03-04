@@ -149,6 +149,7 @@ select_all_on_focus = true
 custom_minimum_size = Vector2(100, 20)
 layout_mode = 2
 placeholder_text = "types"
+max_length = 5
 select_all_on_focus = true
 
 [node name="base" type="SpinBox" parent="background/VBoxContainer/entity_edit/fighter_table/scroll box/table vbox/row"]

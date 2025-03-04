@@ -1,0 +1,13 @@
+entity relations stored as objects while game is running, when saving to file save the id only
+entities save the higher relation in hierarchy
+- level
+- league 
+- team
+- player
+- game
+- fighter
+
+
+to do:
+- editor faster loading
+- make verison footer always visible

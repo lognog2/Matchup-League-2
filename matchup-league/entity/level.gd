@@ -80,7 +80,6 @@ func get_entities(dict: Dictionary, select_filter = Filter.Default, sort_filter 
 	if (sort_filter): validEntities.sort_custom(sort_filter)
 	return validEntities
 
-
 func get_f_names(filter = Filter.Default) -> Array: 
 	return get_names(fighterDict, filter)
 
@@ -119,10 +118,14 @@ func random_entity(dict: Dictionary) -> DataEntity:
 func addNewFighter(data: Dictionary) -> int:
 	data["id"] = f_lastID
 	f_lastID += 1
-	return set_fighter(data)
+	return set_fighter(data, true)
 
-func set_fighter(data: Dictionary) -> int:
-	var fighter = Fighter.new(data)
+func set_fighter(data: Dictionary, init = false) -> int:
+	var fighter: Fighter
+	if (init):
+		fighter = fighterDict.get(data["id"]).set_data(data)
+		return fighter.id
+	fighter = Fighter.new(data)
 	if (fighter.id >= f_lastID): 
 		f_lastID = fighter.id + 1
 	fighterDict[fighter.id] = fighter

@@ -13,15 +13,37 @@ const no_id = "-1"
 @export var team: OptionButton
 @export var startSeason: SpinBox
 
-var teamID := -1
+var teamID = -1
+var fighter: Fighter
 
 func _enter_tree():
-	if (strType.item_count == 0):
-		for idx in Main.Types.keys():
-			strType.add_item(Main.Types[idx])
-			wkType.add_item(Main.Types[idx])
-			
+	pass
 
+func render_row(f : Fighter):
+	fighter = f
+	fill_mod_obs()
+	if (!level): level = Main.get_level("Prep")
+	id.text = str(f.id)
+	f_name.text = f.name
+	types.text = f.types_str()
+	base.value = f.base
+	strType.selected = find_item_idx(strType, Main.Types.find_key(f.strType))
+	strVal.value = f.strVal
+	wkType.selected = find_item_idx(wkType, Main.Types.find_key(f.wkType))
+	wkVal.value = f.wkVal
+	startSeason.value = f.startSeason
+	teamID = f.teamID
+	setTeam()
+
+##fill option buttons for strength and weakness types
+func fill_mod_obs():
+	if (strType.item_count == 0):
+		for i in range (Main.Types.size()):
+			var type_name = Main.Types.keys()[i]
+			strType.add_item(type_name)
+			wkType.add_item(type_name)
+	
+			
 func openTeamList():
 	team.clear()
 	for i in level.teamDict:
@@ -37,6 +59,13 @@ func setTeam():
 		team.add_item(level.teamDict[teamID].name)
 		team.selected = 0
 
+## returns index of text in option button, or -1 if not found
+func find_item_idx(ob: OptionButton, find: String) -> int:
+	for i in range(ob.item_count):
+		if (find == ob.get_item_text(i)):
+			return i
+	return -1
+
 func save():
 	if (id.text == ""): id.text = no_id
 	if (f_name.text == ""): return
@@ -45,32 +74,17 @@ func save():
 		"name": f_name.text.capitalize(),
 		"season": Main.get_season(),
 		"level name": level.name,
-		"types": types.text.to_upper(),
+		"types": types.text,
 		"base": base.value,
-		"strType": Main.Types[strType.selected],
+		"strType": Main.Types[strType.get_item_text(strType.selected)],
 		"strVal": strVal.value,
-		"wkType": Main.Types[wkType.selected],
+		"wkType": Main.Types[wkType.get_item_text(wkType.selected)],
 		"wkVal": wkVal.value,
 		"start season": startSeason.value,
 		"team ID": teamID
 	}
-	var newID
 	if (id.text == no_id):
-		newID = level.addNewFighter(data)
+		level.addNewFighter(data) 
+		#id.text = str(newID)
 	else:
-		newID = level.set_fighter(data)
-	id.text = str(newID)
-
-func load(f : Fighter):
-	if (!level): level = Main.get_level("Prep")
-	id.text = str(f.id)
-	f_name.text = f.name
-	types.text = f.types
-	base.value = f.base
-	strType.selected = Main.Types.find_key(f.strType)
-	strVal.value = f.strVal
-	wkType.selected = Main.Types.find_key(f.wkType)
-	wkVal.value = f.wkVal
-	startSeason.value = f.startSeason
-	teamID = f.teamID
-	setTeam()
+		level.set_fighter(data)

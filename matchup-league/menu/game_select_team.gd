@@ -17,7 +17,7 @@ func render(t: Team = null):
 	for t_name in team.level.get_t_names():
 		team_option.add_item(t_name)
 		if (t_name == team.name):
-			select = team_option.item_count
+			select = team_option.item_count - 1
 	team_option.selected = select
 	team_view.render(team)
 

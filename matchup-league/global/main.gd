@@ -1,7 +1,7 @@
 extends Control
 
 var season: int
-
+var main_node: Control
 const MAX_TYPES = 5
 const MIN_BASE = 500
 const MAX_BASE = 10000
@@ -17,7 +17,7 @@ var Edition = {
 	Test = "Playtest",
 	Prod = ""
 }
-var version = VERSION_NUM + Edition.Dev
+var version = VERSION_NUM + " " + Edition.Dev
 
 var scene_arr = []
 var Scene = {
@@ -28,18 +28,25 @@ var Scene = {
 }
 
 var Types = {
-	0: "M",
-	1: "R",
-	2: "E",
-	3: "F",
-	4: "W",
-	5: "L",
-	6: "A",
-	7: "G",
-	8: "C",
-	9: "I",
-	10: "S",
-	11: "V"
+	Melee = "M",
+	Ranged = "R", 
+	Explosive = "E", 
+	Fire = "F", 
+	Water = "W", 
+	Electric = "L",
+	Aerial = "A",
+	Magic = "G",
+	Mechanical = "C",
+	Ice = "I",
+	Star = "S",
+	Evil = "V"
+}
+
+## types that are out of circulation
+var LegacyTypes = {
+	Day = "D",
+	Night = "N",
+	Series = "P"
 }
 
 var Levels = {
@@ -53,27 +60,32 @@ var Levels = {
 var Keyname = {
 	Remove = "[Remove]",
 	Bye = "[Bye]",
+	ByePlain = "Bye",
 	Empty = ""
 }
 
 func _ready():
 	SignalBus.set_scene.connect(set_scene)
-	get_children().clear()
-	set_scene(Scene.MainMenu)
 	season = 29
 	load_state()
 
 func _process(delta: float):
 	#report lag
 	if (delta > 0.0167):
-		if (delta < 0.0333): print("  ", delta) # <60 fps
-		elif (delta < 0.1): print ("* ", delta) # <30 fps
-		else: print("! ", delta) # <10 fps
+		if (delta < 0.0333): print("  %.3f" %delta) # <60 fps
+		elif (delta < 0.1): print ("* %.3f" %delta) # <30 fps
+		else: print("! %.3f" %delta) # <10 fps
 
 func get_level(levelName): return Levels[levelName]
 	
 func get_season(): return season
 
+#convenience functions
+
+## calls `queue_free()` on each child of this node
+func remove_children(node: Node):
+	for child in node.get_children():
+		child.queue_free()
 
 # scene functions
 
@@ -81,19 +93,18 @@ func set_scene(sc: String):
 	if (sc):
 		scene_arr.append(sc)
 		var new_scene = load(SCENE_PATH + sc + ".tscn")
-		add_child(new_scene.instantiate())
+		main_node.add_child(new_scene.instantiate())
 		if (get_child_count() > 1): get_child(-2).visible = false
 	elif(scene_arr.size() > 1):
 		scene_arr.pop_back()
-		get_child(-1).queue_free()
-		get_child(-1).visible = true
+		main_node.get_child(-1).queue_free()
+		main_node.get_child(-1).visible = true
 	
 func emit_scene(sc: String = ""):
 	SignalBus.set_scene.emit(sc)
 
 func validate_name(n: String) -> bool:
-	return Main.Keyname.values().has(n)
-
+	return !Main.Keyname.values().has(n)
 
 # save/load functions
 

@@ -27,7 +27,7 @@ func add_row(fighter: Fighter = null):
 	table.add_child(newRow)
 	newRow.visible = true
 	if (fighter):
-		newRow.load(fighter)
+		newRow.render_row(fighter)
 
 func add_empty_row():
 	message.visible = false

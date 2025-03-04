@@ -5,19 +5,18 @@ var teams = [null, null]
 var teamIDs = [-1, -1]
 var score = [0, 0]
 var result = null
-var db_name = "game "
 
 func _init(data: Dictionary):
-	super(data)
+	super(data, "G")
 	set_data(data, true)
 	
-func set_data(data, init = false):
+func set_data(data: Dictionary, init = false) -> Game:
 	if (!init): super(data)
 	rnd = data.get("round", rnd)
-	teamIDs = [data.get("team1", teamIDs[0]), data.get("team2", teamIDs)]
+	teamIDs = [data.get("team1", teamIDs[0]), data.get("team2", teamIDs[1])]
 	score = data.get("score", score)
 	result = data.get("result", result)
-	db_name += str(id)
+	return self
 
 func connect_objs():
 	var new_teams = [level.get_team(teamIDs[0]), level.get_team(teamIDs[1])]
@@ -41,17 +40,19 @@ func set_teams(tms: Array):
 
 func set_team(i: int, t: Team):
 	if (teams[i]): teams[i].remove_game(rnd)
+	teams[i] = t
 	if (t): 
-		t.add_game(self)
 		teamIDs[i] = t.id
+		t.add_game(self)
 	else:
 		teamIDs[i] = -1
-	teams[i] = t
+		t.add_game(null)
+	
 
 func get_opponent(t: Team) -> Team:
 	if t == teams[0]: return teams[1]
 	elif t == teams[1]: return teams[0]
-	print("* %s is not in game " % t.name, id)
+	print("* %s is not in game " % t.id_str, id_str)
 	return null
 
 func has_team(t: Team): return teams.has(t)
@@ -84,5 +85,5 @@ func verify() -> bool:
 	elif (rnd <= 0):
 		exit = -5
 	if (exit < 0):
-		OS.alert("Integrity of %s could not be verified" % db_name, "Error " + str(exit))
+		OS.alert("Integrity of %s could not be verified" % id_str, "Error " + str(exit))
 	return exit == 1

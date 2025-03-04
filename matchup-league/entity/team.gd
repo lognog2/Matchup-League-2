@@ -7,21 +7,33 @@ var won = 0
 var lost = 0
 
 func _init(data: Dictionary):
-	super(data)
+	super(data, "T")
+	set_data(data, true)
+
+func connect_objs():
+	pass
+
+func set_data(data: Dictionary, init = false) -> Team:
+	if (!init): super(data)
 	color = data.get("color", color)
 	if (!data.get("schedule")): return
 	for r_str in data["schedule"]:
 		var r = int(r_str)
 		schedule[r] = data["schedule"][r_str]
-
-func connect_objs():
-	pass
+	return self
 
 func add_fighter(f: Fighter):
-	fighters.append(f)
+	if (fighters.has(f)): return
+	if (f.team != self):
+		f.set_team(self)
+	else:
+		fighters.append(f)
 
 func add_game(g: Game):
-	schedule[g.rnd] = g
+	if (!g.teams.has(self)):
+		g.add_team(self)
+	else:
+		schedule[g.rnd] = g
 
 func remove_game(r: int):
 	schedule[r] = null
@@ -35,10 +47,7 @@ func get_opponent(r: int) -> Team:
 
 func get_opponent_name(r:int) -> String:
 	var opp = get_opponent(r)
-	if (opp):
-		return get_opponent(r).name
-	else:
-		return Main.Keyname.Bye
+	return opp.name if (opp) else Main.Keyname.Bye
 
 func has_game(r: int) -> bool:
 	return get_opponent(r) != null
