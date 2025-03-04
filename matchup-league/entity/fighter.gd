@@ -28,6 +28,7 @@ func _init(data: Dictionary):
 func connect_objs():
 	if (teamID >= 0):
 		set_team(level.get_team(teamID))
+		set_series(team.series)
 
 func set_data(data: Dictionary, init = false) -> Fighter:
 	if (!init): super(data)

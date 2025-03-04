@@ -11,6 +11,8 @@ const MAX_MOD = 300
 const SCENE_PATH = "res://scene/"
 const MAX_SCENES = 3
 
+const DEFAULT_SERIES = "Original"
+
 const VERSION_NUM = "2.0.1"
 var Edition = {
 	Dev = "Development",
@@ -61,6 +63,7 @@ var Keyname = {
 	Remove = "[Remove]",
 	Bye = "[Bye]",
 	ByePlain = "Bye",
+	Custom = "[Custom]",
 	Empty = ""
 }
 
@@ -79,13 +82,6 @@ func _process(delta: float):
 func get_level(levelName): return Levels[levelName]
 	
 func get_season(): return season
-
-#convenience functions
-
-## calls `queue_free()` on each child of this node
-func remove_children(node: Node):
-	for child in node.get_children():
-		child.queue_free()
 
 # scene functions
 

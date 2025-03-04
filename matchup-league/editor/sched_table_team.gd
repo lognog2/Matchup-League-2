@@ -24,7 +24,7 @@ func set_game(r: int, opp: Team):
 func set_team(t: Team):
 	team = t
 	name_label.text = t.name
-	self.color = Color.hex(t.color)
+	self.color = t.color
 	level = t.level
 	for i in range(1, numGames + 1):
 		var newGame = blank_game.duplicate()

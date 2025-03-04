@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://menu/team_view.gd" id="1_2o8iy"]
 [ext_resource type="PackedScene" uid="uid://cmwdrbc7rvioy" path="res://scene/fighter_card.tscn" id="1_4jwe8"]
 
-[node name="team_view" type="Control" node_paths=PackedStringArray("name_label", "info_box", "sched_box", "fc_box")]
+[node name="team_view" type="Control" node_paths=PackedStringArray("name_label", "info_box", "sched_box", "fc_box", "color_rect")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,6 +15,7 @@ name_label = NodePath("PanelContainer/ColorRect/MarginContainer/VBoxContainer/Ma
 info_box = NodePath("PanelContainer/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/info")
 sched_box = NodePath("PanelContainer/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/schedule")
 fc_box = NodePath("PanelContainer/ColorRect/MarginContainer/VBoxContainer/fighter_card_box")
+color_rect = NodePath("PanelContainer/ColorRect")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1

@@ -77,13 +77,15 @@ func format_save() -> Dictionary:
 	}, true)
 	return data
 
+# test functions
+
 func verify() -> bool:
-	var exit = 1
+	var exit = Err.Success.Success
 	if (is_bye()): return true
 	if (teams[0].id != teamIDs[0] || teams[1].id != teamIDs[1]):
-		exit = 5
+		exit = Err.Fatal.Conflict
 	elif (rnd <= 0):
-		exit = -5
+		exit = Err.Fatal.Conflict
 	if (exit < 0):
-		OS.alert("Integrity of %s could not be verified" % id_str, "Error " + str(exit))
-	return exit == 1
+		Err.alert_fatal("Integrity of %s could not be verified" % id_str, exit)
+	return exit == Err.Success.Success

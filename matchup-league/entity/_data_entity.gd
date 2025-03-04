@@ -5,6 +5,7 @@ var id_str: String
 var name: String
 var season: int
 var level: Level
+var series: String
 
 func _init(data: Dictionary, initial = "DE"):
 	SignalBus.done_loading.connect(connect_objs)
@@ -16,6 +17,7 @@ func set_data(data: Dictionary) -> DataEntity:
 	name = data.get("name", name)
 	season = data.get("season", season)
 	set_level("Prep") #idc anymore
+	set_series(data.get("series", series))
 	return self
 
 func set_id_str(initial: String):
@@ -25,6 +27,12 @@ func get_level_name(): return level.name
 
 func set_level(level_name: String):
 	level = Main.Levels[level_name]
+
+func set_series(sr: String = Main.DEFAULT_SERIES):
+	if (!sr):
+		set_series()
+	else:
+		series = sr
 
 ## called after all entities done loading to set references to other entities
 func connect_objs():
