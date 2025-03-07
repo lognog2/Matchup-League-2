@@ -1,4 +1,4 @@
-extends Control
+extends Menu
 
 func _ready():
 	Main.main_node = self

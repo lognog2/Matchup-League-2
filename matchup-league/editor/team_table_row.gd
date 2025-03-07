@@ -23,12 +23,12 @@ func save():
 		"schedule": team.schedule if (team.schedule) else {},
 		"series": series.text
 	}
-	var newID
+	var newTeam
 	if (id.text == no_id):
-		newID = level.add_team(data)
+		newTeam = level.add_team(data)
 	else:
-		newID = level.set_team(data)
-	id.text = str(newID)
+		newTeam = level.set_team(data)
+	id.text = str(newTeam.id)
 
 func load(t: Team):
 	team = t
@@ -36,3 +36,4 @@ func load(t: Team):
 	t_name.text = t.name
 	color.color = t.color
 	level = t.level
+	series.text = t.series

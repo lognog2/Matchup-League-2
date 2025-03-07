@@ -12,9 +12,9 @@ func _enter_tree():
 
 func render():
 	unload()
-	var dict = Main.get_level("Prep").teamDict
-	for id in dict:
-		add_row(dict[id])
+	set_level()
+	for t in level.get_teams():
+		add_row(t)
 		
 func unload():
 	for child in table.get_children():

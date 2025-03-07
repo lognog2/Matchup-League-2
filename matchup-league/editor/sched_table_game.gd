@@ -12,7 +12,7 @@ func render_game(r: int, t: Team, ob: OptionButton):
 	gameRound = r
 	team = t
 	button = ob
-	set_level("Prep")
+	set_level()
 	if (t.has_game(r)): 
 		set_oppID(t.get_opponent(r).id, false)
 

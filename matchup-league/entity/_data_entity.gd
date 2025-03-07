@@ -7,12 +7,14 @@ var season: int
 var level: Level
 var series: String
 
-func _init(data: Dictionary, initial = "DE"):
+func _init(data = {}, initial = "DE"):
 	SignalBus.done_loading.connect(connect_objs)
+	if (data == {}): return
 	set_data(data)
 	set_id_str(initial)
 
-func set_data(data: Dictionary) -> DataEntity:
+func set_data(data: Dictionary, _on_init = false) -> DataEntity:
+	if (data == {}): return self
 	id = int(data.get("id", id))
 	name = data.get("name", name)
 	season = data.get("season", season)
@@ -23,7 +25,8 @@ func set_data(data: Dictionary) -> DataEntity:
 func set_id_str(initial: String):
 	id_str = initial + str(id)
 
-func get_level_name(): return level.name
+func get_level_name() -> String: 
+	return level.name
 
 func set_level(level_name: String):
 	level = Main.Levels[level_name]
@@ -38,8 +41,14 @@ func set_series(sr: String = Main.DEFAULT_SERIES):
 func connect_objs():
 	pass
 
+func is_archive() -> bool:
+	return level.is_archive()
+
 func format_save() -> Dictionary:
-	return {
+	var data = {
 		"id": id,
 		"name": name,
 	}
+	if (level.is_archive()) :
+		data.merge({"season" = season}, true)
+	return data

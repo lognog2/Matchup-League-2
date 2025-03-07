@@ -1,48 +1,48 @@
-{"color":2164984831,"id":0,"name":"First Party","season":29}
-{"color":3059159551,"id":1,"name":"Bikini Bottom","season":29}
-{"color":925935359,"id":2,"name":"New New York","season":29}
-{"color":1577951743,"id":3,"name":"Tri-State Area","season":29}
-{"color":156764159,"id":4,"name":"South Park","season":29}
-{"color":3297972991,"id":5,"name":"Yasogami","season":29}
-{"color":194843903,"id":6,"name":"Albuquerque","season":29}
-{"color":3335524095,"id":7,"name":"Panem","season":29}
-{"color":310106367,"id":8,"name":"Pixar","season":29}
-{"color":3524278783,"id":9,"name":"Coruscant","season":29}
-{"color":1616929023,"id":10,"name":"Marvel","season":29}
-{"color":404232447,"id":11,"name":"Tokyo-3","season":29}
-{"color":158336511,"id":12,"name":"Hunter Assoc.","season":29}
-{"color":2667831039,"id":13,"name":"Salt","season":29}
-{"color":194271231,"id":14,"name":"Paradis","season":29}
-{"color":76746239,"id":15,"name":"Amestris","season":29}
-{"color":1779148287,"id":16,"name":"Jujutsu Tech","season":29}
-{"color":956301567,"id":17,"name":"Hope's Peak","season":29}
-{"color":134253567,"id":18,"name":"Mann Co.","season":29}
-{"color":3667265535,"id":19,"name":"Whateverland","season":29}
-{"color":21609215,"id":20,"name":"Ulysses","season":29}
-{"color":3227717887,"id":21,"name":"Burlington","season":29}
-{"color":3850767871,"id":22,"name":"Overwatch","season":29}
-{"color":3464566015,"id":23,"name":"Clash of Clans","season":29}
-{"color":2024344575,"id":24,"name":"Builder Base","season":29}
-{"color":255,"id":25,"name":"Unova","season":29}
-{"color":4061336575,"id":26,"name":"Johto","season":29}
-{"color":3223650303,"id":27,"name":"Sinnoh","season":29}
-{"color":1443019775,"id":28,"name":"Steel","season":29}
-{"color":865740287,"id":29,"name":"Eden Academy","season":29}
-{"color":3876506367,"id":30,"name":"Morioh","season":29}
-{"color":1347440895,"id":31,"name":"Ruhenheim","season":29}
-{"color":1502450943,"id":32,"name":"Ashford","season":29}
-{"color":193388799,"id":33,"name":"Hoenn","season":29}
-{"color":4103346687,"id":34,"name":"Kanto","season":29}
-{"color":1409648127,"id":35,"name":"Henry Stickmin","season":29}
-{"color":4213384191,"id":36,"name":"Nyquist","season":29}
-{"color":2939105279,"id":37,"name":"Mojang","season":29}
-{"color":1294469887,"id":38,"name":"Salem","season":29}
-{"color":2550137087,"id":39,"name":"Clash Royale","season":29}
-{"color":402701567,"id":40,"name":"Monkey City","season":29}
-{"color":4222160383,"id":41,"name":"Public Safety","season":29}
-{"color":14213887,"id":42,"name":"Geometry Dash","season":29}
-{"color":4293990655,"id":43,"name":"Gold Island","season":29}
-{"color":108952575,"id":44,"name":"Vocaloid","season":29}
-{"color":1784409087,"id":45,"name":"Ishigami","season":29}
-{"color":878102783,"id":46,"name":"Piltover","season":29}
-{"color":906518783,"id":47,"name":"Zaun","season":29}
+{"color":2164984831,"id":0,"name":"First Party","season":29,"series":"Nintendo"}
+{"color":3059159551,"id":1,"name":"Bikini Bottom","season":29,"series":"Spongebob"}
+{"color":925935359,"id":2,"name":"New New York","season":29,"series":"Futurama"}
+{"color":1577951743,"id":3,"name":"Tri-State Area","season":29,"series":"Phineas & Ferb"}
+{"color":156764159,"id":4,"name":"South Park","season":29,"series":"South Park"}
+{"color":3297972991,"id":5,"name":"Yasogami","season":29,"series":"Persona"}
+{"color":194843903,"id":6,"name":"Albuquerque","season":29,"series":"Breaking Bad"}
+{"color":3335524095,"id":7,"name":"Panem","season":29,"series":"Hunger Games"}
+{"color":310106367,"id":8,"name":"Pixar","season":29,"series":"Pixar"}
+{"color":3524278783,"id":9,"name":"Coruscant","season":29,"series":"Star Wars"}
+{"color":1616929023,"id":10,"name":"Marvel","season":29,"series":"Marvel"}
+{"color":404232447,"id":11,"name":"Tokyo-3","season":29,"series":"Evangelion"}
+{"color":158336511,"id":12,"name":"Hunter Assoc.","season":29,"series":"Hunter x Hunter"}
+{"color":2667831039,"id":13,"name":"Salt","season":29,"series":"Mob Psycho"}
+{"color":194271231,"id":14,"name":"Paradis","season":29,"series":"Attack on Titan"}
+{"color":76746239,"id":15,"name":"Amestris","season":29,"series":"Fullmetal Alchemist"}
+{"color":1779148287,"id":16,"name":"Jujutsu Tech","season":29,"series":"Jujutsu Kaisen"}
+{"color":956301567,"id":17,"name":"Hope's Peak","season":29,"series":"Danganronpa"}
+{"color":134253567,"id":18,"name":"Mann Co.","season":29,"series":"Team Fortress"}
+{"color":3667265535,"id":19,"name":"Whateverland","season":29,"series":"QFW"}
+{"color":21609215,"id":20,"name":"Ulysses","season":29,"series":"Original"}
+{"color":3227717887,"id":21,"name":"Burlington","season":29,"series":"S-Form"}
+{"color":3850767871,"id":22,"name":"Overwatch","season":29,"series":"Overwatch"}
+{"color":3464566015,"id":23,"name":"Clash of Clans","season":29,"series":"Supercell"}
+{"color":2024344575,"id":24,"name":"Builder Base","season":29,"series":"Supercell"}
+{"color":255,"id":25,"name":"Unova","season":29,"series":"Pokemon"}
+{"color":4061336575,"id":26,"name":"Johto","season":29,"series":"Pokemon"}
+{"color":3223650303,"id":27,"name":"Sinnoh","season":29,"series":"Pokemon"}
+{"color":1443019775,"id":28,"name":"Steel","season":29,"series":"Original"}
+{"color":865740287,"id":29,"name":"Eden Academy","season":29,"series":"Spy x Family"}
+{"color":3876506367,"id":30,"name":"Morioh","season":29,"series":"Jojo's Bizzare Adventure"}
+{"color":1347440895,"id":31,"name":"Ruhenheim","season":29,"series":"Monster"}
+{"color":1502450943,"id":32,"name":"Ashford","season":29,"series":"Code Geass"}
+{"color":193388799,"id":33,"name":"Hoenn","season":29,"series":"Pokemon"}
+{"color":4103346687,"id":34,"name":"Kanto","season":29,"series":"Pokemon"}
+{"color":1409648127,"id":35,"name":"Henry Stickmin","season":29,"series":"Henry Stickmin"}
+{"color":4213384191,"id":36,"name":"Nyquist","season":29,"series":"Original"}
+{"color":2939105279,"id":37,"name":"Mojang","season":29,"series":"Minecraft"}
+{"color":1294469887,"id":38,"name":"Salem","season":29,"series":"Town of Salem"}
+{"color":2550137087,"id":39,"name":"Clash Royale","season":29,"series":"Supercell"}
+{"color":402701567,"id":40,"name":"Monkey City","season":29,"series":"Bloons Tower Defense"}
+{"color":4222160383,"id":41,"name":"Public Safety","season":29,"series":"Chainsaw Man"}
+{"color":14213887,"id":42,"name":"Geometry Dash","season":29,"series":"Geometry Dash"}
+{"color":4293990655,"id":43,"name":"Gold Island","season":29,"series":"My Singing Monsters"}
+{"color":108952575,"id":44,"name":"Vocaloid","season":29,"series":"Vocaloid"}
+{"color":1784409087,"id":45,"name":"Ishigami","season":29,"series":"Dr. Stone"}
+{"color":878102783,"id":46,"name":"Piltover","season":29,"series":"Arcane"}
+{"color":906518783,"id":47,"name":"Zaun","season":29,"series":"Arcane"}

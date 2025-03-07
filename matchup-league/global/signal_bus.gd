@@ -5,7 +5,8 @@ signal done_loading()
 
 signal set_scene(scene_name: String)
 
-signal do_game(t1: Team, t2: Team)
+signal to_game_select(t1: Team, t2: Team)
+signal play_game(g: Game)
 
 #open/close editor tables
 signal open_table()

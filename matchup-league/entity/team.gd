@@ -6,7 +6,7 @@ var color: Color ## stored as `Color` in game, int in save
 var won = 0
 var lost = 0
 
-func _init(data: Dictionary):
+func _init(data = {}):
 	super(data, "T")
 	set_data(data, true)
 
@@ -15,6 +15,7 @@ func connect_objs():
 
 func set_data(data: Dictionary, init = false) -> Team:
 	if (!init): super(data)
+	if (data == {}): return self
 	set_color(data.get("color", color))
 	if (!data.get("schedule")): return self
 	for r_str in data["schedule"]:
@@ -63,7 +64,7 @@ func set_color(col):
 	elif (col is Color):
 		color = col
 	else:
-		Err.alert_fatal("Invalid color in %s" % id_str, Err.Fatal.Runtime)
+		Err.alert_fatal("Invalid color type in %s" % id_str, Err.Fatal.Runtime)
 	
 # format functions
 

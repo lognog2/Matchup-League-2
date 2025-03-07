@@ -6,14 +6,15 @@ var teamIDs = [-1, -1]
 var score = [0, 0]
 var result = null
 
-func _init(data: Dictionary):
+func _init(data = {}):
 	super(data, "G")
 	set_data(data, true)
 	
 func set_data(data: Dictionary, init = false) -> Game:
 	if (!init): super(data)
+	if (data == {}): return self
 	rnd = data.get("round", rnd)
-	teamIDs = [data.get("team1", teamIDs[0]), data.get("team2", teamIDs[1])]
+	teamIDs = [data.get("team1id", teamIDs[0]), data.get("team2id", teamIDs[1])]
 	score = data.get("score", score)
 	result = data.get("result", result)
 	return self
@@ -55,11 +56,16 @@ func get_opponent(t: Team) -> Team:
 	print("* %s is not in game " % t.id_str, id_str)
 	return null
 
-func has_team(t: Team): return teams.has(t)
+func has_team(t: Team) -> bool: 
+	return teams.has(t)
 
-func has_team_id(s_id: int): return teamIDs.has(s_id)
+func has_team_id(s_id: int) -> bool:
+	return teamIDs.has(s_id)
 
-func is_bye():
+func is_official() -> bool:
+	return rnd > 0
+
+func is_bye() -> bool:
 	return !teams[0] || !teams[1]
 
 func finished(): return (result)
@@ -70,8 +76,8 @@ func format_save() -> Dictionary:
 	data.erase("name")
 	data.merge({
 		"round": rnd,
-		"team1": teamIDs[0],
-		"team2": teamIDs[1],
+		"team1id": teamIDs[0],
+		"team2id": teamIDs[1],
 		"score": score,
 		"result": result
 	}, true)

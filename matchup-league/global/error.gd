@@ -3,6 +3,7 @@ extends Node
 ## did not cpmplete
 var Fatal = {
 	Debug = -99, #placeholder for debugging
+	Invalid = -6, #attempted to do action with incompatible data
 	Conflict = -5, #data conflict
 	ReadWrite = -4, #error when interacting with files
 	Insufficient = -3, #not enough data to complete
@@ -40,7 +41,7 @@ func print_warn(msg = "", code = Warn.Debug):
 	print("* Warning %d: " % code, msg)
 
 func print_success(msg = "", code = Success.Debug):
-	print("* Success %d: " % code, msg)
+	print("  Success %d: " % code, msg)
 
 func alert(msg = "", title = ""):
 	OS.alert(msg, title)

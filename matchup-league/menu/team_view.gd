@@ -9,10 +9,9 @@ extends Menu
 var team: Team
 
 func _ready():
-	pass
+	scene_name = Main.Scene.TeamView
 	
 func render(t: Team):
-	scene_name = Main.Scene.TeamView
 	team = t
 	name_label.text = team.name
 	color_rect.color = team.color

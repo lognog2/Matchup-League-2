@@ -6,17 +6,15 @@ extends Table
 @export var softSave: CheckBox
 
 func _enter_tree():
-	#print("/ fighter table")
 	message.visible = false
 	row.visible = false
 	render()
 
 func render():
 	unload()
-	set_level("Prep")
-	var dict = level.fighterDict
-	for id in dict:
-		add_row(dict[id])
+	set_level()
+	for f in level.get_fighters():
+		add_row(f)
 
 func unload():
 	for child in table.get_children():

@@ -46,8 +46,8 @@ func fill_mod_obs():
 			
 func openTeamList():
 	team.clear()
-	for i in level.teamDict:
-		team.add_item(level.teamDict[i].name)
+	for t in level.get_t_names():
+		team.add_item(t)
 
 func closeTeamList():
 	teamID = team.selected
@@ -56,7 +56,7 @@ func closeTeamList():
 func setTeam():
 	team.clear()
 	if (teamID > -1):
-		team.add_item(level.teamDict[teamID].name)
+		team.add_item(level.get_team(teamID).name)
 		team.selected = 0
 
 ## returns index of text in option button, or -1 if not found
@@ -84,7 +84,7 @@ func save():
 		"team ID": teamID
 	}
 	if (id.text == no_id):
-		level.addNewFighter(data) 
+		level.add_fighter(data) 
 		#id.text = str(newID)
 	else:
 		level.set_fighter(data)

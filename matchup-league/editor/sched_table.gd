@@ -15,7 +15,7 @@ func _enter_tree():
 	message.visible = false
 	blank_row.visible = false
 	blank_team_pane.visible = false
-	set_level("Prep")
+	set_level()
 	render()
 
 func render():

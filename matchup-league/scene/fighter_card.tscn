@@ -59,13 +59,16 @@ alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "(R) (S)"
-horizontal_alignment = 1
 
 [node name="name" type="Label" parent="PanelContainer/card/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 6
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Fighter"
 horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+ellipsis_char = "."
 
 [node name="base" type="Label" parent="PanelContainer/card/MarginContainer/VBoxContainer"]
 layout_mode = 2

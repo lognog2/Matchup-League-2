@@ -4,10 +4,7 @@ var level: Level
 var scene_name: String
 
 func _enter_tree():
-	set_level("Prep")
+	set_level()
 
-func set_level(lvl_name):
-	#print("/ set level")
-	if (!level): 
-		#print("/ true")
-		level = Main.get_level(lvl_name)
+func set_level(lvl: Level = Main.Levels.Prep):
+	level = lvl

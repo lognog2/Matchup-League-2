@@ -21,7 +21,7 @@ var potential
 var matchesPlayed
 var matchesWon
 
-func _init(data: Dictionary):
+func _init(data = {}):
 	super(data, "F")
 	set_data(data, true)
 	
@@ -32,6 +32,7 @@ func connect_objs():
 
 func set_data(data: Dictionary, init = false) -> Fighter:
 	if (!init): super(data)
+	if (data == {}): return self
 	types = types_arr(data.get("types", types))
 	base = setBase(data.get("base", base))
 	strType = data.get("strType", strType)

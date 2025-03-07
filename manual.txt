@@ -9,5 +9,8 @@ entities save the higher relation in hierarchy
 
 
 to do:
-- editor faster loading
+- freeplay
+    - random, cpu buttons
 - make verison footer always visible
+- editor faster loading
+- save state at end of game
