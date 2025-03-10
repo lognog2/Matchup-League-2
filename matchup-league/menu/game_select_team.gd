@@ -2,6 +2,7 @@ extends VBoxContainer
 
 @export var team_option: OptionButton
 @export var team_view: Control
+@export var cpu_check: CheckButton
 
 var team: Team
 
@@ -9,8 +10,9 @@ func _ready():
 	pass
 
 func render(t: Team = null):
+	cpu_check.button_pressed = true
 	if (!t):
-		t =  Main.get_level("Prep").random_team()
+		t =  Main.Levels.Prep.random_team(Filter.exclude_self(team))
 	team = t
 	team_option.clear()
 	var select = 0
@@ -28,3 +30,6 @@ func _select(idx: int):
 
 func _random():
 	render()
+
+func is_cpu() -> bool:
+	return cpu_check.button_pressed

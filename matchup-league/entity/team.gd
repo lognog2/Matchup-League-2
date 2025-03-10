@@ -5,6 +5,7 @@ var schedule = {} ## not stored in save
 var color: Color ## stored as `Color` in game, int in save
 var won = 0
 var lost = 0
+var is_cpu = true
 
 func _init(data = {}):
 	super(data, "T")
@@ -33,13 +34,15 @@ func add_fighter(f: Fighter):
 
 ## called from `Game.add_team`
 func add_game(g: Game):
+	if (g.rnd < 1): return
 	if (!g.teams.has(self)):
 		g.add_team(self)
 	else:
 		schedule[g.rnd] = g
 
 func remove_game(r: int):
-	schedule[r] = null
+	if (schedule.get(r)):
+		schedule[r] = null
 
 func get_game(r: int) -> Team:
 	return get_opponent(r)
@@ -51,6 +54,20 @@ func get_opponent(r: int) -> Team:
 func get_opponent_name(r:int) -> String:
 	var opp = get_opponent(r)
 	return opp.name if (opp) else Main.Keyname.Bye
+
+## compiles stat used for rating
+func get_rating() -> float:
+	return avg_f_rating() 
+
+## average rating of all fighters on the team
+func avg_f_rating() -> float:
+	var total = 0.0
+	for f in fighters:
+		total += f.get_rating()
+	return total / fighters.size()
+
+func get_rating_scale() -> int:
+	return level.get_team_rs(self)
 
 func has_game(r: int) -> bool:
 	return get_opponent(r) != null
@@ -65,7 +82,7 @@ func set_color(col):
 		color = col
 	else:
 		Err.alert_fatal("Invalid color type in %s" % id_str, Err.Fatal.Runtime)
-	
+
 # format functions
 
 func format_save() -> Dictionary:
@@ -85,9 +102,10 @@ func format_sched() -> Dictionary:
 
 func format_info() -> Dictionary:
 	var info = {
-		"Series": series,
-		"League": level.name,
-		"Record": format_record()
+		"Rating" = "%.f" % get_rating_scale(),
+		"Series" = series,
+		"League" = level.name,
+		"Record" = format_record()
 	}
 	return info
 

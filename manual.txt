@@ -1,3 +1,14 @@
+to do:
+- freeplay
+    - random, cpu buttons
+- save state at end of game
+
+2.0.2:
+- separate level and library
+- make verison footer always visible
+- editor faster loading
+
+
 entity relations stored as objects while game is running, when saving to file save the id only
 entities save the higher relation in hierarchy
 - level
@@ -7,10 +18,55 @@ entities save the higher relation in hierarchy
 - game
 - fighter
 
+rating: a quantitative way to measure an entity's value
 
-to do:
-- freeplay
-    - random, cpu buttons
-- make verison footer always visible
-- editor faster loading
-- save state at end of game
+fighters: 
+currently all types are weighted equally but ideally are weighted by frequency
+m = 1 / # of types
+rating = base + (strength * m) - (weakness * m)
+
+teams:
+average rating of fighters (include wins at some point?)
+
+game:
+team1 rating + team2 rating
+
+league:
+average rating of teams
+
+rating scale: preserves an entity's rating in its current context
+will be used to standardize across tiers and seasons
+current scale: average prep rating = 75
+ideal scale: average A tier rating = 100
+
+player personalities
+each player will have one overall archetype which is made of several subtypes
+archetypes:
+- user
+- default
+- true arbitrary
+- raitonal arbitrary
+- short term
+- long term
+
+subtypes
+(user and arbitrary are the same in each one)
+
+fighter value
+rating
+base
+performance
+mods
+contract
+age
+
+team value
+rating
+performance
+
+
+coaches give certain bonuses to your team
+
+contract cost/length
+trade value
+offseason development

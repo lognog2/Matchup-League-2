@@ -46,12 +46,13 @@ text = "Back"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="team_cont" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row" node_paths=PackedStringArray("team_option", "team_view")]
+[node name="team_cont" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row" node_paths=PackedStringArray("team_option", "team_view", "cpu_check")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("3_2iicl")
 team_option = NodePath("MarginContainer/HBoxContainer/OptionButton")
 team_view = NodePath("team_view")
+cpu_check = NodePath("MarginContainer/HBoxContainer/CheckButton")
 
 [node name="MarginContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont"]
 layout_mode = 2
@@ -59,9 +60,22 @@ theme_override_styles/panel = ExtResource("1_t44ll")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 20
 
 [node name="OptionButton" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
+clip_text = true
+
+[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Random"
+
+[node name="CheckButton" type="CheckButton" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+text = "CPU"
 
 [node name="team_view" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont" instance=ExtResource("1_yau5g")]
 layout_mode = 2
@@ -72,6 +86,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="play" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/bottom_row"]
+custom_minimum_size = Vector2(400, 60)
 layout_mode = 2
 theme_override_colors/icon_normal_color = Color(0, 0.749434, 0, 1)
 theme_override_constants/outline_size = 10
@@ -80,4 +95,5 @@ text = "Play"
 
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/top_row/Button" to="." method="_back"]
 [connection signal="item_selected" from="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont/MarginContainer/HBoxContainer/OptionButton" to="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont" method="_select"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont/MarginContainer/HBoxContainer/Button" to="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont" method="_random"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/bottom_row/play" to="." method="_play"]

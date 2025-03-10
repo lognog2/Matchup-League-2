@@ -41,6 +41,15 @@ func set_series(sr: String = Main.DEFAULT_SERIES):
 func connect_objs():
 	pass
 
+## compiles stats into rating
+func get_rating() -> float:
+	print("* wrong rating function")
+	return Main.GameRound.Debug
+
+func get_rating_scale() -> int:
+	print("* wrong rating scale function")
+	return Main.GameRound.Debug
+
 func is_archive() -> bool:
 	return level.is_archive()
 

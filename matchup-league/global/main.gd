@@ -89,6 +89,9 @@ var Keyname = {
 }
 
 func _ready():
+	var seed = randi()
+	seed(seed)
+	print("^ ", seed)
 	SignalBus.set_scene.connect(set_scene)
 	season = 29
 	Levels.Prep = Level.new("Prep", 4)
@@ -146,6 +149,8 @@ func save_state(softSave = true):
 	print("^ saved")
 
 func load_state():
-	for level in Levels:
-		Levels[level].load_data()
+	for level in Levels.values():
+		level.load_data()
 	SignalBus.done_loading.emit()
+	#idc im gonna separate lib and level next update anyway
+	Levels.Prep.Lib.Team.set_avg_rating()

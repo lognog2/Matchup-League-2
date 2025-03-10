@@ -4,21 +4,6 @@ class_name Level extends Object
 var name: String
 var FPT: int
 
-## selection filters
-var Select = {
-	Default = (func(_de): return true)
-}
-
-## sorting filters
-var Sort = {
-	Id = (func(a: DataEntity, b: DataEntity): 
-		return a.id < b.id),
-	Alphabet = (func(a: DataEntity, b: DataEntity): 
-		return a.name.naturalcasecmp_to(b.name) < 0),
-	Default = (func(_a: DataEntity, _b: DataEntity): 
-		return false;)
-}
-
 var Lib = {
 	Fighter = null,
 	Team = null,
@@ -28,9 +13,9 @@ var Lib = {
 func _init(levelName: String, fpt = 100):
 	name = levelName
 	FPT = fpt
-	Lib.Fighter = EntityLib.new(name, Main.Entity.Fighter)
-	Lib.Team = EntityLib.new(name, Main.Entity.Team)
-	Lib.Game = EntityLib.new(name, Main.Entity.Game)
+	Lib.Fighter = EntityLibrary.new(name, Main.Entity.Fighter)
+	Lib.Team = EntityLibrary.new(name, Main.Entity.Team)
+	Lib.Game = EntityLibrary.new(name, Main.Entity.Game)
 
 func get_fighter(id: int) -> Fighter: 
 	return Lib.Fighter.get_entity(id)
@@ -58,23 +43,27 @@ func find_game(r: int, oppID: int) -> Game:
 
 # get list by filter
 
-func get_fighters(filter = Select.Default) -> Array: 
+func get_fighters(filter = Filter.Select.Default) -> Array: 
 	return Lib.Fighter.get_entities(filter)
 
-func get_teams(filter = Select.Default) -> Array: 
+func get_teams(filter = Filter.Select.Default) -> Array: 
 	return Lib.Team.get_entities(filter)
 
-func get_games(filter = Select.Default) -> Array: 
+func get_games(filter = Filter.Select.Default) -> Array: 
 	return Lib.Game.get_entities(filter)
 
-func get_teams_sorted(filter = Sort.Alphabet) -> Array:
-	return Lib.Team.get_entities(Select.Default, filter)
+func get_teams_sorted(filter = Filter.Sort.Alphabet) -> Array:
+	return Lib.Team.get_entities(Filter.Select.Default, filter)
 
-func get_f_names(filter = Select.Default) -> Array: 
+func get_f_names(filter = Filter.Select.Default) -> Array: 
 	return Lib.Fighter.get_names(filter)
 
-func get_t_names(filter = Select.Default) -> Array: 
+func get_t_names(filter = Filter.Select.Default) -> Array: 
 	return Lib.Team.get_names(filter)
+
+## gets a team's rating scale
+func get_team_rs(t: Team):
+	return Lib.Team.get_rating_scale(t.get_rating())
 
 ## finds the first fighter with `n` name
 func find_fighter(n: String) -> Fighter: 
@@ -84,8 +73,9 @@ func find_fighter(n: String) -> Fighter:
 func find_team(n: String) -> Team: 
 	return Lib.Team.find_entity(n)
 
-func random_team() -> Team: 
-	return Lib.Team.random_entity()
+## gets random team
+func random_team(filter = Filter.Select.Default) -> Team: 
+	return Lib.Team.random_entity(filter)
 
 # save/load from file
 # **be careful using breakpoints here**
@@ -118,11 +108,12 @@ func load_data():
 		lib.load_from_file()
 	
 ## holds dictionary and does save/load for each type of data entity on this level
-class EntityLib:
+class EntityLibrary:
 	const file_path = "res://data/%s.save"
-	var default_filter = func(_de): return true
 	var dict = {}
 	var last_id = 0
+	var avg_rating = 0.0 #average rating
+	const AVG_RS = 1000
 	var level_name: String
 	var entity_name: String
 	var file_name: String
@@ -139,19 +130,29 @@ class EntityLib:
 		data["id"] = increment_id()
 		var de = Main.blank_entity(entity_name).set_data(data)
 		dict[de.id] = de
+		add_avg_rating(de.get_rating())
 		return de
 
-	## updates an entity's info (new info stored in data)
+	## updates an entity's info
 	func set_entity(data: Dictionary) -> DataEntity:
 		var de = get_entity(int(data["id"])).set_data(data)
 		return de
 	
+	## gets entity with `id`
 	func get_entity(id: int) -> DataEntity:
 		var de = dict.get(id)
 		#if (!de):
 			#Err.print_warn("%s %d not found" % [entity_name, id], Err.Warn.NoAction)
 		return de
 	
+	func remove_entity(de: DataEntity):
+		var id = de.id
+		de.level = null
+		dict.erase(id)
+		if (last_id > id):
+			last_id = id
+	
+	## returns next available id
 	func increment_id() -> int:
 		var de = dict.get(last_id)
 		if (de):
@@ -161,23 +162,50 @@ class EntityLib:
 			last_id += 1
 			return last_id - 1
 		
-	func random_entity() -> DataEntity:
-		var id = randi() % dict.size()
-		return dict[id]
+	## gets a random entity from a pool that passes filter
+	func random_entity(filter = Filter.Select.Default) -> DataEntity:
+		var pool = get_entities(filter)
+		var id = randi() % pool.size()
+		return pool[id]
+
+	func get_rating_scale(r: float) -> int:
+		var rs = (r / avg_rating) * AVG_RS
+		return rs
+		
+	func set_avg_rating():
+		var total = 0.0
+		var vals = dict.values()
+		for i in range(vals.size()):
+			total += vals[i].get_rating()
+		avg_rating = total / vals.size()
+
+	## assumes entity was already added to dict and connected to refs
+	func add_avg_rating(new_r: float):
+		if (round(new_r) == 0): return
+		var total = avg_rating * (dict.size() - 1)
+		total += new_r
+		avg_rating = total / dict.size()
+
+	## assumes entity was already removed from dict but not separated from refs yet
+	func remove_avg_rating(old_r: float):
+		if (round(old_r) == 0): return
+		var total = avg_rating * (dict.size() + 1)
+		total -= old_r
+		avg_rating = total / dict.size()
 
 	# queries
 
 	## returns first instance of name in dictionary
 	func find_entity(search_name: String) -> DataEntity:
 		if (!Main.validate_name(search_name)): return null
-		var matches = get_entities(dict, func(de): return de.name == search_name)
+		var matches = get_entities(func(de): return de.name == search_name)
 		if (matches.size() != 1):
 			return null
 		else:
 			return matches[0]
 	
 	## gets array of names of entites that pass filter, sorted alphabetically
-	func get_names(filter = default_filter) -> Array:
+	func get_names(filter = Filter.Select.Default) -> Array:
 		var validNames = []
 		for val in dict.values():
 			if (filter.call(val)):
@@ -185,7 +213,7 @@ class EntityLib:
 		validNames.sort()
 		return validNames
 
-	func get_entities(select_filter = default_filter, sort_filter = null) -> Array:
+	func get_entities(select_filter = Filter.Select.Default, sort_filter = null) -> Array:
 		var validEntities = []
 		for val in dict.values():
 			if (select_filter.call(val)):

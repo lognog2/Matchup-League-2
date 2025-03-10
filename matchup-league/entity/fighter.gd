@@ -18,8 +18,8 @@ var startSeason
 var potential
 
 #record vars
-var matchesPlayed
-var matchesWon
+var matches_won
+var matches_lost
 
 func _init(data = {}):
 	super(data, "F")
@@ -51,7 +51,7 @@ func set_team(t: Team):
 	teamID = team.id
 	team.add_fighter(self)
 
-## returns an array of types from a character string: ABC -> [A, B, C]
+## returns an array of types from a character string. ex: ABC -> [A, B, C]
 func types_arr(type_str = types) -> Array:
 	if (!type_str is String): return []
 	var type_arr = []
@@ -61,7 +61,7 @@ func types_arr(type_str = types) -> Array:
 		type_arr.append(type_str[i])
 	return type_arr
 
-## returns each type's character as a string: ABC
+## returns each type's character as a string. ex: ABC
 func types_str(type_arr = types) -> String:
 	if (!type_arr is Array): return ""
 	var type_str = ""
@@ -74,7 +74,7 @@ func types_icon(type_arr = types) -> String:
 	if (!type_arr is Array): return ""
 	var type_str = ""
 	for type in type_arr:
-		type_str += "(%s)" % type
+		type_str += "(%s) " % type
 	return type_str
 
 
@@ -91,6 +91,20 @@ func setMod(new):
 	elif (new > Main.MAX_MOD):
 		new = Main.MAX_MOD
 	return new
+
+## compiles fighter rating from stats
+func get_rating() -> float:
+	var mult = 1.0 / Main.Types.size()
+	return base + (strVal * mult) - (wkVal * mult)
+	
+func add_win():
+	matches_won += 1
+
+func add_loss():
+	matches_lost += 1
+
+func matches_played() -> int:
+	return matches_won + matches_lost
 
 #format functions
 
