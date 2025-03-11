@@ -62,7 +62,7 @@ func set_team(i: int, t: Team):
 ## converts matches from array of id pairs to match objects, then calls `set_current_score()`
 func set_matches():
 	for m in matches:
-		m = Match.new(level.get_fighter(m[0]), level.get_fighter(m[1]))
+		m = Match.new(self, level.get_fighter(m[0]), level.get_fighter(m[1]))
 	set_current_score()
 
 ## sets score according to existing matches
@@ -107,7 +107,7 @@ func is_finished() -> bool:
 	
 ## returns result int (not writing the key again)
 func run_match(f1: Fighter, f2: Fighter) -> int:
-	var m = Match.new(f1, f2)
+	var m = Match.new(self, f1, f2)
 	matches.append(m)
 	var r = m.run_match()
 	if (r >= 0): score[r] += m.match_val
@@ -149,6 +149,7 @@ func verify() -> bool:
 
 class Match:
 	var fighters = [null, null]
+	var game: Game
 	var result
 	var match_val = 1
 	var ModApplied = {
@@ -158,13 +159,15 @@ class Match:
 		wk2 = false
 	}
 	
-	func _init(f1: Fighter, f2: Fighter, val = 1):
+	func _init(g: Game, f1: Fighter, f2: Fighter, val = 1):
+		game = g
 		fighters = [f1, f2]
 		match_val = val
 		run_match()
 		
-	##returns result: 0 if f1 wins, 1 if f2 wins, -1 if tie
-	func run_match() -> int:
+	## returns result: 0 if f1 wins, 1 if f2 wins, -1 if tie
+	func run_match(record = false) -> int:
+		if (!game.is_official()): record = false
 		var f1 = fighters[0]
 		var f2 = fighters[1]
 		var points1 = f1.base
@@ -183,16 +186,19 @@ class Match:
 			points1 -= f2.strVal
 			
 		if (points1 > points2):
-			f1.add_win()
-			f2.add_loss()
+			if (record):
+				f1.add_win()
+				f2.add_loss()
 			result = 0
 		elif(points2 < points1):
-			f1.add_loss()
-			f2.add_win()
+			if (record):
+				f1.add_loss()
+				f2.add_win()
 			result = 1
 		else:
 			result = -1
 		return result
+
 		
 	
 	

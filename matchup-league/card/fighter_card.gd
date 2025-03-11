@@ -32,6 +32,15 @@ func render(f: Fighter, enable = false):
 	team_name.text = f.team.name.left(3)
 	enable_click = enable
 
+func render_win():
+	pass
+
+func render_loss():
+	pass
+
+func render_tie():
+	pass
+
 func _enter():
 	if (enable_click):
 		mouse_enter = true

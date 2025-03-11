@@ -30,7 +30,7 @@ func render(g: Game):
 	set_mode()
 
 func set_team(i: int, t: Team):
-	tb_arr[i].render(t)
+	tb_arr[i].render(i, t)
 
 func set_mode():
 	match [game.teams[0].is_cpu, game.teams[1].is_cpu]:
@@ -52,6 +52,7 @@ func reverse_sides():
 
 func play_fighter(fc: FighterCard = null):
 	if (!fc):
+		#mode: both cpu
 		tb_arr[0].play_fighter()
 		tb_arr[1].play_fighter()
 	match current_mode:
@@ -60,10 +61,22 @@ func play_fighter(fc: FighterCard = null):
 			tb_arr[0].play_fighter(fc)
 			tb_arr[1].play_fighter(fc)
 			if (tb_arr[0].played.get_child_count() == tb_arr[1].played.get_child_count()):
-				pass
+				start_match()
 		Mode.UserCpu:
 			tb_arr[0].play_fighter()
 			tb_arr[1].play_fighter(fc)
 
-func _start_match():
-	pass
+func start_match():
+	var fcs = [tb_arr[0].played.get_child(-1), tb_arr[1].played.get_child(-1)]
+	var r = game.run_match(fcs[0], fcs[1])
+	if (r == -1):
+		fcs[0].render_tie()
+		fcs[1].render_tie()
+	else:
+		fcs[r].render_win()
+		fcs.erase(fcs[r])
+		fcs[0].render_loss()
+
+		
+	for i in range (tb_arr.size()):
+		tb_arr[i].set_score(game.score[i])

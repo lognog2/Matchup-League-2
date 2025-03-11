@@ -91,7 +91,7 @@ var Keyname = {
 func _ready():
 	var seed = randi()
 	seed(seed)
-	print("^ ", seed)
+	print("^ seed: ", seed)
 	SignalBus.set_scene.connect(set_scene)
 	season = 29
 	Levels.Prep = Level.new("Prep", 4)

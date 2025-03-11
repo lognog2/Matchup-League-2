@@ -2,7 +2,9 @@ extends VBoxContainer
 
 @export var played: HBoxContainer
 @export var bench: HBoxContainer
+@export var score_label: Label
 
+var i = -1
 var team: Team
 var blank_fc: FighterCard
 
@@ -10,14 +12,19 @@ func _ready():
 	#SignalBus.user_select_fighter.connect(play_fighter)
 	pass
 	
-func render(t: Team):
-	blank_fc = NodeUtil.detach_child(played)
+func render(idx: int, t: Team):
+	i = idx
 	team = t
+	blank_fc = NodeUtil.detach_child(played)
 	fill_bench(team.fighters)
+	set_score(0)
 
 func fill_bench(fighters: Array):
 	NodeUtil.list_fighter_cards(bench, fighters)
 	set_click_enable(!team.is_cpu)
+
+func set_score(score: int):
+	score_label.text = str(score)
 
 func add_to_played(fc: FighterCard):
 	var new = blank_fc.duplicate()
