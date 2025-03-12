@@ -64,6 +64,3 @@ func play_fighter(fc: FighterCard = null):
 		Mode.UserCpu:
 			tb_arr[0].play_fighter()
 			tb_arr[1].play_fighter(fc)
-
-func _start_match():
-	pass
