@@ -12,6 +12,12 @@ var fighter: Fighter
 var mouse_enter = false
 var enable_click = false
 
+var Col = {
+	Loss = Color.RED,
+	Win = Color.GREEN,
+	Tie = Color.BLUE
+}
+
 func _process(_delta: float):
 	if (mouse_enter && Input.is_action_just_pressed('left_click')):
 		SignalBus.user_select_fighter.emit(self)
@@ -47,3 +53,13 @@ func _enter():
 
 func _exit():
 	mouse_enter = false
+
+## 0 for loss, 1 for win, -1 for tie
+func render_result(result: int, str_app = false, wk_app = false):
+	var base_val = int(base.text)
+	if (str_app):
+		base_val += int(strength.text)
+	if (wk_app):
+		base_val -= int(weakness.text)
+	base.text = base_val
+	base.font_color = Col.values()[result]
