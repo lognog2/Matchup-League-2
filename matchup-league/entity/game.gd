@@ -69,7 +69,7 @@ func set_matches():
 func set_current_score():
 	if (matches.is_empty()): return
 	for m in matches:
-		var r = m.run_match()
+		var r = m.run_match().result
 		if (r >= 0): score[r] += m.match_val
 		
 func get_opponent(t: Team) -> Team:
@@ -166,7 +166,7 @@ class Match:
 		run_match()
 		
 	## returns result: 0 if f1 wins, 1 if f2 wins, -1 if tie
-	func run_match(record = false) -> int:
+	func run_match(record = false) -> Match:
 		if (!game.is_official()): record = false
 		var f1 = fighters[0]
 		var f2 = fighters[1]
@@ -197,7 +197,7 @@ class Match:
 			result = 1
 		else:
 			result = -1
-		return result
+		return self
 
 		
 	

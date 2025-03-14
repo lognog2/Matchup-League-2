@@ -12,7 +12,7 @@ var fighter: Fighter
 var mouse_enter = false
 var enable_click = false
 
-var Col = {
+var ResultColor = {
 	Loss = Color.RED,
 	Win = Color.GREEN,
 	Tie = Color.BLUE
@@ -38,21 +38,21 @@ func render(f: Fighter, enable = false):
 	team_name.text = f.team.name.left(3)
 	enable_click = enable
 
-func render_win():
-	pass
-
-func render_loss():
-	pass
-
-func render_tie():
-	pass
-
 func _enter():
 	if (enable_click):
 		mouse_enter = true
 
 func _exit():
 	mouse_enter = false
+
+func render_win(str_app = false, wk_app = false):
+	render_result(1, str_app, wk_app)
+
+func render_loss(str_app = false, wk_app = false):
+	render_result(0, str_app, wk_app)
+
+func render_tie(str_app = false, wk_app = false):
+	render_result(-1, str_app, wk_app)
 
 ## 0 for loss, 1 for win, -1 for tie
 func render_result(result: int, str_app = false, wk_app = false):
@@ -62,4 +62,4 @@ func render_result(result: int, str_app = false, wk_app = false):
 	if (wk_app):
 		base_val -= int(weakness.text)
 	base.text = base_val
-	base.font_color = Col.values()[result]
+	base.font_color = ResultColor.values()[result]

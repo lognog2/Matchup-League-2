@@ -68,15 +68,19 @@ func play_fighter(fc: FighterCard = null):
 
 func start_match():
 	var fcs = [tb_arr[0].played.get_child(-1), tb_arr[1].played.get_child(-1)]
-	var r = game.run_match(fcs[0], fcs[1])
+	var m = game.run_match(fcs[0], fcs[1])
+	var r = m.result
 	if (r == -1):
-		fcs[0].render_tie()
-		fcs[1].render_tie()
+		fcs[0].render_tie(m.ModApplied.str1, m.ModApplied.wk1)
+		fcs[1].render_tie(m.ModApplied.str2, m.ModApplied.wk2)
+	elif (r == 0):
+		fcs[0].render_win(m.ModApplied.str1, m.ModApplied.wk1)
+		fcs[1].render_loss(m.ModApplied.str2, m.ModApplied.wk2)
+	elif (r == 1):
+		fcs[0].render_loss(m.ModApplied.str1, m.ModApplied.wk1)
+		fcs[1].render_win(m.ModApplied.str2, m.ModApplied.wk2)
 	else:
-		fcs[r].render_win()
-		fcs.erase(fcs[r])
-		fcs[0].render_loss()
+		Err.alert_fatal("Invalid match result", Err.Fatal.Invalid)
 
-		
 	for i in range (tb_arr.size()):
 		tb_arr[i].set_score(game.score[i])
