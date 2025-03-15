@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://fgrcxqt54wjo"]
+
+[resource]
+resource_name = "fc_loss"
+font_color = Color(1, 0, 0, 1)
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)

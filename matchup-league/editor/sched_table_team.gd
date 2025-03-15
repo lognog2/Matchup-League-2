@@ -1,14 +1,14 @@
-extends "res://table/sched_table.gd"
+extends "res://editor/sched_table.gd"
 
-@onready var vbox = $inner_mpane/info_vbox
-@onready var name_label = $inner_mpane/info_vbox/name
-@onready var blank_game = $inner_mpane/info_vbox/game
+@export var vbox: VBoxContainer
+@export var name_label: Label
+@export var blank_game: OptionButton
 
 var team: Team
 
 const numGames = 7
 
-func _ready():
+func _enter_tree():
 	blank_game.visible = false
 
 func get_game(r: int): 
@@ -24,14 +24,13 @@ func set_game(r: int, opp: Team):
 func set_team(t: Team):
 	team = t
 	name_label.text = t.name
-	self.color = Color.hex(t.color)
+	self.color = t.color
 	level = t.level
 	for i in range(1, numGames + 1):
 		var newGame = blank_game.duplicate()
 		vbox.add_child(newGame)
 		newGame.render_game(i, t, vbox.get_child(-1))
 		newGame.visible = true
-		if (!team.check_sync(i)): print(team.name, i)
 	blank_game.queue_free()
 	visible = true
 	add_to_group(TEAM_GROUP)
@@ -41,6 +40,6 @@ func save():
 	var games = vbox.get_children()
 	for i in range (1, vbox.get_child_count()):
 		var oppID = games[i].opponentID
-		if (team.get_opponent(i) != oppID):
-			print("/ " + str(team.id) + " vs " + str(oppID))
-			team.add_game(i, oppID)
+		if (team.get_opponent(i).id != oppID):
+			print("/ " + str(team.id) + " vs " + str(oppID) + " but not really")
+			#team.add_game(i, oppID)

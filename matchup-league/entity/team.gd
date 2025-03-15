@@ -1,67 +1,128 @@
 class_name Team extends DataEntity
 
-var fighters = Array()
-var schedule: Dictionary
-var color
+var fighters = []
+var schedule = {} ## not stored in save
+var color: Color ## stored as `Color` in game, int in save
+var won = 0
+var lost = 0
+var is_cpu = true
 
-func _init(data: Dictionary):
-	super(data)
-	color = data["color"]
-	for r in data["schedule"]:
-		var oppID = data["schedule"][r]
-		schedule[int(r)] = oppID if oppID != null else -1
+func _init(data = {}):
+	super(data, "T")
+	set_data(data, true)
 
-func addFighter(f: Fighter):
-	fighters.append(f)
-	
-func add_game(r: int, oppID: int, setOpp = true):
-	print("/ add game " + str(id) + " " + str(oppID) + " " + str(setOpp))
-	if (oppID < 0): 
-		remove_game(r, setOpp)
-		return
-	schedule[r] = oppID
-	if (!setOpp): return
-	var opp = level.get_team(oppID)
-	if (opp.get_opponent(r) != id):
-		if (opp.has_game(r)): 
-			opp.remove_game(r)
-		opp.add_game(r, id, false)
+func connect_objs():
+	pass
 
-func remove_game(r: int, remOpp = true):
-	print("/ remove game " + str(id) + " " + str(remOpp))
-	if (!has_game(r)): return
-	if (!remOpp):
-		schedule[r] = -1
-		return
-	var opp = level.get_team(get_opponent(r))
-	schedule[r] = -1
-	if (opp.get_opponent(r) == id):
-		opp.remove_game(r, false)
+func set_data(data: Dictionary, init = false) -> Team:
+	if (!init): super(data)
+	if (data == {}): return self
+	set_color(data.get("color", color))
+	if (!data.get("schedule")): return self
+	for r_str in data["schedule"]:
+		var r = int(r_str)
+		schedule[r] = data["schedule"][r_str]
+	return self
 
-func get_game(r: int) -> int:
+## called from `Fighter.set_team`
+func add_fighter(f: Fighter):
+	if (fighters.has(f)): return
+	if (f.team != self):
+		f.set_team(self)
+	else:
+		fighters.append(f)
+
+## called from `Game.add_team`
+func add_game(g: Game):
+	if (g.rnd < 1): return
+	if (!g.teams.has(self)):
+		g.add_team(self)
+	else:
+		schedule[g.rnd] = g
+
+func remove_game(r: int):
+	if (schedule.get(r)):
+		schedule[r] = null
+
+func get_game(r: int) -> Team:
 	return get_opponent(r)
 
-func get_opponent(r: int) -> int:
-	return schedule[r]
+func get_opponent(r: int) -> Team:
+	var g = schedule.get(r)
+	return g.get_opponent(self) if (g) else null
+
+func get_opponent_name(r:int) -> String:
+	var opp = get_opponent(r)
+	return opp.name if (opp) else Main.Keyname.Bye
+
+## compiles stat used for rating
+func get_rating() -> float:
+	return avg_f_rating() 
+
+## average rating of all fighters on the team
+func avg_f_rating() -> float:
+	var total = 0.0
+	for f in fighters:
+		total += f.get_rating()
+	return total / fighters.size()
+
+func get_rating_scale() -> int:
+	return level.get_team_rs(self)
 
 func has_game(r: int) -> bool:
-	return get_opponent(r) >= 0
-	
+	return get_opponent(r) != null
 
-# debug functions
+func games_played() -> int:
+	return won + lost
+
+func set_color(col):
+	if (col is int || col is float):
+		color = format_color(col)
+	elif (col is Color):
+		color = col
+	else:
+		Err.alert_fatal("Invalid color type in %s" % id_str, Err.Fatal.Runtime)
+
+# format functions
+
+func format_save() -> Dictionary:
+	var data = super()
+	data.merge({
+		"season": season,
+		"color": format_color_hex(color),
+		"series": series,
+	}, true)
+	return data
+
+func format_sched() -> Dictionary:
+	var dict = {}
+	for r in schedule:
+		dict[r] = schedule[r].id
+	return dict
+
+func format_info() -> Dictionary:
+	var info = {
+		"Rating" = "%.f" % get_rating_scale(),
+		"Series" = series,
+		"League" = level.name,
+		"Record" = format_record()
+	}
+	return info
+
+##converts wins and losses to string: w-l
+func format_record(w = won, l = lost) -> String:
+	return "%d-%d" % [w, l]
+
+## converts hex color to `Color`
+func format_color(hex: int) -> Color:
+	return Color.hex(hex)
+
+## converts `Color` to rgba32 hex
+func format_color_hex(col: Color = color) -> int:
+	return col.to_rgba32()
+
+# test functions
 
 func check_sync(r) -> bool:
 	if (!has_game(r)): return true
-	return id == level.get_team(get_opponent(r)).get_opponent(r)
-
-# saving functions
-
-func format_save() -> Dictionary:
-	var data = {
-		"id": id,
-		"name": name,
-		"season": season,
-		"color": color,
-		"schedule": schedule
-	}
-	return data
+	return self == get_opponent(r).get_opponent(r)

@@ -4,7 +4,7 @@
 {"base":1630,"id":3,"name":"Candace Flynn","season":29,"start season":32,"strType":"R","strVal":60,"team ID":3,"types":"W","wkType":"C","wkVal":50}
 {"base":1700,"id":4,"name":"Kyle Broflovski","season":29,"start season":32,"strType":"V","strVal":90,"team ID":4,"types":"SI","wkType":"G","wkVal":50}
 {"base":1730,"id":5,"name":"Stan Marsh","season":29,"start season":32,"strType":"L","strVal":70,"team ID":4,"types":"SI","wkType":"S","wkVal":40}
-{"base":1730,"id":6,"name":"Eric Cartman","season":29,"start season":33,"strType":"I","strVal":180,"team ID":4,"types":"SVI","wkType":"E","wkVal":180}
+{"base":1730,"id":6,"name":"Eric Cartman","season":29,"start season":33,"strType":"I","strVal":180,"team ID":4,"types":"VI","wkType":"E","wkVal":180}
 {"base":1740,"id":7,"name":"Chie Satonaka","season":29,"start season":32,"strType":"M","strVal":100,"team ID":5,"types":"ML","wkType":"A","wkVal":100}
 {"base":1650,"id":8,"name":"Kanji Tatsumi","season":29,"start season":33,"strType":"R","strVal":120,"team ID":5,"types":"MA","wkType":"L","wkVal":120}
 {"base":1690,"id":9,"name":"Yukiko Amagi","season":29,"start season":32,"strType":"E","strVal":70,"team ID":5,"types":"F","wkType":"W","wkVal":70}
@@ -46,7 +46,7 @@
 {"base":1690,"id":45,"name":"Misty","season":29,"start season":33,"strType":"F","strVal":150,"team ID":34,"types":"W","wkType":"R","wkVal":150}
 {"base":1670,"id":46,"name":"Right Hand Man","season":29,"start season":32,"strType":"L","strVal":130,"team ID":35,"types":"RC","wkType":"M","wkVal":80}
 {"base":1680,"id":47,"name":"Ellie Rose","season":29,"start season":32,"strType":"W","strVal":90,"team ID":35,"types":"M","wkType":"C","wkVal":90}
-{"base":1650,"id":48,"name":"Haymitch Abernathy","season":29,"start season":32,"strType":"S","strVal":50,"team ID":35,"types":"EW","wkType":"W","wkVal":100}
+{"base":1650,"id":48,"name":"Haymitch Abernathy","season":29,"start season":32,"strType":"S","strVal":50,"team ID":7,"types":"EW","wkType":"W","wkVal":100}
 {"base":1600,"id":49,"name":"Effie Trinket","season":29,"start season":32,"strType":"R","strVal":30,"team ID":7,"types":"G","wkType":"I","wkVal":30}
 {"base":1670,"id":50,"name":"Lotso","season":29,"start season":32,"strType":"W","strVal":100,"team ID":8,"types":"EV","wkType":"R","wkVal":50}
 {"base":1710,"id":51,"name":"Count Dooku","season":29,"start season":32,"strType":"E","strVal":70,"team ID":9,"types":"MGV","wkType":"G","wkVal":70}
@@ -68,7 +68,7 @@
 {"base":1610,"id":67,"name":"Skinny Pete","season":29,"start season":32,"strType":"F","strVal":10,"team ID":6,"types":"RW","wkType":"M","wkVal":10}
 {"base":1770,"id":68,"name":"Scar","season":29,"start season":33,"strType":"G","strVal":130,"team ID":15,"types":"EG","wkType":"R","wkVal":100}
 {"base":1730,"id":69,"name":"Cc","season":29,"start season":33,"strType":"R","strVal":60,"team ID":32,"types":"G","wkType":"V","wkVal":100}
-{"base":1700,"id":70,"name":"Kallen Kozuki","season":29,"start season":34,"strType":"M","strVal":10,"team ID":32,"types":"RF","wkType":"M","wkVal":10}
+{"base":1700,"id":70,"name":"Kallen Kozuki","season":29,"start season":34,"strType":"C","strVal":140,"team ID":32,"types":"REF","wkType":"E","wkVal":110}
 {"base":1690,"id":71,"name":"Mr. Krabs","season":29,"start season":32,"strType":"V","strVal":70,"team ID":1,"types":"WV","wkType":"W","wkVal":50}
 {"base":1650,"id":72,"name":"Plankton","season":29,"start season":32,"strType":"C","strVal":60,"team ID":1,"types":"WV","wkType":"L","wkVal":30}
 {"base":1710,"id":73,"name":"Sandy Cheeks","season":29,"start season":33,"strType":"M","strVal":40,"team ID":1,"types":"M","wkType":"W","wkVal":80}

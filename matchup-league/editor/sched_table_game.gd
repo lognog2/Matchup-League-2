@@ -1,26 +1,25 @@
-extends "res://table/sched_table_team.gd"
+extends "res://editor/sched_table_team.gd"
 
 var button: OptionButton
 var opponentID = -1
 var gameRound = 0
 var game: Game
 
-const blank_name = ""
+func _enter_tree():
+	pass
 
-func _ready():
-	level = main.getLevel("Prep")
-	
 func render_game(r: int, t: Team, ob: OptionButton):
 	gameRound = r
 	team = t
 	button = ob
+	set_level()
 	if (t.has_game(r)): 
-		set_oppID(t.get_opponent(r), false)
+		set_oppID(t.get_opponent(r).id, false)
 
 func signal_oppID(index: int):
 	var t_name = button.get_item_text(button.selected)
 	#print("signal oppID " + t_name)
-	var opp = main.getEntity_byName(t_name, level.teamDict)
+	var opp = level.find_team(t_name)
 	if (!opp): #remove opponent
 		var old_opp = level.get_team(opponentID)
 		set_oppID(-1, true)
@@ -36,16 +35,16 @@ func set_oppID(id: int, setGames = false):
 	opponentID = id
 	closeTeamList()
 	if (setGames):
-		#print("/ setting game")
-		team.add_game(gameRound, opponentID)
+		print("/ setting game but not really")
+		#team.add_game(gameRound, opponentID)
 
 func openTeamList():
 	button.clear()
-	button.add_item(blank_name)
+	button.add_item(Main.Keyname.Empty)
 	var empty_game_filter = (func (t: Team): if (!t.has_game(gameRound) && t.id != team.id): return true)
 	for t_name in level.get_t_names(empty_game_filter):
 		button.add_item(t_name)
-	button.add_item(main.Keyname["remove"])
+	button.add_item(Main.Keyname.Remove)
 	
 func closeTeamList():
 	hide()

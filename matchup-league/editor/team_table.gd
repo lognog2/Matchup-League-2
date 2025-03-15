@@ -1,22 +1,20 @@
 extends Table
 
-signal updateMessage(msg)
-
 @export var table: VBoxContainer
 @export var row: HBoxContainer
 @export var message: Label
 
-func _ready():
+func _enter_tree():
+	#print("/ team table")
 	message.visible = false
 	row.visible = false
-	updateMessage.connect(updateMsg)
-	SignalBus.openTable.connect(render)
+	render()
 
 func render():
 	unload()
-	var dict = main.getLevel("Prep").teamDict
-	for id in dict:
-		add_row(dict[id])
+	set_level()
+	for t in level.get_teams():
+		add_row(t)
 		
 func unload():
 	for child in table.get_children():
@@ -36,7 +34,7 @@ func add_empty_row():
 func save():
 	for tr in table.get_children():
 		tr.save()
-	main.save_state()
+	Main.save_state()
 	message.text = "Saved"
 	message.visible = true
 	
