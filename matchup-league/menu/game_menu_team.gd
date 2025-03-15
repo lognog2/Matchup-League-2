@@ -3,6 +3,8 @@ extends VBoxContainer
 @export var played: HBoxContainer
 @export var bench: HBoxContainer
 @export var score_label: Label
+@export var result_button: Button
+@export var scoreboard_color_rect: ColorRect
 
 var i = -1
 var team: Team
@@ -18,6 +20,8 @@ func render(idx: int, t: Team):
 	blank_fc = NodeUtil.detach_child(played)
 	fill_bench(team.fighters)
 	set_score(0)
+	result_button.visible = false
+	scoreboard_color_rect.color = team.color
 
 func fill_bench(fighters: Array):
 	NodeUtil.list_fighter_cards(bench, fighters)
@@ -44,5 +48,6 @@ func play_fighter(fc: FighterCard = null):
 
 ## disabled after user selects a fighter, enabled again after opponent does
 func set_click_enable(enable = true):
-	for fc in bench.get_children():
-		fc.enable_click = enable
+	if (!team.is_cpu):
+		for fc in bench.get_children():
+			fc.enable_click = enable

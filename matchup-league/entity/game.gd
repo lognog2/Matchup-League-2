@@ -106,12 +106,12 @@ func is_finished() -> bool:
 	return (result)
 	
 ## returns result int (not writing the key again)
-func run_match(f1: Fighter, f2: Fighter) -> int:
+func run_match(f1: Fighter, f2: Fighter) -> Match:
 	var m = Match.new(self, f1, f2)
 	matches.append(m)
-	var r = m.run_match()
+	var r = m.result
 	if (r >= 0): score[r] += m.match_val
-	return r
+	return m
 	
 func format_save() -> Dictionary:
 	verify()
@@ -175,22 +175,26 @@ class Match:
 		ModApplied.str1 = check_mod(f1.strType, f2.types)
 		if (ModApplied.str1):
 			points1 += f1.strVal
+			print("/ str1")
 		ModApplied.str2 = check_mod(f2.strType, f1.types)
 		if (ModApplied.str2):
-			points1 += f2.strVal
+			points2 += f2.strVal
+			print("/ str2")
 		ModApplied.wk1 = check_mod(f1.wkType, f2.types)
 		if (ModApplied.wk1):
-			points1 -= f1.strVal
+			points1 -= f1.wkVal
+			print("/ wk1")
 		ModApplied.wk2 = check_mod(f2.wkType, f1.types)
 		if (ModApplied.wk2):
-			points1 -= f2.strVal
-			
+			points2 -= f2.wkVal
+			print("/ wk2")
+		
 		if (points1 > points2):
 			if (record):
 				f1.add_win()
 				f2.add_loss()
 			result = 0
-		elif(points2 < points1):
+		elif (points2 > points1):
 			if (record):
 				f1.add_loss()
 				f2.add_win()
@@ -199,14 +203,8 @@ class Match:
 			result = -1
 		return self
 
-		
-	
-	
 	func check_mod(check: Variant, types: Array) -> bool:
-		for type in types:
-			if (check == type):
-				return true
-		return false
+		return types.has(check)
 		
 	
 	

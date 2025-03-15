@@ -35,14 +35,16 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="bottom_team_box" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("played", "bench", "score_label")]
+[node name="bottom_team_box" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("played", "bench", "score_label", "result_button", "scoreboard_color_rect")]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 script = ExtResource("3_oxcdy")
 played = NodePath("PanelContainer/HBoxContainer/fighter played")
 bench = NodePath("fighter bench")
-score_label = NodePath("PanelContainer/HBoxContainer/left_panel/Panel/score_label")
+score_label = NodePath("PanelContainer/HBoxContainer/left_panel/scoreboard/score_label")
+result_button = NodePath("PanelContainer/HBoxContainer/left_panel/MarginContainer/see_result")
+scoreboard_color_rect = NodePath("PanelContainer/HBoxContainer/left_panel/scoreboard/ColorRect")
 
 [node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/bottom_team_box"]
 custom_minimum_size = Vector2(100, 140)
@@ -60,15 +62,16 @@ size_flags_stretch_ratio = 0.33
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/bottom_team_box/PanelContainer/HBoxContainer/left_panel/MarginContainer"]
+[node name="see_result" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/bottom_team_box/PanelContainer/HBoxContainer/left_panel/MarginContainer"]
 layout_mode = 2
 text = "See result"
 
-[node name="Panel" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/bottom_team_box/PanelContainer/HBoxContainer/left_panel"]
+[node name="scoreboard" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/bottom_team_box/PanelContainer/HBoxContainer/left_panel"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.67
 
-[node name="ColorRect" type="ColorRect" parent="PanelContainer/MarginContainer/VBoxContainer/bottom_team_box/PanelContainer/HBoxContainer/left_panel/Panel"]
+[node name="ColorRect" type="ColorRect" parent="PanelContainer/MarginContainer/VBoxContainer/bottom_team_box/PanelContainer/HBoxContainer/left_panel/scoreboard"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -77,7 +80,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0408451, 0.339271, 0.920646, 1)
 
-[node name="score_label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/bottom_team_box/PanelContainer/HBoxContainer/left_panel/Panel"]
+[node name="score_label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/bottom_team_box/PanelContainer/HBoxContainer/left_panel/scoreboard"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -107,3 +110,5 @@ alignment = 1
 
 [node name="blank_fc" parent="PanelContainer/MarginContainer/VBoxContainer/bottom_team_box/fighter bench" instance=ExtResource("3_hs5hn")]
 layout_mode = 2
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/bottom_team_box/PanelContainer/HBoxContainer/left_panel/MarginContainer/see_result" to="." method="start_match"]

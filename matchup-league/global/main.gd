@@ -2,24 +2,22 @@ extends Control
 
 var season: int
 var main_node: Control
-const MAX_TYPES = 5
-const MIN_BASE = 500
-const MAX_BASE = 10000
-const MIN_MOD = 0
-const MAX_MOD = 300
+const MAX_TYPES = 4
+const MIN_BASE = 499
+const MAX_BASE = 9999
+const MIN_MOD = 9
+const MAX_MOD = 299
 
 const SCENE_PATH = "res://scene/"
 ## max number of scenes that will be stored in scene history
-const MAX_SCENES = 60
+const MAX_SCENES = 64
 
 const DEFAULT_SERIES = "Original"
 
 const VERSION_NUM = "2.0.1"
+
 func commit_num() -> String: 
-	return VERSION_NUM + ".8"
-## returns version as int. ex: 2.0.1.8 -> 2018
-func vers_as_int() -> int: 
-	return int(commit_num())
+	return VERSION_NUM + ".FINAL"
 
 var Edition = {
 	Dev = "Development",

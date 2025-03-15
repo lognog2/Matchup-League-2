@@ -1,5 +1,6 @@
 class_name FighterCard extends Control
 
+@export var card_color_rect: ColorRect
 @export var types: Label
 @export var f_name: Label
 @export var base: Label
@@ -14,7 +15,7 @@ var enable_click = false
 
 var ResultColor = {
 	Loss = Color.RED,
-	Win = Color.GREEN,
+	Win = Color.FOREST_GREEN,
 	Tie = Color.BLUE
 }
 
@@ -23,7 +24,7 @@ func _process(_delta: float):
 		SignalBus.user_select_fighter.emit(self)
 
 func _ready():
-	pass
+	card_color_rect.color = Color.WHITE
 
 func render(f: Fighter, enable = false):
 	if (!f):
@@ -59,7 +60,12 @@ func render_result(result: int, str_app = false, wk_app = false):
 	var base_val = int(base.text)
 	if (str_app):
 		base_val += int(strength.text)
+		NodeUtil.set_label_color(strength, ResultColor.Win)
 	if (wk_app):
-		base_val -= int(weakness.text)
-	base.text = base_val
-	base.font_color = ResultColor.values()[result]
+		base_val += int(weakness.text) #minus sign from text included
+		NodeUtil.set_label_color(weakness, ResultColor.Loss)
+	base.text = str(base_val)
+	var col = ResultColor.values()[result]
+	NodeUtil.set_label_color(base, col)
+	if (result != 1):
+		card_color_rect.color = Color.LIGHT_GRAY

@@ -5,13 +5,14 @@
 [sub_resource type="Theme" id="Theme_iwip4"]
 Label/font_sizes/font_size = 14
 
-[node name="fighter_card (size)" type="Control" node_paths=PackedStringArray("types", "f_name", "base", "strength", "weakness", "team_name", "contract")]
+[node name="fighter_card (size)" type="Control" node_paths=PackedStringArray("card_color_rect", "types", "f_name", "base", "strength", "weakness", "team_name", "contract")]
 custom_minimum_size = Vector2(100, 140)
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 script = ExtResource("1_hg5ae")
+card_color_rect = NodePath("SubViewportContainer (size)/SubViewport/PanelContainer (size)/card")
 types = NodePath("SubViewportContainer (size)/SubViewport/PanelContainer (size)/card/MarginContainer/VBoxContainer/types")
 f_name = NodePath("SubViewportContainer (size)/SubViewport/PanelContainer (size)/card/MarginContainer/VBoxContainer/name")
 base = NodePath("SubViewportContainer (size)/SubViewport/PanelContainer (size)/card/MarginContainer/VBoxContainer/base")

@@ -4,6 +4,7 @@ extends Menu
 var tb_arr = [] ## 0 on top, 1 on bottom
 
 var game: Game
+var reversed = false
 
 var current_mode
 enum Mode {
@@ -43,12 +44,12 @@ func set_mode():
 			current_mode = Mode.UserCpu
 		[true, true]:
 			current_mode = Mode.BothCpu
+			show_result_button()
 
 func reverse_sides():
 	NodeUtil.reverse_children(tb_arr[0].get_parent(), 1)
-	var temp = tb_arr[0]
-	tb_arr[0] = tb_arr[1]
-	tb_arr[1] = temp
+	tb_arr.reverse()
+	reversed = !reversed
 
 func play_fighter(fc: FighterCard = null):
 	if (!fc):
@@ -61,14 +62,24 @@ func play_fighter(fc: FighterCard = null):
 			tb_arr[0].play_fighter(fc)
 			tb_arr[1].play_fighter(fc)
 			if (tb_arr[0].played.get_child_count() == tb_arr[1].played.get_child_count()):
-				start_match()
+				show_result_button()
 		Mode.UserCpu:
 			tb_arr[0].play_fighter()
 			tb_arr[1].play_fighter(fc)
+			show_result_button()
+
+func show_result_button():
+	tb_arr[1].result_button.visible = true
+
+func hide_result_button():
+	tb_arr[1].result_button.visible = false
 
 func start_match():
+	var both_cpu = (current_mode == Mode.BothCpu)
+	if (both_cpu): play_fighter()
 	var fcs = [tb_arr[0].played.get_child(-1), tb_arr[1].played.get_child(-1)]
-	var m = game.run_match(fcs[0], fcs[1])
+	if (reversed): fcs.reverse()
+	var m = game.run_match(fcs[0].fighter, fcs[1].fighter)
 	var r = m.result
 	if (r == -1):
 		fcs[0].render_tie(m.ModApplied.str1, m.ModApplied.wk1)
@@ -83,4 +94,16 @@ func start_match():
 		Err.alert_fatal("Invalid match result", Err.Fatal.Invalid)
 
 	for i in range (tb_arr.size()):
-		tb_arr[i].set_score(game.score[i])
+		var x = i
+		if (reversed): x -= 1
+		tb_arr[x].set_score(game.score[i])
+		tb_arr[x].set_click_enable(true)
+
+	if (!both_cpu):
+		hide_result_button()
+
+#func adjust_result_reverse(r: int) -> int:
+#	if (reversed):
+#		if (r == 0): return 1
+#		elif (r == 1): return 0
+#	return r

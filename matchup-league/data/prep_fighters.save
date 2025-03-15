@@ -68,7 +68,7 @@
 {"base":1610,"id":67,"name":"Skinny Pete","season":29,"start season":32,"strType":"F","strVal":10,"team ID":6,"types":"RW","wkType":"M","wkVal":10}
 {"base":1770,"id":68,"name":"Scar","season":29,"start season":33,"strType":"G","strVal":130,"team ID":15,"types":"EG","wkType":"R","wkVal":100}
 {"base":1730,"id":69,"name":"Cc","season":29,"start season":33,"strType":"R","strVal":60,"team ID":32,"types":"G","wkType":"V","wkVal":100}
-{"base":1700,"id":70,"name":"Kallen Kozuki","season":29,"start season":34,"strType":"M","strVal":10,"team ID":32,"types":"RF","wkType":"M","wkVal":10}
+{"base":1700,"id":70,"name":"Kallen Kozuki","season":29,"start season":34,"strType":"C","strVal":140,"team ID":32,"types":"REF","wkType":"E","wkVal":110}
 {"base":1690,"id":71,"name":"Mr. Krabs","season":29,"start season":32,"strType":"V","strVal":70,"team ID":1,"types":"WV","wkType":"W","wkVal":50}
 {"base":1650,"id":72,"name":"Plankton","season":29,"start season":32,"strType":"C","strVal":60,"team ID":1,"types":"WV","wkType":"L","wkVal":30}
 {"base":1710,"id":73,"name":"Sandy Cheeks","season":29,"start season":33,"strType":"M","strVal":40,"team ID":1,"types":"M","wkType":"W","wkVal":80}
