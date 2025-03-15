@@ -2,6 +2,7 @@ extends VBoxContainer
 
 @export var played: HBoxContainer
 @export var bench: HBoxContainer
+@export var team_name_label: Label
 @export var score_label: Label
 @export var result_button: Button
 @export var scoreboard_color_rect: ColorRect
@@ -22,6 +23,7 @@ func render(idx: int, t: Team):
 	set_score(0)
 	result_button.visible = false
 	scoreboard_color_rect.color = team.color
+	team_name_label.text = team.name
 
 func fill_bench(fighters: Array):
 	NodeUtil.list_fighter_cards(bench, fighters)
@@ -31,6 +33,9 @@ func set_score(score: int):
 	score_label.text = str(score)
 
 func add_to_played(fc: FighterCard):
+	if (!fc): 
+		Err.print_warn("no fighter selected", Err.Warn.NoAction)
+		return
 	var new = blank_fc.duplicate()
 	new.render(fc.fighter)
 	played.add_child(new)

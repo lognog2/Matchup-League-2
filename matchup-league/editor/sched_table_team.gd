@@ -26,7 +26,7 @@ func set_team(t: Team):
 	name_label.text = t.name
 	self.color = t.color
 	level = t.level
-	for i in range(1, numGames + 1):
+	for i in range (1, numGames + 1):
 		var newGame = blank_game.duplicate()
 		vbox.add_child(newGame)
 		newGame.render_game(i, t, vbox.get_child(-1))
@@ -34,12 +34,3 @@ func set_team(t: Team):
 	blank_game.queue_free()
 	visible = true
 	add_to_group(TEAM_GROUP)
-
-## @deprecated: dont use
-func save():
-	var games = vbox.get_children()
-	for i in range (1, vbox.get_child_count()):
-		var oppID = games[i].opponentID
-		if (team.get_opponent(i).id != oppID):
-			print("/ " + str(team.id) + " vs " + str(oppID) + " but not really")
-			#team.add_game(i, oppID)

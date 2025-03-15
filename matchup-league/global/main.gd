@@ -2,22 +2,23 @@ extends Control
 
 var season: int
 var main_node: Control
+var game_seed: Variant
 const MAX_TYPES = 4
 const MIN_BASE = 499
 const MAX_BASE = 9999
 const MIN_MOD = 9
 const MAX_MOD = 299
 
-const SCENE_PATH = "res://scene/"
+const SCENE_PATH = "res://scene/%s.tscn"
 ## max number of scenes that will be stored in scene history
-const MAX_SCENES = 64
+const MAX_SCENES = 8
 
 const DEFAULT_SERIES = "Original"
 
-const VERSION_NUM = "2.0.1"
+const VERSION_NUM = "2.0.2"
 
 func commit_num() -> String: 
-	return VERSION_NUM + ".FINAL"
+	return VERSION_NUM + ".0"
 
 var Edition = {
 	Dev = "Development",
@@ -87,9 +88,9 @@ var Keyname = {
 }
 
 func _ready():
-	var seed = randi()
-	seed(seed)
-	print("^ seed: ", seed)
+	game_seed = randi()
+	seed(game_seed)
+	print("^ seed: ", game_seed)
 	SignalBus.set_scene.connect(set_scene)
 	season = 29
 	Levels.Prep = Level.new("Prep", 4)
@@ -121,12 +122,12 @@ func blank_entity(ent_name: String) -> DataEntity:
 
 # scene functions
 
+## sets scene to `sc` scene. if `sc` is empty, goes back a scene
 func set_scene(sc: String):
 	if (sc):
 		scene_arr.append(sc)
-		var new_scene = load(SCENE_PATH + sc + ".tscn")
-		main_node.add_child(new_scene.instantiate())
-		if (get_child_count() > 1): get_child(-2).visible = false
+		var new_scene = load(SCENE_PATH % sc)
+		main_node.set_scene(new_scene.instantiate())
 	elif(scene_arr.size() > 1):
 		scene_arr.pop_back()
 		main_node.get_child(-1).queue_free()

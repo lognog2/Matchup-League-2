@@ -61,7 +61,7 @@ func setTeam():
 
 ## returns index of text in option button, or -1 if not found
 func find_item_idx(ob: OptionButton, find: String) -> int:
-	for i in range(ob.item_count):
+	for i in range (ob.item_count):
 		if (find == ob.get_item_text(i)):
 			return i
 	return -1

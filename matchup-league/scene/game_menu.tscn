@@ -35,14 +35,15 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="bottom_team_box" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("played", "bench", "score_label", "result_button", "scoreboard_color_rect")]
+[node name="bottom_team_box" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("played", "bench", "team_name_label", "score_label", "result_button", "scoreboard_color_rect")]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 script = ExtResource("3_oxcdy")
 played = NodePath("PanelContainer/HBoxContainer/fighter played")
 bench = NodePath("fighter bench")
-score_label = NodePath("PanelContainer/HBoxContainer/left_panel/scoreboard/score_label")
+team_name_label = NodePath("PanelContainer/HBoxContainer/left_panel/scoreboard/MarginContainer/VBoxContainer/team_label")
+score_label = NodePath("PanelContainer/HBoxContainer/left_panel/scoreboard/MarginContainer/VBoxContainer/score_label")
 result_button = NodePath("PanelContainer/HBoxContainer/left_panel/MarginContainer/see_result")
 scoreboard_color_rect = NodePath("PanelContainer/HBoxContainer/left_panel/scoreboard/ColorRect")
 
@@ -66,27 +67,35 @@ size_flags_horizontal = 3
 layout_mode = 2
 text = "See result"
 
-[node name="scoreboard" type="Panel" parent="PanelContainer/MarginContainer/VBoxContainer/bottom_team_box/PanelContainer/HBoxContainer/left_panel"]
+[node name="scoreboard" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/bottom_team_box/PanelContainer/HBoxContainer/left_panel"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.67
 
 [node name="ColorRect" type="ColorRect" parent="PanelContainer/MarginContainer/VBoxContainer/bottom_team_box/PanelContainer/HBoxContainer/left_panel/scoreboard"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 color = Color(0.0408451, 0.339271, 0.920646, 1)
 
-[node name="score_label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/bottom_team_box/PanelContainer/HBoxContainer/left_panel/scoreboard"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/bottom_team_box/PanelContainer/HBoxContainer/left_panel/scoreboard"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/bottom_team_box/PanelContainer/HBoxContainer/left_panel/scoreboard/MarginContainer"]
+layout_mode = 2
+
+[node name="team_label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/bottom_team_box/PanelContainer/HBoxContainer/left_panel/scoreboard/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "team name"
+horizontal_alignment = 1
+text_overrun_behavior = 3
+ellipsis_char = "."
+
+[node name="score_label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/bottom_team_box/PanelContainer/HBoxContainer/left_panel/scoreboard/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
 theme_override_font_sizes/font_size = 50
 text = "99"
 horizontal_alignment = 1

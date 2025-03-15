@@ -76,21 +76,5 @@ theme_override_styles/normal = ExtResource("2_0l2rn")
 text = "admin editor
 "
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.965
-anchor_right = 0.078
-anchor_bottom = 1.0
-offset_top = -0.320007
-offset_right = 0.143997
-grow_vertical = 0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_bottom = 5
-
-[node name="version" type="Label" parent="MarginContainer"]
-layout_mode = 2
-text = "2.0.1 admin"
-
 [connection signal="pressed" from="background/MarginContainer/VBoxContainer/MarginContainer/freeplay" to="." method="to_freeplay"]
 [connection signal="pressed" from="background/MarginContainer/VBoxContainer/MarginContainer2/editor" to="." method="to_editor"]

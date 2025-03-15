@@ -1,13 +1,10 @@
-to do:
-- freeplay
-    - random, cpu buttons
-- save state at end of game
-
 2.0.2:
-- separate level and library
+- save state at end of game
 - make verison footer always visible
 - editor faster loading
-
+- team color outline around fighter cards
+future:
+- icons instead of letters for types
 
 entity relations stored as objects while game is running, when saving to file save the id only
 entities save the higher relation in hierarchy
@@ -70,3 +67,11 @@ coaches give certain bonuses to your team
 contract cost/length
 trade value
 offseason development
+
+console icons:
+/ comment, debug
+^ system notificaiton
+  blank, minor warning
+* warning
+! major warning, error
+? huh?
