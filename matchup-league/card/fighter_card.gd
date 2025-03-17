@@ -1,4 +1,4 @@
-class_name FighterCard extends Control
+class_name FighterCard extends Card
 
 @export var card_color_rect: ColorRect
 @export var types: Label
@@ -12,12 +12,6 @@ class_name FighterCard extends Control
 var fighter: Fighter
 var mouse_enter = false
 var enable_click = false
-
-var ResultColor = {
-	Loss = Color.RED,
-	Win = Color.FOREST_GREEN,
-	Tie = Color.BLUE
-}
 
 func _process(_delta: float):
 	if (mouse_enter && Input.is_action_just_pressed('left_click')):

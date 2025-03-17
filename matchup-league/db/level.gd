@@ -3,6 +3,7 @@ class_name Level extends Object
 #init vars
 var name: String
 var FPT: int
+var FPG: int
 
 var Lib = {
 	Fighter = null,
@@ -10,9 +11,10 @@ var Lib = {
 	Game = null,
 }
 
-func _init(levelName: String, fpt = 100):
+func _init(levelName: String, fpg = 100, fpt = 100):
 	name = levelName
 	FPT = fpt
+	FPG = fpg
 	Lib.Fighter = EntityLibrary.new(name, Main.Entity.Fighter)
 	Lib.Team = EntityLibrary.new(name, Main.Entity.Team)
 	Lib.Game = EntityLibrary.new(name, Main.Entity.Game)

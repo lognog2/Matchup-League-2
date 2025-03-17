@@ -71,12 +71,29 @@ func set_current_score():
 	for m in matches:
 		var r = m.run_match().result
 		if (r >= 0): score[r] += m.match_val
+
+func set_result():
+	if (score[0] > score[1]):
+		result = 0
+	elif (score[1] > score[0]):
+		result = 1
+	else:
+		result = -1
 		
 func get_opponent(t: Team) -> Team:
 	if t == teams[0]: return teams[1]
 	elif t == teams[1]: return teams[0]
 	print("* %s is not in game " % t.id_str, id_str)
 	return null
+
+## returns winning team, or null if a tie or unfinished
+func get_winner() -> Team:
+	if (result == 0):
+		return teams[0]
+	elif (result == -1):
+		return teams[1]
+	else:
+		return null
 
 ## gets sum of both teams' rating
 func get_rating():
@@ -175,19 +192,15 @@ class Match:
 		ModApplied.str1 = check_mod(f1.strType, f2.types)
 		if (ModApplied.str1):
 			points1 += f1.strVal
-			print("/ str1")
 		ModApplied.str2 = check_mod(f2.strType, f1.types)
 		if (ModApplied.str2):
 			points2 += f2.strVal
-			print("/ str2")
 		ModApplied.wk1 = check_mod(f1.wkType, f2.types)
 		if (ModApplied.wk1):
 			points1 -= f1.wkVal
-			print("/ wk1")
 		ModApplied.wk2 = check_mod(f2.wkType, f1.types)
 		if (ModApplied.wk2):
 			points2 -= f2.wkVal
-			print("/ wk2")
 		
 		if (points1 > points2):
 			if (record):

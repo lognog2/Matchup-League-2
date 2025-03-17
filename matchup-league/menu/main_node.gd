@@ -5,7 +5,7 @@ extends Menu
 
 func _ready():
 	Main.main_node = self
-	version_label.text = Main.version
+	version_label.text = Main.version_edition
 	Main.emit_scene(Main.Scene.MainMenu)
 
 func set_scene(scene: Variant):

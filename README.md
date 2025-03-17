@@ -1,9 +1,6 @@
 # Matchup-League-2
 
-## New for 2.0.1
-- freeplay
-- structural improvements
+## New for 2.0.2
+- season
 
-## Planned for 2.0.2
-- career
-- cpu players
+## Planned for 2.0.3

@@ -5,6 +5,7 @@ var tb_arr = [] ## 0 on top, 1 on bottom
 
 var game: Game
 var reversed = false
+var replay: bool
 
 var current_mode
 enum Mode {
@@ -22,10 +23,11 @@ func _ready():
 	team_box.add_sibling(new_team_box)
 	tb_arr = [team_box, new_team_box]
    
-func render(g: Game):
+func render(g: Game, rep = false):
 	if (!g): Err.alert_fatal("No game specified for game menu", Err.Fatal.Runtime)
 	elif (g.is_bye()): Err.alert_fatal("Cannot show bye in game menu", Err.Fatal.Invalid)
 	game = g
+	replay = rep
 	set_team(0, game.teams[0])
 	set_team(1, game.teams[1])
 	set_mode()
@@ -97,10 +99,31 @@ func start_match():
 		var x = i
 		if (reversed): x -= 1
 		tb_arr[x].set_score(game.score[i])
+		if (!tb_arr[x].can_play()):
+			finish_game()
+			return
 		tb_arr[x].set_click_enable(true)
 
 	if (!both_cpu):
 		hide_result_button()
+
+func finish_game():
+	hide_result_button()
+	game.set_result()
+	var x = game.result
+	if (x == -1):
+		tb_arr[1].show_right_panel(true)
+		return
+	elif (reversed):
+		x -= 1
+	tb_arr[x].show_right_panel(
+	)
+
+func _return():
+	if (game.is_official()):
+		Main.emit_scene(Main.Scene.CareerMenu)
+	else:
+		Main.emit_scene(Main.Scene.MainMenu)
 
 #func adjust_result_reverse(r: int) -> int:
 #	if (reversed):

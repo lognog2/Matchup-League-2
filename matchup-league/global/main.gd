@@ -17,15 +17,15 @@ const DEFAULT_SERIES = "Original"
 
 const VERSION_NUM = "2.0.2"
 
-func commit_num() -> String: 
-	return VERSION_NUM + ".0"
+func commit_version() -> String: 
+	return VERSION_NUM + ".1"
 
 var Edition = {
 	Dev = "Development",
 	Test = "Playtest",
 	Prod = ""
 }
-var version = VERSION_NUM + " " + Edition.Dev
+var version_edition = commit_version() + " " + Edition.Dev
 
 var scene_arr = []
 var Scene = {
@@ -93,7 +93,7 @@ func _ready():
 	print("^ seed: ", game_seed)
 	SignalBus.set_scene.connect(set_scene)
 	season = 29
-	Levels.Prep = Level.new("Prep", 4)
+	Levels.Prep = Level.new("Prep", 3, 4)
 	Levels.Archive = Archive.new()
 	load_state()
 
@@ -128,6 +128,7 @@ func set_scene(sc: String):
 		scene_arr.append(sc)
 		var new_scene = load(SCENE_PATH % sc)
 		main_node.set_scene(new_scene.instantiate())
+		if (scene_arr.size() > MAX_SCENES): scene_arr.pop_front()
 	elif(scene_arr.size() > 1):
 		scene_arr.pop_back()
 		main_node.get_child(-1).queue_free()
