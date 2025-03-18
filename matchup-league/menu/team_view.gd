@@ -1,4 +1,4 @@
-extends Menu
+class_name TeamView extends Menu
 
 @export var name_label: Label
 @export var info_box: VBoxContainer

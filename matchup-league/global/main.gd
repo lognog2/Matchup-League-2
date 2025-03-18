@@ -84,6 +84,7 @@ var Keyname = {
 	Bye = "[Bye]",
 	ByePlain = "Bye",
 	Custom = "[Custom]",
+	Spectate = "[Spectate]",
 	Empty = ""
 }
 

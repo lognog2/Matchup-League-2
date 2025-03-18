@@ -2,15 +2,15 @@
 
 [ext_resource type="Script" path="res://card/game_card.gd" id="1_3mcos"]
 
-[node name="game_card 0" type="Control"]
+[node name="game_card" type="Control"]
 custom_minimum_size = Vector2(250, 75)
 layout_mode = 3
 anchor_right = 0.217
 anchor_bottom = 0.116
 offset_right = 0.0159912
 offset_bottom = -0.167999
-size_flags_horizontal = 0
-size_flags_vertical = 0
+size_flags_horizontal = 2
+size_flags_vertical = 2
 script = ExtResource("1_3mcos")
 
 [node name="PanelContainer 1" type="PanelContainer" parent="."]

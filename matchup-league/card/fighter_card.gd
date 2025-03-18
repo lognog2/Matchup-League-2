@@ -32,13 +32,13 @@ func render(f: Fighter, enable = false):
 	weakness.text = f.mod_str(false)
 	team_name.text = f.team.name.left(3)
 	enable_click = enable
+	show_info()
 
-func _enter():
-	if (enable_click):
-		mouse_enter = true
+func show_info():
+	card_color_rect.get_child(0).visible = true
 
-func _exit():
-	mouse_enter = false
+func hide_info():
+	card_color_rect.get_child(0).visible = false
 
 func render_win(str_app = false, wk_app = false):
 	render_result(1, str_app, wk_app)
@@ -63,3 +63,11 @@ func render_result(result: int, str_app = false, wk_app = false):
 	NodeUtil.set_label_color(base, col)
 	if (result != 1):
 		card_color_rect.color = Color.LIGHT_GRAY
+
+
+func _enter():
+	if (enable_click):
+		mouse_enter = true
+
+func _exit():
+	mouse_enter = false

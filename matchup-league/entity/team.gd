@@ -1,6 +1,7 @@
 class_name Team extends DataEntity
 
 var fighters = []
+var player: Player
 var schedule = {} ## not stored in save
 var color: Color ## stored as `Color` in game, int in save
 var won = 0
@@ -39,6 +40,15 @@ func add_game(g: Game):
 		g.add_team(self)
 	else:
 		schedule[g.rnd] = g
+
+## called from `Player.set_team`
+func set_player(p: Player):
+	if (p.team != self):
+		if (player):
+			p.remove_team()
+		p.set_team(self)
+	else:
+		player = p
 
 func remove_game(r: int):
 	if (schedule.get(r)):

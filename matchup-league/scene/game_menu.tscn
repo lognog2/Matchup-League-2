@@ -2,7 +2,7 @@
 
 [ext_resource type="StyleBox" uid="uid://eelwpy4cx451" path="res://style/background.tres" id="1_h4ru1"]
 [ext_resource type="Script" path="res://menu/game_menu.gd" id="1_rfoo8"]
-[ext_resource type="PackedScene" uid="uid://cmwdrbc7rvioy" path="res://scene/fighter_card.tscn" id="3_hs5hn"]
+[ext_resource type="PackedScene" uid="uid://cmwdrbc7rvioy" path="res://scene/card/fighter_card.tscn" id="3_hs5hn"]
 [ext_resource type="Script" path="res://menu/game_menu_team.gd" id="3_oxcdy"]
 [ext_resource type="StyleBox" uid="uid://dk635wqq4np4n" path="res://style/button_see_match_result.tres" id="4_3c3yn"]
 [ext_resource type="StyleBox" uid="uid://307t0dpmc50n" path="res://style/button_see_match_result_hover.tres" id="4_8cabn"]

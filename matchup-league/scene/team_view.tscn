@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://6j5nmrwk6pbm"]
 
 [ext_resource type="Script" path="res://menu/team_view.gd" id="1_2o8iy"]
-[ext_resource type="PackedScene" uid="uid://cmwdrbc7rvioy" path="res://scene/fighter_card.tscn" id="1_4jwe8"]
+[ext_resource type="PackedScene" uid="uid://cmwdrbc7rvioy" path="res://scene/card/fighter_card.tscn" id="1_4jwe8"]
 
 [node name="team_view" type="Control" node_paths=PackedStringArray("name_label", "info_box", "sched_box", "fc_box", "color_rect")]
 layout_mode = 3
