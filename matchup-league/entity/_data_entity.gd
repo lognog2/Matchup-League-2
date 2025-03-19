@@ -18,7 +18,7 @@ func set_data(data: Dictionary, _on_init = false) -> DataEntity:
 	id = int(data.get("id", id))
 	name = data.get("name", name)
 	season = data.get("season", season)
-	set_level("Prep") #idc anymore
+	set_level(data.get("level name", Main.Levels.Prep.name)) #idc anymore
 	set_series(data.get("series", series))
 	return self
 
@@ -43,11 +43,11 @@ func connect_objs():
 
 ## compiles stats into rating
 func get_rating() -> float:
-	print("* wrong rating function")
+	print("* blank data entity can't have a rating")
 	return Main.GameRound.Debug
 
 func get_rating_scale() -> int:
-	print("* wrong rating scale function")
+	print("* blank data entity can't have a rating scale")
 	return Main.GameRound.Debug
 
 func is_archive() -> bool:

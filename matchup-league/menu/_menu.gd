@@ -8,3 +8,6 @@ func _enter_tree():
 
 func set_level(lvl: Level = Main.Levels.Prep):
 	level = lvl
+	
+func _back():
+	Main.emit_scene()

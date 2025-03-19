@@ -4,9 +4,10 @@ var fighters = []
 var player: Player
 var schedule = {} ## not stored in save
 var color: Color ## stored as `Color` in game, int in save
-var won = 0
-var lost = 0
+var wins = 0
+var losses = 0
 var is_cpu = true
+var rank = 0
 
 func _init(data = {}):
 	super(data, "T")
@@ -83,7 +84,11 @@ func has_game(r: int) -> bool:
 	return get_opponent(r) != null
 
 func games_played() -> int:
-	return won + lost
+	return wins + losses
+
+func win_pct() -> float:
+	if (games_played() == 0): return 0.0
+	return wins as float / games_played()
 
 func set_color(col):
 	if (col is int || col is float):
@@ -92,6 +97,22 @@ func set_color(col):
 		color = col
 	else:
 		Err.alert_fatal("Invalid color type in %s" % id_str, Err.Fatal.Runtime)
+
+# string functions
+
+## returns rank and name
+func rank_name(trim = false) -> String:
+	if (rank >= 10):
+		return "%d) %s" % [rank, name]
+	elif (rank > 0):
+		return "  %d) %s" % [rank, name]
+	elif (trim):
+		return name
+	else:
+		return "     %s" % name
+
+func record_str() -> String:
+	return "%d-%d" % [wins, losses]
 
 # format functions
 
@@ -120,7 +141,7 @@ func format_info() -> Dictionary:
 	return info
 
 ##converts wins and losses to string: w-l
-func format_record(w = won, l = lost) -> String:
+func format_record(w = wins, l = losses) -> String:
 	return "%d-%d" % [w, l]
 
 ## converts hex color to `Color`

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://yj00mivvbeba"]
+[gd_scene load_steps=5 format=3 uid="uid://yj00mivvbeba"]
 
 [ext_resource type="Script" path="res://menu/main_node.gd" id="1_m3hg5"]
 [ext_resource type="StyleBox" uid="uid://eelwpy4cx451" path="res://style/background.tres" id="2_kdcq6"]
 [ext_resource type="PackedScene" uid="uid://cqasb8jiiyqls" path="res://scene/main_menu.tscn" id="4_jsfq6"]
+[ext_resource type="Script" path="res://debug/signal_intercept.gd" id="4_x1t2k"]
 
 [node name="main" type="Control" node_paths=PackedStringArray("vbox", "version_label")]
 layout_mode = 3
@@ -16,6 +17,9 @@ size_flags_vertical = 3
 script = ExtResource("1_m3hg5")
 vbox = NodePath("PanelContainer/VBoxContainer")
 version_label = NodePath("PanelContainer/VBoxContainer/version_footer/version")
+
+[node name="intercept" type="Node" parent="."]
+script = ExtResource("4_x1t2k")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1

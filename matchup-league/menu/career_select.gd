@@ -2,8 +2,8 @@ extends Menu
 
 @export var team_option: OptionButton
 @export var team_view: Control
+@export var name_entry: LineEdit
 
-var player: Player
 var team: Team
 
 func _ready():
@@ -19,11 +19,15 @@ func render(t: Team = null):
 	for t_name in team.level.get_t_names():
 		team_option.add_item(t_name)
 		if (t_name == team.name):
-			select = team_option.item_count - 2
+			select = team_option.item_count - 1
 	team_option.selected = select
 	team_view.render(team)
 
 func _select(idx: int):
+	if (idx == 0):
+		team = null
+		team_view.render_spectator()
+		return
 	var new_name = team_option.get_item_text(idx)
 	var new_team = team.level.find_team(new_name)
 	render(new_team)
@@ -31,13 +35,14 @@ func _select(idx: int):
 func _random():
 	render()
 
-func _back():
-	Main.emit_scene()
-
-func _play():
-	Main.emit_scene(Main.Scene.SeasonMenu)
-
-func set_game():
+func _start():
+	var level = Main.Levels.Prep
+	var p_name = name_entry.text if (!name_entry.text.is_empty()) else "User"
 	var data = {
+		"name" = p_name
 	}
-	player = Main.Levels.Prep.add_player(data)
+	var user = level.add_player(data)
+	user.set_team(team)
+	Main.current_career = Career.new(user)
+	Main.current_career.begin_round()
+	Main.emit_scene(Main.Scene.SeasonMenu)

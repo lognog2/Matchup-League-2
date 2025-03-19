@@ -1,10 +1,14 @@
 2.0.2:
 - save state at end of game
-- make verison footer always visible
-- editor faster loading
+- hide cards until result shown in player v player
+- neater columns for team rankings
 - team color outline around fighter cards
 future:
+- editor faster loading
 - icons instead of letters for types
+
+settings to add
+- play cpu games before or after user game
 
 entity relations stored as objects while game is running, when saving to file save the id only
 entities save the higher relation in hierarchy
@@ -75,3 +79,4 @@ console icons:
 * warning
 ! major warning, error
 ? huh?
+> signal intercept

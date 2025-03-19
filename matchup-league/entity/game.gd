@@ -119,8 +119,11 @@ func is_bye() -> bool:
 func is_official() -> bool:
 	return rnd > 0
 
+func is_done() -> bool:
+	return is_finished()
+
 func is_finished() -> bool: 
-	return (result)
+	return (result != null)
 	
 ## returns result int (not writing the key again)
 func run_match(f1: Fighter, f2: Fighter) -> Match:

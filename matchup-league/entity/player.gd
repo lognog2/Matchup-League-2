@@ -30,9 +30,14 @@ func remove_team():
 	team.remove_player()
 	team = null
 
+func get_rating() -> float:
+	return team.get_rating() if (team) else 0.0
+
 func format_save():
 	var data = super()
 	data.merge({
-		"team ID": teamID,
+		"id" = id,
+		"name" = name,
+		"team ID" =  teamID,
 		}, true)
 	return data

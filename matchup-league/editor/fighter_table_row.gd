@@ -71,7 +71,7 @@ func save():
 	if (f_name.text == ""): return
 	var data = {
 		"id": id.text,
-		"name": f_name.text.capitalize(),
+		"name": f_name.text,
 		"season": Main.get_season(),
 		"level name": level.name,
 		"types": types.text,

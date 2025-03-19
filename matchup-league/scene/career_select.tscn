@@ -1,11 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://btuhai1ii7uhn"]
+[gd_scene load_steps=4 format=3 uid="uid://btuhai1ii7uhn"]
 
 [ext_resource type="Script" path="res://menu/career_select.gd" id="1_kbpcc"]
 [ext_resource type="StyleBox" uid="uid://eelwpy4cx451" path="res://style/background.tres" id="2_3mg5p"]
-[ext_resource type="Script" path="res://menu/game_select_team.gd" id="3_6qerm"]
 [ext_resource type="PackedScene" uid="uid://6j5nmrwk6pbm" path="res://scene/team_view.tscn" id="4_gu2p0"]
 
-[node name="career select" type="Control"]
+[node name="career select" type="Control" node_paths=PackedStringArray("team_option", "team_view", "name_entry")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,8 +12,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_kbpcc")
+team_option = NodePath("PanelContainer 1/MarginContainer 2/VBoxContainer 3/teams_row 4b/team_cont 5b/MarginContainer 6b/HBoxContainer 7b/OptionButton")
+team_view = NodePath("PanelContainer 1/MarginContainer 2/VBoxContainer 3/teams_row 4b/team_cont 5b/team_view")
+name_entry = NodePath("PanelContainer 1/MarginContainer 2/VBoxContainer 3/name entry 4c/name entry")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer 1" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,69 +25,76 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("2_3mg5p")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer 2" type="MarginContainer" parent="PanelContainer 1"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer 3" type="VBoxContainer" parent="PanelContainer 1/MarginContainer 2"]
 layout_mode = 2
 
-[node name="top_row" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="top_row 4a" type="HBoxContainer" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/top_row"]
+[node name="Button" type="Button" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3/top_row 4a"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Back"
 
-[node name="teams_row" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="teams_row 4b" type="HBoxContainer" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="team_cont" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row" node_paths=PackedStringArray("team_option", "team_view", "cpu_check")]
+[node name="team_cont 5b" type="VBoxContainer" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3/teams_row 4b"]
 layout_mode = 2
 size_flags_horizontal = 3
-script = ExtResource("3_6qerm")
-team_option = NodePath("MarginContainer/HBoxContainer/OptionButton")
-team_view = NodePath("team_view")
-cpu_check = NodePath("")
 
-[node name="MarginContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont"]
+[node name="MarginContainer 6b" type="PanelContainer" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3/teams_row 4b/team_cont 5b"]
 layout_mode = 2
 theme_override_styles/panel = ExtResource("2_3mg5p")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont/MarginContainer"]
+[node name="HBoxContainer 7b" type="HBoxContainer" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3/teams_row 4b/team_cont 5b/MarginContainer 6b"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="OptionButton" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont/MarginContainer/HBoxContainer"]
+[node name="OptionButton" type="OptionButton" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3/teams_row 4b/team_cont 5b/MarginContainer 6b/HBoxContainer 7b"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 clip_text = true
 
-[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont/MarginContainer/HBoxContainer"]
+[node name="random button" type="Button" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3/teams_row 4b/team_cont 5b/MarginContainer 6b/HBoxContainer 7b"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "Random"
 
-[node name="team_view" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont" instance=ExtResource("4_gu2p0")]
+[node name="team_view" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3/teams_row 4b/team_cont 5b" instance=ExtResource("4_gu2p0")]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="bottom_row" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="name entry 4c" type="HBoxContainer" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3"]
 layout_mode = 2
 alignment = 1
 
-[node name="play" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/bottom_row"]
+[node name="name entry" type="LineEdit" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3/name entry 4c"]
+custom_minimum_size = Vector2(400, 40)
+layout_mode = 2
+placeholder_text = "Enter your name"
+
+[node name="bottom_row 4d" type="HBoxContainer" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3"]
+layout_mode = 2
+alignment = 1
+
+[node name="start" type="Button" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3/bottom_row 4d"]
 custom_minimum_size = Vector2(400, 60)
 layout_mode = 2
 theme_override_colors/icon_normal_color = Color(0, 0.749434, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 30
-text = "Play"
+text = "Start Career"
 
-[connection signal="item_selected" from="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont/MarginContainer/HBoxContainer/OptionButton" to="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont" method="_select"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont/MarginContainer/HBoxContainer/Button" to="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont" method="_random"]
+[connection signal="pressed" from="PanelContainer 1/MarginContainer 2/VBoxContainer 3/top_row 4a/Button" to="." method="_back"]
+[connection signal="item_selected" from="PanelContainer 1/MarginContainer 2/VBoxContainer 3/teams_row 4b/team_cont 5b/MarginContainer 6b/HBoxContainer 7b/OptionButton" to="." method="_select"]
+[connection signal="pressed" from="PanelContainer 1/MarginContainer 2/VBoxContainer 3/teams_row 4b/team_cont 5b/MarginContainer 6b/HBoxContainer 7b/random button" to="." method="_random"]
+[connection signal="pressed" from="PanelContainer 1/MarginContainer 2/VBoxContainer 3/bottom_row 4d/start" to="." method="_start"]

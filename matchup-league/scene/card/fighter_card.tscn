@@ -8,20 +8,24 @@ Label/font_sizes/font_size = 14
 [node name="fighter_card (size)" type="Control" node_paths=PackedStringArray("card_color_rect", "types", "f_name", "base", "strength", "weakness", "team_name", "contract")]
 custom_minimum_size = Vector2(100, 140)
 layout_mode = 3
-anchors_preset = 0
+anchor_right = 0.062
+anchor_bottom = 0.156
+offset_right = -99.2
+offset_bottom = -140.4
 size_flags_horizontal = 0
 size_flags_vertical = 0
 script = ExtResource("1_hg5ae")
-card_color_rect = NodePath("SubViewportContainer (size)/SubViewport/PanelContainer (size)/card")
-types = NodePath("SubViewportContainer (size)/SubViewport/PanelContainer (size)/card/MarginContainer/VBoxContainer/types")
-f_name = NodePath("SubViewportContainer (size)/SubViewport/PanelContainer (size)/card/MarginContainer/VBoxContainer/name")
-base = NodePath("SubViewportContainer (size)/SubViewport/PanelContainer (size)/card/MarginContainer/VBoxContainer/base")
-strength = NodePath("SubViewportContainer (size)/SubViewport/PanelContainer (size)/card/MarginContainer/VBoxContainer/strength")
-weakness = NodePath("SubViewportContainer (size)/SubViewport/PanelContainer (size)/card/MarginContainer/VBoxContainer/weakness")
-team_name = NodePath("SubViewportContainer (size)/SubViewport/PanelContainer (size)/card/MarginContainer/VBoxContainer/HSplitContainer/team_name")
-contract = NodePath("SubViewportContainer (size)/SubViewport/PanelContainer (size)/card/MarginContainer/VBoxContainer/HSplitContainer/contract")
+card_color_rect = NodePath("PanelContainer (size)/card")
+types = NodePath("PanelContainer (size)/card/MarginContainer/VBoxContainer/types")
+f_name = NodePath("PanelContainer (size)/card/MarginContainer/VBoxContainer/name")
+base = NodePath("PanelContainer (size)/card/MarginContainer/VBoxContainer/base")
+strength = NodePath("PanelContainer (size)/card/MarginContainer/VBoxContainer/strength")
+weakness = NodePath("PanelContainer (size)/card/MarginContainer/VBoxContainer/weakness")
+team_name = NodePath("PanelContainer (size)/card/MarginContainer/VBoxContainer/HSplitContainer/team_name")
+contract = NodePath("PanelContainer (size)/card/MarginContainer/VBoxContainer/HSplitContainer/contract")
 
 [node name="SubViewportContainer (size)" type="SubViewportContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(100, 140)
 layout_mode = 1
 stretch = true
@@ -31,17 +35,23 @@ handle_input_locally = false
 sdf_scale = 0
 size = Vector2i(100, 140)
 size_2d_override_stretch = true
-render_target_update_mode = 4
+render_target_update_mode = 0
 
-[node name="PanelContainer (size)" type="PanelContainer" parent="SubViewportContainer (size)/SubViewport"]
+[node name="PanelContainer (size)" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(100, 140)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="card" type="ColorRect" parent="SubViewportContainer (size)/SubViewport/PanelContainer (size)"]
+[node name="card" type="ColorRect" parent="PanelContainer (size)"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="SubViewportContainer (size)/SubViewport/PanelContainer (size)/card"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer (size)/card"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,18 +64,18 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SubViewportContainer (size)/SubViewport/PanelContainer (size)/card/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer (size)/card/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme = SubResource("Theme_iwip4")
 alignment = 1
 
-[node name="types" type="Label" parent="SubViewportContainer (size)/SubViewport/PanelContainer (size)/card/MarginContainer/VBoxContainer"]
+[node name="types" type="Label" parent="PanelContainer (size)/card/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "(R) (S)"
 
-[node name="name" type="Label" parent="SubViewportContainer (size)/SubViewport/PanelContainer (size)/card/MarginContainer/VBoxContainer"]
+[node name="name" type="Label" parent="PanelContainer (size)/card/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Fighter"
@@ -74,34 +84,34 @@ clip_text = true
 text_overrun_behavior = 3
 ellipsis_char = "."
 
-[node name="base" type="Label" parent="SubViewportContainer (size)/SubViewport/PanelContainer (size)/card/MarginContainer/VBoxContainer"]
+[node name="base" type="Label" parent="PanelContainer (size)/card/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "1800"
+text = "1899"
 horizontal_alignment = 1
 
-[node name="strength" type="Label" parent="SubViewportContainer (size)/SubViewport/PanelContainer (size)/card/MarginContainer/VBoxContainer"]
+[node name="strength" type="Label" parent="PanelContainer (size)/card/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "(M) + 100"
+text = "(M) + 199"
 horizontal_alignment = 1
 
-[node name="weakness" type="Label" parent="SubViewportContainer (size)/SubViewport/PanelContainer (size)/card/MarginContainer/VBoxContainer"]
+[node name="weakness" type="Label" parent="PanelContainer (size)/card/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "(W) + 100"
+text = "(W) + 199"
 horizontal_alignment = 1
 
-[node name="HSplitContainer" type="HBoxContainer" parent="SubViewportContainer (size)/SubViewport/PanelContainer (size)/card/MarginContainer/VBoxContainer"]
+[node name="HSplitContainer" type="HBoxContainer" parent="PanelContainer (size)/card/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="team_name" type="Label" parent="SubViewportContainer (size)/SubViewport/PanelContainer (size)/card/MarginContainer/VBoxContainer/HSplitContainer"]
+[node name="team_name" type="Label" parent="PanelContainer (size)/card/MarginContainer/VBoxContainer/HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Bl"
 
-[node name="contract" type="Label" parent="SubViewportContainer (size)/SubViewport/PanelContainer (size)/card/MarginContainer/VBoxContainer/HSplitContainer"]
+[node name="contract" type="Label" parent="PanelContainer (size)/card/MarginContainer/VBoxContainer/HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)

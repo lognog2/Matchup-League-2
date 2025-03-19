@@ -5,14 +5,15 @@ var Select = {
 	Default = (func(_de): return true)
 }
 
-## sorting filters
+## sorting filters. 
+## if callable returns true, entity A will be closer to index 0 than entity B
 var Sort = {
 	Id = (func(a: DataEntity, b: DataEntity): 
 		return a.id < b.id),
 	Alphabet = (func(a: DataEntity, b: DataEntity):
 		return a.name.naturalcasecmp_to(b.name) < 0),
 	Rating = (func(a: DataEntity, b: DataEntity):
-		return a.get_rating() < b.get_rating()),
+		return a.get_rating() > b.get_rating()),
 	Default = (func(_a: DataEntity, _b: DataEntity): 
 		return false)
 }

@@ -2,19 +2,21 @@
 
 [ext_resource type="Script" path="res://card/game_card.gd" id="1_3mcos"]
 
-[node name="game_card" type="Control"]
+[node name="game_card" type="Control" node_paths=PackedStringArray("teams_box", "scores_box", "done_button")]
 custom_minimum_size = Vector2(250, 75)
 layout_mode = 3
-anchor_right = 0.217
-anchor_bottom = 0.116
-offset_right = 0.0159912
-offset_bottom = -0.167999
+anchor_right = 0.156
+anchor_bottom = 0.083
+offset_right = -49.6
+offset_bottom = 0.299995
 size_flags_horizontal = 2
 size_flags_vertical = 2
 script = ExtResource("1_3mcos")
+teams_box = NodePath("PanelContainer 1/ColorRect 2/MarginContainer 3/HBoxContainer 4/teams")
+scores_box = NodePath("PanelContainer 1/ColorRect 2/MarginContainer 3/HBoxContainer 4/scores")
+done_button = NodePath("PanelContainer 1/ColorRect 2/MarginContainer 3/HBoxContainer 4/MenuButton")
 
 [node name="PanelContainer 1" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(250, 75)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -32,7 +34,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 15
+theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 5
@@ -55,7 +57,6 @@ ellipsis_char = "."
 
 [node name="scores" type="VBoxContainer" parent="PanelContainer 1/ColorRect 2/MarginContainer 3/HBoxContainer 4"]
 layout_mode = 2
-size_flags_horizontal = 3
 
 [node name="score label" type="Label" parent="PanelContainer 1/ColorRect 2/MarginContainer 3/HBoxContainer 4/scores"]
 layout_mode = 2
@@ -64,6 +65,7 @@ theme_override_font_sizes/font_size = 20
 text = "99"
 
 [node name="MenuButton" type="MenuButton" parent="PanelContainer 1/ColorRect 2/MarginContainer 3/HBoxContainer 4"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Done"
