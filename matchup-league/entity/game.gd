@@ -4,7 +4,7 @@ var rnd: int
 var teams = [null, null]
 var teamIDs = [-1, -1]
 var score = [0, 0]
-var result = null
+var result = null #index of winning team, or -1 for a tie
 var matches = []
 
 func _init(data = {}):
@@ -43,7 +43,7 @@ func get_team_index(t: Team) -> int:
 		if (teams[i] == t):
 			return i
 	Err.alert_warn(t.id_str + " not found in " + id_str, 0)
-	return -1
+	return -3
 
 func set_teams(tms: Array):
 	set_team(0, tms[0])
@@ -133,6 +133,32 @@ func run_match(f1: Fighter, f2: Fighter) -> Match:
 	if (r >= 0): score[r] += m.match_val
 	return m
 	
+# string functions
+
+## returns T for tie, W for win, L for loss
+func result_char(idx: int) -> String:
+	if (!is_finished()): return ""
+	if (result == -1):
+		return "T"
+	elif (result == idx):
+		return "W"
+	else:
+		return "L"
+
+## gets result and score from one teams's perspective.
+## if game is not finished, returns empty string
+func result_string(t: Team, include_opp = false) -> String:
+	var i = get_team_index(t)
+	var k = i - 1
+	var text = ""
+	if (include_opp):
+		text = "%d) vs %s " % [rnd, teams[k].name]
+	if (is_finished()):
+		text += "%s %d-%d" % [result_char(i), score[i], score[k]]
+	return text
+
+# format functions
+
 func format_save() -> Dictionary:
 	verify()
 	var data = super()

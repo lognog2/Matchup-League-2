@@ -42,7 +42,7 @@ func fill_sched(sched: Dictionary):
 	var blank_label = NodeUtil.detach_child(sched_box)
 	for i in range (1, sched.size() + 1):
 		var new_label = blank_label.duplicate()
-		new_label.text = "%d) vs %s" % [i, team.get_opponent_name(i)]
+		new_label.text = team.game_str(i, true)
 		sched_box.add_child(new_label)
 
 func fill_fighters(fighters: Array):

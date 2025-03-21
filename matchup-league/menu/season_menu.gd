@@ -4,8 +4,10 @@ extends Menu
 @export var games_box: VBoxContainer
 @export var ranking_box: VBoxContainer
 @export var opp_rect: ColorRect
+@export var round_label: Label
 @export var next_game_label: Label
 @export var opp_name_label: Label
+@export var result_label: Label
 @export var view_opp_button: Button
 @export var next_game_button: Button
 @export var next_round_button: Button
@@ -14,38 +16,48 @@ extends Menu
 var career: Career
 var team: Team
 var opp: Team
-var game_done: bool
+var rnd = 0
 
 func _ready():
 	render()
 
-func render():
+func render(before = true):
 	career = Main.current_career
 	team = career.get_team()
+	rnd = career.current_round
+	round_label.text = "Round %d" % rnd
 	team_view.render(team)
 	team_view.fc_box.visible = false #must be after render
-	fill_opp_info()
+	fill_opp_info(before)
 	fill_rankings()
 	fill_games()
 
-func fill_opp_info():
+func fill_opp_info(before = true):
 	if (career.is_spectator()): 
-		fill_opp_null()
+		fill_opp_null(before)
 		return
 	opp = team.get_opponent(career.current_round)
 	if (!opp): 
-		fill_opp_null()
+		fill_opp_null(before)
 		return
 	opp_rect.color = opp.color
 	opp_name_label.text = opp.rank_name(true)
+	next_game_label.text = "Next game:" if (before) else "Game vs:"
 	view_opp_button.visible = true
+	next_game_button.visible = before
+	next_round_button.visible = !before
+	sim_round_button.visible = false
+	result_label.text = team.game_str(rnd, false)
 
-func fill_opp_null():
+func fill_opp_null(before = true):
 	opp_name_label.text = "No game this round"
-	opp_rect.color = Color.DIM_GRAY
+	opp_rect.color = Color.DARK_GRAY
 	next_game_label.text = " "
 	view_opp_button.visible = false
 	next_game_button.visible = false
+	sim_round_button.visible = before
+	next_round_button.visible = !before
+	result_label.visible = false
 
 func fill_rankings():
 	var blank_team_label = NodeUtil.detach_child(ranking_box)
@@ -57,7 +69,7 @@ func fill_rankings():
 
 func fill_games():
 	var blank_game_card = NodeUtil.detach_child(games_box)
-	var current_games = level.get_games_filtered(Filter.select_by_round(career.current_round))
+	var current_games = level.get_current_games(rnd)
 	for g in current_games:
 		var gc = blank_game_card.duplicate()
 		gc.render(g)

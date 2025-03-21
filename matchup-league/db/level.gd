@@ -69,6 +69,10 @@ func get_games_sorted(filter = Filter.Sort.Rating) -> Array:
 func get_games_filtered(select = Filter.Select.Default, sort = Filter.Sort.Rating) -> Array:
 	return Lib.Game.get_entities(select, sort)
 
+## gets all games in specified round `r`
+func get_current_games(r: int) -> Array:
+	return get_games_filtered(Filter.select_by_round(r))
+
 func get_players(filter = Filter.Select.Default) -> Array: 
 	return Lib.Player.get_entities(filter)
 
@@ -121,6 +125,11 @@ func add_player(data: Dictionary) -> Player:
 func set_player(data: Dictionary) -> Player:
 	return Lib.Player.set_entity(data)
 
+## runs any unfinished games as cpu vs cpu
+func sim_round(r: int):
+	for g in get_current_games(r):
+		g.sim_game()
+
 ## returns array of top `TEAMS_RANKED` teams
 func set_rankings() -> Array:
 	var teams_ranked = get_teams_sorted(Filter.Sort.Rating)
@@ -134,8 +143,6 @@ func set_rankings() -> Array:
 			top_teams.append(t)
 			i += 1
 	return top_teams
-
-
 
 func save_data(softSave: bool):
 	print("/ last chance to look at the save data") #breakpoint safe space

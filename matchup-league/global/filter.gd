@@ -18,6 +18,7 @@ var Sort = {
 		return false)
 }
 
+## returns true if `Game`'s round matches `r`
 func select_by_round(r: int) -> Callable:
 	return (func(g: Game): return g.rnd == r)
 

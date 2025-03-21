@@ -22,3 +22,6 @@ func begin_round():
 		return
 	get_level().set_rankings()
 	
+func sim_round():
+	var level = get_level()
+	level.sim_round(current_round)

@@ -30,7 +30,7 @@ func render(f: Fighter, enable = false):
 	base.text = str(f.base)
 	strength.text = f.mod_str(true)
 	weakness.text = f.mod_str(false)
-	team_name.text = f.team.name.left(3)
+	team_name.text = f.team.name_abbr()
 	enable_click = enable
 	show_info()
 

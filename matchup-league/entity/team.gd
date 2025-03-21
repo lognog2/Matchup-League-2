@@ -55,8 +55,8 @@ func remove_game(r: int):
 	if (schedule.get(r)):
 		schedule[r] = null
 
-func get_game(r: int) -> Team:
-	return get_opponent(r)
+func get_game(r: int) -> Game:
+	return schedule.get(r)
 
 func get_opponent(r: int) -> Team:
 	var g = schedule.get(r)
@@ -113,6 +113,20 @@ func rank_name(trim = false) -> String:
 
 func record_str() -> String:
 	return "%d-%d" % [wins, losses]
+
+func game_str(r: int, include_opp = false) -> String:
+	return get_game(r).result_string(self, include_opp)
+
+## returns first three letters if name is one word, or first letter of each word
+func name_abbr() -> String:
+	var words = name.split(" ")
+	if (words.size() == 1):
+		return name.left(3)
+	else:
+		var text = ""
+		for word in words:
+			text += word[0][0]
+		return text
 
 # format functions
 

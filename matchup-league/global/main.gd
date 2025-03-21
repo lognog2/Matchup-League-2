@@ -19,7 +19,7 @@ const DEFAULT_SERIES = "Original"
 const VERSION_NUM = "prototype 2.0.2"
 
 func commit_version() -> String: 
-	return VERSION_NUM + ".3"
+	return VERSION_NUM + ".4"
 
 var Edition = {
 	Dev = "Development",
