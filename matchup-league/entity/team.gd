@@ -6,7 +6,8 @@ var schedule = {} ## not stored in save
 var color: Color ## stored as `Color` in game, int in save
 var wins = 0
 var losses = 0
-var is_cpu = true
+var ties = 0
+var cpu = true
 var rank = 0
 
 func _init(data = {}):
@@ -42,6 +43,15 @@ func add_game(g: Game):
 	else:
 		schedule[g.rnd] = g
 
+func add_win():
+	wins += 1
+
+func add_loss():
+	losses += 1
+
+func add_tie():
+	ties += 1
+
 ## called from `Player.set_team`
 func set_player(p: Player):
 	if (p.team != self):
@@ -68,7 +78,7 @@ func get_opponent_name(r:int) -> String:
 
 ## compiles stat used for rating
 func get_rating() -> float:
-	return avg_f_rating() 
+	return (avg_f_rating() * Rating.AVG_F_WT) + (wins * Rating.WIN_WT) + (ties * Rating.TIE_WT) - (losses * Rating.LOSS_WT)
 
 ## average rating of all fighters on the team
 func avg_f_rating() -> float:
@@ -82,6 +92,9 @@ func get_rating_scale() -> int:
 
 func has_game(r: int) -> bool:
 	return get_opponent(r) != null
+
+func is_cpu() -> bool:
+	return cpu
 
 func games_played() -> int:
 	return wins + losses
@@ -111,11 +124,13 @@ func rank_name(trim = false) -> String:
 	else:
 		return "     %s" % name
 
+## W-L-T
 func record_str() -> String:
-	return "%d-%d" % [wins, losses]
+	return "%d-%d-%d" % [wins, losses, ties]
 
+## see `Game.result_str()`
 func game_str(r: int, include_opp = false) -> String:
-	return get_game(r).result_string(self, include_opp)
+	return get_game(r).result_str(self, include_opp)
 
 ## returns first three letters if name is one word, or first letter of each word
 func name_abbr() -> String:
@@ -148,15 +163,11 @@ func format_sched() -> Dictionary:
 func format_info() -> Dictionary:
 	var info = {
 		"Rating" = "%.f" % get_rating_scale(),
+		"Record" = record_str(),
 		"Series" = series,
 		"League" = level.name,
-		"Record" = format_record()
 	}
 	return info
-
-##converts wins and losses to string: w-l
-func format_record(w = wins, l = losses) -> String:
-	return "%d-%d" % [w, l]
 
 ## converts hex color to `Color`
 func format_color(hex: int) -> Color:

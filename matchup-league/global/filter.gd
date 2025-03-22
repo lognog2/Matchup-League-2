@@ -14,6 +14,8 @@ var Sort = {
 		return a.name.naturalcasecmp_to(b.name) < 0),
 	Rating = (func(a: DataEntity, b: DataEntity):
 		return a.get_rating() > b.get_rating()),
+	Random = (func(_a, _b):
+		return randi() % 2 == 0),
 	Default = (func(_a: DataEntity, _b: DataEntity): 
 		return false)
 }

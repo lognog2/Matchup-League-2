@@ -72,13 +72,29 @@ func set_current_score():
 		var r = m.run_match().result
 		if (r >= 0): score[r] += m.match_val
 
+## call this when game is finished
 func set_result():
-	if (score[0] > score[1]):
-		result = 0
-	elif (score[1] > score[0]):
-		result = 1
+	#kinda messy but not gonna bother with a better way
+	if (is_official()):
+		if (score[0] > score[1]):
+			result = 0
+			teams[0].add_win()
+			teams[1].add_loss()
+		elif (score[1] > score[0]):
+			result = 1
+			teams[1].add_win()
+			teams[0].add_loss()
+		else:
+			result = -1
+			for t in teams:
+				t.add_tie()
 	else:
-		result = -1
+		if (score[0] > score[1]):
+			result = 0
+		elif (score[1] > score[0]):
+			result = 1
+		else:
+			result = -1
 		
 func get_opponent(t: Team) -> Team:
 	if t == teams[0]: return teams[1]
@@ -124,8 +140,33 @@ func is_done() -> bool:
 
 func is_finished() -> bool: 
 	return (result != null)
+
+## simulates a game as 2 cpu players choosing fighters randomly
+func sim_game():
+	if (is_finished()): 
+		Err.alert_warn(id_str + " already finished", Err.Warn.NoAction)
+		return
+	var f_available = [[],[]]
+	var f_played = [[],[]]
+	for i in range (2):
+		f_available[i] = teams[i].fighters
 	
-## returns result int (not writing the key again)
+	for i in range (level.FPG):
+		var f1 = f_available[0].pick_random()
+		var f2 = f_available[1].pick_random()
+		run_match(f1, f2)
+		f_played[0].append(f1)
+		f_available[0].erase(f1)
+		f_played[1].append(f2)
+		f_available[1].erase(f2)
+
+	for i in range (2):
+		f_available[i].append_array(f_played[i])
+		teams[i].fighters = f_available[i]
+		
+	set_result()
+
+## returns match
 func run_match(f1: Fighter, f2: Fighter) -> Match:
 	var m = Match.new(self, f1, f2)
 	matches.append(m)
@@ -135,7 +176,8 @@ func run_match(f1: Fighter, f2: Fighter) -> Match:
 	
 # string functions
 
-## returns T for tie, W for win, L for loss
+## takes index of team and returns char representing its result
+## returns T for tie, W for win, L for loss, or blank if unfinished
 func result_char(idx: int) -> String:
 	if (!is_finished()): return ""
 	if (result == -1):
@@ -147,7 +189,7 @@ func result_char(idx: int) -> String:
 
 ## gets result and score from one teams's perspective.
 ## if game is not finished, returns empty string
-func result_string(t: Team, include_opp = false) -> String:
+func result_str(t: Team, include_opp = false) -> String:
 	var i = get_team_index(t)
 	var k = i - 1
 	var text = ""
@@ -212,6 +254,7 @@ class Match:
 		run_match()
 		
 	## returns result: 0 if f1 wins, 1 if f2 wins, -1 if tie
+	## param `record` is whether or not to count result towards fighter stats
 	func run_match(record = false) -> Match:
 		if (!game.is_official()): record = false
 		var f1 = fighters[0]

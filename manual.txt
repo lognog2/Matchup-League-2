@@ -5,6 +5,7 @@
 - team color outline around fighter cards
 future:
 - editor faster loading
+- dramatic reveal
 - icons instead of letters for types
 
 settings to add
@@ -27,10 +28,10 @@ m = 1 / # of types
 rating = base + (strength * m) - (weakness * m)
 
 teams:
-average rating of fighters (include wins at some point?)
+average rating of fighters + (wins * 100) + (ties * 50)
 
 game:
-team1 rating + team2 rating
+sum of team ratings
 
 league:
 average rating of teams

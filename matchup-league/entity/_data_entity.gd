@@ -10,8 +10,8 @@ var series: String
 func _init(data = {}, initial = "DE"):
 	SignalBus.done_loading.connect(connect_objs)
 	if (data == {}): return
+	data["initial"] = initial
 	set_data(data)
-	set_id_str(initial)
 
 func set_data(data: Dictionary, _on_init = false) -> DataEntity:
 	if (data == {}): return self
@@ -20,9 +20,11 @@ func set_data(data: Dictionary, _on_init = false) -> DataEntity:
 	season = data.get("season", season)
 	set_level(data.get("level name", Main.Levels.Prep.name)) #idc anymore
 	set_series(data.get("series", series))
+	set_id_str(data.get("initiial", ""))
 	return self
 
 func set_id_str(initial: String):
+	if (initial.is_empty()): return
 	id_str = initial + str(id)
 
 func get_level_name() -> String: 

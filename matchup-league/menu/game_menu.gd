@@ -121,7 +121,7 @@ func finish_game():
 
 func _return():
 	if (game.is_official()):
-		Main.emit_scene(Main.Scene.CareerMenu)
+		Main.emit_scene(Main.Scene.SeasonMenu)
 	else:
 		Main.emit_scene(Main.Scene.MainMenu)
 

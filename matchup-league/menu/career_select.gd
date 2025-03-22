@@ -39,7 +39,8 @@ func _start():
 	var level = Main.Levels.Prep
 	var p_name = name_entry.text if (!name_entry.text.is_empty()) else "User"
 	var data = {
-		"name" = p_name
+		"name" = p_name,
+		"team ID" = team.id if team else -1,
 	}
 	var user = level.add_player(data)
 	user.set_team(team)

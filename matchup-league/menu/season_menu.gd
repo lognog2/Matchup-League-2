@@ -29,14 +29,15 @@ func render(before = true):
 	team_view.render(team)
 	team_view.fc_box.visible = false #must be after render
 	fill_opp_info(before)
-	fill_rankings()
-	fill_games()
+	if (before):
+		fill_rankings()
+		fill_games()
 
 func fill_opp_info(before = true):
 	if (career.is_spectator()): 
 		fill_opp_null(before)
 		return
-	opp = team.get_opponent(career.current_round)
+	opp = team.get_opponent(rnd)
 	if (!opp): 
 		fill_opp_null(before)
 		return
@@ -51,7 +52,7 @@ func fill_opp_info(before = true):
 
 func fill_opp_null(before = true):
 	opp_name_label.text = "No game this round"
-	opp_rect.color = Color.DARK_GRAY
+	opp_rect.color = Color.SLATE_GRAY
 	next_game_label.text = " "
 	view_opp_button.visible = false
 	next_game_button.visible = false
@@ -64,7 +65,7 @@ func fill_rankings():
 	var teams_ranked = level.set_rankings()
 	for t in teams_ranked:
 		var tl = blank_team_label.duplicate()
-		tl.text = t.rank_name()
+		tl.text = t.rank_name() + " " + t.record_str()
 		ranking_box.add_child(tl)
 
 func fill_games():
@@ -80,7 +81,22 @@ func _view_opp():
 	SignalBus.to_team_menu.emit(opp)
 
 func _next_game():
-	pass
-
+	if (!team.has_game(rnd)):
+		Err.alert_fatal("No playable game this round", Err.Fatal.Invalid)
+		return
+	Main.emit_scene(Main.Scene.GameSelect)
+	SignalBus.to_game_select.emit(team.get_game(rnd))
+	
 func _next_round():
-	pass
+	career.begin_round()
+	render(true)
+
+func _sim_round():
+	career.sim_round()
+	update_games()
+	fill_opp_info(false)
+
+## updates existing game cards, preserving the order
+func update_games():
+	for gc in games_box.get_children():
+		gc.render()

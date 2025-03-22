@@ -94,8 +94,7 @@ func setMod(new):
 
 ## compiles fighter rating from stats
 func get_rating() -> float:
-	var mult = 1.0 / Main.Types.size()
-	return base + (strVal * mult) - (wkVal * mult)
+	return (base * Rating.BASE_WT) + (strVal * Rating.STR_WT) - (wkVal * Rating.WK_WT)
 	
 func add_win():
 	matches_won += 1

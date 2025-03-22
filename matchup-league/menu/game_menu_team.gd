@@ -36,7 +36,7 @@ func render(idx: int, t: Team):
 
 func fill_bench(fighters: Array):
 	NodeUtil.list_fighter_cards(bench, fighters)
-	set_click_enable(!team.is_cpu)
+	set_click_enable(!team.cpu)
 
 func set_score(score: int):
 	score_label.text = str(score)
@@ -51,7 +51,7 @@ func add_to_played(fc: FighterCard):
 	bench.remove_child(fc)
 
 func play_fighter(fc: FighterCard = null):
-	if (!team.is_cpu):
+	if (!team.cpu):
 		if (fc.fighter.team == team):
 			add_to_played(fc)
 			set_click_enable(false)
@@ -62,7 +62,7 @@ func play_fighter(fc: FighterCard = null):
 
 ## disabled after user selects a fighter, enabled again after opponent does
 func set_click_enable(enable = true):
-	if (!team.is_cpu):
+	if (!team.cpu):
 		for fc in bench.get_children():
 			fc.enable_click = enable
 

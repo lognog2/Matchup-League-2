@@ -46,12 +46,13 @@ text = "Back"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="team_cont" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row" node_paths=PackedStringArray("team_option", "team_view", "cpu_check")]
+[node name="team_cont" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row" node_paths=PackedStringArray("team_option", "team_view", "random_button", "cpu_check")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("3_2iicl")
 team_option = NodePath("MarginContainer/HBoxContainer/OptionButton")
 team_view = NodePath("team_view")
+random_button = NodePath("MarginContainer/HBoxContainer/random")
 cpu_check = NodePath("MarginContainer/HBoxContainer/CheckButton")
 
 [node name="MarginContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont"]
@@ -67,7 +68,7 @@ custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 clip_text = true
 
-[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont/MarginContainer/HBoxContainer"]
+[node name="random" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "Random"
@@ -75,6 +76,7 @@ text = "Random"
 [node name="CheckButton" type="CheckButton" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(90, 0)
 layout_mode = 2
+button_pressed = true
 text = "CPU"
 
 [node name="team_view" parent="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont" instance=ExtResource("1_yau5g")]
@@ -95,5 +97,5 @@ text = "Play"
 
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/top_row/Button" to="." method="_back"]
 [connection signal="item_selected" from="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont/MarginContainer/HBoxContainer/OptionButton" to="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont" method="_select"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont/MarginContainer/HBoxContainer/Button" to="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont" method="_random"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont/MarginContainer/HBoxContainer/random" to="PanelContainer/MarginContainer/VBoxContainer/teams_row/team_cont" method="_random"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/bottom_row/play" to="." method="_play"]

@@ -11,13 +11,15 @@ var score_labels = []
 func _ready():
 	pass
 
-func render(g: Game):
-	game = g
+func render(g: Game = null):
+	if (g):
+		game = g
 	render_teams()
-	if (game.is_finished()):
-		scores_box.visible = false
-	else:
-		render_scores()
+	#implement for dramatic reveal
+	#if (game.is_finished()):
+	#	scores_box.visible = false
+	#else:
+	render_scores()
   
 func render_teams():
 	var blank_team_label = NodeUtil.detach_child(teams_box)

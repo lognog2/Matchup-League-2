@@ -1,27 +1,31 @@
 class_name Player extends DataEntity
 
-var teamID: int
+var teamID = -1
 var team: Team
 
 func _init(data = {}):
 	super(data, "P")
 	set_data(data, true)
 
+func set_data(data: Dictionary, init = false) -> Player:
+	if (!init): super(data)
+	if (data == {}): return self
+	teamID = data.get("team ID", -1)
+	if (!data.get("schedule")): return self
+	return self
+
 func connect_objs():
 	team = level.get_team(teamID)
 	set_team(team)
 
-func set_data(data: Dictionary, init = false) -> Player:
-	if (!init): super(data)
-	if (data == {}): return self
-	if (!data.get("schedule")): return self
-	return self
-
 func set_team(t: Team):
 	if (!t):
-		remove_team()
+		if (team):
+			remove_team()
+			team.cpu = true
 	else:
 		team = t
+		team.cpu = false
 
 func remove_team():
 	if (!team):

@@ -1,7 +1,7 @@
 extends Menu
 
 func to_freeplay():
-	Main.emit_scene(Main.Scene.Freeplay)
+	Main.emit_scene(Main.Scene.GameSelect)
 	SignalBus.to_game_select.emit(null)
 	
 func to_career():

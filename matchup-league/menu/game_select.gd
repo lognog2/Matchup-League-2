@@ -5,6 +5,7 @@ extends Menu
 var tc_arr = []
 var rnd = -Main.GameRound.Debug
 var game: Game
+var freeplay: bool
 
 func _ready():
 	SignalBus.to_game_select.connect(render)
@@ -14,9 +15,10 @@ func _ready():
 
 func render(g: Game):
 	game = g
+	freeplay = (game == null)
 	var t1: Team = null
 	var t2: Team = null
-	if (g):
+	if (!freeplay):
 		t1 = g.teams[0]
 		t2 = g.teams[1]
 	set_team(0, t1)

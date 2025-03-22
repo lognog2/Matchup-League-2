@@ -22,6 +22,7 @@ SignalBus="*res://global/signal_bus.gd"
 Err="*res://global/error.gd"
 Filter="*res://global/filter.gd"
 NodeUtil="*res://global/node_util.gd"
+Rating="*res://global/rating.gd"
 
 [display]
 

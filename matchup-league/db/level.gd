@@ -136,6 +136,7 @@ func set_rankings() -> Array:
 	var top_teams = []
 	var i = 1
 	for t in teams_ranked:
+		#print ("/ %s: %.f" % [t.name, t.get_rating()])
 		if (i > TEAMS_RANKED):
 			t.rank = 0
 		else:
@@ -144,11 +145,13 @@ func set_rankings() -> Array:
 			i += 1
 	return top_teams
 
+## call `Main.save_state()` instead of individual level func
 func save_data(softSave: bool):
 	print("/ last chance to look at the save data") #breakpoint safe space
 	for lib in Lib.values():
 		lib.save_to_file(softSave)
 
+## call `Main.load_state()` instead of individual level func
 func load_data():
 	for lib in Lib.values():
 		lib.load_from_file()

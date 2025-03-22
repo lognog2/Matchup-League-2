@@ -73,7 +73,7 @@ theme_override_colors/font_outline_color = Color(0.45098, 0, 0.701961, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = ExtResource("2_0l2rn")
-text = "Career
+text = "New Career
 "
 
 [node name="editor container 4b2" type="MarginContainer" parent="background 1/MarginContainer 2/VBoxContainer 3"]

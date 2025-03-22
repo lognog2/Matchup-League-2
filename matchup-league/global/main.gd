@@ -19,7 +19,7 @@ const DEFAULT_SERIES = "Original"
 const VERSION_NUM = "prototype 2.0.2"
 
 func commit_version() -> String: 
-	return VERSION_NUM + ".4"
+	return VERSION_NUM + ".5"
 
 var Edition = {
 	Dev = "Development",
@@ -33,7 +33,7 @@ var scene_history = []
 var Scene = {
 	TeamView = "team_view",
 	Editor = "editor",
-	Freeplay = "game_select",
+	GameSelect = "game_select",
 	GameMenu = "game_menu",
 	CareerSelect = "career_select",
 	SeasonMenu = "season_menu",

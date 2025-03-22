@@ -42,7 +42,6 @@ theme_override_styles/panel = ExtResource("1_b3shd")
 layout_mode = 2
 
 [node name="left panel 3a" type="PanelContainer" parent="PanelContainer 1/main hbox 2"]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_e55i2")
 
@@ -117,7 +116,6 @@ text = "opponent"
 horizontal_alignment = 1
 
 [node name="result" type="Label" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba"]
-visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "lost 98-99
@@ -135,13 +133,11 @@ theme_override_font_sizes/font_size = 25
 text = "Play next game"
 
 [node name="next round" type="Button" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba"]
-visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Next round"
 
 [node name="sim round" type="Button" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba"]
-visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Sim round"
@@ -200,3 +196,8 @@ layout_mode = 2
 [node name="game_card" parent="PanelContainer 1/main hbox 2/main vbox 3b/HBoxContainer 4bb/games 5bbb/ScrollContainer 6bbb/gamecard vbox 7bbb" instance=ExtResource("2_0nrtm")]
 layout_mode = 2
 size_flags_vertical = 6
+
+[connection signal="pressed" from="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba/view opp" to="." method="_view_opp"]
+[connection signal="pressed" from="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba/play game" to="." method="_next_game"]
+[connection signal="pressed" from="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba/next round" to="." method="_next_round"]
+[connection signal="pressed" from="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba/sim round" to="." method="_sim_round"]
