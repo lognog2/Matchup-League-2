@@ -1,4 +1,4 @@
-class_name Career extends Object
+class_name Career extends Node
 
 var current_round = 0
 var user_player: Player
@@ -18,9 +18,17 @@ func is_spectator() -> bool:
 func begin_round():
 	current_round += 1
 	if (current_round < 1):
-		Err.alert_fatal("career.begin_round() can only be used in positive rounds", Err.Fatal.Conflict)
+		Err.print_fatal("career.begin_round() can only be used in positive rounds", Err.Fatal.Conflict)
 		return
 	get_level().set_rankings()
 	
 func sim_round():
 	get_level().sim_round(current_round)
+
+func is_before_rnd() -> bool:
+	var t: Team
+	if (is_spectator()):
+		t = get_level().get_team()
+	else:
+		t = get_team()
+	return !(t.get_game(current_round).is_finished())

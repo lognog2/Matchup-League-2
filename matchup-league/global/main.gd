@@ -18,12 +18,15 @@ const DEFAULT_SERIES = "Original"
 
 const VERSION_NUM = "prototype 2.0.2"
 
+## put in league class when i make it
+const season_length = 7
+
 func commit_version() -> String: 
-	return VERSION_NUM + ".5"
+	return VERSION_NUM + ".6"
 
 var Edition = {
-	Dev = "Development",
-	Test = "Playtesting",
+	Dev = "development",
+	Test = "playtest",
 	Prod = "Production"
 }
 var version_edition = commit_version() + " " + Edition.Dev
@@ -122,7 +125,7 @@ func _process(delta: float):
 	if (ticket == game_seed): Err.alert_warn("JACKPOT!!!", 777)
 	if (ticket % 1_000_000 == 0): 
 		print("$ ", ticket)
-		Err.alert_warn("you're one in a million!", 777)
+		Err.alert_success("you're one in a million!", 777)
 
 func get_level(levelName: String): return Levels[levelName]
 	
@@ -169,12 +172,14 @@ func save_state(softSave = true):
 	print("^ saving")
 	for level in Levels:
 		Levels[level].save_data(softSave)
+	Err.alert_success("saved successfully", Err.Success.Success)
 	print("^ saved")
 
 func load_state():
+	print("^ loading")
 	for level in Levels.values():
 		level.load_data()
-	print("done loading")
+	print("^ loaded")
 	SignalBus.done_loading.emit()
 	#idc im gonna separate lib and level next update anyway
 	Levels.Prep.Lib.Team.set_avg_rating()

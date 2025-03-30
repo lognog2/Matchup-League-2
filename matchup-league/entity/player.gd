@@ -41,7 +41,7 @@ func format_save():
 	var data = super()
 	data.merge({
 		"id" = id,
-		"name" = name,
+		"name" = de_name,
 		"team ID" =  teamID,
 		}, true)
 	return data

@@ -126,7 +126,7 @@ func mod_str(use_strength = true) -> String:
 func format_save() -> Dictionary:
 	var data = {
 		"id": id,
-		"name": name,
+		"name": de_name,
 		"season": season,
 		"types": types_str(),
 		"base": base,

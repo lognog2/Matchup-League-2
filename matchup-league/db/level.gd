@@ -18,20 +18,20 @@ func _init(levelName: String, fpg = 100, fpt = 100):
 	FPT = fpt
 	FPG = fpg
 	Lib.Fighter = EntityLibrary.new(name, Main.Entity.Fighter)
-	Lib.Team = EntityLibrary.new(name, Main.Entity.Team)
+	Lib.Team = EntityLibrary.new(name, Main.Entity.Team) # :3
 	Lib.Game = EntityLibrary.new(name, Main.Entity.Game)
 	Lib.Player = EntityLibrary.new(name, Main.Entity.Player)
 
-func get_fighter(id: int) -> Fighter: 
+func get_fighter(id: int = 0) -> Fighter: 
 	return Lib.Fighter.get_entity(id)
 
-func get_team(id: int) -> Team: 
+func get_team(id: int = 0) -> Team: 
 	return Lib.Team.get_entity(id)
 
-func get_game(id: int) -> Game: 
+func get_game(id: int = 0) -> Game: 
 	return Lib.Game.get_entity(id)
 
-func get_player(id: int) -> Player: 
+func get_player(id: int = 0) -> Player: 
 	return Lib.Player.get_entity(id)
 
 func is_archive() -> bool:
@@ -59,6 +59,9 @@ func get_teams(filter = Filter.Select.Default) -> Array:
 
 func get_teams_sorted(filter = Filter.Sort.Alphabet) -> Array:
 	return Lib.Team.get_entities(Filter.Select.Default, filter)
+
+func get_teams_filtered(select = Filter.Select.Default, sort = Filter.Sort.Rating) -> Array:
+	return Lib.Team.get_entities(select, sort)
 
 func get_games(filter = Filter.Select.Default) -> Array: 
 	return Lib.Game.get_entities(filter)
@@ -136,7 +139,7 @@ func set_rankings() -> Array:
 	var top_teams = []
 	var i = 1
 	for t in teams_ranked:
-		#print ("/ %s: %.f" % [t.name, t.get_rating()])
+		#print ("/ %s: %.f" % [t.name(), t.get_rating()])
 		if (i > TEAMS_RANKED):
 			t.rank = 0
 		else:

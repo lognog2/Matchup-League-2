@@ -18,7 +18,7 @@ func render(t: Team = null):
 	team_option.add_item(Main.Keyname.Spectate)
 	for t_name in team.level.get_t_names():
 		team_option.add_item(t_name)
-		if (t_name == team.name):
+		if (t_name == team.de_name):
 			select = team_option.item_count - 1
 	team_option.selected = select
 	team_view.render(team)
@@ -36,7 +36,6 @@ func _random():
 	render()
 
 func _start():
-	var level = Main.Levels.Prep
 	var p_name = name_entry.text if (!name_entry.text.is_empty()) else "User"
 	var data = {
 		"name" = p_name,

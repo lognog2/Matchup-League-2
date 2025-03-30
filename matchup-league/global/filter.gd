@@ -2,6 +2,7 @@ extends Node
 
 ## selection filters
 var Select = {
+	TeamRanked = (func(t: Team): return t.rank > 0),
 	Default = (func(_de): return true)
 }
 
@@ -11,9 +12,11 @@ var Sort = {
 	Id = (func(a: DataEntity, b: DataEntity): 
 		return a.id < b.id),
 	Alphabet = (func(a: DataEntity, b: DataEntity):
-		return a.name.naturalcasecmp_to(b.name) < 0),
+		return a.de_name.naturalcasecmp_to(b.de_name) < 0),
 	Rating = (func(a: DataEntity, b: DataEntity):
 		return a.get_rating() > b.get_rating()),
+	TeamRank = (func(t1: Team, t2: Team): 
+		return (t1.rank > 0) && (t1.rank < t2.rank)),
 	Random = (func(_a, _b):
 		return randi() % 2 == 0),
 	Default = (func(_a: DataEntity, _b: DataEntity): 

@@ -33,7 +33,7 @@ func save():
 func load(t: Team):
 	team = t
 	id.text = str(t.id)
-	t_name.text = t.name
+	t_name.text = t.de_name
 	color.color = t.color
 	level = t.level
 	series.text = t.series

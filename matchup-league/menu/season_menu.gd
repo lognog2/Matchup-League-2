@@ -21,19 +21,24 @@ var rnd = 0
 func _ready():
 	render()
 
-func render(before = true):
+func render():
 	career = Main.current_career
 	team = career.get_team()
 	rnd = career.current_round
 	round_label.text = "Round %d" % rnd
 	team_view.render(team)
 	team_view.fc_box.visible = false #must be after render
+	var before = career.is_before_rnd() if (rnd <= Main.season_length) else true
 	fill_opp_info(before)
 	if (before):
-		fill_rankings()
-		fill_games()
+		level.set_rankings()
+	else:
+		career.sim_round()
+	fill_rankings()
+	fill_games()
 
 func fill_opp_info(before = true):
+	next_round_button.visible = !before
 	if (career.is_spectator()): 
 		fill_opp_null(before)
 		return
@@ -41,28 +46,45 @@ func fill_opp_info(before = true):
 	if (!opp): 
 		fill_opp_null(before)
 		return
+	if (before && rnd > Main.season_length):
+		opp_rect.color = team.color
+		fill_opp_final()
+		return
 	opp_rect.color = opp.color
-	opp_name_label.text = opp.rank_name(true)
 	next_game_label.text = "Next game:" if (before) else "Game vs:"
+	opp_name_label.text = opp.rank_name(true)
 	view_opp_button.visible = true
 	next_game_button.visible = before
-	next_round_button.visible = !before
 	sim_round_button.visible = false
 	result_label.text = team.game_str(rnd, false)
 
 func fill_opp_null(before = true):
-	opp_name_label.text = "No game this round"
 	opp_rect.color = Color.SLATE_GRAY
 	next_game_label.text = " "
+	opp_name_label.text = "No game this round"
+	result_label.visible = false
 	view_opp_button.visible = false
 	next_game_button.visible = false
 	sim_round_button.visible = before
-	next_round_button.visible = !before
-	result_label.visible = false
+	if (before && rnd > Main.season_length):
+		fill_opp_final()
+
+func fill_opp_final():
+	level.set_rankings()
+	next_game_label.text = "Season over"
+	opp_name_label.text = "You finished "
+	if (team && team.is_ranked()):
+		opp_name_label.text += "ranked at %d" % team.rank
+	else:
+		opp_name_label.text += "unranked"
+	view_opp_button.visible = false
+	view_opp_button.visible = false
+	next_game_button.visible = false
+	sim_round_button.visible = false
 
 func fill_rankings():
 	var blank_team_label = NodeUtil.detach_child(ranking_box)
-	var teams_ranked = level.set_rankings()
+	var teams_ranked = level.get_teams_filtered(Filter.Select.TeamRanked, Filter.Sort.TeamRank)
 	for t in teams_ranked:
 		var tl = blank_team_label.duplicate()
 		tl.text = t.rank_name() + " " + t.record_str()
@@ -89,7 +111,7 @@ func _next_game():
 	
 func _next_round():
 	career.begin_round()
-	render(true)
+	render()
 
 func _sim_round():
 	career.sim_round()

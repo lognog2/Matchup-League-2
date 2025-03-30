@@ -20,14 +20,14 @@ func set_scene(sc: String):
 	print_signal("set scene %s" % sc)
 
 func game_select(t1: Team, t2: Team):
-	print_signal("to game select (%s, %s)" % [t1.name, t2.name])
+	print_signal("to game select (%s, %s)" % [t1.de_name, t2.de_name])
 
 func career_select():
 	print_signal("to career select")
 
 
 func run_match(f1: Fighter, f2: Fighter):
-	print_signal("run match (%s, %s)" % [f1.name, f2.name])
+	print_signal("run match (%s, %s)" % [f1.de_name, f2.de_name])
 
 func print_signal(message: String):
 	if (!enabled): return

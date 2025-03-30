@@ -31,7 +31,7 @@ func render(idx: int, t: Team):
 	set_score(0)
 	result_button.visible = false
 	scoreboard_color_rect.color = team.color
-	team_name_label.text = team.name
+	team_name_label.text = team.de_name
 	result_panel.visible = false
 
 func fill_bench(fighters: Array):
@@ -74,7 +74,7 @@ func show_right_panel(is_tie = false):
 		result_label.text = "It's a tie"
 		right_panel_rect.color = played.get_child(0).ResultColor.Tie
 	else:
-		result_label.text = "%s wins!" % team.name
+		result_label.text = "%s wins!" % team.de_name
 		right_panel_rect.color = team.color
 	played.move_child(result_panel, -1)
 	result_panel.visible = true

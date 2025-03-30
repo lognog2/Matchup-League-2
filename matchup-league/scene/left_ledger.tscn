@@ -1,0 +1,68 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnsuruwm7t33m"]
+
+[ext_resource type="Script" path="res://menu/left_ledger.gd" id="1_cu8uu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtkds"]
+bg_color = Color(0.359313, 0.186912, 0.583694, 1)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchor_right = 0.076
+anchor_bottom = 1.0
+offset_right = -0.600006
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_cu8uu")
+
+[node name="left panel 1" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rtkds")
+
+[node name="MarginContainer 2" type="MarginContainer" parent="left panel 1"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 10
+
+[node name="left menu 3" type="ScrollContainer" parent="left panel 1/MarginContainer 2"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="left menu vbox 4" type="VBoxContainer" parent="left panel 1/MarginContainer 2/left menu 3"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="home" type="Button" parent="left panel 1/MarginContainer 2/left menu 3/left menu vbox 4"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Home"
+
+[node name="team menu" type="Button" parent="left panel 1/MarginContainer 2/left menu 3/left menu vbox 4"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Team menu"
+
+[node name="main menu" type="Button" parent="left panel 1/MarginContainer 2/left menu 3/left menu vbox 4"]
+layout_mode = 2
+text = "Main menu"
+
+[node name="settings" type="Button" parent="left panel 1/MarginContainer 2/left menu 3/left menu vbox 4"]
+visible = false
+layout_mode = 2
+text = "Settings"
+
+[node name="save" type="Button" parent="left panel 1/MarginContainer 2/left menu 3/left menu vbox 4"]
+visible = false
+layout_mode = 2
+text = "Save"
+
+[connection signal="pressed" from="left panel 1/MarginContainer 2/left menu 3/left menu vbox 4/home" to="." method="_home"]
+[connection signal="pressed" from="left panel 1/MarginContainer 2/left menu 3/left menu vbox 4/team menu" to="." method="_team_menu"]
+[connection signal="pressed" from="left panel 1/MarginContainer 2/left menu 3/left menu vbox 4/main menu" to="." method="_main_menu"]

@@ -24,7 +24,7 @@ func render_row(f : Fighter):
 	fill_mod_obs()
 	if (!level): level = Main.get_level("Prep")
 	id.text = str(f.id)
-	f_name.text = f.name
+	f_name.text = f.de_name
 	types.text = f.types_str()
 	base.value = f.base
 	strType.selected = find_item_idx(strType, Main.Types.find_key(f.strType))
@@ -56,7 +56,7 @@ func closeTeamList():
 func setTeam():
 	team.clear()
 	if (teamID > -1):
-		team.add_item(level.get_team(teamID).name)
+		team.add_item(level.get_team(teamID).de_name)
 		team.selected = 0
 
 ## returns index of text in option button, or -1 if not found

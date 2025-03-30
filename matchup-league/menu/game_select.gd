@@ -33,8 +33,8 @@ func _back():
 func _play():
 	if (!game): 
 		set_game()
-		tc_arr[0].team.is_cpu = tc_arr[0].is_cpu()
-		tc_arr[1].team.is_cpu = tc_arr[1].is_cpu()
+		tc_arr[0].team.cpu = tc_arr[0].is_cpu()
+		tc_arr[1].team.cpu = tc_arr[1].is_cpu()
 
 	Main.emit_scene(Main.Scene.GameMenu)
 	SignalBus.play_game.emit(game, false)

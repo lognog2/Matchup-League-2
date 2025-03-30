@@ -26,7 +26,7 @@ func render(f: Fighter, enable = false):
 		return
 	fighter = f
 	types.text  = f.types_icon()
-	f_name.text = f.name
+	f_name.text = f.de_name
 	base.text = str(f.base)
 	strength.text = f.mod_str(true)
 	weakness.text = f.mod_str(false)
@@ -35,10 +35,10 @@ func render(f: Fighter, enable = false):
 	show_info()
 
 func show_info():
-	card_color_rect.get_child(0).visible = true
+	types.get_parent().visible = true
 
 func hide_info():
-	card_color_rect.get_child(0).visible = false
+	types.get_parent().visible = false
 
 func render_win(str_app = false, wk_app = false):
 	render_result(1, str_app, wk_app)
@@ -66,8 +66,11 @@ func render_result(result: int, str_app = false, wk_app = false):
 
 
 func _enter():
+	#print("/ enter")
 	if (enable_click):
+		#print("/ true")
 		mouse_enter = true
 
 func _exit():
+	#print("/ exit " + str(enable_click))
 	mouse_enter = false

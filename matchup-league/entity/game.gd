@@ -18,7 +18,7 @@ func set_data(data: Dictionary, init = false) -> Game:
 	teamIDs = [data.get("team1id", teamIDs[0]), data.get("team2id", teamIDs[1])]
 	matches = data.get("matches", matches)
 	result = data.get("result", result)
-	if (data.get("connect")): connect_objs()
+	#if (data.get("connect")): connect_objs()
 	return self
 
 func connect_objs():
@@ -144,7 +144,7 @@ func is_finished() -> bool:
 ## simulates a game as 2 cpu players choosing fighters randomly
 func sim_game():
 	if (is_finished()): 
-		Err.alert_warn(id_str + " already finished", Err.Warn.NoAction)
+		#Err.alert_warn(id_str + " already finished", Err.Warn.NoAction)
 		return
 	var f_available = [[],[]]
 	var f_played = [[],[]]
@@ -194,8 +194,9 @@ func result_str(t: Team, include_opp = false) -> String:
 	var k = i - 1
 	var text = ""
 	if (include_opp):
-		text = "%d) vs %s " % [rnd, teams[k].name]
+		text = "%d) vs %s" % [rnd, teams[k].name()]
 	if (is_finished()):
+		if (include_opp): text += ": "
 		text += "%s %d-%d" % [result_char(i), score[i], score[k]]
 	return text
 

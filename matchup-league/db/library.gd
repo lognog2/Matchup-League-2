@@ -90,7 +90,7 @@ func remove_avg_rating(old_r: float):
 ## returns first instance of name in dictionary
 func find_entity(search_name: String) -> DataEntity:
 	if (!Main.validate_name(search_name)): return null
-	var matches = get_entities(func(de): return de.name == search_name)
+	var matches = get_entities(func(de): return de.name() == search_name)
 	if (matches.size() != 1):
 		return null
 	else:
@@ -101,7 +101,7 @@ func get_names(filter = Filter.Select.Default) -> Array:
 	var validNames = []
 	for val in dict.values():
 		if (filter.call(val)):
-			validNames.append(val.name)
+			validNames.append(val.name())
 	validNames.sort()
 	return validNames
 
@@ -126,6 +126,7 @@ func save_to_file(softSave: bool):
 		if (!softSave): backup_file.store_line(json_data)
 
 func load_from_file():
+	reset()
 	var file = FileAccess.open(file_path % file_name, FileAccess.READ)
 	if (!file): return
 	while file.get_position() < file.get_length():
@@ -138,3 +139,10 @@ func load_from_file():
 		data["level name"] = level_name
 		data["season"] = Main.get_season()
 		add_entity(data)
+
+func reset():
+	for de in dict.values():
+		de.free()
+	dict.clear()
+	last_id = 0
+	avg_rating = 0.0

@@ -74,7 +74,7 @@ func get_opponent(r: int) -> Team:
 
 func get_opponent_name(r:int) -> String:
 	var opp = get_opponent(r)
-	return opp.name if (opp) else Main.Keyname.Bye
+	return opp.de_name if (opp) else Main.Keyname.Bye
 
 ## compiles stat used for rating
 func get_rating() -> float:
@@ -96,6 +96,9 @@ func has_game(r: int) -> bool:
 func is_cpu() -> bool:
 	return cpu
 
+func is_ranked() -> bool:
+	return rank > 0
+
 func games_played() -> int:
 	return wins + losses
 
@@ -116,13 +119,13 @@ func set_color(col):
 ## returns rank and name
 func rank_name(trim = false) -> String:
 	if (rank >= 10):
-		return "%d) %s" % [rank, name]
+		return "%d) %s" % [rank, de_name]
 	elif (rank > 0):
-		return "  %d) %s" % [rank, name]
+		return "  %d) %s" % [rank, de_name]
 	elif (trim):
-		return name
+		return de_name
 	else:
-		return "     %s" % name
+		return "     %s" % de_name
 
 ## W-L-T
 func record_str() -> String:
@@ -134,9 +137,9 @@ func game_str(r: int, include_opp = false) -> String:
 
 ## returns first three letters if name is one word, or first letter of each word
 func name_abbr() -> String:
-	var words = name.split(" ")
+	var words = de_name.split(" ")
 	if (words.size() == 1):
-		return name.left(3)
+		return de_name.left(3)
 	else:
 		var text = ""
 		for word in words:

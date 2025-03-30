@@ -52,11 +52,14 @@ func alert(msg = "", title = ""):
 	OS.alert(msg, title)
 
 func alert_fatal(msg = "", code = Fatal.Debug):
+	print_fatal(msg, code)
 	alert(msg, "Error %d" % code)
 	throw()
 
 func alert_warn(msg = "", code = Warn.Debug):
+	print_warn(msg, code)
 	alert(msg, "Warning %d" % code)
 
 func alert_success(msg = "", code = Success.Debug):
+	print_success(msg, code)
 	alert(msg, "Success %d" % code)

@@ -51,7 +51,7 @@ func closeTeamList():
 	show()
 	button.clear()
 	if (opponentID >= 0):
-		button.add_item(level.get_team(opponentID).name)
+		button.add_item(level.get_team(opponentID).de_name)
 		button.selected = 0
 	else:
 		team.remove_game(gameRound)

@@ -16,7 +16,7 @@ func render(t: Team):
 		render_spectator()
 		return
 	team = t
-	name_label.text = team.name
+	name_label.text = team.rank_name()
 	color_rect.color = team.color
 	fill_info(team.format_info())
 	fill_sched(team.schedule)

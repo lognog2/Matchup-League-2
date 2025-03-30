@@ -14,7 +14,6 @@ enum Mode {
 	BothCpu,
 }
 
-
 func _ready():
 	SignalBus.user_select_fighter.connect(play_fighter)
 	SignalBus.play_game.connect(render)
@@ -36,7 +35,7 @@ func set_team(i: int, t: Team):
 	tb_arr[i].render(i, t)
 
 func set_mode():
-	match [game.teams[0].is_cpu, game.teams[1].is_cpu]:
+	match [game.teams[0].is_cpu(), game.teams[1].is_cpu()]:
 		[false, false]:
 			current_mode = Mode.BothUser
 		[true, false]:
@@ -99,10 +98,11 @@ func start_match():
 		var x = i
 		if (reversed): x -= 1
 		tb_arr[x].set_score(game.score[i])
-		if (!tb_arr[x].can_play()):
+		tb_arr[x].set_click_enable(true)
+
+	if (!tb_arr[1].can_play()):
 			finish_game()
 			return
-		tb_arr[x].set_click_enable(true)
 
 	if (!both_cpu):
 		hide_result_button()
@@ -116,8 +116,7 @@ func finish_game():
 		return
 	elif (reversed):
 		x -= 1
-	tb_arr[x].show_right_panel(
-	)
+	tb_arr[x].show_right_panel()
 
 func _return():
 	if (game.is_official()):

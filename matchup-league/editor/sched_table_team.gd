@@ -23,7 +23,7 @@ func set_game(r: int, opp: Team):
 
 func set_team(t: Team):
 	team = t
-	name_label.text = t.name
+	name_label.text = t.de_name
 	self.color = t.color
 	level = t.level
 	for i in range (1, numGames + 1):

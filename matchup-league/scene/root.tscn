@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cqasb8jiiyqls" path="res://scene/main_menu.tscn" id="4_jsfq6"]
 [ext_resource type="Script" path="res://debug/signal_intercept.gd" id="4_x1t2k"]
 
-[node name="main" type="Control" node_paths=PackedStringArray("vbox", "version_label")]
+[node name="main" type="Control" node_paths=PackedStringArray("vbox", "version_label", "seed_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,7 +16,8 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_m3hg5")
 vbox = NodePath("PanelContainer/VBoxContainer")
-version_label = NodePath("PanelContainer/VBoxContainer/version_footer/version")
+version_label = NodePath("PanelContainer/VBoxContainer/version_footer/HBoxContainer/version")
+seed_label = NodePath("PanelContainer/VBoxContainer/version_footer/HBoxContainer/seed")
 
 [node name="intercept" type="Node" parent="."]
 script = ExtResource("4_x1t2k")
@@ -39,10 +40,21 @@ size_flags_vertical = 3
 
 [node name="version_footer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
+theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 5
 
-[node name="version" type="Label" parent="PanelContainer/VBoxContainer/version_footer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/version_footer"]
 layout_mode = 2
+
+[node name="version" type="Label" parent="PanelContainer/VBoxContainer/version_footer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "99.99.99 meow"
+
+[node name="seed" type="Label" parent="PanelContainer/VBoxContainer/version_footer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Seed: "
+horizontal_alignment = 2

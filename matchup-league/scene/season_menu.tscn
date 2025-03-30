@@ -4,9 +4,7 @@
 [ext_resource type="StyleBox" uid="uid://eelwpy4cx451" path="res://style/background.tres" id="1_b3shd"]
 [ext_resource type="PackedScene" uid="uid://dlm08m1hsjnqa" path="res://scene/card/game_card.tscn" id="2_0nrtm"]
 [ext_resource type="PackedScene" uid="uid://6j5nmrwk6pbm" path="res://scene/team_view.tscn" id="2_xss7u"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e55i2"]
-bg_color = Color(0.359313, 0.186912, 0.583694, 1)
+[ext_resource type="PackedScene" uid="uid://bnsuruwm7t33m" path="res://scene/left_ledger.tscn" id="3_igtpp"]
 
 [node name="season menu" type="Control" node_paths=PackedStringArray("team_view", "games_box", "ranking_box", "opp_rect", "round_label", "next_game_label", "opp_name_label", "result_label", "view_opp_button", "next_game_button", "next_round_button", "sim_round_button")]
 layout_mode = 3
@@ -16,18 +14,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_2doni")
-team_view = NodePath("PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/team_view")
-games_box = NodePath("PanelContainer 1/main hbox 2/main vbox 3b/HBoxContainer 4bb/games 5bbb/ScrollContainer 6bbb/gamecard vbox 7bbb")
-ranking_box = NodePath("PanelContainer 1/main hbox 2/main vbox 3b/HBoxContainer 4bb/rankings 5bba/ScrollContainer 6bba/teams 7bba")
+team_view = NodePath("PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/upper row 5ba/team_view")
+games_box = NodePath("PanelContainer 1/main hbox 2/main vbox 3b/lower row 4bb/games 5bbb/ScrollContainer 6bbb/gamecard vbox 7bbb")
+ranking_box = NodePath("PanelContainer 1/main hbox 2/main vbox 3b/lower row 4bb/rankings 5bba/ScrollContainer 6bba/teams 7bba")
 opp_rect = NodePath("PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/ColorRect")
-round_label = NodePath("PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba/round")
-next_game_label = NodePath("PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba/next game")
-opp_name_label = NodePath("PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba/opp")
-result_label = NodePath("PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba/result")
-view_opp_button = NodePath("PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba/view opp")
-next_game_button = NodePath("PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba/play game")
-next_round_button = NodePath("PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba/next round")
-sim_round_button = NodePath("PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba/sim round")
+round_label = NodePath("PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/upper row 5ba/opp info 6ba/VBoxContainer 7ba/round")
+next_game_label = NodePath("PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/upper row 5ba/opp info 6ba/VBoxContainer 7ba/next game")
+opp_name_label = NodePath("PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/upper row 5ba/opp info 6ba/VBoxContainer 7ba/opp")
+result_label = NodePath("PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/upper row 5ba/opp info 6ba/VBoxContainer 7ba/result")
+view_opp_button = NodePath("PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/upper row 5ba/opp info 6ba/VBoxContainer 7ba/view opp")
+next_game_button = NodePath("PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/upper row 5ba/opp info 6ba/VBoxContainer 7ba/play game")
+next_round_button = NodePath("PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/upper row 5ba/opp info 6ba/VBoxContainer 7ba/next round")
+sim_round_button = NodePath("PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/upper row 5ba/opp info 6ba/VBoxContainer 7ba/sim round")
 
 [node name="PanelContainer 1" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -41,36 +39,14 @@ theme_override_styles/panel = ExtResource("1_b3shd")
 [node name="main hbox 2" type="HBoxContainer" parent="PanelContainer 1"]
 layout_mode = 2
 
-[node name="left panel 3a" type="PanelContainer" parent="PanelContainer 1/main hbox 2"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_e55i2")
-
-[node name="MarginContainer 4a" type="MarginContainer" parent="PanelContainer 1/main hbox 2/left panel 3a"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 10
-
-[node name="left menu 5a" type="ScrollContainer" parent="PanelContainer 1/main hbox 2/left panel 3a/MarginContainer 4a"]
-custom_minimum_size = Vector2(100, 0)
+[node name="ledger container 3a" type="PanelContainer" parent="PanelContainer 1/main hbox 2"]
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 
-[node name="left menu vbox 6a" type="VBoxContainer" parent="PanelContainer 1/main hbox 2/left panel 3a/MarginContainer 4a/left menu 5a"]
+[node name="left ledger" parent="PanelContainer 1/main hbox 2/ledger container 3a" instance=ExtResource("3_igtpp")]
 layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Button" type="Button" parent="PanelContainer 1/main hbox 2/left panel 3a/MarginContainer 4a/left menu 5a/left menu vbox 6a"]
-layout_mode = 2
-size_flags_vertical = 3
-text = "Team menu"
-
-[node name="Button2" type="Button" parent="PanelContainer 1/main hbox 2/left panel 3a/MarginContainer 4a/left menu 5a/left menu vbox 6a"]
-layout_mode = 2
-text = "Settings"
-
-[node name="Button3" type="Button" parent="PanelContainer 1/main hbox 2/left panel 3a/MarginContainer 4a/left menu 5a/left menu vbox 6a"]
-layout_mode = 2
-text = "Main menu"
+size_flags_horizontal = 1
+size_flags_vertical = 1
 
 [node name="main vbox 3b" type="VBoxContainer" parent="PanelContainer 1/main hbox 2"]
 layout_mode = 2
@@ -84,120 +60,120 @@ size_flags_vertical = 3
 layout_mode = 2
 color = Color(0.0314142, 0.293886, 0.573801, 1)
 
-[node name="HBoxContainer 5ba" type="HBoxContainer" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba"]
+[node name="upper row 5ba" type="HBoxContainer" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba"]
 layout_mode = 2
 
-[node name="opp info 6ba" type="MarginContainer" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba"]
+[node name="opp info 6ba" type="MarginContainer" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/upper row 5ba"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 8
 
-[node name="VBoxContainer 7ba" type="VBoxContainer" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba"]
+[node name="VBoxContainer 7ba" type="VBoxContainer" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/upper row 5ba/opp info 6ba"]
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="round" type="Label" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba"]
+[node name="round" type="Label" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/upper row 5ba/opp info 6ba/VBoxContainer 7ba"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Round 99"
 
-[node name="next game" type="Label" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba"]
+[node name="next game" type="Label" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/upper row 5ba/opp info 6ba/VBoxContainer 7ba"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Next game:"
 horizontal_alignment = 1
 
-[node name="opp" type="Label" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba"]
+[node name="opp" type="Label" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/upper row 5ba/opp info 6ba/VBoxContainer 7ba"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "opponent"
 horizontal_alignment = 1
 
-[node name="result" type="Label" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba"]
+[node name="result" type="Label" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/upper row 5ba/opp info 6ba/VBoxContainer 7ba"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "lost 98-99
 "
 horizontal_alignment = 1
 
-[node name="view opp" type="Button" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba"]
+[node name="view opp" type="Button" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/upper row 5ba/opp info 6ba/VBoxContainer 7ba"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "View opponent"
 
-[node name="play game" type="Button" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba"]
+[node name="play game" type="Button" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/upper row 5ba/opp info 6ba/VBoxContainer 7ba"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Play next game"
 
-[node name="next round" type="Button" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba"]
+[node name="next round" type="Button" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/upper row 5ba/opp info 6ba/VBoxContainer 7ba"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Next round"
 
-[node name="sim round" type="Button" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba"]
+[node name="sim round" type="Button" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/upper row 5ba/opp info 6ba/VBoxContainer 7ba"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Sim round"
 
-[node name="team_view" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba" instance=ExtResource("2_xss7u")]
+[node name="team_view" parent="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/upper row 5ba" instance=ExtResource("2_xss7u")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
 
-[node name="HBoxContainer 4bb" type="HBoxContainer" parent="PanelContainer 1/main hbox 2/main vbox 3b"]
+[node name="lower row 4bb" type="HBoxContainer" parent="PanelContainer 1/main hbox 2/main vbox 3b"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 25
 
-[node name="rankings 5bba" type="VBoxContainer" parent="PanelContainer 1/main hbox 2/main vbox 3b/HBoxContainer 4bb"]
+[node name="rankings 5bba" type="VBoxContainer" parent="PanelContainer 1/main hbox 2/main vbox 3b/lower row 4bb"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer 1/main hbox 2/main vbox 3b/HBoxContainer 4bb/rankings 5bba"]
+[node name="Label" type="Label" parent="PanelContainer 1/main hbox 2/main vbox 3b/lower row 4bb/rankings 5bba"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Rankings
 "
 horizontal_alignment = 1
 
-[node name="ScrollContainer 6bba" type="ScrollContainer" parent="PanelContainer 1/main hbox 2/main vbox 3b/HBoxContainer 4bb/rankings 5bba"]
+[node name="ScrollContainer 6bba" type="ScrollContainer" parent="PanelContainer 1/main hbox 2/main vbox 3b/lower row 4bb/rankings 5bba"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="teams 7bba" type="VBoxContainer" parent="PanelContainer 1/main hbox 2/main vbox 3b/HBoxContainer 4bb/rankings 5bba/ScrollContainer 6bba"]
+[node name="teams 7bba" type="VBoxContainer" parent="PanelContainer 1/main hbox 2/main vbox 3b/lower row 4bb/rankings 5bba/ScrollContainer 6bba"]
 layout_mode = 2
 
-[node name="blank team label" type="Label" parent="PanelContainer 1/main hbox 2/main vbox 3b/HBoxContainer 4bb/rankings 5bba/ScrollContainer 6bba/teams 7bba"]
+[node name="blank team label" type="Label" parent="PanelContainer 1/main hbox 2/main vbox 3b/lower row 4bb/rankings 5bba/ScrollContainer 6bba/teams 7bba"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = " 99) marcus 99-99"
 
-[node name="games 5bbb" type="VBoxContainer" parent="PanelContainer 1/main hbox 2/main vbox 3b/HBoxContainer 4bb"]
+[node name="games 5bbb" type="VBoxContainer" parent="PanelContainer 1/main hbox 2/main vbox 3b/lower row 4bb"]
 custom_minimum_size = Vector2(250, 100)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="PanelContainer 1/main hbox 2/main vbox 3b/HBoxContainer 4bb/games 5bbb"]
+[node name="Label" type="Label" parent="PanelContainer 1/main hbox 2/main vbox 3b/lower row 4bb/games 5bbb"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Other games"
 horizontal_alignment = 1
 
-[node name="ScrollContainer 6bbb" type="ScrollContainer" parent="PanelContainer 1/main hbox 2/main vbox 3b/HBoxContainer 4bb/games 5bbb"]
+[node name="ScrollContainer 6bbb" type="ScrollContainer" parent="PanelContainer 1/main hbox 2/main vbox 3b/lower row 4bb/games 5bbb"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="gamecard vbox 7bbb" type="VBoxContainer" parent="PanelContainer 1/main hbox 2/main vbox 3b/HBoxContainer 4bb/games 5bbb/ScrollContainer 6bbb"]
+[node name="gamecard vbox 7bbb" type="VBoxContainer" parent="PanelContainer 1/main hbox 2/main vbox 3b/lower row 4bb/games 5bbb/ScrollContainer 6bbb"]
 layout_mode = 2
 
-[node name="game_card" parent="PanelContainer 1/main hbox 2/main vbox 3b/HBoxContainer 4bb/games 5bbb/ScrollContainer 6bbb/gamecard vbox 7bbb" instance=ExtResource("2_0nrtm")]
+[node name="game_card" parent="PanelContainer 1/main hbox 2/main vbox 3b/lower row 4bb/games 5bbb/ScrollContainer 6bbb/gamecard vbox 7bbb" instance=ExtResource("2_0nrtm")]
 layout_mode = 2
 size_flags_vertical = 6
 
-[connection signal="pressed" from="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba/view opp" to="." method="_view_opp"]
-[connection signal="pressed" from="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba/play game" to="." method="_next_game"]
-[connection signal="pressed" from="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba/next round" to="." method="_next_round"]
-[connection signal="pressed" from="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/HBoxContainer 5ba/opp info 6ba/VBoxContainer 7ba/sim round" to="." method="_sim_round"]
+[connection signal="pressed" from="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/upper row 5ba/opp info 6ba/VBoxContainer 7ba/view opp" to="." method="_view_opp"]
+[connection signal="pressed" from="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/upper row 5ba/opp info 6ba/VBoxContainer 7ba/play game" to="." method="_next_game"]
+[connection signal="pressed" from="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/upper row 5ba/opp info 6ba/VBoxContainer 7ba/next round" to="." method="_next_round"]
+[connection signal="pressed" from="PanelContainer 1/main hbox 2/main vbox 3b/upper panel 4ba/upper row 5ba/opp info 6ba/VBoxContainer 7ba/sim round" to="." method="_sim_round"]

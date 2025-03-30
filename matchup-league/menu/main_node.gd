@@ -2,10 +2,12 @@ extends Control
 
 @export var vbox: VBoxContainer
 @export var version_label: Label
+@export var seed_label: Label
 
 func _ready():
 	Main.main_node = self
 	version_label.text = Main.version_edition
+	seed_label.text += str(Main.game_seed)
 	Main.emit_scene(Main.Scene.MainMenu)
 
 func set_scene(scene: Variant, sc_name: String):

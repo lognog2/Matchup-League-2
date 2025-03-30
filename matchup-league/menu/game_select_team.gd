@@ -23,7 +23,7 @@ func render(t: Team = null):
 		var select = 0
 		for t_name in team.level.get_t_names():
 			team_option.add_item(t_name)
-			if (t_name == team.name):
+			if (t_name == team.de_name):
 				select = team_option.item_count - 1
 		team_option.selected = select
 		
