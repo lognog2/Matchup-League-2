@@ -22,7 +22,7 @@ const VERSION_NUM = "prototype 2.0.2"
 const season_length = 7
 
 func commit_version() -> String: 
-	return VERSION_NUM + ".6"
+	return VERSION_NUM + ""
 
 var Edition = {
 	Dev = "development",
@@ -40,6 +40,7 @@ var Scene = {
 	GameMenu = "game_menu",
 	CareerSelect = "career_select",
 	SeasonMenu = "season_menu",
+	TeamMenu = "team_menu",
 	MainMenu = "main_menu",
 }
 
@@ -149,6 +150,7 @@ func blank_entity(ent_name: String) -> DataEntity:
 
 ## sets scene to `sc` scene. if `sc` is empty, goes back a scene
 func set_scene(sc: String):
+	if (sc == scene_history.back()): return
 	if (sc):
 		scene_history.append(sc)
 		var new_scene = load(SCENE_PATH % sc)

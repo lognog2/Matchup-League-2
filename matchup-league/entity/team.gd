@@ -120,12 +120,14 @@ func set_color(col):
 func rank_name(trim = false) -> String:
 	if (rank >= 10):
 		return "%d) %s" % [rank, de_name]
-	elif (rank > 0):
-		return "  %d) %s" % [rank, de_name]
-	elif (trim):
-		return de_name
+	var line = ""
+	if (!trim): line += "  "
+	if (rank > 0):
+		line += "%d) %s" % [rank, de_name]
 	else:
-		return "     %s" % de_name
+		if (!trim): line += "   "
+		line += de_name
+	return line
 
 ## W-L-T
 func record_str() -> String:

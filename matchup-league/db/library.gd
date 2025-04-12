@@ -18,10 +18,11 @@ func _init(lvl_name: String, ent_name: String):
 # set/get
 
 ## constructs a new entity and adds it to dictionary
-func add_entity(data: Dictionary) -> DataEntity:
+func add_entity(data: Dictionary, connect = false) -> DataEntity:
 	data["id"] = increment_id()
 	var de = Main.blank_entity(entity_name).set_data(data)
 	dict[de.id] = de
+	if (connect): de.connect_objs()
 	add_avg_rating(de.get_rating())
 	return de
 

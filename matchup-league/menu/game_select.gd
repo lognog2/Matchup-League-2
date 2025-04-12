@@ -25,7 +25,7 @@ func render(g: Game):
 	set_team(1, t2)
 
 func set_team(i: int, t: Team):
-	tc_arr[i].render(t)
+	tc_arr[i].render(t, freeplay)
 
 func _back():
 	Main.emit_scene()
@@ -46,4 +46,4 @@ func set_game():
 		"round" = Main.GameRound.Freeplay,
 		"connect" = true,
 	}
-	game = Main.Levels.Prep.add_game(data) #should be archive eventually
+	game = level.add_game(data, true) #should be archive eventually

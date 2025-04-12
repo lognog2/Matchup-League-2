@@ -1,7 +1,7 @@
 extends Menu
 
 @export var team_option: OptionButton
-@export var team_view: Control
+@export var team_view: TeamView
 @export var name_entry: LineEdit
 
 var team: Team
@@ -11,7 +11,7 @@ func _ready():
 
 func render(t: Team = null):
 	if (!t):
-		t =  Main.Levels.Prep.random_team(Filter.exclude_self(team))
+		t =  Main.Levels.Prep.random_team_exclude(team)
 	team = t
 	team_option.clear()
 	var select = 0

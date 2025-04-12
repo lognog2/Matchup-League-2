@@ -101,6 +101,9 @@ func find_team(n: String) -> Team:
 func random_team(filter = Filter.Select.Default) -> Team: 
 	return Lib.Team.random_entity(filter)
 
+func random_team_exclude(exclude: Team) -> Team:
+	return Lib.Team.random_entity(Filter.exclude_self(exclude))
+
 # save/load from file
 # **be careful using breakpoints here**
 
@@ -116,8 +119,8 @@ func add_team(data: Dictionary) -> Team:
 func set_team(data: Dictionary) -> Team:
 	return Lib.Team.set_entity(data)
 
-func add_game(data: Dictionary) -> Game:
-	return Lib.Game.add_entity(data)
+func add_game(data: Dictionary, connect = false) -> Game:
+	return Lib.Game.add_entity(data, connect)
 
 func set_game(data: Dictionary) -> Game:
 	return Lib.Game.set_entity(data)
