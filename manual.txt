@@ -1,13 +1,15 @@
-to do:
-- freeplay
-    - random, cpu buttons
-- save state at end of game
-
 2.0.2:
-- separate level and library
-- make verison footer always visible
+- save state at end of game
+- hide cards until result shown in player v player
+- neater columns for team rankings
+- team color outline around fighter cards
+future:
 - editor faster loading
+- dramatic reveal
+- icons instead of letters for types
 
+settings to add
+- play cpu games before or after user game
 
 entity relations stored as objects while game is running, when saving to file save the id only
 entities save the higher relation in hierarchy
@@ -26,10 +28,10 @@ m = 1 / # of types
 rating = base + (strength * m) - (weakness * m)
 
 teams:
-average rating of fighters (include wins at some point?)
+average rating of fighters + (wins * 100) + (ties * 50)
 
 game:
-team1 rating + team2 rating
+sum of team ratings
 
 league:
 average rating of teams
@@ -70,3 +72,12 @@ coaches give certain bonuses to your team
 contract cost/length
 trade value
 offseason development
+
+console icons:
+/ comment, debug
+^ system notificaiton
+  blank, minor warning
+* warning
+! major warning, error
+? huh?
+> signal intercept

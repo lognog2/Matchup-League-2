@@ -1,11 +1,14 @@
 class_name Team extends DataEntity
 
 var fighters = []
+var player: Player
 var schedule = {} ## not stored in save
 var color: Color ## stored as `Color` in game, int in save
-var won = 0
-var lost = 0
-var is_cpu = true
+var wins = 0
+var losses = 0
+var ties = 0
+var cpu = true
+var rank = 0
 
 func _init(data = {}):
 	super(data, "T")
@@ -40,12 +43,30 @@ func add_game(g: Game):
 	else:
 		schedule[g.rnd] = g
 
+func add_win():
+	wins += 1
+
+func add_loss():
+	losses += 1
+
+func add_tie():
+	ties += 1
+
+## called from `Player.set_team`
+func set_player(p: Player):
+	if (p.team != self):
+		if (player):
+			p.remove_team()
+		p.set_team(self)
+	else:
+		player = p
+
 func remove_game(r: int):
 	if (schedule.get(r)):
 		schedule[r] = null
 
-func get_game(r: int) -> Team:
-	return get_opponent(r)
+func get_game(r: int) -> Game:
+	return schedule.get(r)
 
 func get_opponent(r: int) -> Team:
 	var g = schedule.get(r)
@@ -53,11 +74,11 @@ func get_opponent(r: int) -> Team:
 
 func get_opponent_name(r:int) -> String:
 	var opp = get_opponent(r)
-	return opp.name if (opp) else Main.Keyname.Bye
+	return opp.de_name if (opp) else Main.Keyname.Bye
 
 ## compiles stat used for rating
 func get_rating() -> float:
-	return avg_f_rating() 
+	return (avg_f_rating() * Rating.AVG_F_WT) + (wins * Rating.WIN_WT) + (ties * Rating.TIE_WT) - (losses * Rating.LOSS_WT)
 
 ## average rating of all fighters on the team
 func avg_f_rating() -> float:
@@ -72,8 +93,18 @@ func get_rating_scale() -> int:
 func has_game(r: int) -> bool:
 	return get_opponent(r) != null
 
+func is_cpu() -> bool:
+	return cpu
+
+func is_ranked() -> bool:
+	return rank > 0
+
 func games_played() -> int:
-	return won + lost
+	return wins + losses
+
+func win_pct() -> float:
+	if (games_played() == 0): return 0.0
+	return wins as float / games_played()
 
 func set_color(col):
 	if (col is int || col is float):
@@ -82,6 +113,40 @@ func set_color(col):
 		color = col
 	else:
 		Err.alert_fatal("Invalid color type in %s" % id_str, Err.Fatal.Runtime)
+
+# string functions
+
+## returns rank and name
+func rank_name(trim = false) -> String:
+	if (rank >= 10):
+		return "%d) %s" % [rank, de_name]
+	var line = ""
+	if (!trim): line += "  "
+	if (rank > 0):
+		line += "%d) %s" % [rank, de_name]
+	else:
+		if (!trim): line += "   "
+		line += de_name
+	return line
+
+## W-L-T
+func record_str() -> String:
+	return "%d-%d-%d" % [wins, losses, ties]
+
+## see `Game.result_str()`
+func game_str(r: int, include_opp = false) -> String:
+	return get_game(r).result_str(self, include_opp)
+
+## returns first three letters if name is one word, or first letter of each word
+func name_abbr() -> String:
+	var words = de_name.split(" ")
+	if (words.size() == 1):
+		return de_name.left(3)
+	else:
+		var text = ""
+		for word in words:
+			text += word[0][0]
+		return text
 
 # format functions
 
@@ -103,15 +168,11 @@ func format_sched() -> Dictionary:
 func format_info() -> Dictionary:
 	var info = {
 		"Rating" = "%.f" % get_rating_scale(),
+		"Record" = record_str(),
 		"Series" = series,
 		"League" = level.name,
-		"Record" = format_record()
 	}
 	return info
-
-##converts wins and losses to string: w-l
-func format_record(w = won, l = lost) -> String:
-	return "%d-%d" % [w, l]
 
 ## converts hex color to `Color`
 func format_color(hex: int) -> Color:

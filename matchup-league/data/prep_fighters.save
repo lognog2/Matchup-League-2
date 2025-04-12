@@ -67,7 +67,7 @@
 {"base":1650,"id":66,"name":"Badger","season":29,"start season":32,"strType":"F","strVal":110,"team ID":6,"types":"W","wkType":"L","wkVal":100}
 {"base":1610,"id":67,"name":"Skinny Pete","season":29,"start season":32,"strType":"F","strVal":10,"team ID":6,"types":"RW","wkType":"M","wkVal":10}
 {"base":1770,"id":68,"name":"Scar","season":29,"start season":33,"strType":"G","strVal":130,"team ID":15,"types":"EG","wkType":"R","wkVal":100}
-{"base":1730,"id":69,"name":"Cc","season":29,"start season":33,"strType":"R","strVal":60,"team ID":32,"types":"G","wkType":"V","wkVal":100}
+{"base":1730,"id":69,"name":"CC","season":29,"start season":33,"strType":"R","strVal":60,"team ID":32,"types":"G","wkType":"V","wkVal":100}
 {"base":1700,"id":70,"name":"Kallen Kozuki","season":29,"start season":34,"strType":"C","strVal":140,"team ID":32,"types":"REF","wkType":"E","wkVal":110}
 {"base":1690,"id":71,"name":"Mr. Krabs","season":29,"start season":32,"strType":"V","strVal":70,"team ID":1,"types":"WV","wkType":"W","wkVal":50}
 {"base":1650,"id":72,"name":"Plankton","season":29,"start season":32,"strType":"C","strVal":60,"team ID":1,"types":"WV","wkType":"L","wkVal":30}
@@ -101,7 +101,7 @@
 {"base":1640,"id":100,"name":"Guardian","season":29,"start season":33,"strType":"W","strVal":60,"team ID":37,"types":"RW","wkType":"L","wkVal":60}
 {"base":1730,"id":101,"name":"Monkey Engineer","season":29,"start season":32,"strType":"E","strVal":50,"team ID":40,"types":"RCL","wkType":"A","wkVal":100}
 {"base":1700,"id":102,"name":"Monkey Alchemist","season":29,"start season":33,"strType":"R","strVal":80,"team ID":40,"types":"EWG","wkType":"C","wkVal":60}
-{"base":1680,"id":103,"name":"Dio (sbr)","season":29,"start season":32,"strType":"G","strVal":80,"team ID":30,"types":"MG","wkType":"L","wkVal":60}
+{"base":1680,"id":103,"name":"Dio (SBR)","season":29,"start season":32,"strType":"G","strVal":80,"team ID":30,"types":"MG","wkType":"L","wkVal":60}
 {"base":1630,"id":104,"name":"Sandman","season":29,"start season":32,"strType":"M","strVal":100,"team ID":30,"types":"M","wkType":"R","wkVal":100}
 {"base":1660,"id":105,"name":"Farnsworth","season":29,"start season":33,"strType":"W","strVal":120,"team ID":2,"types":"W","wkType":"E","wkVal":130}
 {"base":1650,"id":106,"name":"Demetreeus","season":29,"start season":32,"strType":"A","strVal":110,"team ID":36,"types":"MV","wkType":"F","wkVal":150}
@@ -110,7 +110,7 @@
 {"base":1750,"id":109,"name":"Junkrat","season":29,"start season":30,"strType":"R","strVal":130,"team ID":22,"types":"EC","wkType":"M","wkVal":90}
 {"base":1660,"id":110,"name":"President Snow","season":29,"start season":33,"strType":"W","strVal":120,"team ID":7,"types":"IV","wkType":"S","wkVal":100}
 {"base":1630,"id":111,"name":"Big Baby","season":29,"start season":32,"strType":"I","strVal":90,"team ID":8,"types":"MW","wkType":"V","wkVal":80}
-{"base":1680,"id":112,"name":"Monkey (ts 3)","season":29,"start season":32,"strType":"C","strVal":100,"team ID":8,"types":"CV","wkType":"L","wkVal":150}
+{"base":1680,"id":112,"name":"Monkey (Toy Story 3)","season":29,"start season":32,"strType":"C","strVal":100,"team ID":8,"types":"CV","wkType":"L","wkVal":150}
 {"base":1650,"id":113,"name":"Potbelly","season":29,"start season":32,"strType":"R","strVal":50,"team ID":43,"types":"R","wkType":"W","wkVal":50}
 {"base":1690,"id":114,"name":"Maw","season":29,"start season":32,"strType":"I","strVal":70,"team ID":43,"types":"WI","wkType":"A","wkVal":70}
 {"base":1690,"id":115,"name":"Fwog","season":29,"start season":32,"strType":"W","strVal":70,"team ID":43,"types":"MW","wkType":"I","wkVal":70}

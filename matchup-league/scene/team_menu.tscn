@@ -1,0 +1,121 @@
+[gd_scene load_steps=5 format=3 uid="uid://truxu5jd7ubl"]
+
+[ext_resource type="Script" path="res://menu/team_menu.gd" id="1_xpawo"]
+[ext_resource type="StyleBox" uid="uid://eelwpy4cx451" path="res://style/background.tres" id="2_5juap"]
+[ext_resource type="PackedScene" uid="uid://bnsuruwm7t33m" path="res://scene/left_ledger.tscn" id="3_5323j"]
+[ext_resource type="PackedScene" uid="uid://6j5nmrwk6pbm" path="res://scene/team_view.tscn" id="3_ph74u"]
+
+[node name="team menu" type="Control" node_paths=PackedStringArray("team_option", "sort_option", "team_view", "selected_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xpawo")
+team_option = NodePath("PanelContainer 1/HBoxContainer 2/main container 3b/VBoxContainer 4b/teams_row 5b/team_cont 6b/select container 7b/select row 8b/teams")
+sort_option = NodePath("PanelContainer 1/HBoxContainer 2/main container 3b/VBoxContainer 4b/teams_row 5b/team_cont 6b/select container 7b/select row 8b/sortby")
+team_view = NodePath("PanelContainer 1/HBoxContainer 2/main container 3b/VBoxContainer 4b/teams_row 5b/team_cont 6b/team_view")
+selected_label = NodePath("PanelContainer 1/HBoxContainer 2/main container 3b/VBoxContainer 4b/teams_row 5b/team_cont 6b/select container 7b/select row 8b/selected")
+
+[node name="PanelContainer 1" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("2_5juap")
+
+[node name="HBoxContainer 2" type="HBoxContainer" parent="PanelContainer 1"]
+layout_mode = 2
+
+[node name="ledger container 3a" type="PanelContainer" parent="PanelContainer 1/HBoxContainer 2"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+
+[node name="Control" parent="PanelContainer 1/HBoxContainer 2/ledger container 3a" instance=ExtResource("3_5323j")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="main container 3b" type="MarginContainer" parent="PanelContainer 1/HBoxContainer 2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="VBoxContainer 4b" type="VBoxContainer" parent="PanelContainer 1/HBoxContainer 2/main container 3b"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="top_row 5a" type="HBoxContainer" parent="PanelContainer 1/HBoxContainer 2/main container 3b/VBoxContainer 4b"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer 1/HBoxContainer 2/main container 3b/VBoxContainer 4b/top_row 5a"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+
+[node name="Button" type="Button" parent="PanelContainer 1/HBoxContainer 2/main container 3b/VBoxContainer 4b/top_row 5a/MarginContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Back"
+
+[node name="teams_row 5b" type="HBoxContainer" parent="PanelContainer 1/HBoxContainer 2/main container 3b/VBoxContainer 4b"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="team_cont 6b" type="VBoxContainer" parent="PanelContainer 1/HBoxContainer 2/main container 3b/VBoxContainer 4b/teams_row 5b"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="select container 7b" type="MarginContainer" parent="PanelContainer 1/HBoxContainer 2/main container 3b/VBoxContainer 4b/teams_row 5b/team_cont 6b"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+
+[node name="select row 8b" type="HBoxContainer" parent="PanelContainer 1/HBoxContainer 2/main container 3b/VBoxContainer 4b/teams_row 5b/team_cont 6b/select container 7b"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="teams" type="OptionButton" parent="PanelContainer 1/HBoxContainer 2/main container 3b/VBoxContainer 4b/teams_row 5b/team_cont 6b/select container 7b/select row 8b"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+clip_text = true
+
+[node name="<" type="Button" parent="PanelContainer 1/HBoxContainer 2/main container 3b/VBoxContainer 4b/teams_row 5b/team_cont 6b/select container 7b/select row 8b"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "<"
+
+[node name="selected" type="Label" parent="PanelContainer 1/HBoxContainer 2/main container 3b/VBoxContainer 4b/teams_row 5b/team_cont 6b/select container 7b/select row 8b"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "99
+"
+
+[node name=">" type="Button" parent="PanelContainer 1/HBoxContainer 2/main container 3b/VBoxContainer 4b/teams_row 5b/team_cont 6b/select container 7b/select row 8b"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = ">"
+
+[node name="sort label" type="Label" parent="PanelContainer 1/HBoxContainer 2/main container 3b/VBoxContainer 4b/teams_row 5b/team_cont 6b/select container 7b/select row 8b"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Sort by: "
+
+[node name="sortby" type="OptionButton" parent="PanelContainer 1/HBoxContainer 2/main container 3b/VBoxContainer 4b/teams_row 5b/team_cont 6b/select container 7b/select row 8b"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+
+[node name="team_view" parent="PanelContainer 1/HBoxContainer 2/main container 3b/VBoxContainer 4b/teams_row 5b/team_cont 6b" instance=ExtResource("3_ph74u")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[connection signal="pressed" from="PanelContainer 1/HBoxContainer 2/main container 3b/VBoxContainer 4b/top_row 5a/MarginContainer/Button" to="." method="_back"]
+[connection signal="item_selected" from="PanelContainer 1/HBoxContainer 2/main container 3b/VBoxContainer 4b/teams_row 5b/team_cont 6b/select container 7b/select row 8b/teams" to="." method="_select_team"]
+[connection signal="pressed" from="PanelContainer 1/HBoxContainer 2/main container 3b/VBoxContainer 4b/teams_row 5b/team_cont 6b/select container 7b/select row 8b/<" to="." method="_prev"]
+[connection signal="pressed" from="PanelContainer 1/HBoxContainer 2/main container 3b/VBoxContainer 4b/teams_row 5b/team_cont 6b/select container 7b/select row 8b/>" to="." method="_next"]
+[connection signal="item_selected" from="PanelContainer 1/HBoxContainer 2/main container 3b/VBoxContainer 4b/teams_row 5b/team_cont 6b/select container 7b/select row 8b/sortby" to="." method="_select_filter"]

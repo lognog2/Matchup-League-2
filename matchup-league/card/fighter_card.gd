@@ -1,4 +1,4 @@
-class_name FighterCard extends Control
+class_name FighterCard extends Card
 
 @export var card_color_rect: ColorRect
 @export var types: Label
@@ -13,12 +13,6 @@ var fighter: Fighter
 var mouse_enter = false
 var enable_click = false
 
-var ResultColor = {
-	Loss = Color.RED,
-	Win = Color.FOREST_GREEN,
-	Tie = Color.BLUE
-}
-
 func _process(_delta: float):
 	if (mouse_enter && Input.is_action_just_pressed('left_click')):
 		SignalBus.user_select_fighter.emit(self)
@@ -32,19 +26,19 @@ func render(f: Fighter, enable = false):
 		return
 	fighter = f
 	types.text  = f.types_icon()
-	f_name.text = f.name
+	f_name.text = f.de_name
 	base.text = str(f.base)
 	strength.text = f.mod_str(true)
 	weakness.text = f.mod_str(false)
-	team_name.text = f.team.name.left(3)
+	team_name.text = f.team.name_abbr()
 	enable_click = enable
+	show_info()
 
-func _enter():
-	if (enable_click):
-		mouse_enter = true
+func show_info():
+	types.get_parent().visible = true
 
-func _exit():
-	mouse_enter = false
+func hide_info():
+	types.get_parent().visible = false
 
 func render_win(str_app = false, wk_app = false):
 	render_result(1, str_app, wk_app)
@@ -69,3 +63,14 @@ func render_result(result: int, str_app = false, wk_app = false):
 	NodeUtil.set_label_color(base, col)
 	if (result != 1):
 		card_color_rect.color = Color.LIGHT_GRAY
+
+
+func _enter():
+	#print("/ enter")
+	if (enable_click):
+		#print("/ true")
+		mouse_enter = true
+
+func _exit():
+	#print("/ exit " + str(enable_click))
+	mouse_enter = false

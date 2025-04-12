@@ -2,37 +2,46 @@ extends Control
 
 var season: int
 var main_node: Control
+var game_seed: Variant
+var current_career: Career ##set in career_select
 const MAX_TYPES = 4
 const MIN_BASE = 499
 const MAX_BASE = 9999
 const MIN_MOD = 9
 const MAX_MOD = 299
 
-const SCENE_PATH = "res://scene/"
+const SCENE_PATH = "res://scene/%s.tscn"
 ## max number of scenes that will be stored in scene history
-const MAX_SCENES = 64
+const MAX_SCENES = 8
 
 const DEFAULT_SERIES = "Original"
 
-const VERSION_NUM = "2.0.1"
+const VERSION_NUM = "prototype 2.0.2"
 
-func commit_num() -> String: 
-	return VERSION_NUM + ".FINAL"
+## put in league class when i make it
+const season_length = 7
+
+func commit_version() -> String: 
+	return VERSION_NUM + ""
 
 var Edition = {
-	Dev = "Development",
-	Test = "Playtest",
-	Prod = ""
+	Dev = "development",
+	Test = "playtest",
+	Prod = "Production"
 }
-var version = VERSION_NUM + " " + Edition.Dev
+var version_edition = commit_version() + " " + Edition.Dev
 
-var scene_arr = []
+## stores previously visited scenes, behaves like a stack
+var scene_history = []
 var Scene = {
-	MainMenu = "main_menu",
 	TeamView = "team_view",
 	Editor = "editor",
-	Freeplay = "game_select",
+	GameSelect = "game_select",
 	GameMenu = "game_menu",
+	CareerSelect = "career_select",
+	SeasonMenu = "season_menu",
+	TeamMenu = "team_menu",
+	MainMenu = "main_menu",
 }
 
 var Types = {
@@ -47,14 +56,21 @@ var Types = {
 	Mechanical = "C",
 	Ice = "I",
 	Star = "S",
-	Evil = "V"
+	Evil = "V",
 }
 
 ## types that are out of circulation
 var LegacyTypes = {
-	Day = "D",
-	Night = "N",
-	Series = "P"
+	Day = "Y",
+	Night = "T",
+	Series = "P",
+	Default = "X"
+}
+
+## possible future types
+var BetaTypes = {
+	Defensive = "D",
+	Natural = "N",
 }
 
 var GameRound = {
@@ -67,6 +83,7 @@ var Entity = {
 	Fighter = "fighter",
 	Team = "team",
 	Game = "game",
+	Player = "player",
 	Level = "level"
 }
 
@@ -83,16 +100,17 @@ var Keyname = {
 	Bye = "[Bye]",
 	ByePlain = "Bye",
 	Custom = "[Custom]",
+	Spectate = "[Spectator]",
 	Empty = ""
 }
 
 func _ready():
-	var seed = randi()
-	seed(seed)
-	print("^ seed: ", seed)
+	game_seed = randi()
+	seed(game_seed)
+	print("^ seed: ", game_seed)
 	SignalBus.set_scene.connect(set_scene)
 	season = 29
-	Levels.Prep = Level.new("Prep", 4)
+	Levels.Prep = Level.new("Prep", 3, 4)
 	Levels.Archive = Archive.new()
 	load_state()
 
@@ -102,6 +120,13 @@ func _process(delta: float):
 		if (delta < 0.0333): print("  %.3f" %delta) # <60 fps
 		elif (delta < 0.1): print ("* %.3f" %delta) # <30 fps
 		else: print("! %.3f" %delta) # <10 fps
+	
+	# idk why i did this
+	var ticket = randi()
+	if (ticket == game_seed): Err.alert_warn("JACKPOT!!!", 777)
+	if (ticket % 1_000_000 == 0): 
+		print("$ ", ticket)
+		Err.alert_success("you're one in a million!", 777)
 
 func get_level(levelName: String): return Levels[levelName]
 	
@@ -115,22 +140,27 @@ func blank_entity(ent_name: String) -> DataEntity:
 			return Team.new()
 		Entity.Game:
 			return Game.new()
+		Entity.Player:
+			return Player.new()
 		_:
-			Err.print_warn("%s does not match any entity name" % ent_name)
+			Err.alert_warn("Main.blank_entity: %s does not match any entity name" % ent_name, Err.Warn.Invalid)
 			return DataEntity.new()
 
 # scene functions
 
+## sets scene to `sc` scene. if `sc` is empty, goes back a scene
 func set_scene(sc: String):
+	if (sc == scene_history.back()): return
 	if (sc):
-		scene_arr.append(sc)
-		var new_scene = load(SCENE_PATH + sc + ".tscn")
-		main_node.add_child(new_scene.instantiate())
-		if (get_child_count() > 1): get_child(-2).visible = false
-	elif(scene_arr.size() > 1):
-		scene_arr.pop_back()
-		main_node.get_child(-1).queue_free()
-		main_node.get_child(-1).visible = true
+		scene_history.append(sc)
+		var new_scene = load(SCENE_PATH % sc)
+		main_node.set_scene(new_scene.instantiate(), sc)
+		if (scene_history.size() > MAX_SCENES): scene_history.pop_front()
+	elif(scene_history.size() > 1):
+		scene_history.pop_back()
+		emit_scene(scene_history.pop_back())
+	else:
+		Err.print_warn("ran out of scenes to go back to :/", Err.Warn.NoAction)
 	
 func emit_scene(sc: String = ""):
 	SignalBus.set_scene.emit(sc)
@@ -144,11 +174,14 @@ func save_state(softSave = true):
 	print("^ saving")
 	for level in Levels:
 		Levels[level].save_data(softSave)
+	Err.alert_success("saved successfully", Err.Success.Success)
 	print("^ saved")
 
 func load_state():
+	print("^ loading")
 	for level in Levels.values():
 		level.load_data()
+	print("^ loaded")
 	SignalBus.done_loading.emit()
 	#idc im gonna separate lib and level next update anyway
 	Levels.Prep.Lib.Team.set_avg_rating()

@@ -4,7 +4,7 @@ var rnd: int
 var teams = [null, null]
 var teamIDs = [-1, -1]
 var score = [0, 0]
-var result = null
+var result = null #index of winning team, or -1 for a tie
 var matches = []
 
 func _init(data = {}):
@@ -18,7 +18,7 @@ func set_data(data: Dictionary, init = false) -> Game:
 	teamIDs = [data.get("team1id", teamIDs[0]), data.get("team2id", teamIDs[1])]
 	matches = data.get("matches", matches)
 	result = data.get("result", result)
-	if (data.get("connect")): connect_objs()
+	#if (data.get("connect")): connect_objs()
 	return self
 
 func connect_objs():
@@ -43,7 +43,7 @@ func get_team_index(t: Team) -> int:
 		if (teams[i] == t):
 			return i
 	Err.alert_warn(t.id_str + " not found in " + id_str, 0)
-	return -1
+	return -3
 
 func set_teams(tms: Array):
 	set_team(0, tms[0])
@@ -71,12 +71,45 @@ func set_current_score():
 	for m in matches:
 		var r = m.run_match().result
 		if (r >= 0): score[r] += m.match_val
+
+## call this when game is finished
+func set_result():
+	#kinda messy but not gonna bother with a better way
+	if (is_official()):
+		if (score[0] > score[1]):
+			result = 0
+			teams[0].add_win()
+			teams[1].add_loss()
+		elif (score[1] > score[0]):
+			result = 1
+			teams[1].add_win()
+			teams[0].add_loss()
+		else:
+			result = -1
+			for t in teams:
+				t.add_tie()
+	else:
+		if (score[0] > score[1]):
+			result = 0
+		elif (score[1] > score[0]):
+			result = 1
+		else:
+			result = -1
 		
 func get_opponent(t: Team) -> Team:
 	if t == teams[0]: return teams[1]
 	elif t == teams[1]: return teams[0]
 	print("* %s is not in game " % t.id_str, id_str)
 	return null
+
+## returns winning team, or null if a tie or unfinished
+func get_winner() -> Team:
+	if (result == 0):
+		return teams[0]
+	elif (result == -1):
+		return teams[1]
+	else:
+		return null
 
 ## gets sum of both teams' rating
 func get_rating():
@@ -102,10 +135,38 @@ func is_bye() -> bool:
 func is_official() -> bool:
 	return rnd > 0
 
+func is_done() -> bool:
+	return is_finished()
+
 func is_finished() -> bool: 
-	return (result)
+	return (result != null)
+
+## simulates a game as 2 cpu players choosing fighters randomly
+func sim_game():
+	if (is_finished()): 
+		#Err.alert_warn(id_str + " already finished", Err.Warn.NoAction)
+		return
+	var f_available = [[],[]]
+	var f_played = [[],[]]
+	for i in range (2):
+		f_available[i] = teams[i].fighters
 	
-## returns result int (not writing the key again)
+	for i in range (level.FPG):
+		var f1 = f_available[0].pick_random()
+		var f2 = f_available[1].pick_random()
+		run_match(f1, f2)
+		f_played[0].append(f1)
+		f_available[0].erase(f1)
+		f_played[1].append(f2)
+		f_available[1].erase(f2)
+
+	for i in range (2):
+		f_available[i].append_array(f_played[i])
+		teams[i].fighters = f_available[i]
+		
+	set_result()
+
+## returns match
 func run_match(f1: Fighter, f2: Fighter) -> Match:
 	var m = Match.new(self, f1, f2)
 	matches.append(m)
@@ -113,6 +174,34 @@ func run_match(f1: Fighter, f2: Fighter) -> Match:
 	if (r >= 0): score[r] += m.match_val
 	return m
 	
+# string functions
+
+## takes index of team and returns char representing its result
+## returns T for tie, W for win, L for loss, or blank if unfinished
+func result_char(idx: int) -> String:
+	if (!is_finished()): return ""
+	if (result == -1):
+		return "T"
+	elif (result == idx):
+		return "W"
+	else:
+		return "L"
+
+## gets result and score from one teams's perspective.
+## if game is not finished, returns empty string
+func result_str(t: Team, include_opp = false) -> String:
+	var i = get_team_index(t)
+	var k = i - 1
+	var text = ""
+	if (include_opp):
+		text = "%d) vs %s" % [rnd, teams[k].rank_name(true)]
+	if (is_finished()):
+		if (include_opp): text += ": "
+		text += "%s %d-%d" % [result_char(i), score[i], score[k]]
+	return text
+
+# format functions
+
 func format_save() -> Dictionary:
 	verify()
 	var data = super()
@@ -166,6 +255,7 @@ class Match:
 		run_match()
 		
 	## returns result: 0 if f1 wins, 1 if f2 wins, -1 if tie
+	## param `record` is whether or not to count result towards fighter stats
 	func run_match(record = false) -> Match:
 		if (!game.is_official()): record = false
 		var f1 = fighters[0]
@@ -175,19 +265,15 @@ class Match:
 		ModApplied.str1 = check_mod(f1.strType, f2.types)
 		if (ModApplied.str1):
 			points1 += f1.strVal
-			print("/ str1")
 		ModApplied.str2 = check_mod(f2.strType, f1.types)
 		if (ModApplied.str2):
 			points2 += f2.strVal
-			print("/ str2")
 		ModApplied.wk1 = check_mod(f1.wkType, f2.types)
 		if (ModApplied.wk1):
 			points1 -= f1.wkVal
-			print("/ wk1")
 		ModApplied.wk2 = check_mod(f2.wkType, f1.types)
 		if (ModApplied.wk2):
 			points2 -= f2.wkVal
-			print("/ wk2")
 		
 		if (points1 > points2):
 			if (record):

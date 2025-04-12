@@ -21,7 +21,7 @@ func _enter_tree():
 func render():
 	unload()
 	add_row()
-	var teams = level.get_teams_sorted(level.Sort.Alphabet)
+	var teams = level.get_teams_sorted(Filter.Sort.Alphabet)
 	for t in teams:
 		add_team(t) 
 		

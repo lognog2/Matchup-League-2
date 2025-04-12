@@ -28,7 +28,7 @@ func _init(data = {}):
 func connect_objs():
 	if (teamID >= 0):
 		set_team(level.get_team(teamID))
-		set_series(team.series)
+		set_series(team.series) #prep only
 
 func set_data(data: Dictionary, init = false) -> Fighter:
 	if (!init): super(data)
@@ -94,8 +94,7 @@ func setMod(new):
 
 ## compiles fighter rating from stats
 func get_rating() -> float:
-	var mult = 1.0 / Main.Types.size()
-	return base + (strVal * mult) - (wkVal * mult)
+	return (base * Rating.BASE_WT) + (strVal * Rating.STR_WT) - (wkVal * Rating.WK_WT)
 	
 func add_win():
 	matches_won += 1
@@ -127,7 +126,7 @@ func mod_str(use_strength = true) -> String:
 func format_save() -> Dictionary:
 	var data = {
 		"id": id,
-		"name": name,
+		"name": de_name,
 		"season": season,
 		"types": types_str(),
 		"base": base,

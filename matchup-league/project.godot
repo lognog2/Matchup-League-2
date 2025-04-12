@@ -22,10 +22,13 @@ SignalBus="*res://global/signal_bus.gd"
 Err="*res://global/error.gd"
 Filter="*res://global/filter.gd"
 NodeUtil="*res://global/node_util.gd"
+Rating="*res://global/rating.gd"
 
 [display]
 
-window/stretch/mode="canvas_items"
+window/size/viewport_width=1600
+window/size/viewport_height=900
+window/stretch/mode="viewport"
 window/stretch/aspect="ignore"
 
 [input]

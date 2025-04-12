@@ -4,7 +4,7 @@
 [ext_resource type="StyleBox" uid="uid://eelwpy4cx451" path="res://style/background.tres" id="1_mqga2"]
 [ext_resource type="StyleBox" uid="uid://602gdoqeml23" path="res://style/button_main_menu.tres" id="2_0l2rn"]
 
-[node name="main_menu" type="Control"]
+[node name="main menu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,7 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ikhu3")
 
-[node name="background" type="PanelContainer" parent="."]
+[node name="background 1" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,29 +22,29 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("1_mqga2")
 
-[node name="MarginContainer" type="MarginContainer" parent="background"]
+[node name="MarginContainer 2" type="MarginContainer" parent="background 1"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 75
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 30
 
-[node name="VBoxContainer" type="VBoxContainer" parent="background/MarginContainer"]
+[node name="VBoxContainer 3" type="VBoxContainer" parent="background 1/MarginContainer 2"]
 layout_mode = 2
 
-[node name="title" type="Label" parent="background/MarginContainer/VBoxContainer"]
+[node name="title" type="Label" parent="background 1/MarginContainer 2/VBoxContainer 3"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Matchup League"
 horizontal_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="background/MarginContainer/VBoxContainer"]
+[node name="freeplay container 4a" type="MarginContainer" parent="background 1/MarginContainer 2/VBoxContainer 3"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 75
 theme_override_constants/margin_bottom = 0
 
-[node name="freeplay" type="Button" parent="background/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="freeplay" type="Button" parent="background 1/MarginContainer 2/VBoxContainer 3/freeplay container 4a"]
 custom_minimum_size = Vector2(400, 80)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -57,13 +57,13 @@ theme_override_styles/normal = ExtResource("2_0l2rn")
 text = "Freeplay
 "
 
-[node name="MarginContainer2" type="MarginContainer" parent="background/MarginContainer/VBoxContainer"]
+[node name="career container 4b" type="MarginContainer" parent="background 1/MarginContainer 2/VBoxContainer 3"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_bottom = 0
 
-[node name="editor" type="Button" parent="background/MarginContainer/VBoxContainer/MarginContainer2"]
+[node name="career" type="Button" parent="background 1/MarginContainer 2/VBoxContainer 3/career container 4b"]
 custom_minimum_size = Vector2(400, 80)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -73,24 +73,27 @@ theme_override_colors/font_outline_color = Color(0.45098, 0, 0.701961, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = ExtResource("2_0l2rn")
-text = "admin editor
+text = "New Career
 "
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.965
-anchor_right = 0.078
-anchor_bottom = 1.0
-offset_top = -0.320007
-offset_right = 0.143997
-grow_vertical = 0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_bottom = 5
-
-[node name="version" type="Label" parent="MarginContainer"]
+[node name="editor container 4b2" type="MarginContainer" parent="background 1/MarginContainer 2/VBoxContainer 3"]
 layout_mode = 2
-text = "2.0.1 admin"
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_bottom = 0
 
-[connection signal="pressed" from="background/MarginContainer/VBoxContainer/MarginContainer/freeplay" to="." method="to_freeplay"]
-[connection signal="pressed" from="background/MarginContainer/VBoxContainer/MarginContainer2/editor" to="." method="to_editor"]
+[node name="editor" type="Button" parent="background 1/MarginContainer 2/VBoxContainer 3/editor container 4b2"]
+custom_minimum_size = Vector2(400, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.45098, 0, 0.701961, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = ExtResource("2_0l2rn")
+text = "Editor"
+
+[connection signal="pressed" from="background 1/MarginContainer 2/VBoxContainer 3/freeplay container 4a/freeplay" to="." method="to_freeplay"]
+[connection signal="pressed" from="background 1/MarginContainer 2/VBoxContainer 3/career container 4b/career" to="." method="to_career"]
+[connection signal="pressed" from="background 1/MarginContainer 2/VBoxContainer 3/editor container 4b2/editor" to="." method="to_editor"]

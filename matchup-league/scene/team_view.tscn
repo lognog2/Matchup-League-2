@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://6j5nmrwk6pbm"]
 
 [ext_resource type="Script" path="res://menu/team_view.gd" id="1_2o8iy"]
-[ext_resource type="PackedScene" uid="uid://cmwdrbc7rvioy" path="res://scene/fighter_card.tscn" id="1_4jwe8"]
+[ext_resource type="PackedScene" uid="uid://cmwdrbc7rvioy" path="res://scene/card/fighter_card.tscn" id="1_4jwe8"]
 
 [node name="team_view" type="Control" node_paths=PackedStringArray("name_label", "info_box", "sched_box", "fc_box", "color_rect")]
 layout_mode = 3
@@ -11,13 +11,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_2o8iy")
-name_label = NodePath("PanelContainer/ColorRect/MarginContainer/VBoxContainer/MarginContainer/team_name")
-info_box = NodePath("PanelContainer/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/info")
-sched_box = NodePath("PanelContainer/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/schedule")
-fc_box = NodePath("PanelContainer/ColorRect/MarginContainer/VBoxContainer/fighter_card_box")
-color_rect = NodePath("PanelContainer/ColorRect")
+name_label = NodePath("PanelContainer 1/MarginContainer 2/VBoxContainer 3/MarginContainer 4a/team_name")
+info_box = NodePath("PanelContainer 1/MarginContainer 2/VBoxContainer 3/HBoxContainer 4b/info scroll 5ba/info box 6ba")
+sched_box = NodePath("PanelContainer 1/MarginContainer 2/VBoxContainer 3/HBoxContainer 4b/sched scroll 5bb/sched box 6bb")
+fc_box = NodePath("PanelContainer 1/MarginContainer 2/VBoxContainer 3/fc scroll 4c/fighter_card_box 5c")
+color_rect = NodePath("PanelContainer 1/ColorRect")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer 1" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,59 +25,70 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="PanelContainer"]
+[node name="ColorRect" type="ColorRect" parent="PanelContainer 1"]
 layout_mode = 2
 color = Color(0.0582777, 7.09568e-05, 0.16257, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/ColorRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="MarginContainer 2" type="MarginContainer" parent="PanelContainer 1"]
+layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/ColorRect/MarginContainer"]
+[node name="VBoxContainer 3" type="VBoxContainer" parent="PanelContainer 1/MarginContainer 2"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/ColorRect/MarginContainer/VBoxContainer"]
+[node name="MarginContainer 4a" type="MarginContainer" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3"]
 layout_mode = 2
 theme_override_constants/margin_bottom = 40
 
-[node name="team_name" type="Label" parent="PanelContainer/ColorRect/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="team_name" type="Label" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3/MarginContainer 4a"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 35
 text = "team name"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/ColorRect/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer 4b" type="HBoxContainer" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 
-[node name="info" type="VBoxContainer" parent="PanelContainer/ColorRect/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="info scroll 5ba" type="ScrollContainer" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3/HBoxContainer 4b"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="blank" type="Label" parent="PanelContainer/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/info"]
+[node name="info box 6ba" type="VBoxContainer" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3/HBoxContainer 4b/info scroll 5ba"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="blank" type="Label" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3/HBoxContainer 4b/info scroll 5ba/info box 6ba"]
 layout_mode = 2
 text = "league: prep"
 
-[node name="schedule" type="VBoxContainer" parent="PanelContainer/ColorRect/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="sched scroll 5bb" type="ScrollContainer" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3/HBoxContainer 4b"]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 
-[node name="blank" type="Label" parent="PanelContainer/ColorRect/MarginContainer/VBoxContainer/HBoxContainer/schedule"]
+[node name="sched box 6bb" type="VBoxContainer" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3/HBoxContainer 4b/sched scroll 5bb"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="blank" type="Label" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3/HBoxContainer 4b/sched scroll 5bb/sched box 6bb"]
 layout_mode = 2
 text = "vs other team"
 
-[node name="fighter_card_box" type="HBoxContainer" parent="PanelContainer/ColorRect/MarginContainer/VBoxContainer"]
+[node name="fc scroll 4c" type="ScrollContainer" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3"]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="fighter_card_box 5c" type="HBoxContainer" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3/fc scroll 4c"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 40
 alignment = 1
 
-[node name="blank_fighter_card" parent="PanelContainer/ColorRect/MarginContainer/VBoxContainer/fighter_card_box" instance=ExtResource("1_4jwe8")]
+[node name="blank_fighter_card" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3/fc scroll 4c/fighter_card_box 5c" instance=ExtResource("1_4jwe8")]
 layout_mode = 2

@@ -5,6 +5,7 @@ extends Menu
 var tc_arr = []
 var rnd = -Main.GameRound.Debug
 var game: Game
+var freeplay: bool
 
 func _ready():
 	SignalBus.to_game_select.connect(render)
@@ -14,16 +15,17 @@ func _ready():
 
 func render(g: Game):
 	game = g
+	freeplay = (game == null)
 	var t1: Team = null
 	var t2: Team = null
-	if (g):
+	if (!freeplay):
 		t1 = g.teams[0]
 		t2 = g.teams[1]
 	set_team(0, t1)
 	set_team(1, t2)
 
 func set_team(i: int, t: Team):
-	tc_arr[i].render(t)
+	tc_arr[i].render(t, freeplay)
 
 func _back():
 	Main.emit_scene()
@@ -31,11 +33,11 @@ func _back():
 func _play():
 	if (!game): 
 		set_game()
-		tc_arr[0].team.is_cpu = tc_arr[0].is_cpu()
-		tc_arr[1].team.is_cpu = tc_arr[1].is_cpu()
+		tc_arr[0].team.cpu = tc_arr[0].is_cpu()
+		tc_arr[1].team.cpu = tc_arr[1].is_cpu()
 
 	Main.emit_scene(Main.Scene.GameMenu)
-	SignalBus.play_game.emit(game)
+	SignalBus.play_game.emit(game, false)
 
 func set_game():
 	var data = {
@@ -44,4 +46,4 @@ func set_game():
 		"round" = Main.GameRound.Freeplay,
 		"connect" = true,
 	}
-	game = Main.Levels.Prep.add_game(data) #should be archive eventually
+	game = level.add_game(data, true) #should be archive eventually
