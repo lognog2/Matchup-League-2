@@ -178,7 +178,7 @@ func run_match(f1: Fighter, f2: Fighter) -> Match:
 
 ## takes index of team and returns char representing its result
 ## returns T for tie, W for win, L for loss, or blank if unfinished
-func result_char(idx: int) -> String:
+func str_result_char(idx: int) -> String:
 	if (!is_finished()): return ""
 	if (result == -1):
 		return "T"
@@ -189,21 +189,21 @@ func result_char(idx: int) -> String:
 
 ## gets result and score from one teams's perspective.
 ## if game is not finished, returns empty string
-func result_str(t: Team, include_opp = false) -> String:
+func str_result(t: Team, include_opp = false) -> String:
 	var i = get_team_index(t)
 	var k = i - 1
 	var text = ""
 	if (include_opp):
-		text = "%d) vs %s" % [rnd, teams[k].rank_name(true)]
+		text = "%d) vs %s" % [rnd, teams[k].str_rank_name(true)]
 	if (is_finished()):
 		if (include_opp): text += ": "
-		text += "%s %d-%d" % [result_char(i), score[i], score[k]]
+		text += "%s %d-%d" % [str_result_char(i), score[i], score[k]]
 	return text
 
 # format functions
 
 func format_save() -> Dictionary:
-	verify()
+	test_verify()
 	var data = super()
 	data.erase("name")
 	data.merge({
@@ -224,7 +224,7 @@ func format_matches() -> Array:
 
 # test functions
 
-func verify() -> bool:
+func test_verify() -> bool:
 	var exit = Err.Success.Success
 	if (is_bye()): return true
 	if (teams[0].id != teamIDs[0] || teams[1].id != teamIDs[1]):
@@ -256,7 +256,8 @@ class Match:
 		
 	## returns result: 0 if f1 wins, 1 if f2 wins, -1 if tie
 	## param `record` is whether or not to count result towards fighter stats
-	func run_match(record = false) -> Match:
+	func run_match() -> Match:
+		var record = !(game.is_finished())
 		if (!game.is_official()): record = false
 		var f1 = fighters[0]
 		var f2 = fighters[1]

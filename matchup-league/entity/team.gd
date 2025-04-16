@@ -117,28 +117,28 @@ func set_color(col):
 # string functions
 
 ## returns rank and name
-func rank_name(trim = false) -> String:
-	if (rank >= 10):
-		return "%d) %s" % [rank, de_name]
+func str_rank_name(trim = false) -> String:
 	var line = ""
-	if (!trim): line += "  "
-	if (rank > 0):
-		line += "%d) %s" % [rank, de_name]
-	else:
-		if (!trim): line += "   "
-		line += de_name
+	if (is_ranked()):
+		if (trim):
+			line += "%d " % rank
+		else:	
+			line += "%2d " % rank
+	elif (!trim):
+		line += "%3s" % ""
+	line += name()
 	return line
 
 ## W-L-T
-func record_str() -> String:
+func str_record() -> String:
 	return "%d-%d-%d" % [wins, losses, ties]
 
-## see `Game.result_str()`
-func game_str(r: int, include_opp = false) -> String:
-	return get_game(r).result_str(self, include_opp)
+## see `Game.str_result()`
+func str_game(r: int, include_opp = false) -> String:
+	return get_game(r).str_result(self, include_opp)
 
 ## returns first three letters if name is one word, or first letter of each word
-func name_abbr() -> String:
+func str_name_abbr() -> String:
 	var words = de_name.split(" ")
 	if (words.size() == 1):
 		return de_name.left(3)
@@ -168,7 +168,7 @@ func format_sched() -> Dictionary:
 func format_info() -> Dictionary:
 	var info = {
 		"Rating" = "%.f" % get_rating_scale(),
-		"Record" = record_str(),
+		"Record" = str_record(),
 		"Series" = series,
 		"League" = level.name,
 	}
@@ -184,6 +184,6 @@ func format_color_hex(col: Color = color) -> int:
 
 # test functions
 
-func check_sync(r) -> bool:
+func test_check_sync(r) -> bool:
 	if (!has_game(r)): return true
 	return self == get_opponent(r).get_opponent(r)

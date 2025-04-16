@@ -4,7 +4,7 @@ class_name Level extends Object
 var name: String
 var FPT: int
 var FPG: int
-var TEAMS_RANKED = 15
+var RANK_AMT = 15
 
 var Lib = {
 	Fighter = null,
@@ -54,11 +54,14 @@ func find_game(r: int, oppID: int) -> Game:
 func get_fighters(filter = Filter.Select.Default) -> Array: 
 	return Lib.Fighter.get_entities(filter)
 
+func get_fighters_sorted(filter = Filter.Sort.Alphabet, limit = -1) -> Array:
+	return Lib.Fighter.get_entities(Filter.Select.Default, filter, limit)
+
 func get_teams(filter = Filter.Select.Default) -> Array: 
 	return Lib.Team.get_entities(filter)
 
-func get_teams_sorted(filter = Filter.Sort.Alphabet) -> Array:
-	return Lib.Team.get_entities(Filter.Select.Default, filter)
+func get_teams_sorted(filter = Filter.Sort.Alphabet, limit = -1) -> Array:
+	return Lib.Team.get_entities(Filter.Select.Default, filter, limit)
 
 func get_teams_filtered(select = Filter.Select.Default, sort = Filter.Sort.Rating) -> Array:
 	return Lib.Team.get_entities(select, sort)
@@ -66,8 +69,8 @@ func get_teams_filtered(select = Filter.Select.Default, sort = Filter.Sort.Ratin
 func get_games(filter = Filter.Select.Default) -> Array: 
 	return Lib.Game.get_entities(filter)
 
-func get_games_sorted(filter = Filter.Sort.Rating) -> Array:
-	return Lib.Team.get_entities(Filter.Select.Default, filter)
+func get_games_sorted(filter = Filter.Sort.Rating, limit = -1) -> Array:
+	return Lib.Team.get_entities(Filter.Select.Default, filter, limit)
 
 func get_games_filtered(select = Filter.Select.Default, sort = Filter.Sort.Rating) -> Array:
 	return Lib.Game.get_entities(select, sort)
@@ -136,14 +139,14 @@ func sim_round(r: int):
 	for g in get_current_games(r):
 		g.sim_game()
 
-## returns array of top `TEAMS_RANKED` teams
+## returns array of top `RANK_AMT` teams
 func set_rankings() -> Array:
 	var teams_ranked = get_teams_sorted(Filter.Sort.Rating)
 	var top_teams = []
 	var i = 1
 	for t in teams_ranked:
 		#print ("/ %s: %.f" % [t.name(), t.get_rating()])
-		if (i > TEAMS_RANKED):
+		if (i > RANK_AMT):
 			t.rank = 0
 		else:
 			t.rank = i

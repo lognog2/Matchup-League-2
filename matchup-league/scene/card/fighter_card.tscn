@@ -5,7 +5,7 @@
 [sub_resource type="Theme" id="Theme_iwip4"]
 Label/font_sizes/font_size = 14
 
-[node name="fighter_card (size)" type="Control" node_paths=PackedStringArray("card_color_rect", "types", "f_name", "base", "strength", "weakness", "team_name", "contract")]
+[node name="fighter_card (size)" type="Control" node_paths=PackedStringArray("card_color_rect", "types", "f_name", "base", "strength", "weakness", "team_name", "matches")]
 custom_minimum_size = Vector2(100, 140)
 layout_mode = 3
 anchor_right = 0.062
@@ -22,7 +22,7 @@ base = NodePath("SubViewportContainer (size)/SubViewport/PanelContainer (size)/M
 strength = NodePath("SubViewportContainer (size)/SubViewport/PanelContainer (size)/MarginContainer/VBoxContainer/strength")
 weakness = NodePath("SubViewportContainer (size)/SubViewport/PanelContainer (size)/MarginContainer/VBoxContainer/weakness")
 team_name = NodePath("SubViewportContainer (size)/SubViewport/PanelContainer (size)/MarginContainer/VBoxContainer/HSplitContainer/team_name")
-contract = NodePath("SubViewportContainer (size)/SubViewport/PanelContainer (size)/MarginContainer/VBoxContainer/HSplitContainer/contract")
+matches = NodePath("SubViewportContainer (size)/SubViewport/PanelContainer (size)/MarginContainer/VBoxContainer/HSplitContainer/matches")
 
 [node name="SubViewportContainer (size)" type="SubViewportContainer" parent="."]
 custom_minimum_size = Vector2(100, 140)
@@ -110,7 +110,7 @@ size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Bl"
 
-[node name="contract" type="Label" parent="SubViewportContainer (size)/SubViewport/PanelContainer (size)/MarginContainer/VBoxContainer/HSplitContainer"]
+[node name="matches" type="Label" parent="SubViewportContainer (size)/SubViewport/PanelContainer (size)/MarginContainer/VBoxContainer/HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)

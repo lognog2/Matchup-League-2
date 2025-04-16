@@ -16,13 +16,13 @@ const MAX_SCENES = 8
 
 const DEFAULT_SERIES = "Original"
 
-const VERSION_NUM = "prototype 2.0.2"
+const VERSION_NUM = "prototype 2.0.3"
 
 ## put in league class when i make it
 const season_length = 7
 
 func commit_version() -> String: 
-	return VERSION_NUM + ""
+	return VERSION_NUM + ".0"
 
 var Edition = {
 	Dev = "development",

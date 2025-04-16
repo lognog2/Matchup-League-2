@@ -7,7 +7,7 @@ class_name FighterCard extends Card
 @export var strength: Label
 @export var weakness: Label
 @export var team_name: Label
-@export var contract: Label
+@export var matches: Label
 
 var fighter: Fighter
 var mouse_enter = false
@@ -28,9 +28,10 @@ func render(f: Fighter, enable = false):
 	types.text  = f.types_icon()
 	f_name.text = f.de_name
 	base.text = str(f.base)
-	strength.text = f.mod_str(true)
-	weakness.text = f.mod_str(false)
-	team_name.text = f.team.name_abbr()
+	strength.text = f.str_mod(true)
+	weakness.text = f.str_mod(false)
+	team_name.text = f.team.str_name_abbr()
+	matches.text = f.str_matches()
 	enable_click = enable
 	show_info()
 

@@ -25,7 +25,7 @@ func render_teams():
 	var blank_team_label = NodeUtil.detach_child(teams_box)
 	team_labels = [blank_team_label, blank_team_label.duplicate()]
 	for i in range (team_labels.size()):
-		team_labels[i].text = game.teams[i].rank_name()
+		team_labels[i].text = game.teams[i].str_rank_name()
 		teams_box.add_child(team_labels[i])
 
 func render_scores():

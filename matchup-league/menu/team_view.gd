@@ -16,7 +16,7 @@ func render(t: Team):
 		render_spectator()
 		return
 	team = t
-	name_label.text = team.rank_name()
+	name_label.text = team.str_rank_name()
 	color_rect.color = team.color
 	fill_info(team.format_info())
 	fill_sched(team.schedule)
@@ -42,7 +42,7 @@ func fill_sched(sched: Dictionary):
 	var blank_label = NodeUtil.detach_child(sched_box)
 	for i in range (1, sched.size() + 1):
 		var new_label = blank_label.duplicate()
-		new_label.text = team.game_str(i, true)
+		new_label.text = team.str_game(i, true)
 		sched_box.add_child(new_label)
 
 func fill_fighters(fighters: Array):

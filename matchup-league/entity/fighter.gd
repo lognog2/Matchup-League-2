@@ -18,8 +18,8 @@ var startSeason
 var potential
 
 #record vars
-var matches_won
-var matches_lost
+var matches_won = 0
+var matches_lost = 0
 
 func _init(data = {}):
 	super(data, "F")
@@ -95,6 +95,11 @@ func setMod(new):
 ## compiles fighter rating from stats
 func get_rating() -> float:
 	return (base * Rating.BASE_WT) + (strVal * Rating.STR_WT) - (wkVal * Rating.WK_WT)
+
+func win_pct() -> float:
+	if (matches_played() == 0):
+		return NodeUtil.float_zero()
+	return float(matches_won) / matches_played()
 	
 func add_win():
 	matches_won += 1
@@ -108,7 +113,7 @@ func matches_played() -> int:
 #format functions
 
 ## set param true for strength, false for weakness
-func mod_str(use_strength = true) -> String:
+func str_mod(use_strength = true) -> String:
 	var type = ""
 	var pm = ""
 	var val = 0
@@ -122,6 +127,13 @@ func mod_str(use_strength = true) -> String:
 		pm = "-"
 	
 	return "(%s) %s%d" % [type, pm, val]
+
+## string with matches won and matches played: "W/P"
+func str_matches() -> String:
+	return "%d/%d" % [matches_won, matches_played()]
+
+func str_name_matches() -> String:
+	return de_name + " " + str_matches()
 
 func format_save() -> Dictionary:
 	var data = {

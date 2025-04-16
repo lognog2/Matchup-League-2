@@ -1,6 +1,9 @@
 ## Convenience functions for control nodes
 extends Node
 	
+func float_zero() -> float:
+	return 1.000 - 1.000
+
 ## label.add_theme_color_override("font_color", color)
 func set_label_color(label: Label, color: Color):
 	label.add_theme_color_override("font_color", color)

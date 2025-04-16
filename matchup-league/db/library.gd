@@ -18,11 +18,11 @@ func _init(lvl_name: String, ent_name: String):
 # set/get
 
 ## constructs a new entity and adds it to dictionary
-func add_entity(data: Dictionary, connect = false) -> DataEntity:
+func add_entity(data: Dictionary, connect_obj = false) -> DataEntity:
 	data["id"] = increment_id()
 	var de = Main.blank_entity(entity_name).set_data(data)
 	dict[de.id] = de
-	if (connect): de.connect_objs()
+	if (connect_obj): de.connect_objs()
 	add_avg_rating(de.get_rating())
 	return de
 
@@ -106,13 +106,14 @@ func get_names(filter = Filter.Select.Default) -> Array:
 	validNames.sort()
 	return validNames
 
-func get_entities(select_filter = Filter.Select.Default, sort_filter = null) -> Array:
-	var validEntities = []
+func get_entities(select_filter = Filter.Select.Default, sort_filter = null, limit = -1) -> Array:
+	var valid_entities = []
 	for val in dict.values():
 		if (select_filter.call(val)):
-			validEntities.append(val)
-	if (sort_filter): validEntities.sort_custom(sort_filter)
-	return validEntities
+			valid_entities.append(val)
+	if (sort_filter): valid_entities.sort_custom(sort_filter)
+	if (limit > -1): valid_entities = valid_entities.slice(0, limit)
+	return valid_entities
 
 # save/load (careful using breakpoints here)
 
