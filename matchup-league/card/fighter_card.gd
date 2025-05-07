@@ -65,7 +65,6 @@ func render_result(result: int, str_app = false, wk_app = false):
 	if (result != 1):
 		card_color_rect.color = Color.LIGHT_GRAY
 
-
 func _enter():
 	#print("/ enter")
 	if (enable_click):

@@ -166,15 +166,18 @@ func emit_scene(sc: String = ""):
 	SignalBus.set_scene.emit(sc)
 
 func validate_name(n: String) -> bool:
-	return !Main.Keyname.values().has(n)
+	return !Keyname.values().has(n)
 
 # save/load functions
 
 func save_state(softSave = true):
 	print("^ saving")
+	main_node.save_game_start()
 	for level in Levels:
 		Levels[level].save_data(softSave)
-	Err.alert_success("saved successfully", Err.Success.Success)
+	main_node.save_game_end()
+	#Err.alert_success("saved successfully", Err.Success.Success)
+	#SignalBus.done_saving.emit()
 	print("^ saved")
 
 func load_state():
@@ -183,5 +186,4 @@ func load_state():
 		level.load_data()
 	print("^ loaded")
 	SignalBus.done_loading.emit()
-	#idc im gonna separate lib and level next update anyway
 	Levels.Prep.Lib.Team.set_avg_rating()

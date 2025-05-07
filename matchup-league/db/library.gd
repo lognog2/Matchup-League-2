@@ -1,7 +1,7 @@
 ## holds dictionary and does save/load for each type of data entity on this level
 class_name EntityLibrary extends Object
 
-const file_path = "res://data/%s.save"
+const file_path = "res://data/%s/%s.save"
 var dict = {}
 var last_id = 0
 var avg_rating = 0.0

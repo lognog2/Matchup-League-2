@@ -14,3 +14,6 @@ func _team_menu():
 func _main_menu():
 	exit_season()
 	Main.emit_scene(Main.Scene.MainMenu)
+	
+func _save():
+	Main.save_state()

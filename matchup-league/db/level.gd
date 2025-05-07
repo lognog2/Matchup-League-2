@@ -164,3 +164,4 @@ func save_data(softSave: bool):
 func load_data():
 	for lib in Lib.values():
 		lib.load_from_file()
+	Lib.Team.set_avg_rating()

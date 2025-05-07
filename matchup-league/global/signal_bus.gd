@@ -1,6 +1,7 @@
 extends Node
 
-#done loading data from files
+#done saving/loading data from files
+signal done_saving()
 signal done_loading()
 
 signal set_scene(scene_name: String)

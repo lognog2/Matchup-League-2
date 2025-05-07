@@ -9,11 +9,11 @@ func _init(st = Neutral):
 	state = st
 
 # returns this object as a bool. `lean_neutral` determines which way neutral is interpreted
-func get_bool(lean_neutral = false) -> bool:
+func get_bool(neutral_lean = false) -> bool:
 	match (state):
 		True: return true
 		False: return false
-		Neutral: return lean_neutral
+		Neutral: return neutral_lean
 		_: 
 			Err.alert_fatal("tribool state is invalid", Err.Fatal.Invalid)
 			return false

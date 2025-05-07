@@ -1,5 +1,7 @@
 class_name Career extends Node
 
+const DEFAULT_NAME = "default"
+
 var current_round = 0
 var user_player: Player
 
