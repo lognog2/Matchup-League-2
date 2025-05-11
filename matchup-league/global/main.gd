@@ -3,7 +3,7 @@ extends Node
 var season: int
 var main_node: Control
 var game_seed: Variant
-var current_career: Career ##set in career_select
+var current_career: Career
 var soft_save = true
 const MAX_TYPES = 4
 const MIN_BASE = 499
@@ -39,6 +39,7 @@ var Scene = {
 	Editor = "editor",
 	GameSelect = "game_select",
 	GameMenu = "game_menu",
+	LoadCareer = "load_career",
 	CareerSelect = "career_select",
 	SeasonMenu = "season_menu",
 	TeamMenu = "team_menu",
@@ -151,6 +152,15 @@ func set_seed(new_seed: int):
 	main_node.seed_label.text = "Seed: %d" % game_seed
 	Err.print("^ seed: " + str(game_seed))
 
+## converts hex color to `Color`
+func format_color(hex: int) -> Color:
+	return Color.hex(hex)
+
+## converts `Color` to rgba32 hex
+func format_color_hex(col: Color) -> int:
+	return col.to_rgba32()
+
+
 # scene functions
 
 ## sets scene to `sc` scene. if `sc` is empty, goes back a scene
@@ -200,12 +210,19 @@ func save_callable():
 	#SignalBus.done_saving.emit()
 	Err.print("^ saved")
 
-func load_state(career: Career = null):
+func load_state(data: Dictionary = {}):
 	Err.print("^ loading")
-	current_career = career
 	FileUtil.set_save_path()
 	for level in Levels.values():
 		level.load_data()
+	if (data == {}):
+		current_career = null
+	else:
+		var lvl = Levels[data.level]
+		current_career = Career.create(lvl, data.name, data.team_id)
+		#set round - 1   
+		current_career.begin_round()
+		set_seed(data.seed)
 	Err.print("^ loaded")
 	SignalBus.done_loading.emit()
 	Levels.Prep.Lib.Team.set_avg_rating()

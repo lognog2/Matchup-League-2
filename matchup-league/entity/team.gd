@@ -108,7 +108,7 @@ func win_pct() -> float:
 
 func set_color(col):
 	if (col is int || col is float):
-		color = format_color(col)
+		color = Main.format_color(col)
 	elif (col is Color):
 		color = col
 	else:
@@ -154,7 +154,7 @@ func format_save() -> Dictionary:
 	var data = super()
 	data.merge({
 		"season": season,
-		"color": format_color_hex(color),
+		"color": Main.format_color_hex(color),
 		"series": series,
 	}, true)
 	return data
@@ -174,13 +174,6 @@ func format_info() -> Dictionary:
 	}
 	return info
 
-## converts hex color to `Color`
-func format_color(hex: int) -> Color:
-	return Color.hex(hex)
-
-## converts `Color` to rgba32 hex
-func format_color_hex(col: Color = color) -> int:
-	return col.to_rgba32()
 
 # test functions
 

@@ -115,4 +115,5 @@ text = "Editor"
 
 [connection signal="pressed" from="background 1/MarginContainer 2/VBoxContainer 3/freeplay container 4a/freeplay" to="." method="to_freeplay"]
 [connection signal="pressed" from="background 1/MarginContainer 2/VBoxContainer 3/new career container 4b/career" to="." method="to_career"]
+[connection signal="pressed" from="background 1/MarginContainer 2/VBoxContainer 3/load career container 4c/career" to="." method="load_career"]
 [connection signal="pressed" from="background 1/MarginContainer 2/VBoxContainer 3/editor container 4d/editor" to="." method="to_editor"]

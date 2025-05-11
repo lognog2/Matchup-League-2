@@ -61,8 +61,10 @@ func set_team(i: int, t: Team):
 	
 ## converts matches from array of id pairs to match objects, then calls `set_current_score()`
 func set_matches():
+	var m_arr = []
 	for m in matches:
-		m = Match.new(self, level.get_fighter(m[0]), level.get_fighter(m[1]))
+		m_arr.append(Match.new(self, level.get_fighter(m[0]), level.get_fighter(m[1])))
+	matches = m_arr
 	set_current_score()
 
 ## sets score according to existing matches

@@ -2,16 +2,29 @@ extends Node
 
 const data_path = "res://data"
 const default_name = "default"
+const SAVE_ID = "save_"
 var save_path = "%s/%s" % [data_path, default_name]
 
 func open_file(path = save_path, write = true) -> FileAccess:
 	var flag = FileAccess.WRITE if (write) else FileAccess.READ
-	return FileAccess.open(path, flag)
+	var file = FileAccess.open(path, flag)
+	if (!file): Err.print_fatal("File not found: %s" % path, Err.Fatal.ReadWrite)
+	return file
 
 func write_to_file(content: Variant, path: String = save_path):
 	var data = JSON.stringify(content)
 	var file = open_file(path, true)
 	file.store_string(data)
+
+func read_from_file(path: String = save_path) -> Variant:
+	var file = open_file(path, false)
+	var content = file.get_as_text()
+	var json = JSON.new()
+	if json.parse(content) != OK:
+		Err.print_fatal("JSON Parse Error: " + json.get_error_message() + " in " + content, Err.Fatal.ReadWrite)
+		return
+	var data = json.data
+	return data
 
 func do_each_line(action: Callable, path: String = save_path, limit = -1):
 	var file = open_file(path, false)
@@ -22,11 +35,13 @@ func do_each_line(action: Callable, path: String = save_path, limit = -1):
 		action.call(line)
 		reps += 1
 
-func get_save_dirs():
-	return DirAccess.get_directories_at(data_path)
+func get_save_dirs() -> Array:
+	var dirs = DirAccess.get_directories_at(data_path)
+	var save_dirs = Filter.filter_array(dirs, func(dir): return dir.contains(FileUtil.SAVE_ID))
+	return save_dirs
 
 func save_dir_name() -> String:
-	var dir = "save_" + Main.current_career.name() if (Main.current_career) else default_name
+	var dir = SAVE_ID + Main.current_career.name() if (Main.current_career) else default_name
 	return dir
 
 func set_save_path():

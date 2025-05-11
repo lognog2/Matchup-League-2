@@ -37,6 +37,6 @@ func _random():
 
 func _start():
 	var p_name = name_entry.text if (!name_entry.text.is_empty()) else "User"
-	Main.current_career = Career.create(level, p_name, team)
+	Main.current_career = Career.create(level, p_name, team.id if (team) else -1)
 	Main.current_career.begin_round()
 	Main.emit_scene(Main.Scene.SeasonMenu, Main.main_node.user_confirm)

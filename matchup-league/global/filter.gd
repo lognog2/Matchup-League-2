@@ -59,3 +59,11 @@ func select_by_round(r: int) -> Callable:
 ## filter to exclude self from selection
 func exclude_self(obj_self: Object) -> Callable: 
 	return (func(obj_comp: Object): return obj_self != obj_comp)
+	
+## make new array only with elements that return true from `filter`
+func filter_array(arr: Array, filter: Callable) -> Array:
+	var new_arr = []
+	for item in arr:
+		if (filter.call(item)):
+			new_arr.append(item)
+	return new_arr

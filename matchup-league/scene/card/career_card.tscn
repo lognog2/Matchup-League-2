@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://card/career_card.gd" id="1_slwaw"]
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" node_paths=PackedStringArray("name_label", "round_label", "season_label", "team_label", "team_rect")]
 custom_minimum_size = Vector2(300, 180)
 layout_mode = 3
 anchor_right = 0.1875
@@ -10,6 +10,11 @@ anchor_bottom = 0.2
 offset_right = -300.0
 offset_bottom = -180.0
 script = ExtResource("1_slwaw")
+name_label = NodePath("blank career/MarginContainer/HBoxContainer/VBoxContainer/name")
+round_label = NodePath("blank career/MarginContainer/HBoxContainer/VBoxContainer/round")
+season_label = NodePath("blank career/MarginContainer/HBoxContainer/VBoxContainer/season")
+team_label = NodePath("blank career/MarginContainer/HBoxContainer/VBoxContainer/team")
+team_rect = NodePath("blank career/ColorRect")
 metadata/_edit_use_anchors_ = true
 
 [node name="blank career" type="PanelContainer" parent="."]
@@ -68,5 +73,7 @@ text = "Season 99"
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 32
 text = "Select"
+
+[connection signal="pressed" from="blank career/MarginContainer/HBoxContainer/select" to="." method="_select"]
