@@ -41,11 +41,11 @@ func connect_objs():
 
 ## compiles stats into rating
 func get_rating() -> float:
-	print("* blank data entity can't have a rating")
+	Err.print("* blank data entity can't have a rating")
 	return Main.GameRound.Debug
 
 func get_rating_scale() -> int:
-	print("* blank data entity can't have a rating scale")
+	Err.print("* blank data entity can't have a rating scale")
 	return Main.GameRound.Debug
 
 func win_pct() -> float:

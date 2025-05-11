@@ -1,0 +1,72 @@
+[gd_scene load_steps=2 format=3 uid="uid://d044o5tnb0r01"]
+
+[ext_resource type="Script" path="res://card/career_card.gd" id="1_slwaw"]
+
+[node name="Control" type="Control"]
+custom_minimum_size = Vector2(300, 180)
+layout_mode = 3
+anchor_right = 0.1875
+anchor_bottom = 0.2
+offset_right = -300.0
+offset_bottom = -180.0
+script = ExtResource("1_slwaw")
+metadata/_edit_use_anchors_ = true
+
+[node name="blank career" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="blank career"]
+layout_mode = 2
+color = Color(1, 0, 1, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="blank career"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="blank career/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="blank career/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="name" type="Label" parent="blank career/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "User"
+clip_text = true
+text_overrun_behavior = 3
+ellipsis_char = "."
+
+[node name="team" type="Label" parent="blank career/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Team"
+clip_text = true
+text_overrun_behavior = 3
+ellipsis_char = "."
+
+[node name="round" type="Label" parent="blank career/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Round 99"
+
+[node name="season" type="Label" parent="blank career/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Season 99"
+
+[node name="select" type="Button" parent="blank career/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 40
+text = "Select"

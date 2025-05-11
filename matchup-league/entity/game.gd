@@ -99,7 +99,7 @@ func set_result():
 func get_opponent(t: Team) -> Team:
 	if t == teams[0]: return teams[1]
 	elif t == teams[1]: return teams[0]
-	print("* %s is not in game " % t.id_str, id_str)
+	Err.print(("* %s is not in game " % t.id_str) + id_str)
 	return null
 
 ## returns winning team, or null if a tie or unfinished

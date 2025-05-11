@@ -41,7 +41,7 @@ func render_scores():
 func _show_game(idx: int):
 	if (idx == 0):
 		Main.emit_scene(Main.Scene.GameMenu)
-		SignalBus.play_game.emit(game, true)
+		Stream.cache(func(): SignalBus.play_game.emit(game, true))
 	elif (idx == 1):
 		render_scores()
 	else:

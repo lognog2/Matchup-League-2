@@ -29,7 +29,7 @@ func _select(idx: int):
 		team_view.render_spectator()
 		return
 	var new_name = team_option.get_item_text(idx)
-	var new_team = team.level.find_team(new_name)
+	var new_team = level.find_team(new_name)
 	render(new_team)
 
 func _random():
@@ -37,12 +37,6 @@ func _random():
 
 func _start():
 	var p_name = name_entry.text if (!name_entry.text.is_empty()) else "User"
-	var data = {
-		"name" = p_name,
-		"team ID" = team.id if team else -1,
-	}
-	var user = level.add_player(data)
-	user.set_team(team)
-	Main.current_career = Career.new(user)
+	Main.current_career = Career.create(level, p_name, team)
 	Main.current_career.begin_round()
-	Main.emit_scene(Main.Scene.SeasonMenu)
+	Main.emit_scene(Main.Scene.SeasonMenu, Main.main_node.user_confirm)

@@ -113,14 +113,14 @@ func fill_fighters():
 
 func _view_opp():
 	Main.emit_scene(Main.Scene.TeamMenu)
-	SignalBus.to_team_menu.emit(opp)
+	Stream.cache(func(): SignalBus.to_team_menu.emit(opp))
 
 func _next_game():
 	if (!team.has_game(rnd)):
 		Err.alert_fatal("No playable game this round", Err.Fatal.Invalid)
 		return
 	Main.emit_scene(Main.Scene.GameSelect)
-	SignalBus.to_game_select.emit(team.get_game(rnd))
+	Stream.cache(func(): SignalBus.to_game_select.emit(team.get_game(rnd)))
 	
 func _next_round():
 	career.begin_round()

@@ -1,9 +1,10 @@
-extends Control
+extends Node
 
 var season: int
 var main_node: Control
 var game_seed: Variant
 var current_career: Career ##set in career_select
+var soft_save = true
 const MAX_TYPES = 4
 const MIN_BASE = 499
 const MAX_BASE = 9999
@@ -22,7 +23,7 @@ const VERSION_NUM = "prototype 2.0.3"
 const season_length = 7
 
 func commit_version() -> String: 
-	return VERSION_NUM + ".0"
+	return VERSION_NUM + ".2"
 
 var Edition = {
 	Dev = "development",
@@ -105,9 +106,7 @@ var Keyname = {
 }
 
 func _ready():
-	game_seed = randi()
-	seed(game_seed)
-	print("^ seed: ", game_seed)
+	Stream.queue(func(): set_seed(randi()))
 	SignalBus.set_scene.connect(set_scene)
 	season = 29
 	Levels.Prep = Level.new("Prep", 3, 4)
@@ -117,15 +116,15 @@ func _ready():
 func _process(delta: float):
 	#report lag
 	if (delta > 0.0167):
-		if (delta < 0.0333): print("  %.3f" %delta) # <60 fps
-		elif (delta < 0.1): print ("* %.3f" %delta) # <30 fps
-		else: print("! %.3f" %delta) # <10 fps
+		if (delta < 0.0333): pass #Err.print("  %.3f" % delta) # <60 fps
+		elif (delta < 0.1): Err.print("* %.3f" %delta) # <30 fps
+		else: Err.print("! %.3f" %delta) # <10 fps
 	
 	# idk why i did this
 	var ticket = randi()
 	if (ticket == game_seed): Err.alert_warn("JACKPOT!!!", 777)
 	if (ticket % 1_000_000 == 0): 
-		print("$ ", ticket)
+		Err.print("$ " + ticket)
 		Err.alert_success("you're one in a million!", 777)
 
 func get_level(levelName: String): return Levels[levelName]
@@ -145,6 +144,12 @@ func blank_entity(ent_name: String) -> DataEntity:
 		_:
 			Err.alert_warn("Main.blank_entity: %s does not match any entity name" % ent_name, Err.Warn.Invalid)
 			return DataEntity.new()
+	
+func set_seed(new_seed: int):
+	game_seed = new_seed
+	seed(game_seed)
+	main_node.seed_label.text = "Seed: %d" % game_seed
+	Err.print("^ seed: " + str(game_seed))
 
 # scene functions
 
@@ -162,28 +167,45 @@ func set_scene(sc: String):
 	else:
 		Err.print_warn("ran out of scenes to go back to :/", Err.Warn.NoAction)
 	
-func emit_scene(sc: String = ""):
-	SignalBus.set_scene.emit(sc)
+func emit_scene(sc: String = "", condition = (func(): return true)):
+	Stream.cache(func(): if (condition.call()): SignalBus.set_scene.emit(sc))
 
 func validate_name(n: String) -> bool:
 	return !Keyname.values().has(n)
 
+## true pauses the game, false unpauses
+func pause_game(switch: bool):
+	Err.print("^ paused: " + str(switch))
+	get_tree().paused = switch
+
+func is_paused() -> bool:
+	return get_tree().paused
+
 # save/load functions
 
+## saves current game state. if you have stuff after this call you want done after it saves, queue it in `Stream`
 func save_state(softSave = true):
-	print("^ saving")
-	main_node.save_game_start()
-	for level in Levels:
-		Levels[level].save_data(softSave)
-	main_node.save_game_end()
-	#Err.alert_success("saved successfully", Err.Success.Success)
-	#SignalBus.done_saving.emit()
-	print("^ saved")
+	soft_save = softSave
+	FileUtil.set_save_path()
+	main_node.prompt_game_save(FileUtil.save_dir_exists(true))
 
-func load_state():
-	print("^ loading")
+## called from `main_node`
+func save_callable():
+	Err.print("^ saving")
+	var path = "%s/%s" % [FileUtil.save_path, Career.FILE_NAME]
+	FileUtil.write_to_file(current_career.format_save(), path)
+	for level in Levels:
+		Levels[level].save_data(soft_save)
+	main_node.save_game_end()
+	#SignalBus.done_saving.emit()
+	Err.print("^ saved")
+
+func load_state(career: Career = null):
+	Err.print("^ loading")
+	current_career = career
+	FileUtil.set_save_path()
 	for level in Levels.values():
 		level.load_data()
-	print("^ loaded")
+	Err.print("^ loaded")
 	SignalBus.done_loading.emit()
 	Levels.Prep.Lib.Team.set_avg_rating()

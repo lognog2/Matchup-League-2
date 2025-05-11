@@ -31,4 +31,4 @@ func run_match(f1: Fighter, f2: Fighter):
 
 func print_signal(message: String):
 	if (!enabled): return
-	print("%s %s" % [CHAR, message])
+	Err.print("%s %s" % [CHAR, message])

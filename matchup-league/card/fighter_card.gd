@@ -22,7 +22,7 @@ func _ready():
 
 func render(f: Fighter, enable = false):
 	if (!f):
-		print("! no fighter")
+		Err.print_warn("* no fighter", Err.Warn.NoAction)
 		return
 	fighter = f
 	types.text  = f.types_icon()

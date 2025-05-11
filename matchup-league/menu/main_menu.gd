@@ -2,11 +2,14 @@ extends Menu
 
 func to_freeplay():
 	Main.emit_scene(Main.Scene.GameSelect)
-	SignalBus.to_game_select.emit(null)
+	Stream.cache(func(): SignalBus.to_game_select.emit(null))
 	
 func to_career():
 	Main.emit_scene(Main.Scene.CareerSelect)
-	SignalBus.to_career_select.emit()
+	Stream.cache(func(): SignalBus.to_career_select.emit())
+	
+func load_career():
+	Main.emit_scene(Main.Scene.LoadCareer)
 
 func to_editor():
 	Main.emit_scene(Main.Scene.Editor)

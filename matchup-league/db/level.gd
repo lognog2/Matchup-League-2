@@ -122,8 +122,8 @@ func add_team(data: Dictionary) -> Team:
 func set_team(data: Dictionary) -> Team:
 	return Lib.Team.set_entity(data)
 
-func add_game(data: Dictionary, connect = false) -> Game:
-	return Lib.Game.add_entity(data, connect)
+func add_game(data: Dictionary, conn = false) -> Game:
+	return Lib.Game.add_entity(data, conn)
 
 func set_game(data: Dictionary) -> Game:
 	return Lib.Game.set_entity(data)
@@ -156,7 +156,7 @@ func set_rankings() -> Array:
 
 ## call `Main.save_state()` instead of individual level func
 func save_data(softSave: bool):
-	print("/ last chance to look at the save data") #breakpoint safe space
+	Err.print("/ %s: last chance to look at the save data" % name) #breakpoint safe space
 	for lib in Lib.values():
 		lib.save_to_file(softSave)
 

@@ -37,7 +37,7 @@ func _play():
 		tc_arr[1].team.cpu = tc_arr[1].is_cpu()
 
 	Main.emit_scene(Main.Scene.GameMenu)
-	SignalBus.play_game.emit(game, false)
+	Stream.cache(func(): SignalBus.play_game.emit(game, false))
 
 func set_game():
 	var data = {
