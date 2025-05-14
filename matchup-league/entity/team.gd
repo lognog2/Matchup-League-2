@@ -21,6 +21,10 @@ func set_data(data: Dictionary, init = false) -> Team:
 	if (!init): super(data)
 	if (data == {}): return self
 	set_color(data.get("color", color))
+	wins = data.get("wins", wins)
+	losses = data.get("losses", losses)
+	ties = data.get("ties", ties)
+	# this needs to be last
 	if (!data.get("schedule")): return self
 	for r_str in data["schedule"]:
 		var r = int(r_str)
@@ -64,6 +68,12 @@ func set_player(p: Player):
 func remove_game(r: int):
 	if (schedule.get(r)):
 		schedule[r] = null
+
+func get_wins() -> int: 
+	return wins
+
+func get_losses() -> int:
+	return losses
 
 func get_game(r: int) -> Game:
 	return schedule.get(r)
@@ -156,6 +166,9 @@ func format_save() -> Dictionary:
 		"season": season,
 		"color": Main.format_color_hex(color),
 		"series": series,
+		"wins": wins,
+		"losses": losses,
+		"ties": ties,
 	}, true)
 	return data
 

@@ -39,7 +39,7 @@ func begin_round():
 		Err.print_fatal("career.begin_round() can only be used in positive rounds", Err.Fatal.Conflict)
 		return
 	get_level().set_rankings()
-	Main.save_state(false)
+	#Main.save_state(false)
 	
 func sim_round():
 	get_level().sim_round(current_round)

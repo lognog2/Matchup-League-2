@@ -54,7 +54,7 @@
 {"base":1660,"id":53,"name":"Doc Ock","season":29,"start season":32,"strType":"F","strVal":100,"team ID":10,"types":"MVL","wkType":"S","wkVal":80}
 {"base":1660,"id":54,"name":"Toji Suzuhara","season":29,"start season":32,"strType":"W","strVal":100,"team ID":11,"types":"M","wkType":"C","wkVal":120}
 {"base":1630,"id":55,"name":"Kensuke Aida","season":29,"start season":32,"strType":"L","strVal":40,"team ID":11,"types":"L","wkType":"R","wkVal":60}
-{"base":1830,"id":56,"name":"Hisoka","season":29,"start season":32,"strType":"G","strVal":170,"team ID":12,"types":"RG","wkType":"V","wkVal":90}
+{"base":1830,"id":56,"name":"Chrollo","season":29,"start season":32,"strType":"G","strVal":170,"team ID":12,"types":"RG","wkType":"V","wkVal":90}
 {"base":1650,"id":57,"name":"Tsubomi Takane","season":29,"start season":32,"strType":"S","strVal":70,"team ID":13,"types":"W","wkType":"W","wkVal":30}
 {"base":1700,"id":58,"name":"Tome Kurata","season":29,"start season":32,"strType":"R","strVal":70,"team ID":13,"types":"L","wkType":"E","wkVal":50}
 {"base":1620,"id":59,"name":"Colt Grice","season":29,"start season":32,"strType":"E","strVal":70,"team ID":14,"types":"MR","wkType":"G","wkVal":100}

@@ -6,12 +6,12 @@ extends Menu
 @export var selected_label: Label
 
 var FilterList = {
-	Alphabet = Filter.Sort.Alphabet,
 	Rating = Filter.Sort.Rating,
+	Alphabet = Filter.Sort.Alphabet,
 }
 var team: Team
 var selected_index = -1
-var filter = FilterList.Alphabet
+var filter = FilterList.Rating
 
 func _ready():
 	SignalBus.to_team_menu.connect(render)

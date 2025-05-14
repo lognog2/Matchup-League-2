@@ -41,6 +41,8 @@ func set_data(data: Dictionary, init = false) -> Fighter:
 	wkVal = setMod(data.get("wkVal", wkVal))
 	startSeason = data.get("start season", season)
 	teamID = data.get("team ID", teamID)
+	matches_won = data.get("wins", matches_won)
+	matches_lost = data.get("losses", matches_lost)
 	if (!init): set_team(level.get_team(teamID))
 	return self
 
@@ -101,6 +103,12 @@ func win_pct() -> float:
 		return NodeUtil.float_zero()
 	return float(matches_won) / matches_played()
 	
+func get_wins() -> int:
+	return matches_won
+
+func get_losses() -> int:
+	return matches_lost
+
 func add_win():
 	matches_won += 1
 
@@ -109,6 +117,9 @@ func add_loss():
 
 func matches_played() -> int:
 	return matches_won + matches_lost
+
+func no_contests() -> int:
+	return Main.get_current_round() - matches_played()
 
 #format functions
 
@@ -147,6 +158,8 @@ func format_save() -> Dictionary:
 		"wkType": wkType,
 		"wkVal": wkVal,
 		"start season": startSeason,
-		"team ID": teamID
+		"team ID": teamID,
+		"wins": matches_won,
+		"losses": matches_lost,
 	}
 	return data

@@ -37,10 +37,12 @@ var Compound = {
 		return Tribool.compare(a.get_rating(), b.get_rating())),
 	WinPct = (func(a: DataEntity, b: DataEntity) -> Tribool:
 		return Tribool.compare(a.win_pct(), b.win_pct())),
+	Wins = (func(a: DataEntity, b: DataEntity) -> Tribool:
+		return Tribool.compare(a.get_wins(), b.get_wins())),
 }
 
 ## allows sorting by multiple filters: if A and B return tied in a filter,
-## they are sorted by next filter instead
+## they are sorted by next filter instead. Must use filters from `Compound` dict.
 func compound_sort(filters: Array) -> Callable:
 	return (func(a: Variant, b: Variant) -> bool:
 		var result: Tribool = filters[0].call(a, b)
@@ -52,7 +54,7 @@ func compound_sort(filters: Array) -> Callable:
 		return result.get_bool()
 	)
 
-## returns true if `Game`'s round matches `r`
+## returns a filter that is true if `Game`'s round matches `r`
 func select_by_round(r: int) -> Callable:
 	return (func(g: Game): return g.rnd == r)
 
@@ -67,3 +69,10 @@ func filter_array(arr: Array, filter: Callable) -> Array:
 		if (filter.call(item)):
 			new_arr.append(item)
 	return new_arr
+
+## returns new array that is a copy of `arr`, sorted by filter
+func sort_array(arr: Array, filter: Callable) -> Array:
+	var sorted = []
+	sorted.append_array(arr)
+	sorted.sort_custom(filter)
+	return sorted

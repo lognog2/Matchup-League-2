@@ -10,7 +10,7 @@ const MIN_BASE = 499
 const MAX_BASE = 9999
 const MIN_MOD = 9
 const MAX_MOD = 299
-
+const CANON_SEED = 1
 const SCENE_PATH = "res://scene/%s.tscn"
 ## max number of scenes that will be stored in scene history
 const MAX_SCENES = 8
@@ -23,7 +23,7 @@ const VERSION_NUM = "prototype 2.0.3"
 const season_length = 7
 
 func commit_version() -> String: 
-	return VERSION_NUM + ".2"
+	return VERSION_NUM + ""
 
 var Edition = {
 	Dev = "development",
@@ -152,6 +152,10 @@ func set_seed(new_seed: int):
 	main_node.seed_label.text = "Seed: %d" % game_seed
 	Err.print("^ seed: " + str(game_seed))
 
+func get_current_round():
+	if (!current_career): return 0
+	return current_career.current_round
+
 ## converts hex color to `Color`
 func format_color(hex: int) -> Color:
 	return Color.hex(hex)
@@ -159,7 +163,6 @@ func format_color(hex: int) -> Color:
 ## converts `Color` to rgba32 hex
 func format_color_hex(col: Color) -> int:
 	return col.to_rgba32()
-
 
 # scene functions
 
@@ -211,18 +214,23 @@ func save_callable():
 	Err.print("^ saved")
 
 func load_state(data: Dictionary = {}):
-	Err.print("^ loading")
-	FileUtil.set_save_path()
+	var file_name = data.get("name", "")
+	Err.print("^ loading %s" % file_name);
+	FileUtil.set_save_path(file_name)
+
 	for level in Levels.values():
 		level.load_data()
+		
 	if (data == {}):
 		current_career = null
 	else:
 		var lvl = Levels[data.level]
 		current_career = Career.create(lvl, data.name, data.team_id)
-		#set round - 1   
+		current_career.current_round = data.round - 1
 		current_career.begin_round()
 		set_seed(data.seed)
-	Err.print("^ loaded")
+
 	SignalBus.done_loading.emit()
-	Levels.Prep.Lib.Team.set_avg_rating()
+	for lvl in Levels.values():
+		lvl.set_avg_rating()
+	Err.print("^ loaded")

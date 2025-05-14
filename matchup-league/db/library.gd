@@ -14,6 +14,7 @@ func _init(lvl_name: String, ent_name: String):
 	entity_name = ent_name
 	file_name = "%s_%ss" % [level_name.to_lower(), entity_name.to_lower()]
 
+
 # set/get
 
 ## constructs a new entity and adds it to dictionary
@@ -139,7 +140,8 @@ func save_to_file(softSave: bool):
 
 func load_from_file():
 	reset()
-	FileUtil.do_each_line(load_line, save_file_path())	
+	FileUtil.do_each_line(load_line, save_file_path())
+	set_avg_rating()
 
 func load_line(line: String):
 	var json = JSON.new()

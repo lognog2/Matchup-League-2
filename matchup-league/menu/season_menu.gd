@@ -103,7 +103,7 @@ func fill_games():
 func fill_fighters():
 	var blank_f_label = NodeUtil.detach_child(fighters_box)
 	blank_f_label.visible = false
-	var comp_filter = Filter.compound_sort([Filter.Compound.WinPct, Filter.Compound.Rating])
+	var comp_filter = Filter.compound_sort([Filter.Compound.WinPct, Filter.Compound.Wins, Filter.Compound.Rating])
 	var fighters_ranked = level.get_fighters_sorted(comp_filter, level.RANK_AMT)
 	for i in range(fighters_ranked.size()):
 		var new_label = blank_f_label.duplicate()

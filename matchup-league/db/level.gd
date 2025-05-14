@@ -107,6 +107,10 @@ func random_team(filter = Filter.Select.Default) -> Team:
 func random_team_exclude(exclude: Team) -> Team:
 	return Lib.Team.random_entity(Filter.exclude_self(exclude))
 
+func set_avg_rating():
+	for lib in Lib.values():
+		lib.set_avg_rating()
+
 # save/load from file
 # **be careful using breakpoints here**
 
@@ -164,4 +168,3 @@ func save_data(softSave: bool):
 func load_data():
 	for lib in Lib.values():
 		lib.load_from_file()
-	Lib.Team.set_avg_rating()

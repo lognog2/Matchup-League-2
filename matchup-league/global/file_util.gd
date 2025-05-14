@@ -40,12 +40,20 @@ func get_save_dirs() -> Array:
 	var save_dirs = Filter.filter_array(dirs, func(dir): return dir.contains(FileUtil.SAVE_ID))
 	return save_dirs
 
-func save_dir_name() -> String:
-	var dir = SAVE_ID + Main.current_career.name() if (Main.current_career) else default_name
+func save_dir_name(alt = default_name) -> String:
+	var dir: String
+	if (alt != default_name):
+		dir = SAVE_ID + alt
+	elif (Main.current_career):
+		dir = SAVE_ID + Main.current_career.name()
+	else: 
+		dir = alt
 	return dir
 
-func set_save_path():
-	save_path = "%s/%s" % [data_path, save_dir_name()]
+func set_save_path(file_name = ""):
+	if (file_name.is_empty()):
+		file_name = default_name
+	save_path = "%s/%s" % [data_path, save_dir_name(file_name)]
 
 func copy_file(in_string: String, out_string: String):
 	var in_file = open_file(in_string, false)

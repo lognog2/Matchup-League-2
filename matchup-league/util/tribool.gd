@@ -8,7 +8,7 @@ var state = Neutral
 func _init(st = Neutral):
 	state = st
 
-# returns this object as a bool. `lean_neutral` determines which way neutral is interpreted
+# returns this object as a bool. `neutral_lean` determines which way neutral is interpreted
 func get_bool(neutral_lean = false) -> bool:
 	match (state):
 		True: return true
