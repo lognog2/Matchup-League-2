@@ -1,11 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://yj00mivvbeba"]
+[gd_scene load_steps=6 format=3 uid="uid://yj00mivvbeba"]
 
 [ext_resource type="Script" path="res://menu/main_node.gd" id="1_m3hg5"]
 [ext_resource type="StyleBox" uid="uid://eelwpy4cx451" path="res://style/background.tres" id="2_kdcq6"]
 [ext_resource type="PackedScene" uid="uid://cqasb8jiiyqls" path="res://scene/main_menu.tscn" id="4_jsfq6"]
 [ext_resource type="Script" path="res://debug/signal_intercept.gd" id="4_x1t2k"]
+[ext_resource type="StyleBox" uid="uid://dnlk04e3oycrc" path="res://style/box_popup_save.tres" id="5_si83i"]
 
-[node name="main" type="Control" node_paths=PackedStringArray("vbox", "version_label", "seed_label")]
+[node name="root" type="Control" node_paths=PackedStringArray("vbox", "version_label", "seed_label", "save_box", "confirm_box", "confirm_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,6 +19,9 @@ script = ExtResource("1_m3hg5")
 vbox = NodePath("PanelContainer/VBoxContainer")
 version_label = NodePath("PanelContainer/VBoxContainer/version_footer/HBoxContainer/version")
 seed_label = NodePath("PanelContainer/VBoxContainer/version_footer/HBoxContainer/seed")
+save_box = NodePath("PanelContainer/save")
+confirm_box = NodePath("PanelContainer/confirm")
+confirm_label = NodePath("PanelContainer/confirm/VBoxContainer/MarginContainer/Label")
 
 [node name="intercept" type="Node" parent="."]
 script = ExtResource("4_x1t2k")
@@ -58,3 +62,74 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Seed: "
 horizontal_alignment = 2
+
+[node name="save" type="PanelContainer" parent="PanelContainer"]
+visible = false
+custom_minimum_size = Vector2(300, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("5_si83i")
+
+[node name="Label" type="Label" parent="PanelContainer/save"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Saved!"
+horizontal_alignment = 1
+
+[node name="confirm" type="PanelContainer" parent="PanelContainer"]
+process_mode = 3
+visible = false
+custom_minimum_size = Vector2(300, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("5_si83i")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/confirm"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/confirm/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="PanelContainer/confirm/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Confirm?"
+horizontal_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/confirm/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/confirm/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/confirm/VBoxContainer/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="yes" type="Button" parent="PanelContainer/confirm/VBoxContainer/MarginContainer2/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Yes"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/confirm/VBoxContainer/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="no" type="Button" parent="PanelContainer/confirm/VBoxContainer/MarginContainer2/HBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "No"
+
+[connection signal="pressed" from="PanelContainer/confirm/VBoxContainer/MarginContainer2/HBoxContainer/HBoxContainer/yes" to="." method="_confirm_input"]
+[connection signal="pressed" from="PanelContainer/confirm/VBoxContainer/MarginContainer2/HBoxContainer/HBoxContainer2/no" to="." method="_deny_input"]

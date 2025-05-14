@@ -50,6 +50,10 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Team menu"
 
+[node name="save" type="Button" parent="left panel 1/MarginContainer 2/left menu 3/left menu vbox 4"]
+layout_mode = 2
+text = "Save"
+
 [node name="main menu" type="Button" parent="left panel 1/MarginContainer 2/left menu 3/left menu vbox 4"]
 layout_mode = 2
 tooltip_text = "You will lose your progress!"
@@ -60,11 +64,7 @@ visible = false
 layout_mode = 2
 text = "Settings"
 
-[node name="save" type="Button" parent="left panel 1/MarginContainer 2/left menu 3/left menu vbox 4"]
-visible = false
-layout_mode = 2
-text = "Save"
-
 [connection signal="pressed" from="left panel 1/MarginContainer 2/left menu 3/left menu vbox 4/home" to="." method="_home"]
 [connection signal="pressed" from="left panel 1/MarginContainer 2/left menu 3/left menu vbox 4/team menu" to="." method="_team_menu"]
+[connection signal="pressed" from="left panel 1/MarginContainer 2/left menu 3/left menu vbox 4/save" to="." method="_save"]
 [connection signal="pressed" from="left panel 1/MarginContainer 2/left menu 3/left menu vbox 4/main menu" to="." method="_main_menu"]

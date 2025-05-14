@@ -9,8 +9,14 @@ func _home():
 func _team_menu():
 	var team = Main.current_career.get_team()
 	Main.emit_scene(Main.Scene.TeamMenu)
-	SignalBus.to_team_menu.emit(team)
+	Stream.cache(func(): SignalBus.to_team_menu.emit(team))
 	
 func _main_menu():
-	exit_season()
-	Main.emit_scene(Main.Scene.MainMenu)
+	Main.save_state(false)
+	Stream.queue(func():
+		exit_season()
+		Main.emit_scene(Main.Scene.MainMenu)
+		)
+	
+func _save():
+	Main.save_state()

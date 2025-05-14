@@ -1,0 +1,78 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmu8t60kymleb"]
+
+[ext_resource type="StyleBox" uid="uid://eelwpy4cx451" path="res://style/background.tres" id="1_77naq"]
+[ext_resource type="Script" path="res://menu/load_career.gd" id="1_uy26t"]
+[ext_resource type="PackedScene" uid="uid://d044o5tnb0r01" path="res://scene/card/career_card.tscn" id="3_f2d1b"]
+
+[node name="Control" type="Control" node_paths=PackedStringArray("blank_career", "no_careers_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uy26t")
+blank_career = NodePath("background 1/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/blank career")
+no_careers_label = NodePath("background 1/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/no careers")
+
+[node name="background 1" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("1_77naq")
+
+[node name="MarginContainer" type="MarginContainer" parent="background 1"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="background 1/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Button" type="Button" parent="background 1/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Back"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="background 1/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="background 1/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 75
+
+[node name="title" type="Label" parent="background 1/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 66
+text = "Load career"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="background 1/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="background 1/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 5
+
+[node name="no careers" type="Label" parent="background 1/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "No careers found"
+horizontal_alignment = 1
+
+[node name="blank career" parent="background 1/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_f2d1b")]
+layout_mode = 2
+
+[connection signal="pressed" from="background 1/MarginContainer/HBoxContainer/Button" to="." method="_back"]

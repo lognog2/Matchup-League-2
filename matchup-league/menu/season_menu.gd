@@ -3,6 +3,7 @@ extends Menu
 @export var team_view: TeamView
 @export var games_box: VBoxContainer
 @export var ranking_box: VBoxContainer
+@export var fighters_box: VBoxContainer
 @export var opp_rect: ColorRect
 @export var round_label: Label
 @export var next_game_label: Label
@@ -36,6 +37,7 @@ func render():
 		career.sim_round()
 	fill_rankings()
 	fill_games()
+	fill_fighters()
 
 func fill_opp_info(before = true):
 	next_round_button.visible = !before
@@ -52,11 +54,11 @@ func fill_opp_info(before = true):
 		return
 	opp_rect.color = opp.color
 	next_game_label.text = "Next game:" if (before) else "Game vs:"
-	opp_name_label.text = opp.rank_name(true)
+	opp_name_label.text = opp.str_rank_name(true)
 	view_opp_button.visible = true
 	next_game_button.visible = before
 	sim_round_button.visible = false
-	result_label.text = team.game_str(rnd, false)
+	result_label.text = team.str_game(rnd, false)
 
 func fill_opp_null(before = true):
 	opp_rect.color = Color.SLATE_GRAY
@@ -87,7 +89,7 @@ func fill_rankings():
 	var teams_ranked = level.get_teams_filtered(Filter.Select.TeamRanked, Filter.Sort.TeamRank)
 	for t in teams_ranked:
 		var tl = blank_team_label.duplicate()
-		tl.text = t.rank_name() + " " + t.record_str()
+		tl.text = t.str_rank_name() + " " + t.str_record()
 		ranking_box.add_child(tl)
 
 func fill_games():
@@ -98,16 +100,27 @@ func fill_games():
 		gc.render(g)
 		games_box.add_child(gc)
 
+func fill_fighters():
+	var blank_f_label = NodeUtil.detach_child(fighters_box)
+	blank_f_label.visible = false
+	var comp_filter = Filter.compound_sort([Filter.Compound.WinPct, Filter.Compound.Wins, Filter.Compound.Rating])
+	var fighters_ranked = level.get_fighters_sorted(comp_filter, level.RANK_AMT)
+	for i in range(fighters_ranked.size()):
+		var new_label = blank_f_label.duplicate()
+		new_label.text = "%2d " % (i + 1) + fighters_ranked[i].str_name_matches()
+		new_label.visible = true
+		fighters_box.add_child(new_label)
+
 func _view_opp():
 	Main.emit_scene(Main.Scene.TeamMenu)
-	SignalBus.to_team_menu.emit(opp)
+	Stream.cache(func(): SignalBus.to_team_menu.emit(opp))
 
 func _next_game():
 	if (!team.has_game(rnd)):
 		Err.alert_fatal("No playable game this round", Err.Fatal.Invalid)
 		return
 	Main.emit_scene(Main.Scene.GameSelect)
-	SignalBus.to_game_select.emit(team.get_game(rnd))
+	Stream.cache(func(): SignalBus.to_game_select.emit(team.get_game(rnd)))
 	
 func _next_round():
 	career.begin_round()

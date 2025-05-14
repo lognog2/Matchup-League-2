@@ -18,8 +18,8 @@ var startSeason
 var potential
 
 #record vars
-var matches_won
-var matches_lost
+var matches_won = 0
+var matches_lost = 0
 
 func _init(data = {}):
 	super(data, "F")
@@ -41,6 +41,8 @@ func set_data(data: Dictionary, init = false) -> Fighter:
 	wkVal = setMod(data.get("wkVal", wkVal))
 	startSeason = data.get("start season", season)
 	teamID = data.get("team ID", teamID)
+	matches_won = data.get("wins", matches_won)
+	matches_lost = data.get("losses", matches_lost)
 	if (!init): set_team(level.get_team(teamID))
 	return self
 
@@ -95,7 +97,18 @@ func setMod(new):
 ## compiles fighter rating from stats
 func get_rating() -> float:
 	return (base * Rating.BASE_WT) + (strVal * Rating.STR_WT) - (wkVal * Rating.WK_WT)
+
+func win_pct() -> float:
+	if (matches_played() == 0):
+		return NodeUtil.float_zero()
+	return float(matches_won) / matches_played()
 	
+func get_wins() -> int:
+	return matches_won
+
+func get_losses() -> int:
+	return matches_lost
+
 func add_win():
 	matches_won += 1
 
@@ -105,10 +118,13 @@ func add_loss():
 func matches_played() -> int:
 	return matches_won + matches_lost
 
+func no_contests() -> int:
+	return Main.get_current_round() - matches_played()
+
 #format functions
 
 ## set param true for strength, false for weakness
-func mod_str(use_strength = true) -> String:
+func str_mod(use_strength = true) -> String:
 	var type = ""
 	var pm = ""
 	var val = 0
@@ -123,6 +139,13 @@ func mod_str(use_strength = true) -> String:
 	
 	return "(%s) %s%d" % [type, pm, val]
 
+## string with matches won and matches played: "W/P"
+func str_matches() -> String:
+	return "%d/%d" % [matches_won, matches_played()]
+
+func str_name_matches() -> String:
+	return de_name + " " + str_matches()
+
 func format_save() -> Dictionary:
 	var data = {
 		"id": id,
@@ -135,6 +158,8 @@ func format_save() -> Dictionary:
 		"wkType": wkType,
 		"wkVal": wkVal,
 		"start season": startSeason,
-		"team ID": teamID
+		"team ID": teamID,
+		"wins": matches_won,
+		"losses": matches_lost,
 	}
 	return data

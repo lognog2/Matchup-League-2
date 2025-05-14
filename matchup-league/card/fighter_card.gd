@@ -7,7 +7,7 @@ class_name FighterCard extends Card
 @export var strength: Label
 @export var weakness: Label
 @export var team_name: Label
-@export var contract: Label
+@export var matches: Label
 
 var fighter: Fighter
 var mouse_enter = false
@@ -22,15 +22,16 @@ func _ready():
 
 func render(f: Fighter, enable = false):
 	if (!f):
-		print("! no fighter")
+		Err.print_warn("* no fighter", Err.Warn.NoAction)
 		return
 	fighter = f
 	types.text  = f.types_icon()
 	f_name.text = f.de_name
 	base.text = str(f.base)
-	strength.text = f.mod_str(true)
-	weakness.text = f.mod_str(false)
-	team_name.text = f.team.name_abbr()
+	strength.text = f.str_mod(true)
+	weakness.text = f.str_mod(false)
+	team_name.text = f.team.str_name_abbr()
+	matches.text = f.str_matches()
 	enable_click = enable
 	show_info()
 
@@ -63,7 +64,6 @@ func render_result(result: int, str_app = false, wk_app = false):
 	NodeUtil.set_label_color(base, col)
 	if (result != 1):
 		card_color_rect.color = Color.LIGHT_GRAY
-
 
 func _enter():
 	#print("/ enter")

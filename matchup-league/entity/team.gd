@@ -21,6 +21,10 @@ func set_data(data: Dictionary, init = false) -> Team:
 	if (!init): super(data)
 	if (data == {}): return self
 	set_color(data.get("color", color))
+	wins = data.get("wins", wins)
+	losses = data.get("losses", losses)
+	ties = data.get("ties", ties)
+	# this needs to be last
 	if (!data.get("schedule")): return self
 	for r_str in data["schedule"]:
 		var r = int(r_str)
@@ -65,6 +69,12 @@ func remove_game(r: int):
 	if (schedule.get(r)):
 		schedule[r] = null
 
+func get_wins() -> int: 
+	return wins
+
+func get_losses() -> int:
+	return losses
+
 func get_game(r: int) -> Game:
 	return schedule.get(r)
 
@@ -108,7 +118,7 @@ func win_pct() -> float:
 
 func set_color(col):
 	if (col is int || col is float):
-		color = format_color(col)
+		color = Main.format_color(col)
 	elif (col is Color):
 		color = col
 	else:
@@ -117,28 +127,28 @@ func set_color(col):
 # string functions
 
 ## returns rank and name
-func rank_name(trim = false) -> String:
-	if (rank >= 10):
-		return "%d) %s" % [rank, de_name]
+func str_rank_name(trim = false) -> String:
 	var line = ""
-	if (!trim): line += "  "
-	if (rank > 0):
-		line += "%d) %s" % [rank, de_name]
-	else:
-		if (!trim): line += "   "
-		line += de_name
+	if (is_ranked()):
+		if (trim):
+			line += "%d " % rank
+		else:	
+			line += "%2d " % rank
+	elif (!trim):
+		line += "%3s" % ""
+	line += name()
 	return line
 
 ## W-L-T
-func record_str() -> String:
+func str_record() -> String:
 	return "%d-%d-%d" % [wins, losses, ties]
 
-## see `Game.result_str()`
-func game_str(r: int, include_opp = false) -> String:
-	return get_game(r).result_str(self, include_opp)
+## see `Game.str_result()`
+func str_game(r: int, include_opp = false) -> String:
+	return get_game(r).str_result(self, include_opp)
 
 ## returns first three letters if name is one word, or first letter of each word
-func name_abbr() -> String:
+func str_name_abbr() -> String:
 	var words = de_name.split(" ")
 	if (words.size() == 1):
 		return de_name.left(3)
@@ -154,8 +164,11 @@ func format_save() -> Dictionary:
 	var data = super()
 	data.merge({
 		"season": season,
-		"color": format_color_hex(color),
+		"color": Main.format_color_hex(color),
 		"series": series,
+		"wins": wins,
+		"losses": losses,
+		"ties": ties,
 	}, true)
 	return data
 
@@ -168,22 +181,15 @@ func format_sched() -> Dictionary:
 func format_info() -> Dictionary:
 	var info = {
 		"Rating" = "%.f" % get_rating_scale(),
-		"Record" = record_str(),
+		"Record" = str_record(),
 		"Series" = series,
 		"League" = level.name,
 	}
 	return info
 
-## converts hex color to `Color`
-func format_color(hex: int) -> Color:
-	return Color.hex(hex)
-
-## converts `Color` to rgba32 hex
-func format_color_hex(col: Color = color) -> int:
-	return col.to_rgba32()
 
 # test functions
 
-func check_sync(r) -> bool:
+func test_check_sync(r) -> bool:
 	if (!has_game(r)): return true
 	return self == get_opponent(r).get_opponent(r)

@@ -6,6 +6,7 @@ const test_message = "Please screenshot this message and show it to a dev"
 ## did not cpmplete
 var Fatal = {
 	Debug = -99, #placeholder
+	Timeout = -60, #expected response not found within time frame
 	Invalid = -6, #attempted to do action with incompatible data
 	Conflict = -5, #data conflicts with program rules
 	ReadWrite = -4, #error when interacting with files
@@ -18,6 +19,7 @@ var Fatal = {
 ## completed with unexpected behaviors
 var Warn = {
 	Debug = 99, #placeholder
+	Framerate = 60, #low frame rate
 	Invalid = 6, #attempted to do action with incompatible data but still completed
 	Conflict = 5, #conflict that does not force program to stop
 	Runtime = 1, #generic runtime warning
@@ -36,7 +38,7 @@ func throw():
 	print(Err.a)
 
 func print(msg = ""):
-	print(msg)
+	print(Stream.str_counter() + msg)
 
 func print_fatal(msg = "", code = Fatal.Debug):
 	print("! Error %d: " % code, msg)

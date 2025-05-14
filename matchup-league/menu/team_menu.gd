@@ -6,12 +6,12 @@ extends Menu
 @export var selected_label: Label
 
 var FilterList = {
-	Alphabet = Filter.Sort.Alphabet,
 	Rating = Filter.Sort.Rating,
+	Alphabet = Filter.Sort.Alphabet,
 }
 var team: Team
 var selected_index = -1
-var filter = FilterList.Alphabet
+var filter = FilterList.Rating
 
 func _ready():
 	SignalBus.to_team_menu.connect(render)
@@ -21,11 +21,15 @@ func render(t: Team = null):
 	team_view.render(team)
 	fill_team_dropdown()
 	fill_filter_dropdown()
-	selected_label.text = str(selected_index + 1)
+	selected_label.text = "%d" % (selected_index + 1)
 
 func fill_team_dropdown():
 	team_option.clear()
-	for t in level.get_teams_sorted(filter):
+	var team_list = level.get_teams_sorted(filter)
+	if (!team):
+		render(team_list[0])
+		return
+	for t in team_list:
 		team_option.add_item(t.de_name)
 		if (t.de_name == team.de_name):
 			selected_index = team_option.item_count - 1

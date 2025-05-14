@@ -1,5 +1,4 @@
 2.0.2:
-- save state at end of game
 - hide cards until result shown in player v player
 - neater columns for team rankings
 - team color outline around fighter cards

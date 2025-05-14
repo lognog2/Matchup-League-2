@@ -4,7 +4,7 @@ class_name Level extends Object
 var name: String
 var FPT: int
 var FPG: int
-var TEAMS_RANKED = 15
+var RANK_AMT = 15
 
 var Lib = {
 	Fighter = null,
@@ -54,11 +54,14 @@ func find_game(r: int, oppID: int) -> Game:
 func get_fighters(filter = Filter.Select.Default) -> Array: 
 	return Lib.Fighter.get_entities(filter)
 
+func get_fighters_sorted(filter = Filter.Sort.Alphabet, limit = -1) -> Array:
+	return Lib.Fighter.get_entities(Filter.Select.Default, filter, limit)
+
 func get_teams(filter = Filter.Select.Default) -> Array: 
 	return Lib.Team.get_entities(filter)
 
-func get_teams_sorted(filter = Filter.Sort.Alphabet) -> Array:
-	return Lib.Team.get_entities(Filter.Select.Default, filter)
+func get_teams_sorted(filter = Filter.Sort.Alphabet, limit = -1) -> Array:
+	return Lib.Team.get_entities(Filter.Select.Default, filter, limit)
 
 func get_teams_filtered(select = Filter.Select.Default, sort = Filter.Sort.Rating) -> Array:
 	return Lib.Team.get_entities(select, sort)
@@ -66,8 +69,8 @@ func get_teams_filtered(select = Filter.Select.Default, sort = Filter.Sort.Ratin
 func get_games(filter = Filter.Select.Default) -> Array: 
 	return Lib.Game.get_entities(filter)
 
-func get_games_sorted(filter = Filter.Sort.Rating) -> Array:
-	return Lib.Team.get_entities(Filter.Select.Default, filter)
+func get_games_sorted(filter = Filter.Sort.Rating, limit = -1) -> Array:
+	return Lib.Team.get_entities(Filter.Select.Default, filter, limit)
 
 func get_games_filtered(select = Filter.Select.Default, sort = Filter.Sort.Rating) -> Array:
 	return Lib.Game.get_entities(select, sort)
@@ -104,6 +107,10 @@ func random_team(filter = Filter.Select.Default) -> Team:
 func random_team_exclude(exclude: Team) -> Team:
 	return Lib.Team.random_entity(Filter.exclude_self(exclude))
 
+func set_avg_rating():
+	for lib in Lib.values():
+		lib.set_avg_rating()
+
 # save/load from file
 # **be careful using breakpoints here**
 
@@ -119,8 +126,8 @@ func add_team(data: Dictionary) -> Team:
 func set_team(data: Dictionary) -> Team:
 	return Lib.Team.set_entity(data)
 
-func add_game(data: Dictionary, connect = false) -> Game:
-	return Lib.Game.add_entity(data, connect)
+func add_game(data: Dictionary, conn = false) -> Game:
+	return Lib.Game.add_entity(data, conn)
 
 func set_game(data: Dictionary) -> Game:
 	return Lib.Game.set_entity(data)
@@ -136,14 +143,14 @@ func sim_round(r: int):
 	for g in get_current_games(r):
 		g.sim_game()
 
-## returns array of top `TEAMS_RANKED` teams
+## returns array of top `RANK_AMT` teams
 func set_rankings() -> Array:
 	var teams_ranked = get_teams_sorted(Filter.Sort.Rating)
 	var top_teams = []
 	var i = 1
 	for t in teams_ranked:
 		#print ("/ %s: %.f" % [t.name(), t.get_rating()])
-		if (i > TEAMS_RANKED):
+		if (i > RANK_AMT):
 			t.rank = 0
 		else:
 			t.rank = i
@@ -153,7 +160,7 @@ func set_rankings() -> Array:
 
 ## call `Main.save_state()` instead of individual level func
 func save_data(softSave: bool):
-	print("/ last chance to look at the save data") #breakpoint safe space
+	Err.print("/ %s: last chance to look at the save data" % name) #breakpoint safe space
 	for lib in Lib.values():
 		lib.save_to_file(softSave)
 

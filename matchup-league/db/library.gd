@@ -1,7 +1,6 @@
 ## holds dictionary and does save/load for each type of data entity on this level
 class_name EntityLibrary extends Object
 
-const file_path = "res://data/%s.save"
 var dict = {}
 var last_id = 0
 var avg_rating = 0.0
@@ -15,14 +14,15 @@ func _init(lvl_name: String, ent_name: String):
 	entity_name = ent_name
 	file_name = "%s_%ss" % [level_name.to_lower(), entity_name.to_lower()]
 
+
 # set/get
 
 ## constructs a new entity and adds it to dictionary
-func add_entity(data: Dictionary, connect = false) -> DataEntity:
+func add_entity(data: Dictionary, connect_obj = false) -> DataEntity:
 	data["id"] = increment_id()
 	var de = Main.blank_entity(entity_name).set_data(data)
 	dict[de.id] = de
-	if (connect): de.connect_objs()
+	if (connect_obj): de.connect_objs()
 	add_avg_rating(de.get_rating())
 	return de
 
@@ -106,40 +106,52 @@ func get_names(filter = Filter.Select.Default) -> Array:
 	validNames.sort()
 	return validNames
 
-func get_entities(select_filter = Filter.Select.Default, sort_filter = null) -> Array:
-	var validEntities = []
+func get_entities(select_filter = Filter.Select.Default, sort_filter = null, limit = -1) -> Array:
+	var valid_entities = []
 	for val in dict.values():
 		if (select_filter.call(val)):
-			validEntities.append(val)
-	if (sort_filter): validEntities.sort_custom(sort_filter)
-	return validEntities
+			valid_entities.append(val)
+	if (sort_filter): valid_entities.sort_custom(sort_filter)
+	if (limit > 0): valid_entities = valid_entities.slice(0, limit)
+	return valid_entities
+
+# test data
+
+#func test_lib_size() -> bool:
+
 
 # save/load (careful using breakpoints here)
 
+func save_file_path(backup = false) -> String:
+	var backup_name = "_backup" if backup else ""
+	return FileUtil.save_path + ("/%s.save" % (file_name + backup_name))
+
 func save_to_file(softSave: bool):
-	var file = FileAccess.open(file_path % file_name, FileAccess.WRITE)
-	var backup_file
-	if (!softSave): backup_file = FileAccess.open(file_path % (file_name + "_backup"), FileAccess.WRITE)
+	var file_path = save_file_path(false)
+	var file = FileAccess.open(file_path, FileAccess.WRITE)
 	for id in dict:
 		var data = dict[id].format_save()
 		var json_data = JSON.stringify(data)
 		file.store_line(json_data)
-		if (!softSave): backup_file.store_line(json_data)
+	if (!softSave): 
+		# do some kind of test here to make sure data is good
+		var backup_string = save_file_path(true)
+		FileUtil.copy_file(file_path, backup_string)
 
 func load_from_file():
 	reset()
-	var file = FileAccess.open(file_path % file_name, FileAccess.READ)
-	if (!file): return
-	while file.get_position() < file.get_length():
-		var line = file.get_line()
-		var json = JSON.new()
-		if json.parse(line) != OK:
-			Err.print_fatal("JSON Parse Error: " + json.get_error_message() + " in " + line + " at line " + json.get_error_line(), Err.Fatal.ReadWrite)
-			continue
-		var data = json.data
-		data["level name"] = level_name
-		data["season"] = Main.get_season()
-		add_entity(data)
+	FileUtil.do_each_line(load_line, save_file_path())
+	set_avg_rating()
+
+func load_line(line: String):
+	var json = JSON.new()
+	if json.parse(line) != OK:
+		Err.print_fatal("JSON Parse Error: " + json.get_error_message() + " in " + line + " at line " + str(json.get_error_line()), Err.Fatal.ReadWrite)
+		return
+	var data = json.data
+	data["level name"] = level_name
+	data["season"] = Main.get_season()
+	add_entity(data)
 
 func reset():
 	for de in dict.values():

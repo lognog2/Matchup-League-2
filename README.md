@@ -1,10 +1,11 @@
 # Matchup-League-2
 
-## New for 2.0.2
-- Career mode
-  - Play a 7-game season in the Prep League
-  - View team rankings and current games 
+## New for 2.0.3
+- Save and load careers
+- Fighter rankings rework
 
-## Planned for 2.0.3
-- Save/load career
+## Planned for 2.0.4
+- Saveable settings
+
+## Planned for 2.1
 - Postseason tournament

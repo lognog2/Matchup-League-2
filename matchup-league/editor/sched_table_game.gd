@@ -28,14 +28,14 @@ func signal_oppID(index: int):
 		set_oppID(opp.id, true)
 		SignalBus.user_set_game.emit(gameRound, opp, team)
 	else: 
-		print("? how did you get here")
+		Err.print("? how did you get here")
 
 func set_oppID(id: int, setGames = false):
 	#print("/ set oppID " + str(team.id) + " " + str(id) + " " + str(setGames))
 	opponentID = id
 	closeTeamList()
 	if (setGames):
-		print("/ setting game but not really")
+		Err.print("/ setting game but not really")
 		#team.add_game(gameRound, opponentID)
 
 func openTeamList():

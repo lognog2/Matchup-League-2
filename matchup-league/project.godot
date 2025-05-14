@@ -17,10 +17,12 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Main="*res://global/main.gd"
+Stream="*res://global/stream.gd"
 SignalBus="*res://global/signal_bus.gd"
 Err="*res://global/error.gd"
+Main="*res://global/main.gd"
 Filter="*res://global/filter.gd"
+FileUtil="*res://global/file_util.gd"
 NodeUtil="*res://global/node_util.gd"
 Rating="*res://global/rating.gd"
 

@@ -61,8 +61,10 @@ func set_team(i: int, t: Team):
 	
 ## converts matches from array of id pairs to match objects, then calls `set_current_score()`
 func set_matches():
+	var m_arr = []
 	for m in matches:
-		m = Match.new(self, level.get_fighter(m[0]), level.get_fighter(m[1]))
+		m_arr.append(Match.new(self, level.get_fighter(m[0]), level.get_fighter(m[1])))
+	matches = m_arr
 	set_current_score()
 
 ## sets score according to existing matches
@@ -99,7 +101,7 @@ func set_result():
 func get_opponent(t: Team) -> Team:
 	if t == teams[0]: return teams[1]
 	elif t == teams[1]: return teams[0]
-	print("* %s is not in game " % t.id_str, id_str)
+	Err.print(("* %s is not in game " % t.id_str) + id_str)
 	return null
 
 ## returns winning team, or null if a tie or unfinished
@@ -178,7 +180,7 @@ func run_match(f1: Fighter, f2: Fighter) -> Match:
 
 ## takes index of team and returns char representing its result
 ## returns T for tie, W for win, L for loss, or blank if unfinished
-func result_char(idx: int) -> String:
+func str_result_char(idx: int) -> String:
 	if (!is_finished()): return ""
 	if (result == -1):
 		return "T"
@@ -189,21 +191,21 @@ func result_char(idx: int) -> String:
 
 ## gets result and score from one teams's perspective.
 ## if game is not finished, returns empty string
-func result_str(t: Team, include_opp = false) -> String:
+func str_result(t: Team, include_opp = false) -> String:
 	var i = get_team_index(t)
 	var k = i - 1
 	var text = ""
 	if (include_opp):
-		text = "%d) vs %s" % [rnd, teams[k].rank_name(true)]
+		text = "%d) vs %s" % [rnd, teams[k].str_rank_name(true)]
 	if (is_finished()):
 		if (include_opp): text += ": "
-		text += "%s %d-%d" % [result_char(i), score[i], score[k]]
+		text += "%s %d-%d" % [str_result_char(i), score[i], score[k]]
 	return text
 
 # format functions
 
 func format_save() -> Dictionary:
-	verify()
+	test_verify()
 	var data = super()
 	data.erase("name")
 	data.merge({
@@ -224,7 +226,7 @@ func format_matches() -> Array:
 
 # test functions
 
-func verify() -> bool:
+func test_verify() -> bool:
 	var exit = Err.Success.Success
 	if (is_bye()): return true
 	if (teams[0].id != teamIDs[0] || teams[1].id != teamIDs[1]):
@@ -256,7 +258,8 @@ class Match:
 		
 	## returns result: 0 if f1 wins, 1 if f2 wins, -1 if tie
 	## param `record` is whether or not to count result towards fighter stats
-	func run_match(record = false) -> Match:
+	func run_match() -> Match:
+		var record = !(game.is_finished())
 		if (!game.is_official()): record = false
 		var f1 = fighters[0]
 		var f2 = fighters[1]
