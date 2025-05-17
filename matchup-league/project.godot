@@ -24,6 +24,7 @@ Main="*res://global/main.gd"
 Filter="*res://global/filter.gd"
 FileUtil="*res://global/file_util.gd"
 NodeUtil="*res://global/node_util.gd"
+Setting="*res://global/settings.gd"
 Rating="*res://global/rating.gd"
 
 [display]

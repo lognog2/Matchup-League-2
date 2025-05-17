@@ -60,7 +60,6 @@ tooltip_text = "You will lose your progress!"
 text = "Main menu"
 
 [node name="settings" type="Button" parent="left panel 1/MarginContainer 2/left menu 3/left menu vbox 4"]
-visible = false
 layout_mode = 2
 text = "Settings"
 

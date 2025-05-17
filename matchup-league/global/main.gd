@@ -44,6 +44,7 @@ var Scene = {
 	SeasonMenu = "season_menu",
 	TeamMenu = "team_menu",
 	MainMenu = "main_menu",
+	SettingsMenu = "settings_menu",
 }
 
 var Types = {

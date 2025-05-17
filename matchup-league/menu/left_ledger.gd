@@ -20,3 +20,6 @@ func _main_menu():
 	
 func _save():
 	Main.save_state()
+	
+func _settings():
+	Main.emit_scene(Main.Scene.SettingsMenu)
