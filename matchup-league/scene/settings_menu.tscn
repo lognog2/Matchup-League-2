@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://copfinvujui86"]
+[gd_scene load_steps=4 format=3 uid="uid://copfinvujui86"]
 
 [ext_resource type="Script" path="res://menu/settings_menu.gd" id="1_de8wi"]
+[ext_resource type="StyleBox" uid="uid://eelwpy4cx451" path="res://style/background.tres" id="2_xujdn"]
+[ext_resource type="PackedScene" uid="uid://bnsuruwm7t33m" path="res://scene/left_ledger.tscn" id="3_qxiv0"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -10,3 +12,64 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_de8wi")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("2_xujdn")
+
+[node name="main box" type="HBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="ledger container" type="PanelContainer" parent="PanelContainer/main box"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+
+[node name="left ledger" parent="PanelContainer/main box/ledger container" instance=ExtResource("3_qxiv0")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/main box"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/main box/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/main box/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="PanelContainer/main box/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Save changes"
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/main box/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="settings vbox" type="VBoxContainer" parent="PanelContainer/main box/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
+[node name="save backup" type="VBoxContainer" parent="PanelContainer/main box/MarginContainer/VBoxContainer/MarginContainer/settings vbox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/main box/MarginContainer/VBoxContainer/MarginContainer/settings vbox/save backup"]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Save to backup"
+
+[node name="OptionButton" type="OptionButton" parent="PanelContainer/main box/MarginContainer/VBoxContainer/MarginContainer/settings vbox/save backup"]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+size_flags_horizontal = 0

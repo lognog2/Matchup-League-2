@@ -1,4 +1,4 @@
-extends Control
+extends Menu
 
 func exit_season():
 	Main.load_state()
@@ -12,14 +12,14 @@ func _team_menu():
 	Stream.cache(func(): SignalBus.to_team_menu.emit(team))
 	
 func _main_menu():
-	Main.save_state(false)
+	Main.save_state(check_save_backup(Setting.SaveSpot.Main_menu))
 	Stream.queue(func():
 		exit_season()
 		Main.emit_scene(Main.Scene.MainMenu)
 		)
 	
 func _save():
-	Main.save_state()
+	super._save()
 	
 func _settings():
 	Main.emit_scene(Main.Scene.SettingsMenu)

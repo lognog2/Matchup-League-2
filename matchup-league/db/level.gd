@@ -159,10 +159,10 @@ func set_rankings() -> Array:
 	return top_teams
 
 ## call `Main.save_state()` instead of individual level func
-func save_data(softSave: bool):
+func save_data(backup: bool):
 	Err.print("/ %s: last chance to look at the save data" % name) #breakpoint safe space
 	for lib in Lib.values():
-		lib.save_to_file(softSave)
+		lib.save_to_file(backup)
 
 ## call `Main.load_state()` instead of individual level func
 func load_data():

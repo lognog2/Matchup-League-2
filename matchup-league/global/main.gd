@@ -4,7 +4,7 @@ var season: int
 var main_node: Control
 var game_seed: Variant
 var current_career: Career
-var soft_save = true
+var backup = true
 const MAX_TYPES = 4
 const MIN_BASE = 499
 const MAX_BASE = 9999
@@ -198,18 +198,20 @@ func is_paused() -> bool:
 # save/load functions
 
 ## saves current game state. if you have stuff after this call you want done after it saves, queue it in `Stream`
-func save_state(softSave = true):
-	soft_save = softSave
+func save_state(to_backup = false):
+	backup = to_backup
 	FileUtil.set_save_path()
+	if (backup): Err.print("/ saving to backup")
 	main_node.prompt_game_save(FileUtil.save_dir_exists(true))
 
 ## called from `main_node`
 func save_callable():
 	Err.print("^ saving")
+	Setting.save()
 	var path = "%s/%s" % [FileUtil.save_path, Career.FILE_NAME]
 	FileUtil.write_to_file(current_career.format_save(), path)
 	for level in Levels:
-		Levels[level].save_data(soft_save)
+		Levels[level].save_data(backup)
 	main_node.save_game_end()
 	#SignalBus.done_saving.emit()
 	Err.print("^ saved")
