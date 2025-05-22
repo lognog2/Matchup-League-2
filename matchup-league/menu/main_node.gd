@@ -1,6 +1,6 @@
-# handles footer and popups
 extends Control
 
+@export var root_container: Container
 @export var vbox: VBoxContainer
 @export var version_label: Label
 @export var seed_label: Label
@@ -71,3 +71,4 @@ func _confirm_input():
 func _deny_input():
 	Err.print("/ deny")
 	user_input.emit(false)
+	

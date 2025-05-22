@@ -17,7 +17,7 @@ const MAX_SCENES = 8
 
 const DEFAULT_SERIES = "Original"
 
-const VERSION_NUM = "prototype 2.0.3"
+const VERSION_NUM = "prototype 2.0.4"
 
 ## put in league class when i make it
 const season_length = 7
@@ -113,7 +113,7 @@ func _ready():
 	season = 29
 	Levels.Prep = Level.new("Prep", 3, 4)
 	Levels.Archive = Archive.new()
-	load_state()
+	Stream.queue(load_state)
 
 func _process(delta: float):
 	#report lag
@@ -218,12 +218,11 @@ func save_callable():
 
 func load_state(data: Dictionary = {}):
 	var file_name = data.get("name", "")
-	Err.print("^ loading %s" % file_name);
-	FileUtil.set_save_path(file_name)
-
+	Err.print("^ loading %s" % file_name)
+	
 	for level in Levels.values():
 		level.load_data()
-		
+	
 	if (data == {}):
 		current_career = null
 	else:
@@ -232,6 +231,10 @@ func load_state(data: Dictionary = {}):
 		current_career.current_round = data.round - 1
 		current_career.begin_round()
 		set_seed(data.seed)
+
+	FileUtil.set_save_path(file_name) # after career is set
+	Setting.load()
+	NodeUtil.set_bg_theme()
 
 	SignalBus.done_loading.emit()
 	for lvl in Levels.values():

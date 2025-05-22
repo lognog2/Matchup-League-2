@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://menu/left_ledger.gd" id="1_cu8uu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtkds"]
-bg_color = Color(0.359313, 0.186912, 0.583694, 1)
+bg_color = Color(0, 0, 0, 0.0980392)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -50,6 +50,10 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Team menu"
 
+[node name="settings" type="Button" parent="left panel 1/MarginContainer 2/left menu 3/left menu vbox 4"]
+layout_mode = 2
+text = "Settings"
+
 [node name="save" type="Button" parent="left panel 1/MarginContainer 2/left menu 3/left menu vbox 4"]
 layout_mode = 2
 text = "Save"
@@ -59,11 +63,8 @@ layout_mode = 2
 tooltip_text = "You will lose your progress!"
 text = "Main menu"
 
-[node name="settings" type="Button" parent="left panel 1/MarginContainer 2/left menu 3/left menu vbox 4"]
-layout_mode = 2
-text = "Settings"
-
 [connection signal="pressed" from="left panel 1/MarginContainer 2/left menu 3/left menu vbox 4/home" to="." method="_home"]
 [connection signal="pressed" from="left panel 1/MarginContainer 2/left menu 3/left menu vbox 4/team menu" to="." method="_team_menu"]
+[connection signal="pressed" from="left panel 1/MarginContainer 2/left menu 3/left menu vbox 4/settings" to="." method="_settings"]
 [connection signal="pressed" from="left panel 1/MarginContainer 2/left menu 3/left menu vbox 4/save" to="." method="_save"]
 [connection signal="pressed" from="left panel 1/MarginContainer 2/left menu 3/left menu vbox 4/main menu" to="." method="_main_menu"]

@@ -5,7 +5,7 @@ func exit_season():
 
 func _home():
 	Main.emit_scene(Main.Scene.SeasonMenu)
-	
+
 func _team_menu():
 	var team = Main.current_career.get_team()
 	Main.emit_scene(Main.Scene.TeamMenu)
@@ -16,7 +16,7 @@ func _main_menu():
 	Stream.queue(func():
 		exit_season()
 		Main.emit_scene(Main.Scene.MainMenu)
-		)
+	)
 	
 func _save():
 	super._save()

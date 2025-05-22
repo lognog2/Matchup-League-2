@@ -4,7 +4,7 @@
 [ext_resource type="StyleBox" uid="uid://eelwpy4cx451" path="res://style/background.tres" id="2_xujdn"]
 [ext_resource type="PackedScene" uid="uid://bnsuruwm7t33m" path="res://scene/left_ledger.tscn" id="3_qxiv0"]
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" node_paths=PackedStringArray("backup_options", "theme_options")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,6 +12,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_de8wi")
+backup_options = NodePath("PanelContainer/main box/MarginContainer/VBoxContainer/backup/save backup/OptionButton")
+theme_options = NodePath("PanelContainer/main box/MarginContainer/VBoxContainer/theme/theme/OptionButton")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -51,25 +53,50 @@ layout_mode = 2
 layout_mode = 2
 text = "Save changes"
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/main box/MarginContainer/VBoxContainer"]
+[node name="backup" type="MarginContainer" parent="PanelContainer/main box/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 20
 
-[node name="settings vbox" type="VBoxContainer" parent="PanelContainer/main box/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="save backup" type="VBoxContainer" parent="PanelContainer/main box/MarginContainer/VBoxContainer/backup"]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 15
+theme_override_constants/separation = 12
 
-[node name="save backup" type="VBoxContainer" parent="PanelContainer/main box/MarginContainer/VBoxContainer/MarginContainer/settings vbox"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="PanelContainer/main box/MarginContainer/VBoxContainer/MarginContainer/settings vbox/save backup"]
+[node name="Label" type="Label" parent="PanelContainer/main box/MarginContainer/VBoxContainer/backup/save backup"]
 custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 25
 text = "Save to backup"
 
-[node name="OptionButton" type="OptionButton" parent="PanelContainer/main box/MarginContainer/VBoxContainer/MarginContainer/settings vbox/save backup"]
+[node name="OptionButton" type="OptionButton" parent="PanelContainer/main box/MarginContainer/VBoxContainer/backup/save backup"]
 custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 20
+
+[node name="theme" type="MarginContainer" parent="PanelContainer/main box/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="theme" type="VBoxContainer" parent="PanelContainer/main box/MarginContainer/VBoxContainer/theme"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Label" type="Label" parent="PanelContainer/main box/MarginContainer/VBoxContainer/theme/theme"]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 25
+text = "Theme"
+
+[node name="OptionButton" type="OptionButton" parent="PanelContainer/main box/MarginContainer/VBoxContainer/theme/theme"]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 20
+
+[connection signal="gui_input" from="PanelContainer/main box/ledger container" to="." method="_ledger_input"]
+[connection signal="gui_input" from="PanelContainer/main box/ledger container/left ledger" to="." method="_ledger_input"]
+[connection signal="pressed" from="PanelContainer/main box/MarginContainer/VBoxContainer/HBoxContainer/Button" to="." method="_save"]
+[connection signal="item_selected" from="PanelContainer/main box/MarginContainer/VBoxContainer/backup/save backup/OptionButton" to="." method="backup_change"]
+[connection signal="item_selected" from="PanelContainer/main box/MarginContainer/VBoxContainer/theme/theme/OptionButton" to="." method="theme_change"]

@@ -1,6 +1,8 @@
 ## Convenience functions for control nodes
 extends Node
 	
+const STYLE_BOX_BG = "background"
+
 func float_zero() -> float:
 	return 1.000 - 1.000
 
@@ -43,3 +45,18 @@ func list_fighter_cards(node: Node, list: Array):
 		var new_fc = blank_fc.duplicate()
 		new_fc.render(f)
 		node.add_child(new_fc)
+
+func compare_colors(color1: Color, color2: Color) -> bool:
+	var color1_hex = color1.to_rgba32()
+	var color2_hex = color2.to_rgba32()
+	return (color1_hex == color2_hex)
+
+func load_style(style_name: String, ext = ".tres"):
+	var path = "res://style/" + style_name + ext
+	var style = load(path)
+	return style
+
+func set_bg_theme(style_name = STYLE_BOX_BG, color: Color = Setting.s.theme):
+	var bg_box = NodeUtil.load_style(style_name)
+	if (!bg_box): Err.print_fatal("No stylebox found", Err.Fatal.UI)
+	bg_box.bg_color = color
