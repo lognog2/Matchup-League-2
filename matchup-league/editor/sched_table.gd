@@ -67,12 +67,4 @@ func save():
 	#		if (team_box.team):
 	#			team_box.save()
 	queue_redraw()
-	Main.save_state()
-	message.text = "Saved"
-	message.visible = true
-	
-func updateMsg(msg = ""):
-	message.text = msg
-	
-func hideMessage():
-	message.visible = false
+	super._save()

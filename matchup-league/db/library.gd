@@ -126,14 +126,14 @@ func save_file_path(backup = false) -> String:
 	var backup_name = "_backup" if backup else ""
 	return FileUtil.save_path + ("/%s.save" % (file_name + backup_name))
 
-func save_to_file(softSave: bool):
+func save_to_file(backup: bool):
 	var file_path = save_file_path(false)
 	var file = FileAccess.open(file_path, FileAccess.WRITE)
 	for id in dict:
 		var data = dict[id].format_save()
 		var json_data = JSON.stringify(data)
 		file.store_line(json_data)
-	if (!softSave): 
+	if (backup): 
 		# do some kind of test here to make sure data is good
 		var backup_string = save_file_path(true)
 		FileUtil.copy_file(file_path, backup_string)

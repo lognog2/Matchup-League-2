@@ -4,7 +4,7 @@ var season: int
 var main_node: Control
 var game_seed: Variant
 var current_career: Career
-var soft_save = true
+var backup = true
 const MAX_TYPES = 4
 const MIN_BASE = 499
 const MAX_BASE = 9999
@@ -17,7 +17,7 @@ const MAX_SCENES = 8
 
 const DEFAULT_SERIES = "Original"
 
-const VERSION_NUM = "prototype 2.0.3"
+const VERSION_NUM = "prototype 2.0.4"
 
 ## put in league class when i make it
 const season_length = 7
@@ -44,6 +44,7 @@ var Scene = {
 	SeasonMenu = "season_menu",
 	TeamMenu = "team_menu",
 	MainMenu = "main_menu",
+	SettingsMenu = "settings_menu",
 }
 
 var Types = {
@@ -112,7 +113,7 @@ func _ready():
 	season = 29
 	Levels.Prep = Level.new("Prep", 3, 4)
 	Levels.Archive = Archive.new()
-	load_state()
+	Stream.queue(load_state)
 
 func _process(delta: float):
 	#report lag
@@ -197,30 +198,31 @@ func is_paused() -> bool:
 # save/load functions
 
 ## saves current game state. if you have stuff after this call you want done after it saves, queue it in `Stream`
-func save_state(softSave = true):
-	soft_save = softSave
+func save_state(to_backup = false):
+	backup = to_backup
 	FileUtil.set_save_path()
+	if (backup): Err.print("/ saving to backup")
 	main_node.prompt_game_save(FileUtil.save_dir_exists(true))
 
 ## called from `main_node`
 func save_callable():
 	Err.print("^ saving")
+	Setting.save()
 	var path = "%s/%s" % [FileUtil.save_path, Career.FILE_NAME]
 	FileUtil.write_to_file(current_career.format_save(), path)
 	for level in Levels:
-		Levels[level].save_data(soft_save)
+		Levels[level].save_data(backup)
 	main_node.save_game_end()
 	#SignalBus.done_saving.emit()
 	Err.print("^ saved")
 
 func load_state(data: Dictionary = {}):
 	var file_name = data.get("name", "")
-	Err.print("^ loading %s" % file_name);
-	FileUtil.set_save_path(file_name)
-
+	Err.print("^ loading %s" % file_name)
+	
 	for level in Levels.values():
 		level.load_data()
-		
+	
 	if (data == {}):
 		current_career = null
 	else:
@@ -229,6 +231,10 @@ func load_state(data: Dictionary = {}):
 		current_career.current_round = data.round - 1
 		current_career.begin_round()
 		set_seed(data.seed)
+
+	FileUtil.set_save_path(file_name) # after career is set
+	Setting.load()
+	NodeUtil.set_bg_theme()
 
 	SignalBus.done_loading.emit()
 	for lvl in Levels.values():

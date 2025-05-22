@@ -62,4 +62,4 @@ func queue_cache():
 	cache_arr.clear()
 
 func str_counter() -> String:
-	return "%04d | " % counter
+	return "%04d " % counter

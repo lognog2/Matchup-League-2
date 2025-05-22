@@ -3,7 +3,7 @@ extends Table
 @export var table: VBoxContainer
 @export var row: HBoxContainer
 @export var message: Label
-@export var softSave: CheckBox
+@export var backup: CheckBox
 
 func _enter_tree():
 	message.visible = false
@@ -35,7 +35,7 @@ func save():
 	message.visible = true
 	for t_row in table.get_children():
 		t_row.save()
-	Main.save_state(softSave.button_pressed)
+	Main.save_state(backup.button_pressed)
 	render()
 
 func updateMsg(msg = ""):
