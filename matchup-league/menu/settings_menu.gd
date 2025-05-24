@@ -7,7 +7,7 @@ var setting: Dictionary
 
 func _ready():
 	scene_name = Main.Scene.SettingsMenu
-	render()
+	render()  
 
 func render():
 	setting = Setting.s

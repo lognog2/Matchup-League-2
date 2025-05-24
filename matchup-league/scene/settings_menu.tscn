@@ -38,8 +38,8 @@ size_flags_vertical = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/main box"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
@@ -51,6 +51,7 @@ layout_mode = 2
 
 [node name="Button" type="Button" parent="PanelContainer/main box/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 21
 text = "Save changes"
 
 [node name="backup" type="MarginContainer" parent="PanelContainer/main box/MarginContainer/VBoxContainer"]
