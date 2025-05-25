@@ -4,7 +4,7 @@ var season: int
 var main_node: Control
 var game_seed: Variant
 var current_career: Career
-var backup = true
+var backup = false
 const MAX_TYPES = 4
 const MIN_BASE = 499
 const MAX_BASE = 9999
@@ -17,20 +17,39 @@ const MAX_SCENES = 8
 
 const DEFAULT_SERIES = "Original"
 
-const VERSION_NUM = "prototype 2.0.4"
+const VERSION_NUM = "prototype 2.1.1"
+
+
 
 ## put in league class when i make it
 const season_length = 7
 
-func commit_version() -> String: 
-	return VERSION_NUM + ""
+var Version = {
+	Build = 2,
+	Version = 0,
+	Release = 5,
+	Commit = 1
+}
+
+func str_version(drop_commit = false) -> String: 
+	var nums = Version.values()
+	if (nums[3] == null): drop_commit = true
+	var statement = "prototype %d.%d.%d" 
+	if (drop_commit):
+		nums.remove_at(3)
+	else:
+		statement += ".%d"
+	return statement % nums
 
 var Edition = {
 	Dev = "development",
 	Test = "playtest",
 	Prod = "Production"
 }
-var version_edition = commit_version() + " " + Edition.Dev
+
+var edition = Edition.Dev
+
+var version_edition = str_version() + " " + edition
 
 ## stores previously visited scenes, behaves like a stack
 var scene_history = []
@@ -200,43 +219,50 @@ func is_paused() -> bool:
 ## saves current game state. if you have stuff after this call you want done after it saves, queue it in `Stream`
 func save_state(to_backup = false):
 	backup = to_backup
-	FileUtil.set_save_path()
 	if (backup): Err.print("/ saving to backup")
 	main_node.prompt_game_save(FileUtil.save_dir_exists(true))
 
 ## called from `main_node`
 func save_callable():
-	Err.print("^ saving")
-	Setting.save()
-	var path = "%s/%s" % [FileUtil.save_path, Career.FILE_NAME]
-	FileUtil.write_to_file(current_career.format_save(), path)
+	Err.print("^ saving to %s" % FileUtil.save_path)
+	Setting.save(backup)
+	current_career.save(backup)
 	for level in Levels:
 		Levels[level].save_data(backup)
 	main_node.save_game_end()
-	#SignalBus.done_saving.emit()
+	SignalBus.done_saving.emit()
 	Err.print("^ saved")
+	backup = false
 
 func load_state(data: Dictionary = {}):
-	var file_name = data.get("name", "")
+	var file_name = data.get("dir_name", "")
 	Err.print("^ loading %s" % file_name)
-	
-	for level in Levels.values():
-		level.load_data()
-	
+
 	if (data == {}):
 		current_career = null
 	else:
-		var lvl = Levels[data.level]
+		if (data.get("level")):
+			data["level name"] = data["level"]
+		var lvl = data["level name"]
 		current_career = Career.create(lvl, data.name, data.team_id)
 		current_career.current_round = data.round - 1
 		current_career.begin_round()
 		set_seed(data.seed)
-
+	
 	FileUtil.set_save_path(file_name) # after career is set
 	Setting.load()
+	for level in Levels.values():
+		level.load_data()
 	NodeUtil.set_bg_theme()
-
 	SignalBus.done_loading.emit()
 	for lvl in Levels.values():
 		lvl.set_avg_rating()
 	Err.print("^ loaded")
+
+func system_info() -> Dictionary:
+	var info = {
+		timestamp = Time.get_datetime_string_from_system(false, true),
+		version = str_version(),
+		edition = edition,
+	}
+	return info

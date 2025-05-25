@@ -135,6 +135,9 @@ func set_game(data: Dictionary) -> Game:
 func add_player(data: Dictionary) -> Player:
 	return Lib.Player.add_entity(data)
 
+func add_existing_player(p: Player) -> Player:
+	return Lib.Player.add_existing_entity(p, false, true)
+
 func set_player(data: Dictionary) -> Player:
 	return Lib.Player.set_entity(data)
 

@@ -77,6 +77,16 @@ contract cost/length
 trade value
 offseason development
 
+
+commit numbering
+
+in the example 1.2.3.4:
+	1 = build,
+	2 = version,
+	3 = release/feature,
+	4 = commit
+
+
 console guide
 
 number on the left is the current frame ID, which increases once each frame. 

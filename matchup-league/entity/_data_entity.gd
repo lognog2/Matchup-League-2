@@ -1,6 +1,6 @@
 class_name DataEntity extends Node
 
-var id: int
+var id: int = -1
 var id_str: String
 var de_name: String
 var season: int
@@ -38,6 +38,9 @@ func set_series(sr: String = Main.DEFAULT_SERIES):
 ## called after all entities done loading to set references to other entities
 func connect_objs():
 	pass
+
+func has_id() -> bool:
+	return id >= 0
 
 ## compiles stats into rating
 func get_rating() -> float:

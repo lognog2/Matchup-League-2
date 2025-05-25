@@ -19,8 +19,18 @@ func _init(lvl_name: String, ent_name: String):
 
 ## constructs a new entity and adds it to dictionary
 func add_entity(data: Dictionary, connect_obj = false) -> DataEntity:
-	data["id"] = increment_id()
 	var de = Main.blank_entity(entity_name).set_data(data)
+	return add_existing_entity(de, false, connect_obj)
+
+func add_existing_entity(de: DataEntity, overwrite = false, connect_obj = false) -> DataEntity:
+	if (!de.has_id()):
+		de.id = increment_id()
+	if (dict.get(de.id)):
+		if (overwrite):
+			Err.print_warn(de.id_str + " is already in library", Err.Warn.Conflict)
+		else:
+			Err.print_fatal(de.id_str + " is already in library", Err.Fatal.Conflict)
+			return null
 	dict[de.id] = de
 	if (connect_obj): de.connect_objs()
 	add_avg_rating(de.get_rating())
@@ -122,21 +132,27 @@ func get_entities(select_filter = Filter.Select.Default, sort_filter = null, lim
 
 # save/load (careful using breakpoints here)
 
+## opens save file for writing
+func open_save_file(backup) -> FileAccess:
+	var path = save_file_path(backup)
+	return FileUtil.open_file(path, true)
+
 func save_file_path(backup = false) -> String:
-	var backup_name = "_backup" if backup else ""
+	var backup_name = FileUtil.BACKUP_EXT if backup else ""
 	return FileUtil.save_path + ("/%s.save" % (file_name + backup_name))
 
 func save_to_file(backup: bool):
-	var file_path = save_file_path(false)
-	var file = FileAccess.open(file_path, FileAccess.WRITE)
+	var file = open_save_file(false)
+	var files = [file]
+	if (backup):
+		var backup_file = open_save_file(true)
+		files.append(backup_file)
+
 	for id in dict:
 		var data = dict[id].format_save()
 		var json_data = JSON.stringify(data)
-		file.store_line(json_data)
-	if (backup): 
-		# do some kind of test here to make sure data is good
-		var backup_string = save_file_path(true)
-		FileUtil.copy_file(file_path, backup_string)
+		for f in files:
+			f.store_line(json_data)
 
 func load_from_file():
 	reset()

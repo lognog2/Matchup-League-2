@@ -4,6 +4,8 @@ extends Node
 signal done_saving()
 signal done_loading()
 
+signal new_career()
+
 signal set_scene(scene_name: String)
 
 signal to_game_select(t1: Team, t2: Team)

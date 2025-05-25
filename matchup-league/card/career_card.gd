@@ -8,6 +8,7 @@ class_name CareerCard extends Card
 
 var career_name: String
 var data: Dictionary
+var timestamp: int ##unix time
 
 func render(dat: Dictionary):
 	data = dat
@@ -20,6 +21,7 @@ func fill_card():
 	season_label.text = "Season %d" % data.season
 	team_label.text = data.team_name
 	team_rect.color = Main.format_color(data.color)
+	timestamp = data.timestamp
 
 func _select():
 	Main.load_state(data)

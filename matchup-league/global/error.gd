@@ -7,6 +7,7 @@ const test_message = "Please screenshot this message and show it to a dev"
 var Fatal = {
 	Debug = -99, ##placeholder
 	Timeout = -60, ##expected response not found within time frame
+	Outdated = -7, ## program could not continue because of outdated/decpreated data or code 
 	Invalid = -6, ##attempted to do action with incompatible data
 	Conflict = -5, ##data conflicts with program rules
 	ReadWrite = -4, ##error when interacting with files
@@ -20,6 +21,7 @@ var Fatal = {
 var Warn = {
 	Debug = 99, ##placeholder
 	Framerate = 60, ##low frame rate
+	Outdated = 7, ## outdated/decpreated data or code was detected, program will continue
 	Invalid = 6, ##attempted to do action with incompatible data but still completed
 	Conflict = 5, ##conflict that does not force program to stop
 	ReadWrite = 4, ##warning related to read/writing files
@@ -36,20 +38,20 @@ var Success = {
 
 ## stops program by calling nonexistent function
 func throw(msg = ""):
-	print(Err[msg])
+	self.print(Err[msg])
 
 func print(msg = ""):
 	print(Stream.str_counter() + msg)
 
 func print_fatal(msg = "", code = Fatal.Debug):
-	print("! Error %d: " % code + msg)
+	self.print("! Error %d: " % code + msg)
 	throw(msg)
 
 func print_warn(msg = "", code = Warn.Debug):
-	print("* Warning %d: " % code + msg)
+	self.print("* Warning %d: " % code + msg)
 
 func print_success(msg = "", code = Success.Debug):
-	print("  Success %d: " % code + msg)
+	self.print("  Success %d: " % code + msg)
 
 func alert(msg = "", title = ""):
 	OS.alert(msg, title)

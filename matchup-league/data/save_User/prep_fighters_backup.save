@@ -119,4 +119,26 @@
 {"base":1700,"id":118,"losses":0,"name":"Anna Liebert","season":29,"start season":33,"strType":"V","strVal":80,"team ID":31,"types":"RL","wins":0,"wkType":"R","wkVal":120}
 {"base":1690,"id":119,"losses":0,"name":"Jester","season":29,"start season":32,"strType":"E","strVal":140,"team ID":38,"types":"E","wins":0,"wkType":"L","wkVal":140}
 {"base":1670,"id":120,"losses":0,"name":"Executioner","season":29,"start season":32,"strType":"L","strVal":70,"team ID":38,"types":"M","wins":0,"wkType":"M","wkVal":70}
-{"base":1680,"id":121,"losses":0,"name":"Tenga Onigawara","season":29,"start season":33,"strType":"M","strVal":50,"team ID":13,"types":"F","wins":0,"wkType":"E","wkVal":80
+{"base":1680,"id":121,"losses":0,"name":"Tenga Onigawara","season":29,"start season":33,"strType":"M","strVal":50,"team ID":13,"types":"F","wins":0,"wkType":"E","wkVal":80}
+{"base":1650,"id":122,"losses":0,"name":"Maylene","season":29,"start season":32,"strType":"L","strVal":150,"team ID":27,"types":"M","wins":0,"wkType":"G","wkVal":150}
+{"base":1720,"id":123,"losses":0,"name":"Time Traveler","season":29,"start season":32,"strType":"C","strVal":100,"team ID":28,"types":"RCG","wins":0,"wkType":"I","wkVal":150}
+{"base":1730,"id":124,"losses":0,"name":"Asuka Langley","season":29,"start season":33,"strType":"S","strVal":160,"team ID":11,"types":"FW","wins":0,"wkType":"E","wkVal":160}
+{"base":1600,"id":125,"losses":0,"name":"Linda Flynn","season":29,"start season":33,"strType":"C","strVal":70,"team ID":3,"types":"L","wins":0,"wkType":"F","wkVal":80}
+{"base":1600,"id":126,"losses":0,"name":"Lawrence Fletcher","season":29,"start season":33,"strType":"C","strVal":80,"team ID":3,"types":"C","wins":0,"wkType":"L","wkVal":90}
+{"base":1640,"id":127,"losses":0,"name":"Bertini","season":29,"start season":32,"strType":"A","strVal":150,"team ID":20,"types":"FA","wins":0,"wkType":"R","wkVal":60}
+{"base":1670,"id":128,"losses":0,"name":"Lenora","season":29,"start season":33,"strType":"S","strVal":150,"team ID":25,"types":"","wins":0,"wkType":"M","wkVal":150}
+{"base":1680,"id":129,"losses":0,"name":"Burgh","season":29,"start season":33,"strType":"G","strVal":150,"team ID":25,"types":"R","wins":0,"wkType":"F","wkVal":150}
+{"base":1720,"id":130,"losses":0,"name":"Evil Wizard Guy","season":29,"start season":32,"strType":"G","strVal":120,"team ID":19,"types":"VG","wins":0,"wkType":"S","wkVal":150}
+{"base":1660,"id":131,"losses":0,"name":"Gorgonzola","season":29,"start season":33,"strType":"I","strVal":120,"team ID":19,"types":"EV","wins":0,"wkType":"M","wkVal":60}
+{"base":1620,"id":132,"losses":0,"name":"Meiko","season":29,"start season":33,"strType":"I","strVal":100,"team ID":44,"types":"LF","wins":0,"wkType":"L","wkVal":50}
+{"base":1640,"id":133,"losses":0,"name":"Kaito","season":29,"start season":33,"strType":"W","strVal":80,"team ID":44,"types":"LW","wins":0,"wkType":"E","wkVal":40}
+{"base":1710,"id":134,"losses":0,"name":"Hatsune Miku","season":29,"start season":34,"strType":"L","strVal":160,"team ID":44,"types":"L","wins":0,"wkType":"C","wkVal":100}
+{"base":1700,"id":135,"losses":0,"name":"Taiju Oki","season":29,"start season":33,"strType":"M","strVal":60,"team ID":45,"types":"M","wins":0,"wkType":"L","wkVal":40}
+{"base":1700,"id":136,"losses":0,"name":"Yuzuriha Ogawa","season":29,"start season":33,"strType":"V","strVal":40,"team ID":45,"types":"E","wins":0,"wkType":"M","wkVal":60}
+{"base":1750,"id":137,"losses":0,"name":"Senku Ishigami","season":29,"start season":34,"strType":"W","strVal":140,"team ID":45,"types":"SWCL","wins":0,"wkType":"F","wkVal":120}
+{"base":1720,"id":138,"losses":0,"name":"Heimerdinger","season":29,"start season":32,"strType":"C","strVal":60,"team ID":46,"types":"C","wins":0,"wkType":"I","wkVal":90}
+{"base":1690,"id":139,"losses":0,"name":"Jayce","season":29,"start season":33,"strType":"G","strVal":100,"team ID":46,"types":"MG","wins":0,"wkType":"C","wkVal":120}
+{"base":1680,"id":140,"losses":0,"name":"Viktor","season":29,"start season":33,"strType":"G","strVal":140,"team ID":46,"types":"G","wins":0,"wkType":"R","wkVal":120}
+{"base":1660,"id":141,"losses":0,"name":"Vander","season":29,"start season":32,"strType":"V","strVal":80,"team ID":47,"types":"MW","wins":0,"wkType":"L","wkVal":80}
+{"base":1630,"id":142,"losses":0,"name":"Benzo","season":29,"start season":32,"strType":"E","strVal":70,"team ID":47,"types":"M","wins":0,"wkType":"R","wkVal":60}
+{"base":1740,"id":143,"losses":0,"name":"Vi","season":29,"start season":33,"strType":"M","strVal":70,"team ID":47,"types":"MF","wins":0,"wkType":"C","wkVal":80}

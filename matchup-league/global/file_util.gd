@@ -3,6 +3,7 @@ extends Node
 const data_path = "res://data"
 const default_name = "default"
 const SAVE_ID = "save_"
+const BACKUP_EXT = "_backup"
 var save_path = "%s/%s" % [data_path, default_name]
 
 func open_file(path = save_path, write = true) -> FileAccess:
@@ -34,18 +35,26 @@ func do_each_line(action: Callable, path: String = save_path, limit = -1):
 		var line = file.get_line()
 		action.call(line)
 		reps += 1
+		#Err.print("/ " + str(reps))
 
 func get_save_dirs() -> Array:
 	var dirs = DirAccess.get_directories_at(data_path)
-	var save_dirs = Filter.filter_array(dirs, func(dir): return dir.contains(FileUtil.SAVE_ID))
+	var save_dirs = Filter.filter_array(dirs, dirs_filter)
 	return save_dirs
+
+func dirs_filter(target: String) -> Callable:
+	return func(dir: String = target):
+		if (Main.edition == Main.Edition.Dev):
+			return true
+		return dir.contains(FileUtil.SAVE_ID)
 
 func save_dir_name(alt = default_name) -> String:
 	var dir: String
+	var prefix = SAVE_ID if (!Setting.s.hidden) else ""
 	if (alt != default_name):
-		dir = SAVE_ID + alt
+		dir = prefix + alt
 	elif (Main.current_career):
-		dir = SAVE_ID + Main.current_career.name()
+		dir = prefix + Main.current_career.name()
 	else: 
 		dir = alt
 	return dir
@@ -55,6 +64,7 @@ func set_save_path(file_name = ""):
 		file_name = default_name
 	save_path = "%s/%s" % [data_path, save_dir_name(file_name)]
 
+## buggy, do not use
 func copy_file(in_string: String, out_string: String):
 	var in_file = open_file(in_string, false)
 	var out_file = open_file(out_string, true)

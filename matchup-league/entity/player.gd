@@ -15,6 +15,7 @@ func set_data(data: Dictionary, init = false) -> Player:
 	return self
 
 func connect_objs():
+	if (!has_id): level.add_existing_player(self)
 	team = level.get_team(teamID)
 	set_team(team)
 

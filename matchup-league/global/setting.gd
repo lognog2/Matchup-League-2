@@ -1,7 +1,11 @@
-class_name Settings extends Node
+extends Node
 
-const SECTION = "settings"
-var config = ConfigFile.new()
+const SET_SECTION = "settings"
+const SYS_SECTION = "system"
+
+const FILE_FORMAT = "settings%s.cfg"
+const FILE_NAME = FILE_FORMAT % ""
+const FILE_BACKUP = FILE_FORMAT % FileUtil.BACKUP_EXT
 
 enum SaveSpot {
 	Never,
@@ -26,11 +30,16 @@ var ThemeColor = {
 
 var DEFAULT_COLOR = ThemeColor.Purple
 
-var s = {
+var s_default = {
 	save_backup = SaveSpot.Main_menu,
 	theme = DEFAULT_COLOR,
+	hidden = false ## hidden when not on developer edition
 }
 
+var s = s_default.duplicate()
+
+func _ready() -> void:
+	SignalBus.new_career.connect(reset_settings)
 
 func add_setting(key: String, val: Variant = 0, replace = false):
 	if (!replace && s.get(key)):
@@ -48,25 +57,53 @@ func set_setting(setting_name: String, setting_val: Variant):
 		return
 	s[setting_name] = setting_val
 
-func config_file_path() -> String:
-	var path = FileUtil.save_path + "/settings.cfg"
+func config_file_path(backup = false) -> String:
+	var file_name = FILE_BACKUP if (backup) else FILE_NAME
+	var path = FileUtil.save_path + "/" + file_name
 	return path
 
-func save():
-	for key in s.keys():
-		config.set_value(SECTION, key, s[key])
-	var result = config.save(config_file_path())
-	if (result != OK): Err.print_fatal("Error saving config file", Err.Fatal.ReadWrite)
+func reset_settings():
+	s = s_default.duplicate()
 
-func load():
-	var result = config.load(config_file_path())
+func load_config(path = "") -> ConfigFile:
+	if (path.is_empty()):
+		path = config_file_path()
+
+	var config = ConfigFile.new()
+	var result = config.load(path)
 	if (result != OK): 
 		if (result == ERR_FILE_NOT_FOUND):
 			Err.print_warn("Config file not found, saving to new one", Err.Warn.ReadWrite)
-			self.save()
+			self.save(false)
 			self.load()
 		else:
 			Err.print_fatal("Error loading config file: ", Err.Fatal.ReadWrite)
-	s.clear()
-	for key in config.get_section_keys(SECTION):
-		add_setting(key, config.get_value(SECTION, key))
+	return config
+
+func save(backup = false):
+	var config = ConfigFile.new()
+
+	for key in s.keys():
+		config.set_value(SET_SECTION, key, s[key])
+
+	var sys_info = Main.system_info()
+	for key in sys_info.keys():
+		config.set_value(SYS_SECTION, key, sys_info[key])
+	
+	var paths = [config_file_path(false)]
+	if (backup):
+		paths.append(config_file_path(true))
+
+	for path in paths:
+		var result = config.save(path)
+		if (result != OK): Err.print_fatal("Error saving config file", Err.Fatal.ReadWrite)
+
+func load():
+	var config = load_config()
+	var config_version = config.get_value(SYS_SECTION, "version")
+	if (config_version != Main.str_version()):
+		Err.alert_warn("File is from an old version: %s" % config_version, Err.Warn.Outdated)
+
+	reset_settings()
+	for key in config.get_section_keys(SET_SECTION):
+		add_setting(key, config.get_value(SET_SECTION, key), true)
