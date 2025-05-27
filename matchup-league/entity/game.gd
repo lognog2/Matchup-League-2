@@ -14,11 +14,13 @@ func _init(data = {}):
 func set_data(data: Dictionary, init = false) -> Game:
 	if (!init): super(data)
 	if (data == {}): return self
+	if (data.get("type") == "tourney game"):
+		data.erase("type")
+		return TourneyGame.new().set_data(data)
 	rnd = data.get("round", rnd)
 	teamIDs = [data.get("team1id", teamIDs[0]), data.get("team2id", teamIDs[1])]
 	matches = data.get("matches", matches)
 	result = data.get("result", result)
-	#if (data.get("connect")): connect_objs()
 	return self
 
 func connect_objs():
@@ -143,6 +145,9 @@ func is_done() -> bool:
 func is_finished() -> bool: 
 	return (result != null)
 
+func is_tourney_game() -> bool:
+	return (self is TourneyGame)
+
 ## simulates a game as 2 cpu players choosing fighters randomly
 func sim_game():
 	if (is_finished()): 
@@ -207,13 +212,13 @@ func str_result(t: Team, include_opp = false) -> String:
 func format_save() -> Dictionary:
 	test_verify()
 	var data = super()
-	data.erase("name")
 	data.merge({
-		"round": rnd,
-		"team1id": teamIDs[0],
-		"team2id": teamIDs[1],
-		"result": result,
-		"matches": format_matches(),
+		"type" = "game",
+		"round" = rnd,
+		"team1id" = teamIDs[0],
+		"team2id" = teamIDs[1],
+		"result" = result,
+		"matches" = format_matches(),
 	}, true)
 	return data
 

@@ -1,102 +1,196 @@
-current:
-- hide cards until result shown in player v player
-- neater columns for team rankings
-- team color outline around fighter cards
-future:
-- editor faster loading
-- dramatic reveal
-- icons instead of letters for types
+manual - matchup league prototype 2.0.5.2
 
-settings to add
-- play cpu games before or after user game
+# table of contents
 
-entity relations stored as objects while game is running, when saving to file save the id only.
-entities save the id of the higher relation in this hierarchy:
-	- level
-	- league 
-	- team
-	- player
-	- fighter
-	- game
+highlight a line and press ctrl + f to find the section
 
-game rounds:
-	>= 1: regular season
-	== 0: freeplay
-	<= -1: tournament 
+# checklist
+# backlog
+# version numbering
+# console guide
+# exit codes
+# rating
+# tournament
+# player personalities
+# misc
 
-rating: a quantitative way to measure an entity's value
+# checklist
 
-fighters: 
-currently all types are weighted equally but ideally are weighted by frequency
-m = 1 / # of types
-rating = base + (strength * m) - (weakness * m)
+	## after pulling commit
+		- update verison in main and manual
 
-teams:
-average rating of fighters + (wins * 100) + (ties * 50)
+	## before pushing commit
+		- double check 'after pulling commit'
+		- backup save default and canon files
 
-game:
-sum of team ratings
+	## after beginning release
+		- reset commit number to 0
 
-league:
-average rating of teams
+	## before finishing release
+		- double check 'before pushing commit'
+		- update readme
+		- save files from previous release can transfer
 
-rating scale: preserves an entity's rating in its current context
-will be used to standardize across tiers and seasons
-current scale: average prep rating = 75
-ideal scale: average A tier rating = 100
+# backlog
 
-player personalities
-each player will have one overall archetype which is made of several subtypes
-archetypes:
-- user
-- default
-- true arbitrary
-- raitonal arbitrary
-- short term
-- long term
+	current:
+		- hide cards until result shown in player v player
+		- neater columns for team rankings
+		- team color outline around fighter cards
+	future:
+		- editor faster loading
+		- dramatic reveal
+		- icons instead of letters for types
 
-subtypes
-(user and arbitrary are the same in each one)
+	## settings to add
+		- play cpu games before or after user game
 
-fighter value
-rating
-base
-performance
-mods
-contract
-age
+# verison numbering
 
-team value
-rating
-performance
+	in the example 1.2.3.4:
+		1 = build,
+		2 = version,
+		3 = release/feature,
+		4 = commit
+
+# console guide
+
+	number on the left is the current frame ID, which increases once each frame. 
+	this number resets to 0 after 9999
+
+	## icons
+		/	comment, debug
+		^	system notificaiton
+		.	gentle reminder
+		*	warning
+		!	major warning, error
+		!!	high priority error
+		!!!	something is f***ed up
+		?	huh?
+		>	signal intercept
+
+# exit codes
+
+	## Error codes 
+		given when an unexpected or unwanted behavior is caught by the program.
+		negative number means program could not continue
+
+		0	no action
+		1	generic
+		2	UI-related
+		3	insufficient data
+		4	read/write
+		5	conflict
+		6	invalid
+		7	outdated
+		60	timeout
+		99	debug
+
+	## exit codes
+		given when a task finishes without any caught warnings
+
+		0	no action
+		1	success
+		2+	alternate outcome
+		99	debug
 
 
-coaches give certain bonuses to your team
+# rating:
+	a quantitative way to measure an entity's value
 
-contract cost/length
-trade value
-offseason development
+	## fighters
+		currently all types are weighted equally but ideally are weighted by frequency
+		m = 1 / # of types
+		rating = base + (strength * m) - (weakness * m)
+
+	## teams
+		average rating of fighters + (wins * 100) + (ties * 50)
+
+	## game
+		sum of team ratings
+
+	## league
+		average rating of teams
+
+	## rating scale
+		preserves an entity's rating in its current context
+		will be used to standardize across tiers and seasons
+		current scale: average prep rating = 75
+		ideal scale: average A tier rating = 100
+
+# player personalities
+	each player will have one overall archetype which is made of several subtypes
+	archetypes:
+		- user
+		- default
+		- true arbitrary
+		- raitonal arbitrary
+		- short term
+		- long term
+
+	## subtypes
+	(user and arbitrary are the same in each one)
+
+	fighter value
+	rating
+	base
+	performance
+	mods
+	contract
+	age
+
+	team value
+	rating
+	performance
 
 
-commit numbering
+	coaches give certain bonuses to your team
 
-in the example 1.2.3.4:
-	1 = build,
-	2 = version,
-	3 = release/feature,
-	4 = commit
+	contract cost/length
+	trade value
+	offseason development
 
+# tournament
 
-console guide
+	## the secret formula
+		b = # of teams
+		f = flat factor
+		n = ceiling(log_2(b)) + f
+		s = 2^n
+		n is the total number of rounds needed
+		s is the total number of teams and byes needed
+	
+	## why does the secret formula work?
+		The formula starts by calculating the number of rounds needed by taking log base 2 of the number of teams.
+		If this number is not a whole number, it is rounded up.
+		quick log lesson:
+			Taking log_x(y) (log base x of a number y) gives you the amount of times you need to multiply x by itself
+			to get to y. 
+			z = log_x(y) is the same thing as y = x^z
+			example: if you take log_2(35) you will get 5, since you need to multiply 2 by itself 5 times (2^5) to get 32.
+		the float factor is added on at the end. if the flat factor is 0, the number of byes will be minimized.
+		if adding the flat factor would cause every team to have a bye, the flat factor is reduced
+		the resultant number, n, is the total number of rounds
+		take 2^n to get total numner of teams and byes combined
+		
 
-number on the left is the current frame ID, which increases once each frame. 
-this number resets to 0 after 9999
+		For example, in a tournament of 24 teams and float factor of 0:
+		start with log_2(24), which rounds up to 5.
 
-icons:
-/ comment, debug
-^ system notificaiton
-  blank, minor warning
-* warning
-! major warning, error
-? huh?
-> signal intercept
+# misc
+
+	keep as a txt file but make it somewhat compliant with markdown
+
+	entity relations stored as objects while game is running, when saving to file save the id only.
+	entities save the id of the higher relation in this hierarchy:
+		- level
+		- league 
+		- team
+		- player
+		- fighter
+		- game
+
+	## game rounds
+		>= 1: regular season
+		== 0: freeplay
+		<= -1: tournament 

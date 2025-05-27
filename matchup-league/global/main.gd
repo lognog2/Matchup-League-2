@@ -17,10 +17,6 @@ const MAX_SCENES = 8
 
 const DEFAULT_SERIES = "Original"
 
-const VERSION_NUM = "prototype 2.1.1"
-
-
-
 ## put in league class when i make it
 const season_length = 7
 
@@ -28,7 +24,7 @@ var Version = {
 	Build = 2,
 	Version = 0,
 	Release = 5,
-	Commit = 1
+	Commit = 2
 }
 
 func str_version(drop_commit = false) -> String: 
@@ -44,7 +40,8 @@ func str_version(drop_commit = false) -> String:
 var Edition = {
 	Dev = "development",
 	Test = "playtest",
-	Prod = "Production"
+	Prod = "Production",
+	Exp = "experimental",
 }
 
 var edition = Edition.Dev
@@ -106,7 +103,9 @@ var Entity = {
 	Team = "team",
 	Game = "game",
 	Player = "player",
-	Level = "level"
+	Level = "level",
+	#TourneyGame = "tourney game",
+	League = "league",
 }
 
 var Levels = {
@@ -137,7 +136,7 @@ func _ready():
 func _process(delta: float):
 	#report lag
 	if (delta > 0.0167):
-		if (delta < 0.0333): pass #Err.print("  %.3f" % delta) # <60 fps
+		if (delta < 0.0333): pass #Err.print(". %.3f" % delta) # <60 fps
 		elif (delta < 0.1): Err.print("* %.3f" %delta) # <30 fps
 		else: Err.print("! %.3f" %delta) # <10 fps
 	
@@ -162,6 +161,10 @@ func blank_entity(ent_name: String) -> DataEntity:
 			return Game.new()
 		Entity.Player:
 			return Player.new()
+		Entity.Tournament:
+			return Tournament.new()
+		#Entity.TourneyGame:
+			#return TourneyGame.new()
 		_:
 			Err.alert_warn("Main.blank_entity: %s does not match any entity name" % ent_name, Err.Warn.Invalid)
 			return DataEntity.new()

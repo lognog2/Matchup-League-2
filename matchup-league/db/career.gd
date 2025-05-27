@@ -6,6 +6,8 @@ const FILE_FORMAT = "career%s.save"
 static var FILE_NAME = FILE_FORMAT % ""
 static var FILE_BACKUP = FILE_FORMAT % FileUtil.BACKUP_EXT
 
+static var SPECTATOR_COLOR = Color8(41, 41, 41)
+
 var current_round = 0
 var user_player: Player
 
@@ -77,7 +79,7 @@ func format_info() -> Dictionary:
 
 func format_save() -> Dictionary:
 	var has_team = (get_team() != null)
-	var color = Main.format_color_hex(get_team().color) if (has_team) else Main.format_color_hex(Color.DARK_GRAY)
+	var color = Main.format_color_hex(get_team().color) if (has_team) else Main.format_color_hex(SPECTATOR_COLOR)
 	return {
 		"name" = name(),
 		"round" = current_round,

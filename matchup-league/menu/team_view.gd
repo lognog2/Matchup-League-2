@@ -24,7 +24,7 @@ func render(t: Team):
 
 func render_spectator():
 	name_label.text = Main.Keyname.Spectate
-	color_rect.color = Color.DIM_GRAY
+	color_rect.color = Career.SPECTATOR_COLOR
 	info_box.visible = false
 	sched_box.visible = false
 	fc_box.visible = false

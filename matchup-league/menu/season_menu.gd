@@ -61,7 +61,7 @@ func fill_opp_info(before = true):
 	result_label.text = team.str_game(rnd, false)
 
 func fill_opp_null(before = true):
-	opp_rect.color = Color.SLATE_GRAY
+	opp_rect.color = Career.SPECTATOR_COLOR
 	next_game_label.text = " "
 	opp_name_label.text = "No game this round"
 	result_label.visible = false

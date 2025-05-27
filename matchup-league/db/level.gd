@@ -120,17 +120,23 @@ func add_fighter(data: Dictionary) -> Fighter:
 func set_fighter(data: Dictionary) -> Fighter:
 	return Lib.Fighter.set_entity(data)
 	
+
 func add_team(data: Dictionary) -> Team:
 	return Lib.Team.add_entity(data)
 
 func set_team(data: Dictionary) -> Team:
 	return Lib.Team.set_entity(data)
 
+
 func add_game(data: Dictionary, conn = false) -> Game:
 	return Lib.Game.add_entity(data, conn)
 
+func add_existing_game(g: Game) -> Player:
+	return Lib.Game.add_existing_entity(g, false, true)
+
 func set_game(data: Dictionary) -> Game:
 	return Lib.Game.set_entity(data)
+
 
 func add_player(data: Dictionary) -> Player:
 	return Lib.Player.add_entity(data)
@@ -140,6 +146,11 @@ func add_existing_player(p: Player) -> Player:
 
 func set_player(data: Dictionary) -> Player:
 	return Lib.Player.set_entity(data)
+
+
+func add_existing_tournament(tn: Tournament) -> Tournament:
+	return Lib.Player.add_existing_entity(tn, false, true)
+
 
 ## runs any unfinished games as cpu vs cpu
 func sim_round(r: int):

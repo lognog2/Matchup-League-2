@@ -102,7 +102,7 @@ func load():
 	var config = load_config()
 	var config_version = config.get_value(SYS_SECTION, "version")
 	if (config_version != Main.str_version()):
-		Err.alert_warn("File is from an old version: %s" % config_version, Err.Warn.Outdated)
+		Err.print_warn("File is from an old version: %s" % config_version, Err.Warn.Outdated)
 
 	reset_settings()
 	for key in config.get_section_keys(SET_SECTION):

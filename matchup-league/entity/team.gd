@@ -25,10 +25,11 @@ func set_data(data: Dictionary, init = false) -> Team:
 	losses = data.get("losses", losses)
 	ties = data.get("ties", ties)
 	# this needs to be last
-	if (!data.get("schedule")): return self
-	for r_str in data["schedule"]:
+	var sched = data.get("schedule")
+	if (!sched): return self
+	for r_str in sched:
 		var r = int(r_str)
-		schedule[r] = data["schedule"][r_str]
+		schedule[r] = sched[r_str]
 	return self
 
 ## called from `Fighter.set_team`
