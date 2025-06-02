@@ -124,7 +124,7 @@ func _return():
 	else:
 		Main.emit_scene(Main.Scene.MainMenu)
 
-#func adjust_result_reverse(r: int) -> int:
+#func adjust_result_reverse(r: Variant) -> int:
 #	if (reversed):
 #		if (r == 0): return 1
 #		elif (r == 1): return 0

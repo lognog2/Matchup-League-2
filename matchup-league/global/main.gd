@@ -24,7 +24,7 @@ var Version = {
 	Build = 2,
 	Version = 0,
 	Release = 5,
-	Commit = 2
+	Commit = 3
 }
 
 func str_version(drop_commit = false) -> String: 
@@ -106,6 +106,8 @@ var Entity = {
 	Level = "level",
 	#TourneyGame = "tourney game",
 	League = "league",
+	Tournament = "tournament",
+	Tourney = Tournament,
 }
 
 var Levels = {
@@ -142,9 +144,9 @@ func _process(delta: float):
 	
 	# idk why i did this
 	var ticket = randi()
-	if (ticket == game_seed): Err.alert_warn("JACKPOT!!!", 777)
+	if (ticket == game_seed): Err.alert_success("JACKPOT!!!", 777)
 	if (ticket % 1_000_000 == 0): 
-		Err.print("$ " + ticket)
+		Err.print("$ " + str(ticket))
 		Err.alert_success("you're one in a million!", 777)
 
 func get_level(levelName: String): return Levels[levelName]
@@ -217,6 +219,10 @@ func pause_game(switch: bool):
 func is_paused() -> bool:
 	return get_tree().paused
 
+func int_round(rnd = current_career.current_round) -> int:
+	return rnd if !(rnd is Array) else rnd[1]
+		
+
 # save/load functions
 
 ## saves current game state. if you have stuff after this call you want done after it saves, queue it in `Stream`
@@ -248,8 +254,11 @@ func load_state(data: Dictionary = {}):
 			data["level name"] = data["level"]
 		var lvl = data["level name"]
 		current_career = Career.create(lvl, data.name, data.team_id)
-		current_career.current_round = data.round - 1
-		current_career.begin_round()
+		if (data.round is int): 
+			current_career.current_round = data.round - 1
+			current_career.begin_round()
+		else:
+			current_career.current_round = data.round
 		set_seed(data.seed)
 	
 	FileUtil.set_save_path(file_name) # after career is set

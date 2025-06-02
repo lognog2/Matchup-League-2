@@ -7,28 +7,22 @@ var num_rounds = 0
 const MAX_TEAMS = 128
 
 enum Seeding {
-    TRADITIONAL,
-    NONE, 
+	TRADITIONAL,
+	NONE, 
 }
 
 ## not used yet
 enum Elimination {
-    SINGLE = 1,
-    DOUBLE = 2,
-    TRIPLE = 3
+	SINGLE = 1,
+	DOUBLE = 2,
+	TRIPLE = 3
 }
 
 var config = {
-    seeding = Seeding.TRADITIONAL,
-    reseed = false,     # reseed remaining teams after each round
+	seeding = Seeding.TRADITIONAL,
+	reseed = false,     # reseed remaining teams after each round
 }
 
-## required values:
-## name, level, team ids, 
-static func create(data: Dictionary) -> Tournament:
-	var tn = Tournament.new(data)
-	tn.level.add_existing_tournament(tn)
-	return tn
 
 func _init(data = {}):
 	super(data, "TN")
@@ -47,6 +41,27 @@ func connect_objs():
 	for tid in team_arr:
 		teams.append(level.get_team(tid))
 	team_arr = teams
+	fill_bracket()
+
+## advance tournament to next round, remove teams that were eliminated
+func advance():
+	for seed in bracket.keys():
+		var team = bracket[seed]
+		var game = team.schedule.get(tourney_key())
+		if (!game.has_winner()):
+			Err.print_fatal("%s is unfinished" % game.id_str, Err.Fatal.Conflict)
+			return
+		if (!team.is_winner(game)):
+			bracket.erase(seed)
+	set_round_games()
+
+## increases tourney round and sets games for new round
+func set_round_games():
+	tourney_round += 1
+	if (config.reseed):
+		fill_games_seeded()
+	else:
+		fill_games_position()
 
 ## fills bracket to full bracket number with existing teams and `null` as byes
 func fill_bracket():
@@ -65,14 +80,6 @@ func fill_bracket():
 	while (i <= full):
 		bracket[i] = null
 		i += 1
-
-## increases tourney round and sets games for new round
-func set_round_games():
-	tourney_round += 1
-	if (config.reseed):
-		fill_games_seeded()
-	else:
-		fill_games_position()
 
 ## each round, place the highest and lowest seed in one game, then second highest and lowest, etc
 func fill_games_seeded():
@@ -99,20 +106,33 @@ func fill_games_position():
 
 func get_opponent_seed(num: int, seed: int) -> int:
 	var opp_seed = num + 1 - seed
+	if (!bracket.has(seed)):
+		Err.print("/ checking %d for seed" % seed)
+		opp_seed = get_opponent_seed(num * 2, seed)
+	Err.print("/ num: %d	seed: %d	opp_ seed: %d" % [num, seed, opp_seed])
 	if (bracket.has(opp_seed)):
+		Err.print("/ found opp seed!")
 		return opp_seed
 	else:
+		Err.print("/ checking %d for seed" % opp_seed)
 		return get_opponent_seed(num * 2, opp_seed)
 
-func create_game(t1: Team, t2: Team) -> TourneyGame:
+func create_game(t1: Team, t2: Team) -> Game:
 	var game = TourneyGame.create(t1, t2, self, tourney_round)
 	return game
 
-func get_tourney_round():
-	return tourney_round
-
+## array [i, r] where i is tournament id, and r is tournament round
 func tourney_key(r = tourney_round) -> Array:
 	return [id, r]
+
+func is_complete() -> bool:
+	return tourney_round > num_rounds
+
+func get_team_ids() -> Array:
+	var ids = []
+	for t in team_arr:
+		ids.append(t.id)
+	return ids
 
 ## gets bracket size including byes.
 ## see manual for more in-depth explanation
@@ -128,5 +148,6 @@ func format_save() -> Dictionary:
 	data.merge({
 		"config" = config,
 		"num rounds" = num_rounds,
+		"team ids" = get_team_ids(),
 	}, true)
 	return data

@@ -11,10 +11,10 @@ const numGames = 7
 func _enter_tree():
 	blank_game.visible = false
 
-func get_game(r: int): 
+func get_game(r: Variant): 
 	return vbox.get_child(r)
 
-func set_game(r: int, opp: Team):
+func set_game(r: Variant, opp: Team):
 	var game = get_game(r)
 	if (opp):
 		game.set_oppID(opp.id)

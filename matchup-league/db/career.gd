@@ -37,24 +37,28 @@ func name() -> String:
 
 func is_spectator() -> bool:
 	return (!get_team())
+
+func in_tourney() -> bool:
+	return (current_round is Array)
 	
+## advances regular season round, emits next_round signal
 func begin_round():
+	if (in_tourney() || current_round < 0):
+		Err.print_fatal("career.begin_round() can only be used in regular season", Err.Fatal.Conflict)
+		return
 	user_player.connect_objs()
 	current_round += 1
-	if (current_round < 1):
-		Err.print_fatal("career.begin_round() can only be used in positive rounds", Err.Fatal.Conflict)
-		return
 	get_level().set_rankings()
+	SignalBus.next_round.emit(current_round)
 	
 func sim_round():
 	get_level().sim_round(current_round)
 
 func is_before_rnd() -> bool:
-	var t: Team
-	if (is_spectator()):
-		t = get_level().get_team()
-	else:
-		t = get_team()
+	var t = get_team()
+	if (is_spectator() || !t.has_game(current_round)):
+		var filter = func(tm: Team): return tm.has_game(current_round)
+		t = get_level().get_teams_limited(filter, 1).pop_front()
 	return !(t.get_game(current_round).is_finished())
 
 func career_file_path(backup = false) -> String:

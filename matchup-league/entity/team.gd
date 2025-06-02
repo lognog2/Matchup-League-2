@@ -42,7 +42,7 @@ func add_fighter(f: Fighter):
 
 ## called from `Game.add_team`
 func add_game(g: Game):
-	if (g.rnd < 1): return
+	if (Main.int_round(g.rnd) < 1): return
 	if (!g.teams.has(self)):
 		g.add_team(self)
 	else:
@@ -66,7 +66,7 @@ func set_player(p: Player):
 	else:
 		player = p
 
-func remove_game(r: int):
+func remove_game(r: Variant):
 	if (schedule.get(r)):
 		schedule[r] = null
 
@@ -76,10 +76,10 @@ func get_wins() -> int:
 func get_losses() -> int:
 	return losses
 
-func get_game(r: int) -> Game:
+func get_game(r: Variant) -> Game:
 	return schedule.get(r)
 
-func get_opponent(r: int) -> Team:
+func get_opponent(r: Variant) -> Team:
 	var g = schedule.get(r)
 	return g.get_opponent(self) if (g) else null
 
@@ -101,7 +101,7 @@ func avg_f_rating() -> float:
 func get_rating_scale() -> int:
 	return level.get_team_rs(self)
 
-func has_game(r: int) -> bool:
+func has_game(r: Variant) -> bool:
 	return get_opponent(r) != null
 
 func is_cpu() -> bool:
@@ -109,6 +109,12 @@ func is_cpu() -> bool:
 
 func is_ranked() -> bool:
 	return rank > 0
+
+func is_qualified() -> bool:
+	return is_ranked() && rank <= level.config.playoff_amt
+
+func is_winner(g: Game) -> bool:
+	return g.is_winner(self)
 
 func games_played() -> int:
 	return wins + losses
@@ -145,7 +151,7 @@ func str_record() -> String:
 	return "%d-%d-%d" % [wins, losses, ties]
 
 ## see `Game.str_result()`
-func str_game(r: int, include_opp = false) -> String:
+func str_game(r: Variant, include_opp = false) -> String:
 	return get_game(r).str_result(self, include_opp)
 
 ## returns first three letters if name is one word, or first letter of each word

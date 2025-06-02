@@ -165,6 +165,8 @@ func load_line(line: String):
 		Err.print_fatal("JSON Parse Error: " + json.get_error_message() + " in " + line + " at line " + str(json.get_error_line()), Err.Fatal.ReadWrite)
 		return
 	var data = json.data
+	if (data.is_empty()):
+		return
 	data["level name"] = level_name
 	data["season"] = Main.get_season()
 	add_entity(data)

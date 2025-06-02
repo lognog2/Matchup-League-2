@@ -1,10 +1,11 @@
 class_name TourneyGame extends Game
+## deprecated
 
 var tourn_id
 var tourney: Tournament
 var tourney_id = -1
 
-static func create(t1: Team, t2: Team, t: Tournament, r: int) -> TourneyGame:
+static func create(t1: Team, t2: Team, t: Tournament, r: Variant) -> TourneyGame:
 	var data = {
 		"team1id" = t1.id,
 		"team2id" = t2.id,

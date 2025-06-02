@@ -9,7 +9,11 @@ var save_path = "%s/%s" % [data_path, default_name]
 func open_file(path = save_path, write = true) -> FileAccess:
 	var flag = FileAccess.WRITE if (write) else FileAccess.READ
 	var file = FileAccess.open(path, flag)
-	if (!file): Err.print_fatal("File not found: %s" % path, Err.Fatal.ReadWrite)
+	if (!file): 
+		Err.print_warn("File not found: %s" % path, Err.Fatal.ReadWrite)
+		file = FileAccess.open(path, FileAccess.WRITE)
+		file.store_string("{}")
+		file = open_file(path, write)
 	return file
 
 func write_to_file(content: Variant, path: String = save_path):

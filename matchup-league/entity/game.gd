@@ -1,11 +1,17 @@
 class_name Game extends DataEntity
 
-var rnd: int
+var rnd: Variant
 var teams = [null, null]
 var teamIDs = [-1, -1]
 var score = [0, 0]
 var result = null #index of winning team, or -1 for a tie
 var matches = []
+
+enum {
+	TEAM0 = 0,
+	TEAM1 = 1,
+	TIE = -1
+}
 
 func _init(data = {}):
 	super(data, "G")
@@ -115,6 +121,14 @@ func get_winner() -> Team:
 	else:
 		return null
 
+func is_winner(t: Team) -> bool:
+	if (!has_team(t)):
+		Err.print_fatal("%s does not play in %s" % [t.id_str, id_str], Err.Fatal.Invalid)
+	return t == get_winner()
+	
+func has_winner() -> bool:
+	return (is_finished() && !is_tie())
+
 ## gets sum of both teams' rating
 func get_rating():
 	if (is_bye()): return 0.0
@@ -137,7 +151,7 @@ func is_bye() -> bool:
 	return !teams[0] || !teams[1]
 
 func is_official() -> bool:
-	return rnd > 0
+	return (rnd is int && rnd > 0)
 
 func is_done() -> bool:
 	return is_finished()
@@ -147,6 +161,9 @@ func is_finished() -> bool:
 
 func is_tourney_game() -> bool:
 	return (self is TourneyGame)
+
+func is_tie() -> bool:
+	return result == -1
 
 ## simulates a game as 2 cpu players choosing fighters randomly
 func sim_game():
@@ -201,7 +218,7 @@ func str_result(t: Team, include_opp = false) -> String:
 	var k = i - 1
 	var text = ""
 	if (include_opp):
-		text = "%d) vs %s" % [rnd, teams[k].str_rank_name(true)]
+		text = "%s) vs %s" % [str(rnd), teams[k].str_rank_name(true)]
 	if (is_finished()):
 		if (include_opp): text += ": "
 		text += "%s %d-%d" % [str_result_char(i), score[i], score[k]]

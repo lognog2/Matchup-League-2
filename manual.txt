@@ -1,4 +1,4 @@
-manual - matchup league prototype 2.0.5.2
+manual - matchup league prototype 2.0.5.3
 
 # table of contents
 
@@ -50,7 +50,7 @@ highlight a line and press ctrl + f to find the section
 	in the example 1.2.3.4:
 		1 = build,
 		2 = version,
-		3 = release/feature,
+		3 = release,
 		4 = commit
 
 # console guide
@@ -151,31 +151,44 @@ highlight a line and press ctrl + f to find the section
 	offseason development
 
 # tournament
-
-	## the secret formula
-		b = # of teams
-		f = flat factor
-		n = ceiling(log_2(b)) + f
-		s = 2^n
-		n is the total number of rounds needed
-		s is the total number of teams and byes needed
 	
-	## why does the secret formula work?
-		The formula starts by calculating the number of rounds needed by taking log base 2 of the number of teams.
-		If this number is not a whole number, it is rounded up.
+	## full bracket formula
+		The full bracket formula (2^ceil(log_2(t))) calculates the total number of teams and byes needed for a bracket
+		It essentially rounds the number of teams (t) up to the next number in the 2^x series (2, 4, 8, 16, 32, etc.)
+
 		quick log lesson:
 			Taking log_x(y) (log base x of a number y) gives you the amount of times you need to multiply x by itself
 			to get to y. 
 			z = log_x(y) is the same thing as y = x^z
 			example: if you take log_2(35) you will get 5, since you need to multiply 2 by itself 5 times (2^5) to get 32.
-		the float factor is added on at the end. if the flat factor is 0, the number of byes will be minimized.
-		if adding the flat factor would cause every team to have a bye, the flat factor is reduced
-		the resultant number, n, is the total number of rounds
-		take 2^n to get total numner of teams and byes combined
 		
+		-	start by calculating the number of rounds needed by taking log base 2 of the number of teams.
+		-	if this number is not a whole number, it is rounded up
+		-	the resultant number, n, is the total number of rounds
+		-	take 2^n to get the full bracket number
+	
+		For example, in a tournament of 24 teams a:
+		-	start with log_2(24), which rounds up to 5
+		-	the full bracket number is 2^5, or 32
+		-	meaning there will be 24 teams and 8 byes
 
-		For example, in a tournament of 24 teams and float factor of 0:
-		start with log_2(24), which rounds up to 5.
+	## traditonal seeding formula
+		in a traditionally seeded tournament, the highest seed plays against the lowest seed, the second highest against the second
+		lowest, and so on
+		example: in a bracket of 8, the seed pairings are 1-8, 4-5, 2-7, 3-6
+		each pairing is ordered such that if the higher seed wins every time, this highest-lowest pattern will hold each round.
+		however, when the lower seed wins (or when byes are involved), some math is needed to determine who plays who
+
+		the formula for finding what seeds should match in any given round is s2 = n + 1 - s1
+		where n = number of teams & byes in current round (always in 2^x series), s1 is the current seed, s2 is the opponent seed
+
+		how the current round's opponent is computed:
+		-	if the current seed is eliminated, replace with opponent from previous round (using these steps)
+		-	calculate formula to get opponent seed
+		-	if the opponent seed was already eliminated, use formula to find the opponent's opponent from the previous round 
+			(remember to double n)
+		- repeat until a non-eliminated seed is found
+
 
 # misc
 
