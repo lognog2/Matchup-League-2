@@ -8,9 +8,9 @@ const FILE_NAME = FILE_FORMAT % ""
 const FILE_BACKUP = FILE_FORMAT % FileUtil.BACKUP_EXT
 
 enum SaveSpot {
-	Never,
-	Main_menu,
-	Click,
+	Never, # never
+	Main_menu, # just before returning to main menu
+	Click, # when a 'save' button is clicked
 }
 
 var ThemeColor = {

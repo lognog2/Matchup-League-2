@@ -1,4 +1,4 @@
-manual - matchup league prototype 2.0.5.3
+manual - matchup league prototype 2.0.5.4
 
 # table of contents
 
@@ -27,9 +27,8 @@ highlight a line and press ctrl + f to find the section
 		- reset commit number to 0
 
 	## before finishing release
-		- double check 'before pushing commit'
 		- update readme
-		- save files from previous release can transfer
+		- make sure save files from previous release can transfer
 
 # backlog
 
@@ -189,6 +188,9 @@ highlight a line and press ctrl + f to find the section
 			(remember to double n)
 		- repeat until a non-eliminated seed is found
 
+	## tourney key
+		stored as an array [i, r] where i is the tourney id and r is the tourney round
+
 
 # misc
 
@@ -206,4 +208,4 @@ highlight a line and press ctrl + f to find the section
 	## game rounds
 		>= 1: regular season
 		== 0: freeplay
-		<= -1: tournament 
+		is an array: tournament 

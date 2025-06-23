@@ -58,7 +58,7 @@ func compound_sort(filters: Array) -> Callable:
 
 ## returns a filter that is true if `Game`'s round matches `r`
 func select_by_round(r: Variant) -> Callable:
-	return (func(g: Game): return g.rnd == r)
+	return (func(g: Game): return str(g.rnd) == str(r))
 
 ## filter to exclude self from selection
 func exclude_self(obj_self: Object) -> Callable: 

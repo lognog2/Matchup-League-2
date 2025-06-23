@@ -20,9 +20,6 @@ func _init(data = {}):
 func set_data(data: Dictionary, init = false) -> Game:
 	if (!init): super(data)
 	if (data == {}): return self
-	if (data.get("type") == "tourney game"):
-		data.erase("type")
-		return TourneyGame.new().set_data(data)
 	rnd = data.get("round", rnd)
 	teamIDs = [data.get("team1id", teamIDs[0]), data.get("team2id", teamIDs[1])]
 	matches = data.get("matches", matches)
@@ -30,6 +27,8 @@ func set_data(data: Dictionary, init = false) -> Game:
 	return self
 
 func connect_objs():
+	if (name().contains("-1")): id_str = "G" + str(id) #bandaid solution
+	de_name = id_str
 	var new_teams = [level.get_team(teamIDs[0]), level.get_team(teamIDs[1])]
 	set_teams(new_teams)
 	set_matches()
@@ -65,7 +64,6 @@ func set_team(i: int, t: Team):
 		t.add_game(self)
 	else:
 		teamIDs[i] = -1
-		t.add_game(null)
 	
 ## converts matches from array of id pairs to match objects, then calls `set_current_score()`
 func set_matches():
@@ -114,12 +112,10 @@ func get_opponent(t: Team) -> Team:
 
 ## returns winning team, or null if a tie or unfinished
 func get_winner() -> Team:
-	if (result == 0):
-		return teams[0]
-	elif (result == -1):
-		return teams[1]
-	else:
+	if (!is_finished() || is_tie()):
 		return null
+	else:
+		return teams[result]
 
 func is_winner(t: Team) -> bool:
 	if (!has_team(t)):
@@ -160,10 +156,10 @@ func is_finished() -> bool:
 	return (result != null)
 
 func is_tourney_game() -> bool:
-	return (self is TourneyGame)
+	return (rnd is Array)
 
 func is_tie() -> bool:
-	return result == -1
+	return result == TIE
 
 ## simulates a game as 2 cpu players choosing fighters randomly
 func sim_game():
@@ -175,7 +171,7 @@ func sim_game():
 	for i in range (2):
 		f_available[i] = teams[i].fighters
 	
-	for i in range (level.FPG):
+	for i in range (level.get_fpg()):
 		var f1 = f_available[0].pick_random()
 		var f2 = f_available[1].pick_random()
 		run_match(f1, f2)
@@ -198,6 +194,11 @@ func run_match(f1: Fighter, f2: Fighter) -> Match:
 	if (r >= 0): score[r] += m.match_val
 	return m
 	
+func int_round() -> int:
+	if (rnd is int): return rnd
+	if (rnd is Array && rnd.size() == 2): return rnd[1]
+	return -1
+
 # string functions
 
 ## takes index of team and returns char representing its result
@@ -227,7 +228,6 @@ func str_result(t: Team, include_opp = false) -> String:
 # format functions
 
 func format_save() -> Dictionary:
-	test_verify()
 	var data = super()
 	data.merge({
 		"type" = "game",

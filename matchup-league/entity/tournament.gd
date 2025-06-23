@@ -2,7 +2,7 @@ class_name Tournament extends DataEntity
 
 var team_arr = [] ## all teams, no byes
 var bracket = {} ## all teams and byes that haven't been eliminated. key is seed, value is team
-var tourney_round = 0
+var tourney_round = 1
 var num_rounds = 0
 const MAX_TEAMS = 128
 
@@ -12,7 +12,7 @@ enum Seeding {
 }
 
 ## not used yet
-enum Elimination {
+enum Elim {
 	SINGLE = 1,
 	DOUBLE = 2,
 	TRIPLE = 3
@@ -22,7 +22,6 @@ var config = {
 	seeding = Seeding.TRADITIONAL,
 	reseed = false,     # reseed remaining teams after each round
 }
-
 
 func _init(data = {}):
 	super(data, "TN")
@@ -43,21 +42,32 @@ func connect_objs():
 	team_arr = teams
 	fill_bracket()
 
-## advance tournament to next round, remove teams that were eliminated
+## advance tournament to next round,
+## remove teams that were eliminated and bye slots
 func advance():
-	for seed in bracket.keys():
-		var team = bracket[seed]
-		var game = team.schedule.get(tourney_key())
-		if (!game.has_winner()):
-			Err.print_fatal("%s is unfinished" % game.id_str, Err.Fatal.Conflict)
-			return
-		if (!team.is_winner(game)):
-			bracket.erase(seed)
+	#Err.print("/ advance")
+	for seeding in bracket.keys():
+		var team = bracket.get(seeding)
+		var erase = false
+		if (!team):
+			erase = true
+		else:
+			var game = team.get_game(tourney_key())
+			if (game && !team.is_winner(game)):
+				erase = true
+				if (!game.has_winner()):
+					Err.print_fatal("%s does not have a winner" % game.id_str, Err.Fatal.Conflict)
+					return
+				
+		if (erase):
+			bracket.erase(seeding)
+			
+	tourney_round += 1
 	set_round_games()
 
 ## increases tourney round and sets games for new round
 func set_round_games():
-	tourney_round += 1
+	
 	if (config.reseed):
 		fill_games_seeded()
 	else:
@@ -76,10 +86,12 @@ func fill_bracket():
 	var full = full_bracket_size()
 	for team in team_arr:
 		bracket[i] = team
+		team.rank = i
 		i += 1
 	while (i <= full):
 		bracket[i] = null
 		i += 1
+	set_round_games()
 
 ## each round, place the highest and lowest seed in one game, then second highest and lowest, etc
 func fill_games_seeded():
@@ -98,30 +110,37 @@ func fill_games_seeded():
 ## see manual for explanation
 func fill_games_position():
 	var num = bracket.size()
-	for seed in bracket.keys():
-		var t1 = bracket[seed]
-		if (t1 && !t1.schedule.has(tourney_key())):
-			var t2 = bracket[get_opponent_seed(num, seed)]
+	for seeding in bracket.keys():
+		var t1 = bracket[seeding]
+		if (t1 && !t1.has_game(tourney_key())):
+			var t2 = bracket[get_opponent_seed(num, seeding)]
 			create_game(t1, t2)
 
-func get_opponent_seed(num: int, seed: int) -> int:
-	var opp_seed = num + 1 - seed
-	if (!bracket.has(seed)):
-		Err.print("/ checking %d for seed" % seed)
-		opp_seed = get_opponent_seed(num * 2, seed)
-	Err.print("/ num: %d	seed: %d	opp_ seed: %d" % [num, seed, opp_seed])
+func get_opponent_seed(num: int, seeding: int) -> int:
+	var opp_seed = num + 1 - seeding
+	#if (!bracket.has(seeding)):
+		#Err.print("/ checking %d for seed" % seeding)
+		#opp_seed = get_opponent_seed(num * 2, seeding)
+	#Err.print("/ num: %d	seeding: %d	opp seeding: %d" % [num, seeding, opp_seed])
 	if (bracket.has(opp_seed)):
-		Err.print("/ found opp seed!")
+		#Err.print("/ found opp seed!")
 		return opp_seed
 	else:
-		Err.print("/ checking %d for seed" % opp_seed)
+		#Err.print("/ checking %d for seed" % opp_seed)
 		return get_opponent_seed(num * 2, opp_seed)
 
 func create_game(t1: Team, t2: Team) -> Game:
-	var game = TourneyGame.create(t1, t2, self, tourney_round)
+	if (!t1 || !t2): return
+	var g_data = get_basic_data()
+	g_data.merge ({
+		"team1id" = Level.get_id(t1),
+		"team2id" = Level.get_id(t2),
+		"round" = tourney_key(),
+	})
+	var game = level.add_game(g_data, true)
 	return game
 
-## array [i, r] where i is tournament id, and r is tournament round
+## array `[i, r]` where i is tournament id, and r is tournament round
 func tourney_key(r = tourney_round) -> Array:
 	return [id, r]
 
@@ -137,7 +156,7 @@ func get_team_ids() -> Array:
 ## gets bracket size including byes.
 ## see manual for more in-depth explanation
 func full_bracket_size() -> int:
-	var n = ceil(log(bracket.size()) / log(2.0))
+	var n = ceil(log(team_arr.size()) / log(2.0))
 	num_rounds = n
 	Err.print("/ number of rounds: %d" % num_rounds)
 	var full_size = 2 ** n

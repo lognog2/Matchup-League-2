@@ -27,9 +27,8 @@ func set_data(data: Dictionary, init = false) -> Team:
 	# this needs to be last
 	var sched = data.get("schedule")
 	if (!sched): return self
-	for r_str in sched:
-		var r = int(r_str)
-		schedule[r] = sched[r_str]
+	for r_str in sched.keys():
+		schedule[str_round(r_str)] = sched[r_str]
 	return self
 
 ## called from `Fighter.set_team`
@@ -46,7 +45,7 @@ func add_game(g: Game):
 	if (!g.teams.has(self)):
 		g.add_team(self)
 	else:
-		schedule[g.rnd] = g
+		schedule[str_round(g.rnd)] = g
 
 func add_win():
 	wins += 1
@@ -67,6 +66,7 @@ func set_player(p: Player):
 		player = p
 
 func remove_game(r: Variant):
+	r = str_round(r)
 	if (schedule.get(r)):
 		schedule[r] = null
 
@@ -76,14 +76,16 @@ func get_wins() -> int:
 func get_losses() -> int:
 	return losses
 
+## returns game at `r` round, or null if there's no game that round
 func get_game(r: Variant) -> Game:
+	r = str_round(r)
 	return schedule.get(r)
 
 func get_opponent(r: Variant) -> Team:
-	var g = schedule.get(r)
+	var g = get_game(r)
 	return g.get_opponent(self) if (g) else null
 
-func get_opponent_name(r:int) -> String:
+func get_opponent_name(r: Variant) -> String:
 	var opp = get_opponent(r)
 	return opp.de_name if (opp) else Main.Keyname.Bye
 
@@ -102,7 +104,7 @@ func get_rating_scale() -> int:
 	return level.get_team_rs(self)
 
 func has_game(r: Variant) -> bool:
-	return get_opponent(r) != null
+	return get_game(r) != null
 
 func is_cpu() -> bool:
 	return cpu
@@ -149,6 +151,9 @@ func str_rank_name(trim = false) -> String:
 ## W-L-T
 func str_record() -> String:
 	return "%d-%d-%d" % [wins, losses, ties]
+
+func str_round(r: Variant) -> String:
+	return str(r)
 
 ## see `Game.str_result()`
 func str_game(r: Variant, include_opp = false) -> String:

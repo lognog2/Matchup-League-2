@@ -21,6 +21,9 @@ var Lib = {
 	Tourney = null,
 }
 
+static func get_id(de: Variant = null):
+	return de.id if (de) else -1
+
 func _init(levelName: String, fpg = 100, fpt = 100):
 	name = levelName
 	config.playoff_name = "%d %s Finals" % [Main.season, name]
@@ -31,6 +34,18 @@ func _init(levelName: String, fpg = 100, fpt = 100):
 	Lib.Game = EntityLibrary.new(name, Main.Entity.Game)
 	Lib.Player = EntityLibrary.new(name, Main.Entity.Player)
 	Lib.Tourney = EntityLibrary.new(name, Main.Entity.Tournament)
+
+func get_fpg() -> int:
+	return config.FPG
+
+func get_FPG(): return get_fpg()
+
+func get_fpt() -> int:
+	return config.FPT
+
+func get_FPT(): return get_fpt()
+
+# get entity by id
 
 func get_fighter(id: int = 0) -> Fighter: 
 	return Lib.Fighter.get_entity(id)
@@ -43,6 +58,9 @@ func get_game(id: int = 0) -> Game:
 
 func get_player(id: int = 0) -> Player: 
 	return Lib.Player.get_entity(id)
+
+func get_tournament(id: int = 0) -> Tournament: 
+	return Lib.Tourney.get_entity(id)
 
 func is_archive() -> bool:
 	return false
@@ -94,6 +112,9 @@ func get_current_games(r: Variant) -> Array:
 
 func get_players(filter = Filter.Select.Default) -> Array: 
 	return Lib.Player.get_entities(filter)
+
+
+# get list of names
 
 func get_f_names(filter = Filter.Select.Default) -> Array: 
 	return Lib.Fighter.get_names(filter)
@@ -217,3 +238,9 @@ func save_data(backup: bool):
 func load_data():
 	for lib in Lib.values():
 		lib.load_from_file()
+
+
+# redirect funcs
+
+## redirects to `get_tournament`
+func get_tourney(id): return get_tournament(id)

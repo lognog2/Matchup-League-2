@@ -40,9 +40,9 @@ func fill_info(info: Dictionary):
 func fill_sched(sched: Dictionary):
 	sched_box.visible = true
 	var blank_label = NodeUtil.detach_child(sched_box)
-	for i in range (1, sched.size() + 1):
+	for r in sched:
 		var new_label = blank_label.duplicate()
-		new_label.text = team.str_game(i, true)
+		new_label.text = team.str_game(r, true)
 		sched_box.add_child(new_label)
 
 func fill_fighters(fighters: Array):

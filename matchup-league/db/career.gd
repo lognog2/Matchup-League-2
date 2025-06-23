@@ -5,10 +5,9 @@ const DEFAULT_NAME = "default"
 const FILE_FORMAT = "career%s.save"
 static var FILE_NAME = FILE_FORMAT % ""
 static var FILE_BACKUP = FILE_FORMAT % FileUtil.BACKUP_EXT
-
 static var SPECTATOR_COLOR = Color8(41, 41, 41)
 
-var current_round = 0
+var current_round: Variant
 var user_player: Player
 
 static func create(level_name: String, car_name: String, team_id = -1) -> Career:
@@ -31,6 +30,10 @@ func set_team(team: Team):
 
 func get_level() -> Level:
 	return user_player.level
+	
+func get_tournament() -> Tournament:
+	if (!in_tourney()): return null
+	return get_level().get_tournament(current_round[0])
 
 func name() -> String:
 	return user_player.name()
@@ -43,12 +46,16 @@ func in_tourney() -> bool:
 	
 ## advances regular season round, emits next_round signal
 func begin_round():
-	if (in_tourney() || current_round < 0):
-		Err.print_fatal("career.begin_round() can only be used in regular season", Err.Fatal.Conflict)
-		return
-	user_player.connect_objs()
-	current_round += 1
-	get_level().set_rankings()
+	Err.print("/ begin round %s" % str(current_round))
+	if (in_tourney()):
+		var tourney = get_tournament()
+		tourney.advance()
+		current_round = tourney.tourney_key()
+	else:
+		user_player.connect_objs()
+		current_round += 1
+		get_level().set_rankings()
+
 	SignalBus.next_round.emit(current_round)
 	
 func sim_round():

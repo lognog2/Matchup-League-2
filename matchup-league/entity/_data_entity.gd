@@ -25,6 +25,13 @@ func set_data(data: Dictionary, _on_init = false) -> DataEntity:
 	set_series(data.get("series", series))
 	return self
 
+func get_basic_data() -> Dictionary:
+	var data = {
+		"level name" = get_level_name(),
+		"season" = Main.season,
+	}
+	return data
+
 func get_level_name() -> String: 
 	return level.name
 
@@ -32,7 +39,7 @@ func set_level(level_name: String):
 	level = Main.Levels[level_name]
 
 func set_series(sr: String = Main.DEFAULT_SERIES):
-	if (!sr):
+	if (!sr && Main.DEFAULT_SERIES != null):
 		set_series()
 	else:
 		series = sr
