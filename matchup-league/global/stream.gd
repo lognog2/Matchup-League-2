@@ -8,6 +8,10 @@ var interval = 1
 var counter = 0
 var MAX_COUNTER = 9999
 
+func _ready():
+	pass
+	#print("stream")
+
 func _process(_delta: float):
 	if (!queue_arr.is_empty()):
 		for i in range (interval):

@@ -118,10 +118,7 @@ func fill_games_position():
 
 func get_opponent_seed(num: int, seeding: int) -> int:
 	var opp_seed = num + 1 - seeding
-	#if (!bracket.has(seeding)):
-		#Err.print("/ checking %d for seed" % seeding)
-		#opp_seed = get_opponent_seed(num * 2, seeding)
-	#Err.print("/ num: %d	seeding: %d	opp seeding: %d" % [num, seeding, opp_seed])
+	#Err.print("/ num: %d | seeding: %d | opp seeding: %d" % [num, seeding, opp_seed])
 	if (bracket.has(opp_seed)):
 		#Err.print("/ found opp seed!")
 		return opp_seed

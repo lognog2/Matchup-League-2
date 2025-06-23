@@ -58,7 +58,7 @@ func play_fighter(fc: FighterCard = null):
 	elif (fc):
 		add_to_played(fc)
 	else:
-		add_to_played(bench.get_children().pick_random())
+		add_to_played(Main.pick_random(bench.get_children()))
 
 ## disabled after user selects a fighter, enabled again after opponent does
 func set_click_enable(enable = true):

@@ -21,7 +21,7 @@ var Sort = {
 	WinPct = (func(a: DataEntity, b: DataEntity) -> bool:
 		return a.win_pct() > b.win_pct()),
 	Random = (func(_a, _b) -> bool:
-		return randi() % 2 == 0),
+		return Main.random_int(2) == 0),
 	Default = (func(_a: DataEntity, _b: DataEntity) -> bool: 
 		return false),
 

@@ -29,6 +29,6 @@ func add_careers():
 func get_timestamp(dir_path: String) -> int:
 	var abs_path = dir_path + Setting.FILE_NAME
 	var config = Setting.load_config(abs_path)
-	var datetime = config.get_value(Setting.SYS_SECTION, "timestamp")
+	var datetime = config.get_value(Setting.Section.SYS, "timestamp")
 	var timestamp = Time.get_unix_time_from_datetime_string(datetime)
 	return timestamp

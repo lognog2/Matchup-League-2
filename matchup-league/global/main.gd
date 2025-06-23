@@ -24,7 +24,7 @@ var Version = {
 	Build = 2,
 	Version = 0,
 	Release = 5,
-	Commit = 4
+	Commit = 5
 }
 
 func str_version(drop_commit = false) -> String: 
@@ -127,12 +127,28 @@ var Keyname = {
 	Empty = ""
 }
 
+## generic enum
+enum {
+	ZERO = 0,
+	DEBUG = 99,
+	HUNDRED = 100,
+	THOUSAND = 1_000,
+	TEN_THOUSAND = 10_000,
+	HUNDRED_THOUSAND = 100_000,
+	MILLION = 1_000_000,
+	BILLION = 1_000_000_000,
+
+	DEFAULT_SEED = 5862495, #32-bit hash of LN
+}
+
+var rep: Reproducible
+
 func _ready():
-	Stream.queue(func(): set_seed(randi()))
 	SignalBus.set_scene.connect(set_scene)
 	season = 29
 	Levels.Prep = Level.new("Prep", 3, 4)
 	Levels.Archive = Archive.new()
+	Stream.queue(func(): set_seed(random_int()))
 	Stream.queue(load_state)
 
 func _process(delta: float):
@@ -141,13 +157,6 @@ func _process(delta: float):
 		if (delta < 0.0333): pass #Err.print(". %.3f" % delta) # <60 fps
 		elif (delta < 0.1): Err.print("* %.3f" %delta) # <30 fps
 		else: Err.print("! %.3f" %delta) # <10 fps
-	
-	# idk why i did this
-	var ticket = randi()
-	if (ticket == game_seed): Err.alert_success("JACKPOT!!!", 777)
-	if (ticket % 1_000_000 == 0): 
-		Err.print("$ " + str(ticket))
-		Err.alert_success("you're one in a million!", 777)
 
 func get_level(levelName: String): return Levels[levelName]
 	
@@ -165,17 +174,31 @@ func blank_entity(ent_name: String) -> DataEntity:
 			return Player.new()
 		Entity.Tournament:
 			return Tournament.new()
-		#Entity.TourneyGame:
-			#return TourneyGame.new()
 		_:
 			Err.alert_warn("Main.blank_entity: %s does not match any entity name" % ent_name, Err.Warn.Invalid)
 			return DataEntity.new()
 	
-func set_seed(new_seed: int):
+func set_seed(new_seed = DEFAULT_SEED, new_state = null):
+	var old_rep = rep
 	game_seed = new_seed
-	seed(game_seed)
+	rep = Reproducible.new(game_seed, new_state)
+	if (old_rep): old_rep.free()
 	main_node.seed_label.text = "Seed: %d" % game_seed
 	Err.print("^ seed: " + str(game_seed))
+
+## returns an `int` in the range 0 <= i < limit
+func random_int(limit = -1) -> int:
+	if (!rep): return randi()
+	var next = rep.get_next()
+	lottery(next)
+	if (limit < 0): 
+		return next
+	else: 
+		return next % limit
+
+func pick_random(arr: Array) -> Variant:
+	var idx = random_int(arr.size())
+	return arr[idx]
 
 func get_current_round():
 	if (!current_career): return 0
@@ -226,6 +249,7 @@ func int_round(rnd = current_career.current_round) -> int:
 # save/load functions
 
 ## saves current game state. if you have stuff after this call you want done after it saves, queue it in `Stream`
+## or it will happen before saving
 func save_state(to_backup = false):
 	backup = to_backup
 	if (backup): Err.print("/ saving to backup")
@@ -247,6 +271,7 @@ func load_state(data: Dictionary = {}):
 	var file_name = data.get("dir_name", "")
 	Err.print("^ loading %s" % file_name)
 
+	# load career data
 	if (data == {}):
 		current_career = null
 	else:
@@ -259,7 +284,6 @@ func load_state(data: Dictionary = {}):
 			current_career.begin_round()
 		else:
 			current_career.current_round = data.round
-		set_seed(data.seed)
 	
 	FileUtil.set_save_path(file_name) # after career is set
 	Setting.load()
@@ -278,3 +302,11 @@ func system_info() -> Dictionary:
 		edition = edition,
 	}
 	return info
+	
+## idk why i did this
+func lottery(ticket: int):
+	
+	if (ticket == game_seed): Err.alert_success("JACKPOT!!!", 777)
+	if (ticket % MILLION == 0 && ticket >= MILLION): 
+		Err.print("$ " + str(ticket))
+		Err.alert_success("you're one in a million!", 777)

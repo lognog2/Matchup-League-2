@@ -1,8 +1,5 @@
 extends Node
 
-const SET_SECTION = "settings"
-const SYS_SECTION = "system"
-
 const FILE_FORMAT = "settings%s.cfg"
 const FILE_NAME = FILE_FORMAT % ""
 const FILE_BACKUP = FILE_FORMAT % FileUtil.BACKUP_EXT
@@ -11,6 +8,12 @@ enum SaveSpot {
 	Never, # never
 	Main_menu, # just before returning to main menu
 	Click, # when a 'save' button is clicked
+}
+
+var Section = {
+	SET = "settings",
+	SYS = "system",
+	RNG = "rng",
 }
 
 var ThemeColor = {
@@ -80,15 +83,25 @@ func load_config(path = "") -> ConfigFile:
 			Err.print_fatal("Error loading config file: ", Err.Fatal.ReadWrite)
 	return config
 
+func get_seed():
+	return Main.rep.get_seed()
+
+func get_state():
+	Main.rep.get_state()
+
 func save(backup = false):
 	var config = ConfigFile.new()
 
 	for key in s.keys():
-		config.set_value(SET_SECTION, key, s[key])
+		config.set_value(Section.SET, key, s[key])
 
 	var sys_info = Main.system_info()
 	for key in sys_info.keys():
-		config.set_value(SYS_SECTION, key, sys_info[key])
+		config.set_value(Section.SYS, key, sys_info[key])
+
+	var rng = Section.RNG
+	config.set_value(rng, "seed", get_seed())
+	config.set_value(rng, "state", get_state())
 	
 	var paths = [config_file_path(false)]
 	if (backup):
@@ -100,10 +113,16 @@ func save(backup = false):
 
 func load():
 	var config = load_config()
-	var config_version = config.get_value(SYS_SECTION, "version")
+	var config_version = config.get_value(Section.SYS, "version")
 	if (config_version != Main.str_version()):
 		Err.print_warn("File is from an old version: %s" % config_version, Err.Warn.Outdated)
 
 	reset_settings()
-	for key in config.get_section_keys(SET_SECTION):
-		add_setting(key, config.get_value(SET_SECTION, key), true)
+	for key in config.get_section_keys(Section.SET):
+		add_setting(key, config.get_value(Section.SET, key), true)
+
+	var rseed = config.get_value(Section.RNG, "seed", get_seed())
+	var state = config.get_value(Section.RNG, "state", get_state())
+	Main.set_seed(rseed, state)
+
+	

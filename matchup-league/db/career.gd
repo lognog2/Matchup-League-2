@@ -7,7 +7,7 @@ static var FILE_NAME = FILE_FORMAT % ""
 static var FILE_BACKUP = FILE_FORMAT % FileUtil.BACKUP_EXT
 static var SPECTATOR_COLOR = Color8(41, 41, 41)
 
-var current_round: Variant
+var current_round: Variant = 0
 var user_player: Player
 
 static func create(level_name: String, car_name: String, team_id = -1) -> Career:
@@ -66,6 +66,7 @@ func is_before_rnd() -> bool:
 	if (is_spectator() || !t.has_game(current_round)):
 		var filter = func(tm: Team): return tm.has_game(current_round)
 		t = get_level().get_teams_limited(filter, 1).pop_front()
+	if (!t): return true
 	return !(t.get_game(current_round).is_finished())
 
 func career_file_path(backup = false) -> String:
@@ -98,6 +99,5 @@ func format_save() -> Dictionary:
 		"team_id" = get_team().id if (has_team) else -1,
 		"color" = color,
 		"season" = Main.get_season(),
-		"seed" = Main.game_seed,
 		"level name" = user_player.level.name
 	}

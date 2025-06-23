@@ -17,6 +17,7 @@ var confirm_action: Callable
 signal user_input(confirm: bool)
 
 func _ready():
+	#print("root")
 	#SignalBus.done_saving.connect(save_game_end)
 	reset_user_select()
 	Main.main_node = self

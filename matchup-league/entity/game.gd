@@ -85,24 +85,24 @@ func set_result():
 	#kinda messy but not gonna bother with a better way
 	if (is_official()):
 		if (score[0] > score[1]):
-			result = 0
+			result = TEAM0
 			teams[0].add_win()
 			teams[1].add_loss()
 		elif (score[1] > score[0]):
-			result = 1
+			result = TEAM1
 			teams[1].add_win()
 			teams[0].add_loss()
 		else:
-			result = -1
+			result = TIE
 			for t in teams:
 				t.add_tie()
 	else:
 		if (score[0] > score[1]):
-			result = 0
+			result = TEAM0
 		elif (score[1] > score[0]):
-			result = 1
+			result = TEAM1
 		else:
-			result = -1
+			result = TIE
 		
 func get_opponent(t: Team) -> Team:
 	if t == teams[0]: return teams[1]
@@ -147,7 +147,7 @@ func is_bye() -> bool:
 	return !teams[0] || !teams[1]
 
 func is_official() -> bool:
-	return (rnd is int && rnd > 0)
+	return (!rnd is Array && rnd > 0)
 
 func is_done() -> bool:
 	return is_finished()
@@ -172,8 +172,8 @@ func sim_game():
 		f_available[i] = teams[i].fighters
 	
 	for i in range (level.get_fpg()):
-		var f1 = f_available[0].pick_random()
-		var f2 = f_available[1].pick_random()
+		var f1 = Main.pick_random(f_available[0])
+		var f2 = Main.pick_random(f_available[1])
 		run_match(f1, f2)
 		f_played[0].append(f1)
 		f_available[0].erase(f1)

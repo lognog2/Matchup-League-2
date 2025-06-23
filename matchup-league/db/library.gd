@@ -68,7 +68,7 @@ func increment_id() -> int:
 ## gets a random entity from a pool that passes filter
 func random_entity(filter = Filter.Select.Default) -> DataEntity:
 	var pool = get_entities(filter)
-	var id = randi() % pool.size()
+	var id = Main.random_int(pool.size())
 	return pool[id]
 
 func get_rating_scale(r: float) -> int:

@@ -1,4 +1,4 @@
-manual - matchup league prototype 2.0.5.4
+manual - matchup league prototype 2.0.5.5
 
 # table of contents
 
