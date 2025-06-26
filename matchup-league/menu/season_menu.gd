@@ -94,6 +94,7 @@ func end_of_season(before: bool) -> bool:
 	return (!career.in_tourney() && (before && rnd > Main.season_length))
 
 func fill_rankings():
+	level.set_rankings()
 	var blank_team_label = NodeUtil.detach_child(ranking_box)
 	var teams_ranked = level.get_teams_filtered(Filter.Select.TeamRanked, Filter.Sort.TeamRank)
 	for t in teams_ranked:

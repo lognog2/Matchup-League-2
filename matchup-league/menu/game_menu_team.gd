@@ -80,6 +80,6 @@ func show_right_panel(is_tie = false):
 	result_panel.visible = true
 
 func can_play() -> bool:
-	return played.get_child_count() < team.level.FPG || bench.get_child_count() > 0
+	return played.get_child_count() < team.level.config.FPG || bench.get_child_count() > 0
 	
 	

@@ -24,6 +24,7 @@ func set_data(data: Dictionary, init = false) -> Team:
 	wins = data.get("wins", wins)
 	losses = data.get("losses", losses)
 	ties = data.get("ties", ties)
+	rank = data.get("rank", rank)
 	# this needs to be last
 	var sched = data.get("schedule")
 	if (!sched): return self
@@ -181,6 +182,7 @@ func format_save() -> Dictionary:
 		"wins": wins,
 		"losses": losses,
 		"ties": ties,
+		"rank": rank,
 	}, true)
 	return data
 

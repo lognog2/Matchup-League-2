@@ -108,9 +108,8 @@ func save(backup = false):
 		paths.append(config_file_path(true))
 
 	for path in paths:
-		var result = config.save(path)
-		if (result != OK): Err.print_fatal("Error saving config file", Err.Fatal.ReadWrite)
-
+		FileUtil.write_config(config, path)
+		
 func load():
 	var config = load_config()
 	var config_version = config.get_value(Section.SYS, "version")
@@ -124,5 +123,10 @@ func load():
 	var rseed = config.get_value(Section.RNG, "seed", get_seed())
 	var state = config.get_value(Section.RNG, "state", get_state())
 	Main.set_seed(rseed, state)
-
 	
+func get_timestamp(dir_path: String) -> int:
+	var abs_path = dir_path + FILE_NAME
+	var config = load_config(abs_path)
+	var datetime = config.get_value(Section.SYS, "timestamp")
+	var timestamp = Time.get_unix_time_from_datetime_string(datetime)
+	return timestamp

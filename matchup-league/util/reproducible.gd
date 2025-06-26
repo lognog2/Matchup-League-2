@@ -12,7 +12,6 @@ func _init(rseed = null, state = null):
 	next_state = state if (state) else rng.state
 	queue = Queue.new(100)
 	reload()
-	print("LN".hash())
 
 func get_next() -> int:
 	var next = queue.pop()

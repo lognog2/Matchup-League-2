@@ -4,7 +4,7 @@ extends Node
 signal done_saving()
 signal done_loading()
 
-signal new_career()
+signal new_career(c_name: String)
 
 signal next_round(r: Variant)
 
