@@ -46,16 +46,19 @@ func in_tourney() -> bool:
 	
 ## advances regular season round, emits next_round signal
 func begin_round():
-	Err.print("/ begin round %s" % str(current_round))
+	
 	if (in_tourney()):
 		var tourney = get_tournament()
 		tourney.advance()
 		current_round = tourney.tourney_key()
+	elif (current_round == Main.season_length):
+		get_level().begin_playoff()
 	else:
 		user_player.connect_objs()
 		current_round += 1
 		get_level().set_rankings()
-
+		
+	Err.print("/ begin round %s" % str(current_round))
 	SignalBus.next_round.emit(current_round)
 	
 func sim_round():

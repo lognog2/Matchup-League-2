@@ -1,4 +1,5 @@
-manual - matchup league prototype 2.0.5.5
+manual - matchup league
+last updated - 2.0.5.7
 
 # table of contents
 
@@ -37,6 +38,8 @@ highlight a line and press ctrl + f to find the section
 		- hide cards until result shown in player v player
 		- neater columns for team rankings
 		- team color outline around fighter cards
+		- ratings breakdown
+		- fighter view
 	future:
 		- editor faster loading
 		- dramatic reveal
@@ -65,7 +68,6 @@ highlight a line and press ctrl + f to find the section
 		*	warning
 		!	major warning, error
 		!!	high priority error
-		!!!	something is f***ed up
 		?	huh?
 		>	signal intercept
 

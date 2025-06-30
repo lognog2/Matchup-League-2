@@ -79,7 +79,6 @@ func fill_opp_null(before = true):
 	sim_round_button.visible = before
 
 func fill_opp_tourney():
-	level.begin_playoff()
 	next_game_label.text = Text.TourneyEnd
 	opp_name_label.text = ":)"
 	view_opp_button.visible = false
