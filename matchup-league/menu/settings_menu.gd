@@ -2,6 +2,7 @@ extends Menu
 
 @export var backup_options: OptionButton
 @export var theme_options: OptionButton
+@export var scale_options: OptionButton
 
 var setting: Dictionary
 
@@ -38,3 +39,6 @@ func backup_change(idx: int):
 func theme_change(idx: int):
 	setting.theme = Setting.ThemeColor.values()[idx]
 	NodeUtil.set_bg_theme()
+
+func scale_change(idx: int):
+	setting.rating_scale = Rating.Scale.values()[idx]

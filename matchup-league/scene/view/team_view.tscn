@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://6j5nmrwk6pbm"]
 
-[ext_resource type="Script" path="res://menu/team_view.gd" id="1_2o8iy"]
+[ext_resource type="Script" path="res://menu/view/team_view.gd" id="1_2o8iy"]
 [ext_resource type="PackedScene" uid="uid://cmwdrbc7rvioy" path="res://scene/card/fighter_card.tscn" id="1_4jwe8"]
 
-[node name="team_view" type="Control" node_paths=PackedStringArray("name_label", "info_box", "sched_box", "fc_box", "color_rect")]
+[node name="team_view" type="Control" node_paths=PackedStringArray("name_label", "info_box", "sched_box", "fc_box", "color_rect", "breakdown_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,6 +16,7 @@ info_box = NodePath("PanelContainer 1/MarginContainer 2/VBoxContainer 3/HBoxCont
 sched_box = NodePath("PanelContainer 1/MarginContainer 2/VBoxContainer 3/HBoxContainer 4b/sched scroll 5bb/sched box 6bb")
 fc_box = NodePath("PanelContainer 1/MarginContainer 2/VBoxContainer 3/fc scroll 4c/fighter_card_box 5c")
 color_rect = NodePath("PanelContainer 1/ColorRect")
+breakdown_button = NodePath("PanelContainer 1/MarginContainer 2/VBoxContainer 3/rating breakdown")
 
 [node name="PanelContainer 1" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -48,6 +49,11 @@ theme_override_constants/margin_bottom = 40
 layout_mode = 2
 theme_override_font_sizes/font_size = 35
 text = "team name"
+
+[node name="rating breakdown" type="Button" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Rating breakdown"
 
 [node name="HBoxContainer 4b" type="HBoxContainer" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3"]
 layout_mode = 2
@@ -92,3 +98,6 @@ alignment = 1
 
 [node name="blank_fighter_card" parent="PanelContainer 1/MarginContainer 2/VBoxContainer 3/fc scroll 4c/fighter_card_box 5c" instance=ExtResource("1_4jwe8")]
 layout_mode = 2
+
+[connection signal="focus_exited" from="PanelContainer 1/MarginContainer 2/VBoxContainer 3/rating breakdown" to="." method="exit_breakdown"]
+[connection signal="pressed" from="PanelContainer 1/MarginContainer 2/VBoxContainer 3/rating breakdown" to="." method="_click_breakdown"]

@@ -26,3 +26,5 @@ signal run_match(f1: Fighter, f2: Fighter)
 signal user_set_game(r: Variant, target: Team, opp: Team)
 
 signal user_select_fighter(fc: FighterCard)
+
+signal get_rating_breakdown(breakdown: Dictionary)

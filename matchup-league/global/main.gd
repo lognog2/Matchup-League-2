@@ -24,7 +24,7 @@ var Version = {
 	Build = 2,
 	Version = 0,
 	Release = 5,
-	Commit = 7
+	Commit = 8
 }
 
 func str_version(drop_commit = false) -> String: 
@@ -152,11 +152,12 @@ func _ready():
 	Stream.queue(load_state)
 
 func _process(delta: float):
+	pass
 	#report lag
-	if (delta > 0.0167):
-		if (delta < 0.0333): pass #Err.print(". %.3f" % delta) # <60 fps
-		elif (delta < 0.1): Err.print("* %.3f" %delta) # <30 fps
-		else: Err.print("! %.3f" %delta) # <10 fps
+	#if (delta > 0.0167):
+	#	if (delta < 0.0333): pass #Err.print(". %.3f" % delta) # <60 fps
+	#	elif (delta < 0.1): Err.print("* %.3f" %delta) # <30 fps
+	#	else: Err.print("! %.3f" %delta) # <10 fps
 
 func get_level(levelName: String): return Levels[levelName]
 	

@@ -1,0 +1,84 @@
+[gd_scene load_steps=2 format=3 uid="uid://c33ksj4hq4oke"]
+
+[ext_resource type="Script" path="res://menu/card/rating_card.gd" id="1_hu7up"]
+
+[node name="Control 0" type="Control" node_paths=PackedStringArray("vbox")]
+layout_mode = 3
+anchors_preset = 0
+size_flags_vertical = 0
+mouse_filter = 2
+script = ExtResource("1_hu7up")
+vbox = NodePath("PanelContainer 1/MarginContainer 2/list 3")
+metadata/_edit_use_anchors_ = true
+
+[node name="PanelContainer 1" type="PanelContainer" parent="."]
+layout_mode = 1
+offset_right = 117.0
+offset_bottom = 33.0
+
+[node name="ColorRect" type="ColorRect" parent="PanelContainer 1"]
+layout_mode = 2
+
+[node name="MarginContainer 2" type="MarginContainer" parent="PanelContainer 1"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="list 3" type="VBoxContainer" parent="PanelContainer 1/MarginContainer 2"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="rating box 3a" type="HSplitContainer" parent="PanelContainer 1/MarginContainer 2/list 3"]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="category" type="Label" parent="PanelContainer 1/MarginContainer 2/list 3/rating box 3a"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "category"
+
+[node name="rating" type="Label" parent="PanelContainer 1/MarginContainer 2/list 3/rating box 3a"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "+99"
+
+[node name="rating box 3b" type="HSplitContainer" parent="PanelContainer 1/MarginContainer 2/list 3"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="category" type="Label" parent="PanelContainer 1/MarginContainer 2/list 3/rating box 3b"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "category"
+
+[node name="rating" type="Label" parent="PanelContainer 1/MarginContainer 2/list 3/rating box 3b"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "+99"
+
+[node name="rating box 3c" type="HSplitContainer" parent="PanelContainer 1/MarginContainer 2/list 3"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="category" type="Label" parent="PanelContainer 1/MarginContainer 2/list 3/rating box 3c"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "category"
+
+[node name="rating" type="Label" parent="PanelContainer 1/MarginContainer 2/list 3/rating box 3c"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "+99"

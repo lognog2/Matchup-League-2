@@ -54,18 +54,37 @@ func has_id() -> bool:
 func has_name() -> bool:
 	return !de_name.is_empty()
 
-## compiles stats into rating
+## compiles stat used for rating
 func get_rating() -> float:
-	Err.print_warn("entity %s can't have a rating" % id_str, Err.Warn.NoAction)
-	return Main.GameRound.Debug
+	var ratings = rating_breakdown().values()
+	var sum = ArrayUtil.sum(ratings)
+	return sum
 
-func get_rating_scale() -> int:
+## should be overridden in subclasses that can have a rating
+func rating_breakdown() -> Dictionary:
+	Err.print_warn("entity %s can't have a rating breakdown" % id_str, Err.Warn.NoAction)
+	return {}
+
+func rating_breakdown_scaled() -> Dictionary:
+	var breakdown = rating_breakdown()
+	var prop = get_rating_proportion()
+	var break_scaled = ArrayUtil.map_dict(breakdown, (func(categ: String): return breakdown[categ] * prop))
+	return break_scaled
+
+func get_rating_scaled() -> int:
 	Err.print_warn("entity %s can't have a rating scale" % id_str, Err.Warn.NoAction)
 	return Main.GameRound.Debug
 
+func get_rating_proportion() -> float:
+	return get_rating_scaled() / get_rating()
+
 func win_pct() -> float:
-	Err.print_warn("Unsupported function: win_pct", Err.Warn.NoAction)
+	Err.print_warn("Unsupported function: win_pct()", Err.Warn.NoAction)
 	return NodeUtil.float_zero()
+
+func get_library() -> EntityLibrary:
+	Err.print_warn("Unsupported function: get_library()", Err.Warn.NoAction)
+	return null
 
 func name() -> String:
 	return de_name

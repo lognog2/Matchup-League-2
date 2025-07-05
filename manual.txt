@@ -1,5 +1,5 @@
-manual - matchup league
-last updated - 2.0.5.7
+matchup league development manual
+last updated: 2.0.5.8
 
 # table of contents
 
@@ -35,15 +35,15 @@ highlight a line and press ctrl + f to find the section
 # backlog
 
 	current:
-		- hide cards until result shown in player v player
-		- neater columns for team rankings
-		- team color outline around fighter cards
-		- ratings breakdown
+		- hide cards until result shown in user v user
+		- neater columns
 		- fighter view
+		- save to usr instead of res   
 	future:
 		- editor faster loading
 		- dramatic reveal
 		- icons instead of letters for types
+		- team color outline around fighter cards
 
 	## settings to add
 		- play cpu games before or after user game
@@ -103,10 +103,10 @@ highlight a line and press ctrl + f to find the section
 	## fighters
 		currently all types are weighted equally but ideally are weighted by frequency
 		m = 1 / # of types
-		rating = base + (strength * m) - (weakness * m)
+		rating = (base / 10) + (strength * m) - (weakness * m)
 
 	## teams
-		average rating of fighters + (wins * 100) + (ties * 50)
+		average rating of fighters + (wins * 25) + (ties * 13)
 
 	## game
 		sum of team ratings

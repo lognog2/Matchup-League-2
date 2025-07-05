@@ -82,6 +82,9 @@ func get_game(r: Variant) -> Game:
 	r = str_round(r)
 	return schedule.get(r)
 
+func get_library() -> EntityLibrary:
+	return level.Lib.Team
+
 func get_opponent(r: Variant) -> Team:
 	var g = get_game(r)
 	return g.get_opponent(self) if (g) else null
@@ -90,9 +93,25 @@ func get_opponent_name(r: Variant) -> String:
 	var opp = get_opponent(r)
 	return opp.de_name if (opp) else Main.Keyname.Bye
 
-## compiles stat used for rating
-func get_rating() -> float:
-	return (avg_f_rating() * Rating.AVG_F_WT) + (wins * Rating.WIN_WT) + (ties * Rating.TIE_WT) - (losses * Rating.LOSS_WT)
+func rating_breakdown() -> Dictionary:
+	var breakdown = {
+		Fighters = avg_f_rating() * Rating.AVG_F_WT,
+		Wins = wins * Rating.WIN_WT,
+		Ties = ties * Rating.TIE_WT,
+		#Losses = losses * Rating.LOSS_WT,
+	}
+	return breakdown
+
+func rating_scale_breakdown() -> Dictionary:
+	var breakdown = rating_breakdown()
+	for key in breakdown.keys():
+		var new_val = subrating_scale(breakdown[key])
+		breakdown[key] = new_val
+	return breakdown
+	
+func subrating_scale(subrating: float) -> int:
+	var percent = subrating / get_rating()
+	return get_rating_scale() * percent
 
 ## average rating of all fighters on the team
 func avg_f_rating() -> float:

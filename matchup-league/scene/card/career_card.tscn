@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d044o5tnb0r01"]
 
-[ext_resource type="Script" path="res://card/career_card.gd" id="1_slwaw"]
+[ext_resource type="Script" path="res://menu/card/career_card.gd" id="1_slwaw"]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("name_label", "round_label", "season_label", "team_label", "team_rect")]
 custom_minimum_size = Vector2(300, 180)

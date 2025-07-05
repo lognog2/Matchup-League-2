@@ -7,7 +7,7 @@ const FILE_BACKUP = FILE_FORMAT % FileUtil.BACKUP_EXT
 enum SaveSpot {
 	Never, # never
 	Main_menu, # just before returning to main menu
-	Click, # when a 'save' button is clicked
+	Click_save, # when a 'save' button is clicked
 }
 
 var Section = {
@@ -34,9 +34,10 @@ var ThemeColor = {
 var DEFAULT_COLOR = ThemeColor.Purple
 
 var s_default = {
+	hidden = false, ## hidden when not on developer edition
+	rating_scale = Rating.Scale.MEDIUM,
 	save_backup = SaveSpot.Main_menu,
 	theme = DEFAULT_COLOR,
-	hidden = false ## hidden when not on developer edition
 }
 
 var s = s_default.duplicate()
@@ -100,7 +101,7 @@ func save(backup = false):
 		config.set_value(Section.SYS, key, sys_info[key])
 
 	var rng = Section.RNG
-	config.set_value(rng, "seed", get_seed())
+	if (!FileUtil.on_default()): config.set_value(rng, "seed", get_seed())
 	config.set_value(rng, "state", get_state())
 	
 	var paths = [config_file_path(false)]

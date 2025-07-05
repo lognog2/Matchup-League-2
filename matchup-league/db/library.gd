@@ -4,7 +4,6 @@ class_name EntityLibrary extends Object
 var dict = {}
 var last_id = 0
 var avg_rating = 0.0
-const AVG_RS = 75 ## average for rating scale
 var level_name: String
 var entity_name: String
 var file_name: String
@@ -72,7 +71,7 @@ func random_entity(filter = Filter.Select.Default) -> DataEntity:
 	return pool[id]
 
 func get_rating_scale(r: float) -> int:
-	var rs = (r / avg_rating) * AVG_RS
+	var rs = (r / avg_rating) * Setting.s.rating_scale
 	return rs
 	
 func set_avg_rating():
@@ -81,6 +80,7 @@ func set_avg_rating():
 	for i in range (vals.size()):
 		total += vals[i].get_rating()
 	avg_rating = total / vals.size()
+	#if (entity_name == "team"): Err.print("/ avg rating: %.2f" % avg_rating)
 
 ## assumes entity was already added to dict and connected to refs
 func add_avg_rating(new_r: float):
@@ -157,7 +157,6 @@ func save_to_file(backup: bool):
 func load_from_file():
 	reset()
 	FileUtil.do_each_line(load_line, save_file_path())
-	set_avg_rating()
 
 func load_line(line: String):
 	var json = JSON.new()

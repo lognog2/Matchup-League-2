@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://menu/team_menu.gd" id="1_xpawo"]
 [ext_resource type="StyleBox" uid="uid://eelwpy4cx451" path="res://style/background.tres" id="2_5juap"]
 [ext_resource type="PackedScene" uid="uid://bnsuruwm7t33m" path="res://scene/left_ledger.tscn" id="3_5323j"]
-[ext_resource type="PackedScene" uid="uid://6j5nmrwk6pbm" path="res://scene/team_view.tscn" id="3_ph74u"]
+[ext_resource type="PackedScene" uid="uid://6j5nmrwk6pbm" path="res://scene/view/team_view.tscn" id="3_ph74u"]
 
 [node name="team menu" type="Control" node_paths=PackedStringArray("team_option", "sort_option", "team_view", "selected_label")]
 layout_mode = 3

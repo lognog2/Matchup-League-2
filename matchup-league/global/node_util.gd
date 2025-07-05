@@ -60,3 +60,7 @@ func set_bg_theme(style_name = STYLE_BOX_BG, color: Color = Setting.s.theme):
 	var bg_box = NodeUtil.load_style(style_name)
 	if (!bg_box): Err.print_fatal("No stylebox found", Err.Fatal.UI)
 	bg_box.bg_color = color
+
+func move_to_mouse(node: Node, offset = Vector2(0.0, 0.0)):
+	node.position = node.get_viewport().get_mouse_position()
+	node.position += offset

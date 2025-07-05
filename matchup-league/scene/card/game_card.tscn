@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dlm08m1hsjnqa"]
 
-[ext_resource type="Script" path="res://card/game_card.gd" id="1_3mcos"]
+[ext_resource type="Script" path="res://menu/card/game_card.gd" id="1_3mcos"]
 
 [node name="game_card" type="Control" node_paths=PackedStringArray("teams_box", "scores_box", "done_button")]
 custom_minimum_size = Vector2(250, 75)

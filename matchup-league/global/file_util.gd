@@ -2,10 +2,10 @@ extends Node
 
 const data_path = "res://data"
 const default_name = "default"
+var default_path = "%s/%s" % [data_path, default_name]
 const SAVE_ID = "save_"
 const BACKUP_EXT = "_backup"
-var save_path = "%s/%s" % [data_path, default_name]
-
+var save_path = default_path
 func open_file(path = save_path, write = true) -> FileAccess:
 	var flag = FileAccess.WRITE if (write) else FileAccess.READ
 	var file = FileAccess.open(path, flag)
@@ -95,3 +95,6 @@ func copy_file(from: String, to: String):
 	var error = DirAccess.copy_absolute(from, to)
 	if (error != OK):
 		Err.print_fatal("Error copying file: error code %d" % error, Err.Fatal.ReadWrite)
+
+func on_default() -> bool:
+	return (default_path == save_path)

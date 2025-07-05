@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://menu/career_select.gd" id="1_kbpcc"]
 [ext_resource type="StyleBox" uid="uid://eelwpy4cx451" path="res://style/background.tres" id="2_3mg5p"]
-[ext_resource type="PackedScene" uid="uid://6j5nmrwk6pbm" path="res://scene/team_view.tscn" id="4_gu2p0"]
+[ext_resource type="PackedScene" uid="uid://6j5nmrwk6pbm" path="res://scene/view/team_view.tscn" id="4_gu2p0"]
 
 [node name="career select" type="Control" node_paths=PackedStringArray("team_option", "team_view", "name_entry")]
 layout_mode = 3

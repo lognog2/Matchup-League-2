@@ -230,7 +230,7 @@ func set_rankings() -> Array:
 
 ## call `Main.save_state()` instead 
 func save_data(backup: bool):
-	Err.print("/ %s: last chance to look at the save data" % name) #breakpoint safe space
+	#Err.print("/ %s: last chance to look at the save data" % name) #breakpoint safe space
 	for lib in Lib.values():
 		lib.save_to_file(backup)
 
