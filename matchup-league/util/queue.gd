@@ -8,8 +8,7 @@ func _init(cap = 100):
 	capacity = cap
 
 ## adds `v` to end of queue,
-## returns true if `v` was added successfully.
-## returns false if queue is full and `push_front` is false
+## returns true if `v` was added successfully
 func add(v: Variant, push_front = true) -> bool:
 	if (size() == capacity):
 		if (push_front): 
@@ -24,7 +23,7 @@ func pop() -> Variant:
 	last_pop = queue.pop_front()
 	return last_pop
 
-## adds variants from `bulk` one at a time, in the order they ahead
+## adds variants from `bulk` one at a time,
 ## returns true if all vars were added, or false if a var did not get added
 func fill(bulk: Array, push_front = true) -> bool:
 	for v in bulk:
@@ -33,7 +32,7 @@ func fill(bulk: Array, push_front = true) -> bool:
 	return true
 
 ## pops `amt` vars from queue, one at a time.
-## returns array of removed vars
+## returns array of removed vars, in the order they were removed
 func drain(amt: int, add_null = false) -> Array:
 	var out = []
 	for i in range(amt):
@@ -47,7 +46,7 @@ func size() -> int:
 func is_empty() -> bool:
 	return queue.is_empty()
 
-## returns size of queue before clearing
+## completely clears queue, returns size of queue before clearing
 func clear() -> int:
 	var sz = size()
 	#Err.print("^ cleared %d items from queue" % sz)

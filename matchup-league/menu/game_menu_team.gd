@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends Container
 
 @export var played: HBoxContainer
 @export var bench: HBoxContainer
@@ -27,15 +27,15 @@ func render(idx: int, t: Team):
 	i = idx
 	team = t
 	blank_fc = NodeUtil.detach_child(played)
-	fill_bench(team.fighters)
+	fill_bench()
 	set_score(0)
 	result_button.visible = false
 	scoreboard_color_rect.color = team.color
 	team_name_label.text = team.de_name
 	result_panel.visible = false
 
-func fill_bench(fighters: Array):
-	NodeUtil.list_fighter_cards(bench, fighters)
+func fill_bench():
+	NodeUtil.list_fighter_cards(bench, team.fighters)
 	set_click_enable(!team.cpu)
 
 func set_score(score: int):

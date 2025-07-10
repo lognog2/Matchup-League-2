@@ -24,7 +24,7 @@ var Version = {
 	Build = 2,
 	Version = 0,
 	Release = 5,
-	Commit = 8
+	Commit = 9
 }
 
 func str_version(drop_commit = false) -> String: 
@@ -82,7 +82,7 @@ var Types = {
 var LegacyTypes = {
 	Day = "Y",
 	Night = "T",
-	Series = "P",
+	Series = "Z",
 	Default = "X"
 }
 
@@ -94,7 +94,7 @@ var BetaTypes = {
 
 var GameRound = {
 	Debug = -99,
-	Tournament = -1,
+	Tournament = [0, 0],
 	Freeplay = 0
 }
 
@@ -148,7 +148,7 @@ func _ready():
 	season = 29
 	Levels.Prep = Level.new("Prep", 3, 4)
 	Levels.Archive = Archive.new()
-	Stream.queue(func(): set_seed(random_int()))
+	rep = Reproducible.new()
 	Stream.queue(load_state)
 
 func _process(delta: float):

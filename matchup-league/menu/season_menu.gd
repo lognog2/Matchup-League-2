@@ -57,10 +57,10 @@ func fill_opp_info(before = true):
 	if (!opp): 
 		fill_opp_null(before)
 		return
-	#if (before && rnd > Main.season_length):
-	#	opp_rect.color = team.color
-	#	fill_opp_tourney()
-	#	return
+	if (before && !career.has_current_round()):
+		opp_rect.color = team.color
+		fill_opp_end()
+		return
 	opp_rect.color = opp.color
 	next_game_label.text = "Next game:" if (before) else "Game vs:"
 	opp_name_label.text = opp.str_rank_name(true)
@@ -78,7 +78,7 @@ func fill_opp_null(before = true):
 	next_game_button.visible = false
 	sim_round_button.visible = before
 
-func fill_opp_tourney():
+func fill_opp_end():
 	next_game_label.text = Text.TourneyEnd
 	opp_name_label.text = ":)"
 	view_opp_button.visible = false

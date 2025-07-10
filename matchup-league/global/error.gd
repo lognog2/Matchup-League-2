@@ -41,7 +41,7 @@ func throw(msg = ""):
 	self.print(Err[msg])
 
 func print(msg = ""):
-	print(Stream.str_counter() + msg)
+	print(Stream.str_counter() + str(msg))
 
 func print_fatal(msg = "", code = Fatal.Debug):
 	self.print("! Error %d: " % code + msg)

@@ -7,7 +7,7 @@ var game: Game
 var reversed = false
 var replay: bool
 
-var current_mode
+var current_mode: Mode
 enum Mode {
 	BothUser,
 	UserCpu,
@@ -108,6 +108,10 @@ func start_match():
 		hide_result_button()
 
 func finish_game():
+	if (game.score_tied() && !game.can_tie()):
+		Err.print("/ overtime!")
+		for tb in tb_arr:
+			tb.fill_bench()
 	hide_result_button()
 	game.set_result()
 	var x = game.result

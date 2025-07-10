@@ -117,6 +117,9 @@ func get_winner() -> Team:
 	else:
 		return teams[result]
 
+func can_tie():
+	return !is_tourney_game() && !is_freeplay()
+
 func is_winner(t: Team) -> bool:
 	if (!has_team(t)):
 		Err.print_fatal("%s does not play in %s" % [t.id_str, id_str], Err.Fatal.Invalid)
@@ -155,11 +158,17 @@ func is_done() -> bool:
 func is_finished() -> bool: 
 	return (result != null)
 
+func is_freeplay() -> bool:
+	return (rnd == Main.GameRound.Freeplay)
+
 func is_tourney_game() -> bool:
 	return (rnd is Array)
 
 func is_tie() -> bool:
 	return result == TIE
+
+func score_tied() -> bool:
+	return score[0] == score[1]
 
 ## simulates a game as 2 cpu players choosing fighters randomly
 func sim_game():
@@ -183,6 +192,10 @@ func sim_game():
 	for i in range (2):
 		f_available[i].append_array(f_played[i])
 		teams[i].fighters = f_available[i]
+	
+	if (score_tied() && !can_tie()):
+		Err.print("/ overtime!")
+		sim_game()
 		
 	set_result()
 

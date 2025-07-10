@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://6j5nmrwk6pbm" path="res://scene/view/team_view.tscn" id="1_yau5g"]
 [ext_resource type="Script" path="res://menu/game_select_team.gd" id="3_2iicl"]
 
-
 [node name="game_select" type="Control" node_paths=PackedStringArray("team_cont")]
 layout_mode = 3
 anchors_preset = 15

@@ -84,11 +84,11 @@ func load_config(path = "") -> ConfigFile:
 			Err.print_fatal("Error loading config file: ", Err.Fatal.ReadWrite)
 	return config
 
-func get_seed():
+func get_seed() -> int:
 	return Main.rep.get_seed()
 
-func get_state():
-	Main.rep.get_state()
+func get_state() -> int:
+	return Main.rep.get_state()
 
 func save(backup = false):
 	var config = ConfigFile.new()
@@ -101,8 +101,10 @@ func save(backup = false):
 		config.set_value(Section.SYS, key, sys_info[key])
 
 	var rng = Section.RNG
-	if (!FileUtil.on_default()): config.set_value(rng, "seed", get_seed())
-	config.set_value(rng, "state", get_state())
+	if (!FileUtil.on_default()): 
+		config.set_value(rng, "seed", get_seed())
+		var state = get_state()
+		config.set_value(rng, "state", get_state())
 	
 	var paths = [config_file_path(false)]
 	if (backup):

@@ -50,7 +50,10 @@ func begin_round():
 	if (in_tourney()):
 		var tourney = get_tournament()
 		tourney.advance()
-		current_round = tourney.tourney_key()
+		if (tourney.is_done()):
+			end()
+		else:
+			current_round = tourney.tourney_key()
 	elif (current_round == Main.season_length):
 		get_level().begin_playoff()
 	else:
@@ -64,6 +67,9 @@ func begin_round():
 func sim_round():
 	get_level().sim_round(current_round)
 
+func has_current_round() -> bool:
+	return current_round != null
+
 func is_before_rnd() -> bool:
 	var t = get_team()
 	if (is_spectator() || !t.has_game(current_round)):
@@ -76,6 +82,9 @@ func career_file_path(backup = false) -> String:
 	var file_name = FILE_BACKUP if (backup) else FILE_NAME
 	var path = FileUtil.save_path + "/" + file_name
 	return path
+
+func end():
+	current_round = null
 
 func save(backup = false):
 	var paths = [career_file_path(false)]
