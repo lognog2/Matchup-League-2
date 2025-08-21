@@ -19,14 +19,14 @@ var Fatal = {
 
 ## completed with unexpected behaviors
 var Warn = {
-	Debug = 99, ##placeholder
-	Framerate = 60, ##low frame rate
+	Debug = 99, ##nplaceholder
+	Framerate = 60, ## low frame rate
 	Outdated = 7, ## outdated/decpreated data or code was detected, program will continue
-	Invalid = 6, ##attempted to do action with incompatible data but still completed
-	Conflict = 5, ##conflict that does not force program to stop
-	ReadWrite = 4, ##warning related to read/writing files
-	Runtime = 1, ##generic runtime warning
-	NoAction = 0 ##no action was taken, and it may be harmful to program
+	Invalid = 6, ## attempted to do action with incompatible data but still completed
+	Conflict = 5, ## conflict that does not force program to stop
+	ReadWrite = 4, ## warning related to read/writing files
+	Runtime = 1, ## generic runtime warning
+	NoAction = 0 ## no action was taken, and it may be harmful to program
 }
 
 ## completed as expected

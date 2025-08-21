@@ -71,6 +71,9 @@ func fill_opp_info(before = true):
 	result_label.text = team.str_game(rnd, false)
 
 func fill_opp_null(before = true):
+	if (!rnd): 
+		fill_opp_end()
+		return
 	opp_rect.color = Career.SPECTATOR_COLOR
 	opp_name_label.text = Text.NoGame
 	result_label.visible = false
@@ -81,6 +84,7 @@ func fill_opp_null(before = true):
 func fill_opp_end():
 	next_game_label.text = Text.TourneyEnd
 	opp_name_label.text = ":)"
+	round_label.visible = false
 	view_opp_button.visible = false
 	view_opp_button.visible = false
 	sim_round_button.visible = false
@@ -90,7 +94,8 @@ func check_tourney(before: bool):
 		level.begin_playoff()
 
 func end_of_season(before: bool) -> bool:
-	return (!career.in_tourney() && (before && rnd > Main.season_length))
+	if (!before || !rnd): return false
+	return (!career.in_tourney() && (rnd > Main.season_length))
 
 func fill_rankings():
 	level.set_rankings()

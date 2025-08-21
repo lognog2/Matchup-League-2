@@ -2,6 +2,7 @@ class_name Tournament extends DataEntity
 
 var team_arr = [] ## all teams, no byes
 var bracket = {} ## all teams and byes that haven't been eliminated. key is seed, value is team
+var full_bracket_size = 0
 var tourney_round = 1
 const MAX_TEAMS = 128
 
@@ -88,14 +89,15 @@ func fill_bracket():
 	if (!bracket.is_empty()): return
 
 	var i = 1
-	var full = full_bracket_size()
+	full_bracket_size = get_full_bracket_size()
 	for team in team_arr:
 		bracket[i] = team
 		team.rank = i
 		i += 1
-	while (i <= full):
+	while (i <= full_bracket_size):
 		bracket[i] = null
 		i += 1
+	
 	set_round_games()
 
 ## each round, place the highest and lowest seed in one game, then second highest and lowest, etc
@@ -125,10 +127,10 @@ func is_done() -> bool:
 	return (bracket.size() < 2)
 
 func get_opponent_seed(num: int, seeding: int) -> int:
-	if (num > bracket.size() * 2):
+	if (num > full_bracket_size):
 		return 0
 	var opp_seed = num + 1 - seeding
-	#Err.print("/ num: %d | seeding: %d | opp seeding: %d" % [num, seeding, opp_seed])
+	Err.print("/ num: %d | seeding: %d | opp seeding: %d" % [num, seeding, opp_seed])
 	if (bracket.has(opp_seed)):
 		#Err.print("/ found opp seed!")
 		return opp_seed
@@ -137,7 +139,7 @@ func get_opponent_seed(num: int, seeding: int) -> int:
 		if (next_check > 0):
 			return next_check
 		else:
-			return get_opponent_seed(num * 2, seeding)
+			return get_opponent_seed(num * 2, seeding) 
 
 func create_game(t1: Team, t2: Team) -> Game:
 	if (!t1 || !t2): return
@@ -156,7 +158,7 @@ func tourney_key(r = tourney_round) -> Array:
 
 ## gets bracket size including byes.
 ## see manual for more in-depth explanation
-func full_bracket_size() -> int:
+func get_full_bracket_size() -> int:
 	var n = ceil(log(team_arr.size()) / log(2.0))
 	var full_size = 2 ** n
 	return full_size 

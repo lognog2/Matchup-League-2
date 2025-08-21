@@ -17,4 +17,4 @@ var WK_WT = TYPE_WT
 var AVG_F_WT = 1
 var WIN_WT = 25
 var LOSS_WT = 0
-var TIE_WT = round(WIN_WT / 2.0)
+var TIE_WT = WIN_WT / 2.0

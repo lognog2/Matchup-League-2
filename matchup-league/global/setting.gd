@@ -34,8 +34,8 @@ var ThemeColor = {
 var DEFAULT_COLOR = ThemeColor.Purple
 
 var s_default = {
-	hidden = false, ## hidden when not on developer edition
-	rating_scale = Rating.Scale.MEDIUM,
+	hidden = false, ## true when not on developer edition
+	rating_scale = Rating.Scale.NONE,
 	save_backup = SaveSpot.Main_menu,
 	theme = DEFAULT_COLOR,
 }
@@ -90,6 +90,9 @@ func get_seed() -> int:
 func get_state() -> int:
 	return Main.rep.get_state()
 
+func using_rating_scale() -> bool:
+	return (s.rating_scale != Rating.Scale.NONE)
+
 func save(backup = false):
 	var config = ConfigFile.new()
 
@@ -103,7 +106,6 @@ func save(backup = false):
 	var rng = Section.RNG
 	if (!FileUtil.on_default()): 
 		config.set_value(rng, "seed", get_seed())
-		var state = get_state()
 		config.set_value(rng, "state", get_state())
 	
 	var paths = [config_file_path(false)]

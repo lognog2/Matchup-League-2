@@ -10,7 +10,7 @@ func _init(rseed = null, state = null):
 	rng.randomize()
 	rng.seed = rseed if (rseed) else rng.seed
 	next_state = state if (state) else rng.state
-	Err.print(str(next_state))
+	#Err.print(str(next_state))
 	queue = Queue.new(100)
 	reload()
 

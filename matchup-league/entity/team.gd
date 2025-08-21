@@ -104,12 +104,16 @@ func rating_breakdown() -> Dictionary:
 
 func rating_scale_breakdown() -> Dictionary:
 	var breakdown = rating_breakdown()
+	if (!Setting.using_rating_scale()):
+		return breakdown
 	for key in breakdown.keys():
 		var new_val = subrating_scale(breakdown[key])
 		breakdown[key] = new_val
 	return breakdown
 	
+## TODO: doesn't accurately get scaled subrating
 func subrating_scale(subrating: float) -> int:
+	Err.alert_warn("doesn't accurately get scaled subrating", Err.Warn.Outdated)
 	var percent = subrating / get_rating()
 	return get_rating_scale() * percent
 

@@ -24,7 +24,7 @@ var Version = {
 	Build = 2,
 	Version = 0,
 	Release = 5,
-	Commit = 9
+	Commit = 10
 }
 
 func str_version(drop_commit = false) -> String: 
@@ -244,8 +244,8 @@ func is_paused() -> bool:
 	return get_tree().paused
 
 func int_round(rnd = current_career.current_round) -> int:
+	if (!rnd): return -1
 	return rnd if !(rnd is Array) else rnd[1]
-		
 
 # save/load functions
 

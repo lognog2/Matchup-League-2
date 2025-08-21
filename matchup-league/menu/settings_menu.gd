@@ -25,6 +25,8 @@ func render():
 		if (NodeUtil.compare_colors(setting.theme, Setting.ThemeColor[key])):
 			theme_options.selected = i
 		i += 1
+	
+	scale_options.visible = false
 
 func _ledger_input(event: InputEvent):
 	Err.print(event)

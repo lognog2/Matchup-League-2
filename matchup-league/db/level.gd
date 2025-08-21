@@ -134,6 +134,7 @@ func find_fighter(n: String) -> Fighter:
 func find_team(n: String) -> Team: 
 	return Lib.Team.find_entity(n)
 
+## finds the first tournament with `n` name
 func find_tournament(n: String) -> Tournament:
 	return Lib.Tourney.find_entity(n)
 

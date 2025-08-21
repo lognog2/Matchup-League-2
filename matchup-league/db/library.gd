@@ -70,7 +70,9 @@ func random_entity(filter = Filter.Select.Default) -> DataEntity:
 	var id = Main.random_int(pool.size())
 	return pool[id]
 
-func get_rating_scale(r: float) -> int:
+func get_rating_scale(r: float) -> float:
+	if (!Setting.using_rating_scale()):
+		return r
 	var rs = (r / avg_rating) * Setting.s.rating_scale
 	return rs
 	
