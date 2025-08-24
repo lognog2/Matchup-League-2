@@ -127,7 +127,7 @@ func is_done() -> bool:
 	return (bracket.size() < 2)
 
 func get_opponent_seed(num: int, seeding: int) -> int:
-	if (num > full_bracket_size):
+	if (num > full_bracket_size * 2):
 		return 0
 	var opp_seed = num + 1 - seeding
 	Err.print("/ num: %d | seeding: %d | opp seeding: %d" % [num, seeding, opp_seed])

@@ -123,10 +123,11 @@ func finish_game():
 	tb_arr[x].show_right_panel()
 
 func _return():
-	if (game.is_official()):
-		Main.emit_scene(Main.Scene.SeasonMenu)
-	else:
+	if (game.is_freeplay()):
 		Main.emit_scene(Main.Scene.MainMenu)
+	else:
+		Main.emit_scene(Main.Scene.SeasonMenu)
+		
 
 #func adjust_result_reverse(r: Variant) -> int:
 #	if (reversed):

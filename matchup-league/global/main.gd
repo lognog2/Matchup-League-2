@@ -24,7 +24,7 @@ var Version = {
 	Build = 2,
 	Version = 0,
 	Release = 5,
-	Commit = 10
+	Commit = 11
 }
 
 func str_version(drop_commit = false) -> String: 
@@ -185,7 +185,7 @@ func set_seed(new_seed = DEFAULT_SEED, new_state = null):
 	rep = Reproducible.new(game_seed, new_state)
 	if (old_rep): old_rep.free()
 	main_node.seed_label.text = "Seed: %d" % game_seed
-	Err.print("^ seed: " + str(game_seed))
+	Err.print("^ new seed: " + str(game_seed))
 
 ## returns an `int` in the range 0 <= i < limit
 func random_int(limit = -1) -> int:

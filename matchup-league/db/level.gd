@@ -123,7 +123,7 @@ func get_t_names(filter = Filter.Select.Default) -> Array:
 	return Lib.Team.get_names(filter)
 
 ## gets a team's rating scale
-func get_team_rs(t: Team):
+func get_team_rs(t: Team) -> float:
 	return Lib.Team.get_rating_scale(t.get_rating())
 
 ## finds the first fighter with `n` name

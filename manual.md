@@ -1,5 +1,5 @@
 matchup league development manual
-last updated: 2.0.5.10
+last updated: 2.0.5.11
 
 # table of contents
 
@@ -23,7 +23,6 @@ highlight a line and press ctrl + f to find the section
 ## before pushing commit
 - double check 'after pulling commit'
 - backup save default and canon files, delete other save files
-- remove seed from default
 
 ## after beginning release
 - reset commit number to 0

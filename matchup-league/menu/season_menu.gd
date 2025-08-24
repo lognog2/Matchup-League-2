@@ -34,6 +34,7 @@ func render():
 	career = Main.current_career
 	team = career.get_team()
 	rnd = career.current_round
+	round_label.visible = true
 	round_label.text = Text.Round % Main.int_round(rnd)
 	team_view.render(team)
 	team_view.fc_box.visible = false #must be after render
@@ -71,15 +72,15 @@ func fill_opp_info(before = true):
 	result_label.text = team.str_game(rnd, false)
 
 func fill_opp_null(before = true):
-	if (!rnd): 
-		fill_opp_end()
-		return
 	opp_rect.color = Career.SPECTATOR_COLOR
 	opp_name_label.text = Text.NoGame
 	result_label.visible = false
 	view_opp_button.visible = false
 	next_game_button.visible = false
 	sim_round_button.visible = before
+	if (!rnd): 
+		fill_opp_end()
+		return
 
 func fill_opp_end():
 	next_game_label.text = Text.TourneyEnd

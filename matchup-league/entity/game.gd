@@ -159,7 +159,7 @@ func is_finished() -> bool:
 	return (result != null)
 
 func is_freeplay() -> bool:
-	return (rnd == Main.GameRound.Freeplay)
+	return (!is_tourney_game() && rnd == Main.GameRound.Freeplay)
 
 func is_tourney_game() -> bool:
 	return (rnd is Array)

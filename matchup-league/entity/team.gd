@@ -124,7 +124,7 @@ func avg_f_rating() -> float:
 		total += f.get_rating()
 	return total / fighters.size()
 
-func get_rating_scale() -> int:
+func get_rating_scale() -> float:
 	return level.get_team_rs(self)
 
 func has_game(r: Variant) -> bool:
@@ -217,7 +217,7 @@ func format_sched() -> Dictionary:
 
 func format_info() -> Dictionary:
 	var info = {
-		"Rating" = "%.f" % get_rating_scale(),
+		"Rating" = "%.f" % roundf(get_rating_scale()),
 		"Record" = str_record(),
 		"Series" = series,
 		"League" = level.name,

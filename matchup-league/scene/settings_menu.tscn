@@ -98,6 +98,7 @@ size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 20
 
 [node name="scale" type="MarginContainer" parent="PanelContainer/main box/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_top = 20
 
