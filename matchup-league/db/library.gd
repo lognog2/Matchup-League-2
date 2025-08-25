@@ -4,7 +4,6 @@ class_name EntityLibrary extends Object
 var dict = {}
 var last_id = 0
 var avg_rating = 0.0
-const AVG_RS = 75 ## average for rating scale
 var level_name: String
 var entity_name: String
 var file_name: String
@@ -19,8 +18,18 @@ func _init(lvl_name: String, ent_name: String):
 
 ## constructs a new entity and adds it to dictionary
 func add_entity(data: Dictionary, connect_obj = false) -> DataEntity:
-	data["id"] = increment_id()
 	var de = Main.blank_entity(entity_name).set_data(data)
+	return add_existing_entity(de, false, connect_obj)
+
+func add_existing_entity(de: DataEntity, overwrite = false, connect_obj = false) -> DataEntity:
+	if (!de.has_id()):
+		de.id = increment_id()
+	if (dict.get(de.id)):
+		if (overwrite):
+			Err.print_warn(de.id_str + " is already in library", Err.Warn.Conflict)
+		else:
+			Err.print_fatal(de.id_str + " is already in library", Err.Fatal.Conflict)
+			return null
 	dict[de.id] = de
 	if (connect_obj): de.connect_objs()
 	add_avg_rating(de.get_rating())
@@ -58,11 +67,13 @@ func increment_id() -> int:
 ## gets a random entity from a pool that passes filter
 func random_entity(filter = Filter.Select.Default) -> DataEntity:
 	var pool = get_entities(filter)
-	var id = randi() % pool.size()
+	var id = Main.random_int(pool.size())
 	return pool[id]
 
-func get_rating_scale(r: float) -> int:
-	var rs = (r / avg_rating) * AVG_RS
+func get_rating_scale(r: float) -> float:
+	if (!Setting.using_rating_scale()):
+		return r
+	var rs = (r / avg_rating) * Setting.s.rating_scale
 	return rs
 	
 func set_avg_rating():
@@ -71,6 +82,7 @@ func set_avg_rating():
 	for i in range (vals.size()):
 		total += vals[i].get_rating()
 	avg_rating = total / vals.size()
+	#if (entity_name == "team"): Err.print("/ avg rating: %.2f" % avg_rating)
 
 ## assumes entity was already added to dict and connected to refs
 func add_avg_rating(new_r: float):
@@ -122,26 +134,31 @@ func get_entities(select_filter = Filter.Select.Default, sort_filter = null, lim
 
 # save/load (careful using breakpoints here)
 
+## opens save file for writing
+func open_save_file(backup) -> FileAccess:
+	var path = save_file_path(backup)
+	return FileUtil.open_file(path, true)
+
 func save_file_path(backup = false) -> String:
-	var backup_name = "_backup" if backup else ""
+	var backup_name = FileUtil.BACKUP_EXT if backup else ""
 	return FileUtil.save_path + ("/%s.save" % (file_name + backup_name))
 
 func save_to_file(backup: bool):
-	var file_path = save_file_path(false)
-	var file = FileAccess.open(file_path, FileAccess.WRITE)
+	var file = open_save_file(false)
+	var files = [file]
+	if (backup):
+		var backup_file = open_save_file(true)
+		files.append(backup_file)
+
 	for id in dict:
 		var data = dict[id].format_save()
 		var json_data = JSON.stringify(data)
-		file.store_line(json_data)
-	if (backup): 
-		# do some kind of test here to make sure data is good
-		var backup_string = save_file_path(true)
-		FileUtil.copy_file(file_path, backup_string)
+		for f in files:
+			f.store_line(json_data)
 
 func load_from_file():
 	reset()
 	FileUtil.do_each_line(load_line, save_file_path())
-	set_avg_rating()
 
 func load_line(line: String):
 	var json = JSON.new()
@@ -149,6 +166,8 @@ func load_line(line: String):
 		Err.print_fatal("JSON Parse Error: " + json.get_error_message() + " in " + line + " at line " + str(json.get_error_line()), Err.Fatal.ReadWrite)
 		return
 	var data = json.data
+	if (data.is_empty()):
+		return
 	data["level name"] = level_name
 	data["season"] = Main.get_season()
 	add_entity(data)

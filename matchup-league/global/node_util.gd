@@ -12,8 +12,8 @@ func set_label_color(label: Label, color: Color):
 
 ## takes a node's first child, duplicates it, removes node's children, then returns detached child.
 func detach_child(parent: Node) -> Node:
-	if (!parent):
-		Err.alert_warn("Cannot reparent a null node", Err.Warn.NoAction)
+	if (!parent || !parent.get_child(0)):
+		Err.print_fatal("Error detaching child node", Err.Fatal.UI)
 		return null
 	var child = parent.get_child(0).duplicate()
 	remove_children(parent)
@@ -60,3 +60,7 @@ func set_bg_theme(style_name = STYLE_BOX_BG, color: Color = Setting.s.theme):
 	var bg_box = NodeUtil.load_style(style_name)
 	if (!bg_box): Err.print_fatal("No stylebox found", Err.Fatal.UI)
 	bg_box.bg_color = color
+
+func move_to_mouse(node: Node, offset = Vector2(0.0, 0.0)):
+	node.position = node.get_viewport().get_mouse_position()
+	node.position += offset

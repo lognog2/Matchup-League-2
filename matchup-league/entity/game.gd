@@ -1,11 +1,17 @@
 class_name Game extends DataEntity
 
-var rnd: int
+var rnd: Variant
 var teams = [null, null]
 var teamIDs = [-1, -1]
 var score = [0, 0]
 var result = null #index of winning team, or -1 for a tie
 var matches = []
+
+enum {
+	TEAM0 = 0,
+	TEAM1 = 1,
+	TIE = -1
+}
 
 func _init(data = {}):
 	super(data, "G")
@@ -18,10 +24,11 @@ func set_data(data: Dictionary, init = false) -> Game:
 	teamIDs = [data.get("team1id", teamIDs[0]), data.get("team2id", teamIDs[1])]
 	matches = data.get("matches", matches)
 	result = data.get("result", result)
-	#if (data.get("connect")): connect_objs()
 	return self
 
 func connect_objs():
+	if (name().contains("-1")): id_str = "G" + str(id) #bandaid solution
+	de_name = id_str
 	var new_teams = [level.get_team(teamIDs[0]), level.get_team(teamIDs[1])]
 	set_teams(new_teams)
 	set_matches()
@@ -57,7 +64,6 @@ func set_team(i: int, t: Team):
 		t.add_game(self)
 	else:
 		teamIDs[i] = -1
-		t.add_game(null)
 	
 ## converts matches from array of id pairs to match objects, then calls `set_current_score()`
 func set_matches():
@@ -79,24 +85,24 @@ func set_result():
 	#kinda messy but not gonna bother with a better way
 	if (is_official()):
 		if (score[0] > score[1]):
-			result = 0
+			result = TEAM0
 			teams[0].add_win()
 			teams[1].add_loss()
 		elif (score[1] > score[0]):
-			result = 1
+			result = TEAM1
 			teams[1].add_win()
 			teams[0].add_loss()
 		else:
-			result = -1
+			result = TIE
 			for t in teams:
 				t.add_tie()
 	else:
 		if (score[0] > score[1]):
-			result = 0
+			result = TEAM0
 		elif (score[1] > score[0]):
-			result = 1
+			result = TEAM1
 		else:
-			result = -1
+			result = TIE
 		
 func get_opponent(t: Team) -> Team:
 	if t == teams[0]: return teams[1]
@@ -106,12 +112,21 @@ func get_opponent(t: Team) -> Team:
 
 ## returns winning team, or null if a tie or unfinished
 func get_winner() -> Team:
-	if (result == 0):
-		return teams[0]
-	elif (result == -1):
-		return teams[1]
-	else:
+	if (!is_finished() || is_tie()):
 		return null
+	else:
+		return teams[result]
+
+func can_tie():
+	return !is_tourney_game() && !is_freeplay()
+
+func is_winner(t: Team) -> bool:
+	if (!has_team(t)):
+		Err.print_fatal("%s does not play in %s" % [t.id_str, id_str], Err.Fatal.Invalid)
+	return t == get_winner()
+	
+func has_winner() -> bool:
+	return (is_finished() && !is_tie())
 
 ## gets sum of both teams' rating
 func get_rating():
@@ -135,13 +150,25 @@ func is_bye() -> bool:
 	return !teams[0] || !teams[1]
 
 func is_official() -> bool:
-	return rnd > 0
+	return (!rnd is Array && rnd > 0)
 
 func is_done() -> bool:
 	return is_finished()
 
 func is_finished() -> bool: 
 	return (result != null)
+
+func is_freeplay() -> bool:
+	return (!is_tourney_game() && rnd == Main.GameRound.Freeplay)
+
+func is_tourney_game() -> bool:
+	return (rnd is Array)
+
+func is_tie() -> bool:
+	return result == TIE
+
+func score_tied() -> bool:
+	return score[0] == score[1]
 
 ## simulates a game as 2 cpu players choosing fighters randomly
 func sim_game():
@@ -153,9 +180,9 @@ func sim_game():
 	for i in range (2):
 		f_available[i] = teams[i].fighters
 	
-	for i in range (level.FPG):
-		var f1 = f_available[0].pick_random()
-		var f2 = f_available[1].pick_random()
+	for i in range (level.get_fpg()):
+		var f1 = Main.pick_random(f_available[0])
+		var f2 = Main.pick_random(f_available[1])
 		run_match(f1, f2)
 		f_played[0].append(f1)
 		f_available[0].erase(f1)
@@ -165,6 +192,10 @@ func sim_game():
 	for i in range (2):
 		f_available[i].append_array(f_played[i])
 		teams[i].fighters = f_available[i]
+	
+	if (score_tied() && !can_tie()):
+		Err.print("/ overtime!")
+		sim_game()
 		
 	set_result()
 
@@ -176,6 +207,11 @@ func run_match(f1: Fighter, f2: Fighter) -> Match:
 	if (r >= 0): score[r] += m.match_val
 	return m
 	
+func int_round() -> int:
+	if (rnd is int): return rnd
+	if (rnd is Array && rnd.size() == 2): return rnd[1]
+	return -1
+
 # string functions
 
 ## takes index of team and returns char representing its result
@@ -196,7 +232,7 @@ func str_result(t: Team, include_opp = false) -> String:
 	var k = i - 1
 	var text = ""
 	if (include_opp):
-		text = "%d) vs %s" % [rnd, teams[k].str_rank_name(true)]
+		text = "%s) vs %s" % [str(rnd), teams[k].str_rank_name(true)]
 	if (is_finished()):
 		if (include_opp): text += ": "
 		text += "%s %d-%d" % [str_result_char(i), score[i], score[k]]
@@ -205,15 +241,14 @@ func str_result(t: Team, include_opp = false) -> String:
 # format functions
 
 func format_save() -> Dictionary:
-	test_verify()
 	var data = super()
-	data.erase("name")
 	data.merge({
-		"round": rnd,
-		"team1id": teamIDs[0],
-		"team2id": teamIDs[1],
-		"result": result,
-		"matches": format_matches(),
+		"type" = "game",
+		"round" = rnd,
+		"team1id" = teamIDs[0],
+		"team2id" = teamIDs[1],
+		"result" = result,
+		"matches" = format_matches(),
 	}, true)
 	return data
 

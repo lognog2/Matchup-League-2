@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://yj00mivvbeba"]
+[gd_scene load_steps=7 format=3 uid="uid://yj00mivvbeba"]
 
 [ext_resource type="Script" path="res://menu/main_node.gd" id="1_m3hg5"]
 [ext_resource type="StyleBox" uid="uid://eelwpy4cx451" path="res://style/background.tres" id="2_kdcq6"]
 [ext_resource type="PackedScene" uid="uid://cqasb8jiiyqls" path="res://scene/main_menu.tscn" id="4_jsfq6"]
 [ext_resource type="Script" path="res://debug/signal_intercept.gd" id="4_x1t2k"]
 [ext_resource type="StyleBox" uid="uid://dnlk04e3oycrc" path="res://style/box_popup_save.tres" id="5_si83i"]
+[ext_resource type="PackedScene" uid="uid://c33ksj4hq4oke" path="res://scene/card/rating_card.tscn" id="6_ybsn1"]
 
 [node name="root" type="Control" node_paths=PackedStringArray("root_container", "vbox", "version_label", "seed_label", "save_box", "confirm_box", "confirm_label")]
 layout_mode = 3
@@ -131,6 +132,11 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 35
 text = "No"
+
+[node name="rating card" parent="." instance=ExtResource("6_ybsn1")]
+layout_mode = 1
+offset_right = 150.0
+offset_bottom = 50.0
 
 [connection signal="pressed" from="PanelContainer/confirm/VBoxContainer/MarginContainer2/HBoxContainer/HBoxContainer/yes" to="." method="_confirm_input"]
 [connection signal="pressed" from="PanelContainer/confirm/VBoxContainer/MarginContainer2/HBoxContainer/HBoxContainer2/no" to="." method="_deny_input"]

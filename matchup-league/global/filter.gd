@@ -2,7 +2,8 @@ extends Node
 
 ## selection filters
 var Select = {
-	TeamRanked = (func(t: Team): return t.rank > 0),
+	TeamRanked = (func(t: Team): return t.is_ranked()),
+	TeamQualified = (func(t: Team): return t.is_qualified()),
 	Default = (func(_de): return true)
 }
 
@@ -20,7 +21,7 @@ var Sort = {
 	WinPct = (func(a: DataEntity, b: DataEntity) -> bool:
 		return a.win_pct() > b.win_pct()),
 	Random = (func(_a, _b) -> bool:
-		return randi() % 2 == 0),
+		return Main.random_int(2) == 0),
 	Default = (func(_a: DataEntity, _b: DataEntity) -> bool: 
 		return false),
 
@@ -42,7 +43,8 @@ var Compound = {
 }
 
 ## allows sorting by multiple filters: if A and B return tied in a filter,
-## they are sorted by next filter instead. Must use filters from `Compound` dict.
+## they are sorted by next filter instead. Must use filters from `Compound` dict
+## or custom version of `func(a, b) -> Tribool`
 func compound_sort(filters: Array) -> Callable:
 	return (func(a: Variant, b: Variant) -> bool:
 		var result: Tribool = filters[0].call(a, b)
@@ -55,8 +57,8 @@ func compound_sort(filters: Array) -> Callable:
 	)
 
 ## returns a filter that is true if `Game`'s round matches `r`
-func select_by_round(r: int) -> Callable:
-	return (func(g: Game): return g.rnd == r)
+func select_by_round(r: Variant) -> Callable:
+	return (func(g: Game): return str(g.rnd) == str(r))
 
 ## filter to exclude self from selection
 func exclude_self(obj_self: Object) -> Callable: 

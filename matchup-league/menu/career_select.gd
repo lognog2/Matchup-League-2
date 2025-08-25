@@ -37,6 +37,16 @@ func _random():
 
 func _start():
 	var p_name = name_entry.text if (!name_entry.text.is_empty()) else "User"
-	Main.current_career = Career.create(level, p_name, team.id if (team) else -1)
+	Main.current_career = Career.create(level.name, p_name, team.id if (team) else -1)
 	Main.current_career.begin_round()
-	Main.emit_scene(Main.Scene.SeasonMenu, Main.main_node.user_confirm)
+	Setting.s.hidden = false
+	FileUtil.set_save_path(p_name)
+	SignalBus.done_saving.connect(begin_season)
+	Main.save_state(false)
+
+func begin_season():
+	Main.emit_scene(Main.Scene.SeasonMenu) 
+	if (SignalBus.done_saving.is_connected(begin_season)):
+		SignalBus.done_saving.disconnect(begin_season)
+	else:
+		Err.print_warn("SignalBus.done_saving not connected to begin_season", Err.Warn.Runtime)

@@ -19,6 +19,14 @@ var team: Team
 var opp: Team
 var rnd = 0
 
+var Text = {
+	NextGame = "Play next game",
+	NoGame = "No game this round",
+	Round = "Round %d",
+	SeasonEnd = "Season over",
+	TourneyEnd = "The end",
+}
+
 func _ready():
 	render()
 
@@ -26,10 +34,11 @@ func render():
 	career = Main.current_career
 	team = career.get_team()
 	rnd = career.current_round
-	round_label.text = "Round %d" % rnd
+	round_label.visible = true
+	round_label.text = Text.Round % Main.int_round(rnd)
 	team_view.render(team)
 	team_view.fc_box.visible = false #must be after render
-	var before = career.is_before_rnd() if (rnd <= Main.season_length) else true
+	var before = career.is_before_rnd()
 	fill_opp_info(before)
 	if (before):
 		level.set_rankings()
@@ -41,6 +50,7 @@ func render():
 
 func fill_opp_info(before = true):
 	next_round_button.visible = !before
+	check_tourney(before)
 	if (career.is_spectator()): 
 		fill_opp_null(before)
 		return
@@ -48,43 +58,48 @@ func fill_opp_info(before = true):
 	if (!opp): 
 		fill_opp_null(before)
 		return
-	if (before && rnd > Main.season_length):
+	if (before && !career.has_current_round()):
 		opp_rect.color = team.color
-		fill_opp_final()
+		fill_opp_end()
 		return
 	opp_rect.color = opp.color
 	next_game_label.text = "Next game:" if (before) else "Game vs:"
 	opp_name_label.text = opp.str_rank_name(true)
 	view_opp_button.visible = true
 	next_game_button.visible = before
+	next_game_button.text = Text.NextGame
 	sim_round_button.visible = false
 	result_label.text = team.str_game(rnd, false)
 
 func fill_opp_null(before = true):
-	opp_rect.color = Color.SLATE_GRAY
-	next_game_label.text = " "
-	opp_name_label.text = "No game this round"
+	opp_rect.color = Career.SPECTATOR_COLOR
+	opp_name_label.text = Text.NoGame
 	result_label.visible = false
 	view_opp_button.visible = false
 	next_game_button.visible = false
 	sim_round_button.visible = before
-	if (before && rnd > Main.season_length):
-		fill_opp_final()
+	if (!rnd): 
+		fill_opp_end()
+		return
 
-func fill_opp_final():
-	level.set_rankings()
-	next_game_label.text = "Season over"
-	opp_name_label.text = "You finished "
-	if (team && team.is_ranked()):
-		opp_name_label.text += "ranked at %d" % team.rank
-	else:
-		opp_name_label.text += "unranked"
+func fill_opp_end():
+	next_game_label.text = Text.TourneyEnd
+	opp_name_label.text = ":)"
+	round_label.visible = false
 	view_opp_button.visible = false
 	view_opp_button.visible = false
-	next_game_button.visible = false
 	sim_round_button.visible = false
 
+func check_tourney(before: bool):
+	if (end_of_season(before)):
+		level.begin_playoff()
+
+func end_of_season(before: bool) -> bool:
+	if (!before || !rnd): return false
+	return (!career.in_tourney() && (rnd > Main.season_length))
+
 func fill_rankings():
+	level.set_rankings()
 	var blank_team_label = NodeUtil.detach_child(ranking_box)
 	var teams_ranked = level.get_teams_filtered(Filter.Select.TeamRanked, Filter.Sort.TeamRank)
 	for t in teams_ranked:
@@ -104,7 +119,7 @@ func fill_fighters():
 	var blank_f_label = NodeUtil.detach_child(fighters_box)
 	blank_f_label.visible = false
 	var comp_filter = Filter.compound_sort([Filter.Compound.WinPct, Filter.Compound.Wins, Filter.Compound.Rating])
-	var fighters_ranked = level.get_fighters_sorted(comp_filter, level.RANK_AMT)
+	var fighters_ranked = level.get_fighters_sorted(comp_filter, level.config.rank_amt)
 	for i in range(fighters_ranked.size()):
 		var new_label = blank_f_label.duplicate()
 		new_label.text = "%2d " % (i + 1) + fighters_ranked[i].str_name_matches()

@@ -51,7 +51,7 @@ func add_empty_row():
 func get_team_boxes():
 	return get_tree().get_nodes_in_group(TEAM_GROUP)
 
-func user_set_game(r: int, target: Team, opponent: Team):
+func user_set_game(r: Variant, target: Team, opponent: Team):
 	for tbox in get_team_boxes():
 		if (target == tbox.team):
 			#print("^ adding ", tbox.team.id)

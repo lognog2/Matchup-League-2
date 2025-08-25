@@ -1,4 +1,4 @@
-func add_game(r: int, oppID: int, setOpp = true):
+func add_game(r: Variant, oppID: int, setOpp = true):
 	print("/ add game " + str(id) + " " + str(oppID) + " " + str(setOpp))
 	if (oppID < 0): 
 		remove_game(r, setOpp)
@@ -11,7 +11,7 @@ func add_game(r: int, oppID: int, setOpp = true):
 			opp.remove_game(r)
 		opp.add_game(r, id, false)
 
-func remove_game(r: int, remOpp = true):
+func remove_game(r: Variant, remOpp = true):
 	print("/ remove game " + str(id) + " " + str(remOpp))
 	if (!has_game(r)): return
 	if (!remOpp):

@@ -8,7 +8,7 @@ var game: Game
 func _enter_tree():
 	pass
 
-func render_game(r: int, t: Team, ob: OptionButton):
+func render_game(r: Variant, t: Team, ob: OptionButton):
 	gameRound = r
 	team = t
 	button = ob

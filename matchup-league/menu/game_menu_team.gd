@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends Container
 
 @export var played: HBoxContainer
 @export var bench: HBoxContainer
@@ -27,15 +27,15 @@ func render(idx: int, t: Team):
 	i = idx
 	team = t
 	blank_fc = NodeUtil.detach_child(played)
-	fill_bench(team.fighters)
+	fill_bench()
 	set_score(0)
 	result_button.visible = false
 	scoreboard_color_rect.color = team.color
 	team_name_label.text = team.de_name
 	result_panel.visible = false
 
-func fill_bench(fighters: Array):
-	NodeUtil.list_fighter_cards(bench, fighters)
+func fill_bench():
+	NodeUtil.list_fighter_cards(bench, team.fighters)
 	set_click_enable(!team.cpu)
 
 func set_score(score: int):
@@ -58,7 +58,7 @@ func play_fighter(fc: FighterCard = null):
 	elif (fc):
 		add_to_played(fc)
 	else:
-		add_to_played(bench.get_children().pick_random())
+		add_to_played(Main.pick_random(bench.get_children()))
 
 ## disabled after user selects a fighter, enabled again after opponent does
 func set_click_enable(enable = true):
@@ -80,6 +80,6 @@ func show_right_panel(is_tie = false):
 	result_panel.visible = true
 
 func can_play() -> bool:
-	return played.get_child_count() < team.level.FPG || bench.get_child_count() > 0
+	return played.get_child_count() < team.level.config.FPG || bench.get_child_count() > 0
 	
 	

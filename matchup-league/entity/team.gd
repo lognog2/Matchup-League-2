@@ -24,11 +24,12 @@ func set_data(data: Dictionary, init = false) -> Team:
 	wins = data.get("wins", wins)
 	losses = data.get("losses", losses)
 	ties = data.get("ties", ties)
+	rank = data.get("rank", rank)
 	# this needs to be last
-	if (!data.get("schedule")): return self
-	for r_str in data["schedule"]:
-		var r = int(r_str)
-		schedule[r] = data["schedule"][r_str]
+	var sched = data.get("schedule")
+	if (!sched): return self
+	for r_str in sched.keys():
+		schedule[str_round(r_str)] = sched[r_str]
 	return self
 
 ## called from `Fighter.set_team`
@@ -41,11 +42,11 @@ func add_fighter(f: Fighter):
 
 ## called from `Game.add_team`
 func add_game(g: Game):
-	if (g.rnd < 1): return
+	if (Main.int_round(g.rnd) < 1): return
 	if (!g.teams.has(self)):
 		g.add_team(self)
 	else:
-		schedule[g.rnd] = g
+		schedule[str_round(g.rnd)] = g
 
 func add_win():
 	wins += 1
@@ -65,7 +66,8 @@ func set_player(p: Player):
 	else:
 		player = p
 
-func remove_game(r: int):
+func remove_game(r: Variant):
+	r = str_round(r)
 	if (schedule.get(r)):
 		schedule[r] = null
 
@@ -75,20 +77,45 @@ func get_wins() -> int:
 func get_losses() -> int:
 	return losses
 
-func get_game(r: int) -> Game:
+## returns game at `r` round, or null if there's no game that round
+func get_game(r: Variant) -> Game:
+	r = str_round(r)
 	return schedule.get(r)
 
-func get_opponent(r: int) -> Team:
-	var g = schedule.get(r)
+func get_library() -> EntityLibrary:
+	return level.Lib.Team
+
+func get_opponent(r: Variant) -> Team:
+	var g = get_game(r)
 	return g.get_opponent(self) if (g) else null
 
-func get_opponent_name(r:int) -> String:
+func get_opponent_name(r: Variant) -> String:
 	var opp = get_opponent(r)
 	return opp.de_name if (opp) else Main.Keyname.Bye
 
-## compiles stat used for rating
-func get_rating() -> float:
-	return (avg_f_rating() * Rating.AVG_F_WT) + (wins * Rating.WIN_WT) + (ties * Rating.TIE_WT) - (losses * Rating.LOSS_WT)
+func rating_breakdown() -> Dictionary:
+	var breakdown = {
+		Fighters = avg_f_rating() * Rating.AVG_F_WT,
+		Wins = wins * Rating.WIN_WT,
+		Ties = ties * Rating.TIE_WT,
+		#Losses = losses * Rating.LOSS_WT,
+	}
+	return breakdown
+
+func rating_scale_breakdown() -> Dictionary:
+	var breakdown = rating_breakdown()
+	if (!Setting.using_rating_scale()):
+		return breakdown
+	for key in breakdown.keys():
+		var new_val = subrating_scale(breakdown[key])
+		breakdown[key] = new_val
+	return breakdown
+	
+## TODO: doesn't accurately get scaled subrating
+func subrating_scale(subrating: float) -> int:
+	Err.alert_warn("doesn't accurately get scaled subrating", Err.Warn.Outdated)
+	var percent = subrating / get_rating()
+	return get_rating_scale() * percent
 
 ## average rating of all fighters on the team
 func avg_f_rating() -> float:
@@ -97,17 +124,23 @@ func avg_f_rating() -> float:
 		total += f.get_rating()
 	return total / fighters.size()
 
-func get_rating_scale() -> int:
+func get_rating_scale() -> float:
 	return level.get_team_rs(self)
 
-func has_game(r: int) -> bool:
-	return get_opponent(r) != null
+func has_game(r: Variant) -> bool:
+	return get_game(r) != null
 
 func is_cpu() -> bool:
 	return cpu
 
 func is_ranked() -> bool:
 	return rank > 0
+
+func is_qualified() -> bool:
+	return is_ranked() && rank <= level.config.playoff_amt
+
+func is_winner(g: Game) -> bool:
+	return g.is_winner(self)
 
 func games_played() -> int:
 	return wins + losses
@@ -143,8 +176,11 @@ func str_rank_name(trim = false) -> String:
 func str_record() -> String:
 	return "%d-%d-%d" % [wins, losses, ties]
 
+func str_round(r: Variant) -> String:
+	return str(r)
+
 ## see `Game.str_result()`
-func str_game(r: int, include_opp = false) -> String:
+func str_game(r: Variant, include_opp = false) -> String:
 	return get_game(r).str_result(self, include_opp)
 
 ## returns first three letters if name is one word, or first letter of each word
@@ -169,6 +205,7 @@ func format_save() -> Dictionary:
 		"wins": wins,
 		"losses": losses,
 		"ties": ties,
+		"rank": rank,
 	}, true)
 	return data
 
@@ -180,7 +217,7 @@ func format_sched() -> Dictionary:
 
 func format_info() -> Dictionary:
 	var info = {
-		"Rating" = "%.f" % get_rating_scale(),
+		"Rating" = "%.f" % roundf(get_rating_scale()),
 		"Record" = str_record(),
 		"Series" = series,
 		"League" = level.name,

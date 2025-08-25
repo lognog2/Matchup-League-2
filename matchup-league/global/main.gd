@@ -4,7 +4,7 @@ var season: int
 var main_node: Control
 var game_seed: Variant
 var current_career: Career
-var backup = true
+var backup = false
 const MAX_TYPES = 4
 const MIN_BASE = 499
 const MAX_BASE = 9999
@@ -17,20 +17,36 @@ const MAX_SCENES = 8
 
 const DEFAULT_SERIES = "Original"
 
-const VERSION_NUM = "prototype 2.0.4"
-
 ## put in league class when i make it
 const season_length = 7
 
-func commit_version() -> String: 
-	return VERSION_NUM + ""
+var Version = {
+	Build = 2,
+	Version = 0,
+	Release = 5,
+	Commit = null
+}
+
+func str_version(drop_commit = false) -> String: 
+	var nums = Version.values()
+	if (nums[3] == null): drop_commit = true
+	var statement = "prototype %d.%d.%d" 
+	if (drop_commit):
+		nums.remove_at(3)
+	else:
+		statement += ".%d"
+	return statement % nums
 
 var Edition = {
 	Dev = "development",
 	Test = "playtest",
-	Prod = "Production"
+	Prod = "Production",
+	Exp = "experimental",
 }
-var version_edition = commit_version() + " " + Edition.Dev
+
+var edition = Edition.Dev
+
+var version_edition = str_version() + " " + edition
 
 ## stores previously visited scenes, behaves like a stack
 var scene_history = []
@@ -66,7 +82,7 @@ var Types = {
 var LegacyTypes = {
 	Day = "Y",
 	Night = "T",
-	Series = "P",
+	Series = "Z",
 	Default = "X"
 }
 
@@ -78,7 +94,7 @@ var BetaTypes = {
 
 var GameRound = {
 	Debug = -99,
-	Tournament = -1,
+	Tournament = [0, 0],
 	Freeplay = 0
 }
 
@@ -87,7 +103,11 @@ var Entity = {
 	Team = "team",
 	Game = "game",
 	Player = "player",
-	Level = "level"
+	Level = "level",
+	#TourneyGame = "tourney game",
+	League = "league",
+	Tournament = "tournament",
+	Tourney = Tournament,
 }
 
 var Levels = {
@@ -107,27 +127,37 @@ var Keyname = {
 	Empty = ""
 }
 
+## generic enum
+enum {
+	ZERO = 0,
+	DEBUG = 99,
+	HUNDRED = 100,
+	THOUSAND = 1_000,
+	TEN_THOUSAND = 10_000,
+	HUNDRED_THOUSAND = 100_000,
+	MILLION = 1_000_000,
+	BILLION = 1_000_000_000,
+
+	DEFAULT_SEED = 5862495, #32-bit hash of LN
+}
+
+var rep: Reproducible
+
 func _ready():
-	Stream.queue(func(): set_seed(randi()))
 	SignalBus.set_scene.connect(set_scene)
 	season = 29
 	Levels.Prep = Level.new("Prep", 3, 4)
 	Levels.Archive = Archive.new()
+	rep = Reproducible.new()
 	Stream.queue(load_state)
 
 func _process(delta: float):
+	pass
 	#report lag
-	if (delta > 0.0167):
-		if (delta < 0.0333): pass #Err.print("  %.3f" % delta) # <60 fps
-		elif (delta < 0.1): Err.print("* %.3f" %delta) # <30 fps
-		else: Err.print("! %.3f" %delta) # <10 fps
-	
-	# idk why i did this
-	var ticket = randi()
-	if (ticket == game_seed): Err.alert_warn("JACKPOT!!!", 777)
-	if (ticket % 1_000_000 == 0): 
-		Err.print("$ " + ticket)
-		Err.alert_success("you're one in a million!", 777)
+	#if (delta > 0.0167):
+	#	if (delta < 0.0333): pass #Err.print(". %.3f" % delta) # <60 fps
+	#	elif (delta < 0.1): Err.print("* %.3f" %delta) # <30 fps
+	#	else: Err.print("! %.3f" %delta) # <10 fps
 
 func get_level(levelName: String): return Levels[levelName]
 	
@@ -143,15 +173,33 @@ func blank_entity(ent_name: String) -> DataEntity:
 			return Game.new()
 		Entity.Player:
 			return Player.new()
+		Entity.Tournament:
+			return Tournament.new()
 		_:
 			Err.alert_warn("Main.blank_entity: %s does not match any entity name" % ent_name, Err.Warn.Invalid)
 			return DataEntity.new()
 	
-func set_seed(new_seed: int):
+func set_seed(new_seed = DEFAULT_SEED, new_state = null):
+	var old_rep = rep
 	game_seed = new_seed
-	seed(game_seed)
+	rep = Reproducible.new(game_seed, new_state)
+	if (old_rep): old_rep.free()
 	main_node.seed_label.text = "Seed: %d" % game_seed
-	Err.print("^ seed: " + str(game_seed))
+	Err.print("^ new seed: " + str(game_seed))
+
+## returns an `int` in the range 0 <= i < limit
+func random_int(limit = -1) -> int:
+	if (!rep): return randi()
+	var next = rep.get_next()
+	lottery(next)
+	if (limit < 0): 
+		return next
+	else: 
+		return next % limit
+
+func pick_random(arr: Array) -> Variant:
+	var idx = random_int(arr.size())
+	return arr[idx]
 
 func get_current_round():
 	if (!current_career): return 0
@@ -195,48 +243,71 @@ func pause_game(switch: bool):
 func is_paused() -> bool:
 	return get_tree().paused
 
+func int_round(rnd = current_career.current_round) -> int:
+	if (!rnd): return -1
+	return rnd if !(rnd is Array) else rnd[1]
+
 # save/load functions
 
 ## saves current game state. if you have stuff after this call you want done after it saves, queue it in `Stream`
+## or it will happen before saving
 func save_state(to_backup = false):
 	backup = to_backup
-	FileUtil.set_save_path()
 	if (backup): Err.print("/ saving to backup")
 	main_node.prompt_game_save(FileUtil.save_dir_exists(true))
 
 ## called from `main_node`
 func save_callable():
-	Err.print("^ saving")
-	Setting.save()
-	var path = "%s/%s" % [FileUtil.save_path, Career.FILE_NAME]
-	FileUtil.write_to_file(current_career.format_save(), path)
+	Err.print("^ saving to %s" % FileUtil.save_path)
+	Setting.save(backup)
+	current_career.save(backup)
 	for level in Levels:
 		Levels[level].save_data(backup)
 	main_node.save_game_end()
-	#SignalBus.done_saving.emit()
+	SignalBus.done_saving.emit()
 	Err.print("^ saved")
+	backup = false
 
 func load_state(data: Dictionary = {}):
-	var file_name = data.get("name", "")
+	var file_name = data.get("dir_name", "")
 	Err.print("^ loading %s" % file_name)
-	
-	for level in Levels.values():
-		level.load_data()
-	
+
+	# load career data
 	if (data == {}):
 		current_career = null
 	else:
-		var lvl = Levels[data.level]
+		if (data.get("level")):
+			data["level name"] = data["level"]
+		var lvl = data["level name"]
 		current_career = Career.create(lvl, data.name, data.team_id)
-		current_career.current_round = data.round - 1
-		current_career.begin_round()
-		set_seed(data.seed)
-
+		if (data.round is int): 
+			current_career.current_round = data.round - 1
+			current_career.begin_round()
+		else:
+			current_career.current_round = data.round
+	
 	FileUtil.set_save_path(file_name) # after career is set
 	Setting.load()
+	for level in Levels.values():
+		level.load_data()
 	NodeUtil.set_bg_theme()
-
 	SignalBus.done_loading.emit()
 	for lvl in Levels.values():
 		lvl.set_avg_rating()
 	Err.print("^ loaded")
+
+func system_info() -> Dictionary:
+	var info = {
+		timestamp = Time.get_datetime_string_from_system(false, true),
+		version = str_version(),
+		edition = edition,
+	}
+	return info
+	
+## idk why i did this
+func lottery(ticket: int):
+	
+	if (ticket == game_seed): Err.alert_success("JACKPOT!!!", 777)
+	if (ticket % MILLION == 0 && ticket >= MILLION): 
+		Err.print("$ " + str(ticket))
+		Err.alert_success("you're one in a million!", 777)

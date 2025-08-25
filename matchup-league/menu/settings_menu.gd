@@ -2,12 +2,13 @@ extends Menu
 
 @export var backup_options: OptionButton
 @export var theme_options: OptionButton
+@export var scale_options: OptionButton
 
 var setting: Dictionary
 
 func _ready():
 	scene_name = Main.Scene.SettingsMenu
-	render()
+	render()  
 
 func render():
 	setting = Setting.s
@@ -24,6 +25,8 @@ func render():
 		if (NodeUtil.compare_colors(setting.theme, Setting.ThemeColor[key])):
 			theme_options.selected = i
 		i += 1
+	
+	scale_options.visible = false
 
 func _ledger_input(event: InputEvent):
 	Err.print(event)
@@ -38,3 +41,6 @@ func backup_change(idx: int):
 func theme_change(idx: int):
 	setting.theme = Setting.ThemeColor.values()[idx]
 	NodeUtil.set_bg_theme()
+
+func scale_change(idx: int):
+	setting.rating_scale = Rating.Scale.values()[idx]

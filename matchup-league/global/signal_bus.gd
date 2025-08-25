@@ -4,6 +4,10 @@ extends Node
 signal done_saving()
 signal done_loading()
 
+signal new_career(c_name: String)
+
+signal next_round(r: Variant)
+
 signal set_scene(scene_name: String)
 
 signal to_game_select(t1: Team, t2: Team)
@@ -19,6 +23,8 @@ signal close_table()
 
 signal run_match(f1: Fighter, f2: Fighter)
 
-signal user_set_game(r: int, target: Team, opp: Team)
+signal user_set_game(r: Variant, target: Team, opp: Team)
 
 signal user_select_fighter(fc: FighterCard)
+
+signal get_rating_breakdown(breakdown: Dictionary)

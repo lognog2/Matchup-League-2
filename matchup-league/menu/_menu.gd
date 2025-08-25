@@ -14,7 +14,7 @@ func _back():
 
 ## call when user manually clicks a save button
 func _save():
-	var backup = check_save_backup(Setting.SaveSpot.Click)
+	var backup = check_save_backup(Setting.SaveSpot.Click_save)
 	Main.save_state(backup)
 
 ## returns true if current spot matches setting for saving to backup
