@@ -1,5 +1,5 @@
 matchup league development manual
-last updated: 2.0.5.11
+last updated: 2.0.5.FINAL
 
 # table of contents
 
@@ -120,7 +120,7 @@ average rating of teams
 ## rating scale
 preserves an entity's rating in its current context
 will be used to standardize across tiers and seasons
-current scale: average prep rating = 75
+current scale: none
 ideal scale: average A tier rating = 100
 
 # player personalities
@@ -199,8 +199,6 @@ stored as an array [i, r] where i is the tourney id and r is the tourney round
 
 
 # misc
-
-keep as a txt file but make it somewhat compliant with markdown
 
 entity relations stored as objects while game is running, when saving to file save the id only.
 entities save the id of the higher relation in this hierarchy:

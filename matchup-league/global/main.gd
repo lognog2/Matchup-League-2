@@ -24,7 +24,7 @@ var Version = {
 	Build = 2,
 	Version = 0,
 	Release = 5,
-	Commit = 11
+	Commit = null
 }
 
 func str_version(drop_commit = false) -> String: 

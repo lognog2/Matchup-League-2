@@ -17,7 +17,7 @@ func render(dat: Dictionary):
 
 func fill_card():
 	name_label.text = data.name
-	round_label.text = "Round %s" % str(data.round)
+	round_label.text = "Round %s" % str(data.round) if data.round else "Completed"
 	season_label.text = "Season %d" % data.season
 	team_label.text = data.team_name
 	team_rect.color = Main.format_color(data.color)
