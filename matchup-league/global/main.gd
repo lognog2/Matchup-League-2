@@ -22,8 +22,8 @@ const season_length = 7
 
 var Version = {
 	Build = 2,
-	Version = 0,
-	Release = 5,
+	Version = 1,
+	Release = 0,
 	Commit = null
 }
 
