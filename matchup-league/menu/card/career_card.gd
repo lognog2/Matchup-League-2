@@ -6,7 +6,6 @@ class_name CareerCard extends Card
 @export var team_label: Label
 @export var team_rect: ColorRect
 
-var career_name: String
 var data: Dictionary
 var timestamp: int ##unix time
 
@@ -21,12 +20,14 @@ func fill_card():
 	season_label.text = "Season %d" % data.season
 	team_label.text = data.team_name
 	team_rect.color = Main.format_color(data.color)
-	timestamp = data.timestampv  
+	timestamp = data.timestamp
 
 func _select():
 	Main.load_state(data)
 	Main.emit_scene(Main.Scene.SeasonMenu)
 
 func _delete():
-	#popup to confirm delete
-	pass
+	var delete = func():
+		FileUtil.delete_save(data.name)
+		self.hide()
+	SignalBus.confirm_dialog.emit("Delete career?", delete)

@@ -99,3 +99,25 @@ func copy_file(from: String, to: String):
 
 func on_default() -> bool:
 	return (default_path == save_path)
+
+func delete_save(name: String):
+	var dir_name = SAVE_ID + name
+	var dir_path = "data/%s" % dir_name
+	delete_recursive(dir_path) 
+	var dir = DirAccess.open("data")
+	var code = dir.remove(dir_name)
+	if (code != OK):
+		Err.print_warn("Failed to delete dir %s, DirAccess returned %d" % [dir_name, code], Err.Warn.ReadWrite)
+
+## deletes all files and directories within a directory
+func delete_recursive(dir_path: String):
+	var dir = DirAccess.open(dir_path)
+	for file in dir.get_files():
+		var code = dir.remove(file)
+		if (code != OK):
+			Err.print_warn("Failed to delete dir %s, DirAccess returned %d" % [file, code], Err.Warn.ReadWrite)
+	for subdir in dir.get_directories():
+		delete_recursive(dir_path + "/" + subdir)
+		var code = dir.remove(subdir)
+		if (code != OK):
+			Err.print_warn("Failed to delete dir %s, DirAccess returned %d" % [subdir, code], Err.Warn.ReadWrite)

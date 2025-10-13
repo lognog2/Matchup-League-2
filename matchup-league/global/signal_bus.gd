@@ -28,3 +28,5 @@ signal user_set_game(r: Variant, target: Team, opp: Team)
 signal user_select_fighter(fc: FighterCard)
 
 signal get_rating_breakdown(breakdown: Dictionary)
+
+signal confirm_dialog(text: String, on_confirm: Callable)

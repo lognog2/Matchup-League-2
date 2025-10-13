@@ -1,5 +1,5 @@
 matchup league development manual
-last updated: 2.1.0.0
+last updated: 2.1.0.1
 
 # table of contents
 
