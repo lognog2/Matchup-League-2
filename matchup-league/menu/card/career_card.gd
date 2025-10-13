@@ -21,8 +21,12 @@ func fill_card():
 	season_label.text = "Season %d" % data.season
 	team_label.text = data.team_name
 	team_rect.color = Main.format_color(data.color)
-	timestamp = data.timestamp
+	timestamp = data.timestampv  
 
 func _select():
 	Main.load_state(data)
 	Main.emit_scene(Main.Scene.SeasonMenu)
+
+func _delete():
+	#popup to confirm delete
+	pass

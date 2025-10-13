@@ -43,8 +43,12 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="HBoxContainer" type="HSplitContainer" parent="blank career/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
 [node name="name" type="Label" parent="blank career/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 30
 text = "User"
 clip_text = true
@@ -69,11 +73,21 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Season 99"
 
-[node name="select" type="Button" parent="blank career/MarginContainer/HBoxContainer"]
+[node name="buttons vbox" type="VBoxContainer" parent="blank career/MarginContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="select" type="Button" parent="blank career/MarginContainer/HBoxContainer/buttons vbox"]
+layout_mode = 2
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 32
 text = "Select"
 
-[connection signal="pressed" from="blank career/MarginContainer/HBoxContainer/select" to="." method="_select"]
+[node name="delete" type="Button" parent="blank career/MarginContainer/HBoxContainer/buttons vbox"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+text = "Delete"
+
+[connection signal="pressed" from="blank career/MarginContainer/HBoxContainer/buttons vbox/select" to="." method="_select"]
+[connection signal="pressed" from="blank career/MarginContainer/HBoxContainer/buttons vbox/delete" to="." method="_delete"]

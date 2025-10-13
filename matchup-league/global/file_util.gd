@@ -6,6 +6,7 @@ var default_path = "%s/%s" % [data_path, default_name]
 const SAVE_ID = "save_"
 const BACKUP_EXT = "_backup"
 var save_path = default_path
+
 func open_file(path = save_path, write = true) -> FileAccess:
 	var flag = FileAccess.WRITE if (write) else FileAccess.READ
 	var file = FileAccess.open(path, flag)
