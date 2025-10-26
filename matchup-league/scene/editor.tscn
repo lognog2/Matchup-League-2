@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dnnk3oq0uhsk3"]
+[gd_scene load_steps=11 format=3 uid="uid://dnnk3oq0uhsk3"]
 
 [ext_resource type="Script" path="res://editor/_table.gd" id="1_2ii0b"]
 [ext_resource type="Script" path="res://editor/fighter_table.gd" id="1_nkua0"]
 [ext_resource type="Script" path="res://editor/fighter_table_row.gd" id="2_1hdbk"]
 [ext_resource type="StyleBox" uid="uid://eelwpy4cx451" path="res://style/background.tres" id="2_xvtes"]
 [ext_resource type="Script" path="res://editor/team_table.gd" id="3_31utt"]
+[ext_resource type="Script" path="res://util/scrollable.gd" id="4_pqok0"]
 [ext_resource type="Script" path="res://editor/team_table_row.gd" id="4_trhd7"]
 [ext_resource type="Script" path="res://editor/sched_table.gd" id="6_j6joy"]
 [ext_resource type="Script" path="res://editor/sched_table_team.gd" id="7_nee7c"]
@@ -37,18 +38,17 @@ theme_override_styles/panel = ExtResource("2_xvtes")
 custom_minimum_size = Vector2(0, 640)
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 1
+current_tab = 0
 
-[node name="fighters" type="VBoxContainer" parent="background/entity_edit" node_paths=PackedStringArray("table", "row", "message", "softSave")]
-visible = false
+[node name="fighters" type="VBoxContainer" parent="background/entity_edit" node_paths=PackedStringArray("scroll_box", "row", "message", "backup")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_nkua0")
-table = NodePath("scroll box/table vbox")
+scroll_box = NodePath("scroll box")
 row = NodePath("scroll box/table vbox/row")
 message = NodePath("top row/message")
-softSave = NodePath("top row/soft_save")
+backup = NodePath("top row/soft_save")
 metadata/_tab_index = 0
 
 [node name="HSeparator" type="HSeparator" parent="background/entity_edit/fighters"]
@@ -102,6 +102,7 @@ custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_vertical = 3
 follow_focus = true
+script = ExtResource("4_pqok0")
 
 [node name="table vbox" type="VBoxContainer" parent="background/entity_edit/fighters/scroll box"]
 layout_mode = 2
@@ -217,6 +218,7 @@ alignment = 2
 select_all_on_focus = true
 
 [node name="teams" type="MarginContainer" parent="background/entity_edit"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 10
