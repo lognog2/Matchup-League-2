@@ -18,11 +18,11 @@ func render():
 	scroll_box.render(row_list)
 
 func add_row(fighter: Fighter = null) -> Node:
-	var newRow = row.duplicate()
-	newRow.visible = true
+	var new_row = row.duplicate()
+	new_row.visible = true
 	if (fighter):
-		newRow.render_row(fighter)
-	return newRow
+		new_row.render_row(fighter)
+	return new_row
 
 func add_empty_row():
 	message.visible = false
@@ -30,10 +30,9 @@ func add_empty_row():
 	
 func save():
 	message.visible = true
-	for t_row in scroll_box.box.get_children():
-		t_row.save()
-	Main.save_state(backup.button_pressed)
+	scroll_box.save()
+	super._save()
 	render()
 
-func updateMsg(msg = ""):
+func update_message(msg = ""):
 	message.text = msg

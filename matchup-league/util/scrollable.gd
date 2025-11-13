@@ -38,3 +38,8 @@ func add_next():
 		return
 	box.add_child(node_list[load_idx])
 	load_idx += 1
+
+func save(backup = false):
+	for t_row in box.get_children():
+		t_row.save()
+	Main.save_state(backup.button_pressed)
