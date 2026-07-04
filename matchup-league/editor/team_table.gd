@@ -13,15 +13,19 @@ func render():
 	set_level()
 	var row_list = []
 	for t in level.get_teams():
-		row_list.append(add_row(t))
+		row_list.append(create_row(t))
 	scroll_box.render(row_list)
-
-func add_row(team: Team = null) -> Node:
+	
+func create_row(team: Team = null) -> Node:
 	var new_row = row.duplicate()
 	new_row.visible = true
-	#table.add_child(new_row)
 	if (team):
 		new_row.load(team)
+	return new_row
+
+func add_row(team: Team = null) -> Node:
+	var new_row = create_row(team)
+	scroll_box.add_row(new_row)
 	return new_row
 	
 func add_empty_row():

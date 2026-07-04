@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Stream="*res://global/stream.gd"
+Main="*res://global/main.gd"
 SignalBus="*res://global/signal_bus.gd"
 Err="*res://global/error.gd"
 ArrayUtil="*res://global/array_util.gd"
@@ -25,7 +26,6 @@ NodeUtil="*res://global/node_util.gd"
 Filter="*res://global/filter.gd"
 FileUtil="*res://global/file_util.gd"
 Setting="*res://global/setting.gd"
-Main="*res://global/main.gd"
 Rating="*res://global/rating.gd"
 
 [display]

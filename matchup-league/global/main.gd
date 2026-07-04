@@ -24,7 +24,7 @@ var Version = {
 	Build = 2,
 	Version = 1,
 	Release = 0,
-	Commit = 3
+	Commit = 4
 }
 
 func str_version(drop_commit = false) -> String: 
@@ -111,10 +111,10 @@ var Entity = {
 }
 
 var Levels = {
-	Prep = null,
+	#Prep = null,
 	#"College": Level.new("College", 5),
-	#"Pro": Level.new("Pro", 11),
-	Archive = null
+	#Pro = null,
+	#Archive = null
 }
 
 ## names reserved for program functions
@@ -145,13 +145,14 @@ var rep: Reproducible
 
 func _ready():
 	SignalBus.set_scene.connect(set_scene)
-	season = 29
+	season = 11
 	Levels.Prep = Level.new("Prep", 3, 4)
+	Levels.Pro = Level.new("Prep", 8, 10)
 	Levels.Archive = Archive.new()
 	rep = Reproducible.new()
 	Stream.queue(load_state)
 
-func _process(delta: float):
+func _process(_delta: float):
 	pass
 	#report lag
 	#if (delta > 0.0167):
@@ -161,7 +162,7 @@ func _process(delta: float):
 
 func get_level(levelName: String): return Levels[levelName]
 	
-func get_season(): return season
+func get_season() -> int: return season
 
 func blank_entity(ent_name: String) -> DataEntity:
 	match ent_name:
@@ -260,7 +261,8 @@ func save_state(to_backup = false):
 func save_callable():
 	Err.print("^ saving to %s" % FileUtil.save_path)
 	Setting.save(backup)
-	current_career.save(backup)
+	if (current_career):
+		current_career.save(backup)
 	for level in Levels:
 		Levels[level].save_data(backup)
 	main_node.save_game_end()

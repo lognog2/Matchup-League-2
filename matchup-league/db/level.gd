@@ -26,7 +26,7 @@ static func get_id(de: Variant = null):
 
 func _init(levelName: String, fpg = 100, fpt = 100):
 	name = levelName
-	config.playoff_name = "%d %s Finals" % [Main.season, name]
+	config.playoff_name = "%d %s Finals" % [Main.get_season(), name]
 	config.FPT = fpt
 	config.FPG = fpg
 	Lib.Fighter = EntityLibrary.new(name, Main.Entity.Fighter)
@@ -34,6 +34,9 @@ func _init(levelName: String, fpg = 100, fpt = 100):
 	Lib.Game = EntityLibrary.new(name, Main.Entity.Game)
 	Lib.Player = EntityLibrary.new(name, Main.Entity.Player)
 	Lib.Tourney = EntityLibrary.new(name, Main.Entity.Tournament)
+
+func get_name() -> String:
+	return name
 
 func get_fpg() -> int:
 	return config.FPG
@@ -76,6 +79,14 @@ func find_game(r: Variant, oppID: int) -> Game:
 		return null
 	else:
 		return result[0]
+
+# check if entity exists
+
+func has_fighter_id(id: int) -> bool:
+	return Lib.Fighter.has_entity_id(id)
+
+func has_team_id(id: int) -> bool:
+	return Lib.Team.has_entity_id(id)
 
 # get list by filter
 

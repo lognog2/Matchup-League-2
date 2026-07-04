@@ -3,10 +3,10 @@ class_name Menu extends Control
 var level: Level
 var scene_name: String
 
-func _enter_tree():
+func _ready():
 	set_level()
 
-func set_level(lvl: Level = Main.Levels.Prep):
+func set_level(lvl: Level = Main.Levels.Pro):
 	level = lvl
 	
 func _back():

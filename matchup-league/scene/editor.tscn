@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://editor/sched_table_team.gd" id="7_nee7c"]
 [ext_resource type="Script" path="res://editor/sched_table_game.gd" id="8_8uuyj"]
 
-[node name="table" type="Control" node_paths=PackedStringArray("tabContainer", "fighterTable", "teamTable")]
+[node name="table" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,9 +21,6 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_2ii0b")
-tabContainer = NodePath("background/entity_edit")
-fighterTable = NodePath("background/entity_edit/fighters")
-teamTable = NodePath("background/entity_edit/teams/team_table")
 
 [node name="background" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -40,7 +37,7 @@ layout_mode = 2
 size_flags_vertical = 3
 current_tab = 1
 
-[node name="fighters" type="VBoxContainer" parent="background/entity_edit" node_paths=PackedStringArray("scroll_box", "row", "message", "backup")]
+[node name="fighters" type="VBoxContainer" parent="background/entity_edit" node_paths=PackedStringArray("scroll_box", "row", "message", "backup", "tab_container", "fighter_table", "team_table")]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
@@ -50,6 +47,9 @@ scroll_box = NodePath("scroll box")
 row = NodePath("scroll box/table vbox/row")
 message = NodePath("top row/message")
 backup = NodePath("top row/soft_save")
+tab_container = NodePath("..")
+fighter_table = NodePath(".")
+team_table = NodePath("../teams/team_table")
 metadata/_tab_index = 0
 
 [node name="HSeparator" type="HSeparator" parent="background/entity_edit/fighters"]
@@ -226,7 +226,7 @@ theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 10
 metadata/_tab_index = 1
 
-[node name="team_table" type="VBoxContainer" parent="background/entity_edit/teams" node_paths=PackedStringArray("scroll_box", "row", "message")]
+[node name="team_table" type="VBoxContainer" parent="background/entity_edit/teams" node_paths=PackedStringArray("scroll_box", "row", "message", "tab_container", "fighter_table", "team_table")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -234,6 +234,9 @@ script = ExtResource("3_31utt")
 scroll_box = NodePath("scroll box")
 row = NodePath("scroll box/table vbox/row")
 message = NodePath("top row/message")
+tab_container = NodePath("../..")
+fighter_table = NodePath("../../fighters")
+team_table = NodePath(".")
 
 [node name="top row" type="HBoxContainer" parent="background/entity_edit/teams/team_table"]
 layout_mode = 2
@@ -282,7 +285,6 @@ series = NodePath("series")
 custom_minimum_size = Vector2(15, 20)
 layout_mode = 2
 placeholder_text = "id"
-editable = false
 
 [node name="name" type="LineEdit" parent="background/entity_edit/teams/team_table/scroll box/table vbox/row"]
 custom_minimum_size = Vector2(200, 20)

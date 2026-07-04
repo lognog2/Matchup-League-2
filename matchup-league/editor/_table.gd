@@ -1,8 +1,8 @@
 class_name Table extends Menu
 
-@export var tabContainer: TabContainer
-@export var fighterTable: Table
-@export var teamTable: Table
+@export var tab_container: TabContainer
+@export var fighter_table: Table
+@export var team_table: Table
 
 
 func _enter_tree():
@@ -11,4 +11,4 @@ func _enter_tree():
 	set_level()
 
 #returns index of current tab
-func getCurrentTab(): return tabContainer.current_tab
+func getCurrentTab(): return tab_container.current_tab

@@ -8,6 +8,9 @@ var level_name: String
 var entity_name: String
 var file_name: String
 
+const no_file_msg = "Unexpected character."
+const blank_entity = "{}"
+
 func _init(lvl_name: String, ent_name: String):
 	level_name = lvl_name
 	entity_name = ent_name
@@ -127,6 +130,9 @@ func get_entities(select_filter = Filter.Select.Default, sort_filter = null, lim
 	if (limit > 0): valid_entities = valid_entities.slice(0, limit)
 	return valid_entities
 
+func has_entity_id(id: int) -> bool:
+	return dict.has(id)
+
 # test data
 
 #func test_lib_size() -> bool:
@@ -163,7 +169,11 @@ func load_from_file():
 func load_line(line: String):
 	var json = JSON.new()
 	if json.parse(line) != OK:
-		Err.print_fatal("JSON Parse Error: " + json.get_error_message() + " in " + line + " at line " + str(json.get_error_line()), Err.Fatal.ReadWrite)
+		var err_msg = json.get_error_message()
+		if (err_msg == no_file_msg):
+			load_line(blank_entity)
+		else:
+			Err.print_fatal("JSON Parse Error: " + err_msg + " in " + line + " at line " + str(json.get_error_line()), Err.Fatal.ReadWrite)
 		return
 	var data = json.data
 	if (data.is_empty()):

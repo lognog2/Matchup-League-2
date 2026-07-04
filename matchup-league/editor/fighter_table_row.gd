@@ -33,7 +33,7 @@ func render_row(f : Fighter):
 	wkVal.value = f.wkVal
 	startSeason.value = f.startSeason
 	teamID = f.teamID
-	setTeam()
+	set_team()
 
 ##fill option buttons for strength and weakness types
 func fill_mod_obs():
@@ -44,16 +44,16 @@ func fill_mod_obs():
 			wkType.add_item(type_name)
 	
 			
-func openTeamList():
+func open_team_list():
 	team.clear()
 	for t in level.get_t_names():
 		team.add_item(t)
 
-func closeTeamList():
+func close_team_list():
 	teamID = team.selected
-	setTeam()
+	set_team()
 	
-func setTeam():
+func set_team():
 	team.clear()
 	if (teamID > -1):
 		team.add_item(level.get_team(teamID).de_name)

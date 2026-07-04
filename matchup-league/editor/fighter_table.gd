@@ -20,6 +20,7 @@ func render():
 func add_row(fighter: Fighter = null) -> Node:
 	var new_row = row.duplicate()
 	new_row.visible = true
+	scroll_box.add_child(new_row)
 	if (fighter):
 		new_row.render_row(fighter)
 	return new_row

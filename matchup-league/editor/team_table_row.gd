@@ -13,22 +13,22 @@ func _enter_tree():
 
 func save():
 	if (id.text == ""): id.text = no_id
-	if (!team || t_name.text == ""): return
+	if (t_name.text == ""): return
 	var data = {
 		"id": id.text,
 		"name": t_name.text,
 		"season": Main.get_season(),
-		"level name": level.name,
+		"level name": Main.Levels.Pro.get_name(),
 		"color": color.color.to_rgba32(),
-		"schedule": team.schedule if (team.schedule) else {},
+		"schedule": team.schedule if (team && team.schedule) else {},
 		"series": series.text
 	}
-	var newTeam
-	if (id.text == no_id):
-		newTeam = level.add_team(data)
+	var new_team
+	if (id.text == no_id || !level.has_team_id(int(id.text))):
+		new_team = level.add_team(data)
 	else:
-		newTeam = level.set_team(data)
-	id.text = str(newTeam.id)
+		new_team = level.set_team(data)
+	id.text = str(new_team.id)
 
 func load(t: Team):
 	team = t

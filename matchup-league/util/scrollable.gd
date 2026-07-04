@@ -20,7 +20,6 @@ func render(list: Array, initial_load = 25):
 	node_list = list
 	load_amt = initial_load
 	
-
 func unload():
 	load_idx = 0
 	full = false
@@ -38,8 +37,11 @@ func add_next():
 		return
 	box.add_child(node_list[load_idx])
 	load_idx += 1
+	
+func add_row(row: Node):
+	box.add_child(row)
 
 func save(backup = false):
 	for t_row in box.get_children():
 		t_row.save()
-	Main.save_state(backup.button_pressed)
+	Main.save_state(backup)
