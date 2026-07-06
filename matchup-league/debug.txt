@@ -1,0 +1,128 @@
+0000 ^ loading 
+0000 / save path: res://data/default
+0000 ^ new seed: 3751111701396070295
+0000 > done loading
+0000 ^ loaded
+0000 > set scene main_menu
+0032 > set scene career_select
+0032 > to career select
+0265 ^ new seed: 10
+0265 / begin round 1
+0265 / save path: res://data/save_a
+0265 / save path: res://data/save_a
+0265 ^ saving to res://data/save_a
+0265 ^ saved
+0265 > set scene season_menu
+0646 / saving to backup
+0646 ^ paused: true
+0646 / confirm
+0646 ^ paused: false
+0646 ^ saving to res://data/save_a
+0646 ^ saved
+0646 ^ loading 
+0646 / save path: res://data/default
+0646 ^ new seed: 10
+0646 > done loading
+0646 ^ loaded
+0646 > set scene main_menu
+0722 > set scene load_career
+1011 ^ loading default
+1011 / save path: res://data/default
+1011 ^ new seed: 10
+1011 > done loading
+1011 ^ loaded
+1011 > set scene season_menu
+2308 / saving to backup
+2308 ^ paused: true
+2308 / deny
+2308 ^ paused: false
+2308 ^ loading 
+2308 / save path: res://data/default
+2308 ^ new seed: 10
+2308 > done loading
+2308 ^ loaded
+2308 > set scene main_menu
+2348 > set scene career_select
+2348 > to career select
+2598 ^ new seed: 1816547677
+2598 / begin round 1
+2598 / save path: res://data/save_p
+2598 / save path: res://data/save_p
+2598 ^ saving to res://data/save_p
+2598 ^ saved
+2598 > set scene season_menu
+3894 > set scene team_menu
+5961 / saving to backup
+5961 ^ paused: true
+5961 / confirm
+5961 ^ paused: false
+5961 ^ saving to res://data/save_p
+5961 ^ saved
+5961 ^ loading 
+5961 / save path: res://data/default
+5961 ^ new seed: 1816547677
+5961 > done loading
+5961 ^ loaded
+5961 > set scene main_menu
+6076 > set scene career_select
+6076 > to career select
+6479 ^ new seed: 1
+6479 / begin round 1
+6479 / save path: res://data/save_canon
+6479 / save path: res://data/save_canon
+6479 ^ saving to res://data/save_canon
+6479 ^ saved
+6479 > set scene season_menu
+6714 / begin round 2
+6770 / begin round 3
+6817 / begin round 4
+6902 / begin round 5
+6957 / begin round 6
+7004 / begin round 7
+7053 / num: 16 | seeding: 1 | opp seeding: 16
+7053 / num: 16 | seeding: 2 | opp seeding: 15
+7053 / num: 16 | seeding: 3 | opp seeding: 14
+7053 / num: 16 | seeding: 4 | opp seeding: 13
+7053 / num: 16 | seeding: 5 | opp seeding: 12
+7053 / num: 16 | seeding: 6 | opp seeding: 11
+7053 / num: 16 | seeding: 7 | opp seeding: 10
+7053 / num: 16 | seeding: 8 | opp seeding: 9
+7053 * Warning 0: entity TN-1 can't have a rating breakdown
+7053 / begin round [0, 1]
+7334 / num: 8 | seeding: 1 | opp seeding: 8
+7334 / num: 16 | seeding: 8 | opp seeding: 9
+7334 / num: 8 | seeding: 2 | opp seeding: 7
+7334 / num: 16 | seeding: 7 | opp seeding: 10
+7334 / num: 8 | seeding: 3 | opp seeding: 6
+7334 / num: 16 | seeding: 6 | opp seeding: 11
+7334 / num: 8 | seeding: 4 | opp seeding: 5
+7334 / num: 16 | seeding: 5 | opp seeding: 12
+7334 / begin round [0, 2]
+7394 / overtime!
+7412 / num: 4 | seeding: 1 | opp seeding: 4
+7412 / num: 4 | seeding: 10 | opp seeding: -5
+7412 / num: 8 | seeding: -5 | opp seeding: 14
+7412 / num: 16 | seeding: 14 | opp seeding: 3
+7412 / num: 32 | seeding: 3 | opp seeding: 30
+7412 / num: 32 | seeding: 14 | opp seeding: 19
+7412 / num: 16 | seeding: -5 | opp seeding: 22
+7412 / num: 32 | seeding: 22 | opp seeding: 11
+7412 / begin round [0, 3]
+7545 / num: 2 | seeding: 4 | opp seeding: -1
+7545 / num: 4 | seeding: -1 | opp seeding: 6
+7545 / num: 8 | seeding: 6 | opp seeding: 3
+7545 / num: 16 | seeding: 3 | opp seeding: 14
+7545 / num: 32 | seeding: 14 | opp seeding: 19
+7545 / num: 32 | seeding: 3 | opp seeding: 30
+7545 / num: 16 | seeding: 6 | opp seeding: 11
+7545 / num: 32 | seeding: 11 | opp seeding: 22
+7545 / num: 32 | seeding: 6 | opp seeding: 27
+7545 / num: 8 | seeding: -1 | opp seeding: 10
+7545 / begin round [0, 4]
+7637 / begin round <null>
+7719 ^ paused: true
+7719 / confirm
+7719 ^ paused: false
+7719 ^ saving to res://data/save_canon
+7719 ^ saved
+9392 > set scene team_menu

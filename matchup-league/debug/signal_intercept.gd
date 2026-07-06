@@ -2,7 +2,7 @@
 extends Node
 
 const CHAR = ">"
-var enabled = false
+var enabled = true
 
 func _ready():
 	if (!enabled): return
@@ -10,7 +10,6 @@ func _ready():
 	SignalBus.set_scene.connect(set_scene)
 	SignalBus.to_game_select.connect(game_select)
 	SignalBus.to_career_select.connect(career_select)
-
 	SignalBus.run_match.connect(run_match)
 
 func done_loading():
@@ -24,7 +23,6 @@ func game_select(t1: Team, t2: Team):
 
 func career_select():
 	print_signal("to career select")
-
 
 func run_match(f1: Fighter, f2: Fighter):
 	print_signal("run match (%s, %s)" % [f1.de_name, f2.de_name])

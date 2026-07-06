@@ -3,6 +3,12 @@ extends Node
 ## implememnt in testing version
 const test_message = "Please screenshot this message and show it to a dev"
 
+const no_msg = "idk :3"
+const no_title = "no title :/"
+
+var log_path = "res://debug.txt"
+var log_file: FileAccess
+
 ## did not complete
 var Fatal = {
 	Debug = -99, ##placeholder
@@ -36,35 +42,49 @@ var Success = {
 	NoAction = 0 ##no action was taken, and program can reliably continue
 }
 
+func _ready() -> void:
+	log_file = FileUtil.open_file(log_path)
+
+func log(msg = no_msg):
+	log_file.store_string(str(msg) + "\n")
+	flush_log()
+
+func flush_log():
+	log_file.flush()
+
 ## stops program by calling nonexistent function
-func throw(msg = ""):
+func throw(msg = no_msg):
+	self.print(msg)
+	flush_log()
 	self.print(Err[msg])
 
-func print(msg = ""):
-	print(Stream.str_counter() + str(msg))
+func print(msg = no_msg):
+	msg = Stream.str_counter() + str(msg)
+	self.log(msg)
+	print(msg)
 
-func print_fatal(msg = "", code = Fatal.Debug):
+func print_fatal(msg = no_msg, code = Fatal.Debug):
 	self.print("! Error %d: " % code + msg)
 	throw(msg)
 
-func print_warn(msg = "", code = Warn.Debug):
+func print_warn(msg = no_msg, code = Warn.Debug):
 	self.print("* Warning %d: " % code + msg)
 
-func print_success(msg = "", code = Success.Debug):
+func print_success(msg = no_msg, code = Success.Debug):
 	self.print("  Success %d: " % code + msg)
 
-func alert(msg = "", title = ""):
+func alert(msg = no_msg, title = no_title):
 	OS.alert(msg, title)
 
-func alert_fatal(msg = "", code = Fatal.Debug):
+func alert_fatal(msg = no_msg, code = Fatal.Debug):
 	print_fatal(msg, code)
 	alert(msg, "Error %d" % code)
 	throw(msg)
 
-func alert_warn(msg = "", code = Warn.Debug):
+func alert_warn(msg = no_msg, code = Warn.Debug):
 	print_warn(msg, code)
 	alert(msg, "Warning %d" % code)
 
-func alert_success(msg = "", code = Success.Debug):
+func alert_success(msg = no_msg, code = Success.Debug):
 	print_success(msg, code)
 	alert(msg, "Success %d" % code)

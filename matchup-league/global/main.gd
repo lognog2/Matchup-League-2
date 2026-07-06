@@ -23,14 +23,14 @@ const season_length = 7
 var Version = {
 	Build = 2,
 	Version = 0,
-	Release = 5,
-	Commit = null
+	Release = 6,
+	Commit = 0
 }
 
 func str_version(drop_commit = false) -> String: 
 	var nums = Version.values()
 	if (nums[3] == null): drop_commit = true
-	var statement = "prototype %d.%d.%d" 
+	var statement = "version %d.%d.%d" 
 	if (drop_commit):
 		nums.remove_at(3)
 	else:
@@ -44,7 +44,7 @@ var Edition = {
 	Exp = "experimental",
 }
 
-var edition = Edition.Dev
+var edition = Edition.Test
 
 var version_edition = str_version() + " " + edition
 
@@ -260,7 +260,8 @@ func save_state(to_backup = false):
 func save_callable():
 	Err.print("^ saving to %s" % FileUtil.save_path)
 	Setting.save(backup)
-	current_career.save(backup)
+	if (current_career):
+		current_career.save(backup)
 	for level in Levels:
 		Levels[level].save_data(backup)
 	main_node.save_game_end()

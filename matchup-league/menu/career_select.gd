@@ -3,6 +3,7 @@ extends Menu
 @export var team_option: OptionButton
 @export var team_view: TeamView
 @export var name_entry: LineEdit
+@export var seed_entry: LineEdit
 
 var team: Team
 
@@ -36,6 +37,7 @@ func _random():
 	render()
 
 func _start():
+	set_seed()
 	var p_name = name_entry.text if (!name_entry.text.is_empty()) else "User"
 	Main.current_career = Career.create(level.name, p_name, team.id if (team) else -1)
 	Main.current_career.begin_round()
@@ -43,6 +45,13 @@ func _start():
 	FileUtil.set_save_path(p_name)
 	SignalBus.done_saving.connect(begin_season)
 	Main.save_state(false)
+	
+func set_seed():
+	var seed_num = seed_entry.text
+	if (seed_num.is_valid_int()):
+		Main.set_seed(int(seed_num))
+	else:
+		Main.set_seed(seed_num.hash())
 
 func begin_season():
 	Main.emit_scene(Main.Scene.SeasonMenu) 

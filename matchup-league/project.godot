@@ -32,8 +32,7 @@ Rating="*res://global/rating.gd"
 
 window/size/viewport_width=1600
 window/size/viewport_height=900
-window/stretch/mode="viewport"
-window/stretch/aspect="ignore"
+window/size/mode=2
 
 [input]
 
