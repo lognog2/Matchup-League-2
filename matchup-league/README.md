@@ -1,6 +1,16 @@
-# Matchup-League-2
+# Matchup League 2.0.6
+
+this version works on windows only!
 
 Detailed info for developers can be found in manual.md
+
+## how to open:
+
+1. export folder out of the zip file (if you don't know how, look it up)
+2. open 'matchup league 2.0.6.0.exe'
+3. enjoy! :3
+
+## background
 
 Matchup League is a card game, in which every single card is unique. This project is just a small slice of the
 expansive teams, leagues, and history that has gone into making Matchup League what it is.
